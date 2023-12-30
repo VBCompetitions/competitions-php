@@ -1,7 +1,7 @@
 {
   "name": "vbcompetitions/competitions",
   "description": "A PHP library for interacting with VBCompetition files, including updating the results, parsing the state of the competition and generating style-able HTML representations of the competition",
-  "license": "Apache 2.0",
+  "license": "MIT",
   "type": "library",
   "autoload": {
     "psr-4": {"VBCompetitions\\Competitions\\": "src/"}
