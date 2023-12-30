@@ -1,0 +1,61 @@
+{
+  "name": "test",
+  "teams": [
+    { "id": "TM1", "name": "Alice VC" },
+    { "id": "TM2", "name": "Bob VC" },
+    { "id": "TM3", "name": "Charlie VC" },
+    { "id": "TM4", "name": "David VC" },
+    { "id": "TM5", "name": "Erin VC" },
+    { "id": "TM6", "name": "Frank VC" },
+    { "id": "TM7", "name": "Grace VC" },
+    { "id": "TM8", "name": "Heidi VC" }
+  ],
+  "stages": [
+    {
+      "id": "KO",
+      "name": "knockout",
+      "notes": "Some notes on the KO",
+      "description": [
+        "This is a Cup competition"
+      ],
+      "groups": [
+        {
+          "name": "The Cup",
+          "notes": "Some notes on the cup",
+          "description": [
+            "The Cup doesn't happen every year"
+          ],
+          "id": "CUP",
+          "type": "knockout",
+          "knockout": {
+            "standing": [
+              { "position": "1st", "id": "{KO:CUP:FIN:winner}" },
+              { "position": "2nd", "id": "{KO:CUP:FIN:loser}" },
+              { "position": "3rd", "id": "{KO:CUP:PO:winner}" },
+              { "position": "4th", "id": "{KO:CUP:PO:loser}" },
+              { "position": "5th", "id": "{KO:CUP:QF1:loser}" },
+              { "position": "5th", "id": "{KO:CUP:QF2:loser}" },
+              { "position": "5th", "id": "{KO:CUP:QF3:loser}" },
+              { "position": "5th", "id": "{KO:CUP:QF4:loser}" }
+            ]
+          },
+          "matchType": "sets",
+          "sets": {
+            "maxSets": 3,
+            "setsToWin": 2
+          },
+          "matches": [
+            { "id": "QF1",  "type": "match", "homeTeam": { "id": "TM1", "scores": [17, 17] }, "awayTeam": { "id": "TM2", "scores": [25, 25] }, "officials": { "team": "TM5" } },
+            { "id": "QF2",  "type": "match", "homeTeam": { "id": "TM3", "scores": [25, 25] }, "awayTeam": { "id": "TM4", "scores": [18, 18] }, "officials": { "team": "TM7" } },
+            { "id": "QF3",  "type": "match", "homeTeam": { "id": "TM5", "scores": [19, 19] }, "awayTeam": { "id": "TM6", "scores": [25, 25] }, "officials": { "team": "TM1" } },
+            { "id": "QF4",  "type": "match", "homeTeam": { "id": "TM7", "scores": [25, 25] }, "awayTeam": { "id": "TM8", "scores": [18, 18] }, "officials": { "team": "TM3" } },
+            { "id": "SF1",  "type": "match", "homeTeam": { "id": "{KO:CUP:QF1:winner}", "scores": [33, 33] }, "awayTeam": { "id": "{KO:CUP:QF3:winner}", "scores": [35, 35] }, "officials": { "team": "{KO:CUP:QF2:loser}" } },
+            { "id": "SF2",  "type": "match", "homeTeam": { "id": "{KO:CUP:QF2:winner}", "scores": [31, 31] }, "awayTeam": { "id": "{KO:CUP:QF4:winner}", "scores": [33, 33] }, "officials": { "team": "{KO:CUP:QF3:loser}" } },
+            { "id": "PO",  "type": "match", "homeTeam": { "id": "{KO:CUP:SF1:loser}", "scores": [40, 40] }, "awayTeam": { "id": "{KO:CUP:SF2:loser}", "scores": [42, 42] }, "officials": { "team": "{KO:CUP:SF1:winner}" } },
+            { "id": "FIN",  "type": "match", "homeTeam": { "id": "{KO:CUP:SF1:winner}", "scores": [21, 21] }, "awayTeam": { "id": "{KO:CUP:SF2:winner}", "scores": [25, 25] }, "officials": { "team": "{KO:CUP:PO:loser}" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

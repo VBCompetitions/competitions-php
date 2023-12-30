@@ -1,0 +1,99 @@
+{
+  "name": "Test Knockout",
+  "teams": [
+    { "id": "TM1", "name": "Alice VC" },
+    { "id": "TM2", "name": "Bob VC" },
+    { "id": "TM3", "name": "Charlie VC" },
+    { "id": "TM4", "name": "David VC" },
+    { "id": "TM5", "name": "Erin VC" },
+    { "id": "TM6", "name": "Frank VC" },
+    { "id": "TM7", "name": "Grace VC" },
+    { "id": "TM8", "name": "Heidi VC" }
+  ],
+  "stages": [
+    {
+      "name": "Pools",
+      "id": "P",
+      "groups": [
+        {
+          "name": "Pool A",
+          "id": "A",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {},
+          "league": {
+            "ordering": ["PTS", "SD", "PD", "H2H"],
+            "points": {
+              "played": 1,
+              "win": 0,
+              "winByOne": 0,
+              "perSet": 1
+            }
+          },
+          "matches": [
+            { "id": "M1", "type": "match", "homeTeam": { "id": "TM1", "scores": [17, 17, 17] }, "awayTeam": { "id": "TM2", "scores": [25, 25, 25] }, "officials": { "team": "TM3" } },
+            { "id": "M2", "type": "match", "homeTeam": { "id": "TM3", "scores": [25, 25, 25] }, "awayTeam": { "id": "TM4", "scores": [18, 18, 17] }, "officials": { "team": "TM1" } },
+            { "id": "M3", "type": "match", "homeTeam": { "id": "TM1", "scores": [19, 19, 18] }, "awayTeam": { "id": "TM3", "scores": [25, 25, 25] }, "officials": { "team": "TM2" } },
+            { "type": "break", "name": "Lunch break" },
+            { "id": "M4", "type": "match", "homeTeam": { "id": "TM2", "scores": [25, 25, 25] }, "awayTeam": { "id": "TM4", "scores": [18, 18, 16] }, "officials": { "team": "TM3" } },
+            { "id": "M5", "type": "match", "homeTeam": { "id": "TM1", "scores": [33, 33, 22] }, "awayTeam": { "id": "TM4", "scores": [35, 35, 25] }, "officials": { "team": "TM2" } },
+            { "id": "M6", "type": "match", "homeTeam": { "id": "TM2", "scores": [31, 31, 29] }, "awayTeam": { "id": "TM3", "scores": [33, 33, 31] }, "officials": { "team": "TM4" } }
+          ]
+        },
+        {
+          "name": "Pool B",
+          "id": "B",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {},
+          "league": {
+            "ordering": ["PTS", "SD", "PD", "H2H"],
+            "points": {
+              "played": 1,
+              "win": 0,
+              "winByOne": 0,
+              "perSet": 1
+            }
+          },
+          "matches": [
+            { "id": "M1", "type": "match", "homeTeam": { "id": "TM5", "scores": [17, 17, 17] }, "awayTeam": { "id": "TM6", "scores": [25, 25, 25] }, "officials": { "team": "TM7" } },
+            { "id": "M2", "type": "match", "homeTeam": { "id": "TM7", "scores": [25, 25, 25] }, "awayTeam": { "id": "TM8", "scores": [18, 18, 17] }, "officials": { "team": "TM5" } },
+            { "id": "M3", "type": "match", "homeTeam": { "id": "TM5", "scores": [19, 19, 18] }, "awayTeam": { "id": "TM7", "scores": [25, 25, 25] }, "officials": { "team": "TM6" } },
+            { "type": "break", "name": "Lunch break" },
+            { "id": "M4", "type": "match", "homeTeam": { "id": "TM6", "scores": [25, 25, 25] }, "awayTeam": { "id": "TM8", "scores": [18, 18, 16] }, "officials": { "team": "TM7" } },
+            { "id": "M5", "type": "match", "homeTeam": { "id": "TM5", "scores": [33, 33, 22] }, "awayTeam": { "id": "TM8", "scores": [35, 35, 25] }, "officials": { "team": "TM6" } },
+            { "id": "M6", "type": "match", "homeTeam": { "id": "TM6", "scores": [] }, "awayTeam": { "id": "TM7", "scores": [] }, "officials": { "team": "TM8" } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Finals",
+      "id": "F",
+      "groups": [
+        {
+          "name": "Finals",
+          "id": "F",
+          "type": "knockout",
+          "matchType": "sets",
+          "sets": {},
+          "knockout": {
+            "standing": [
+              { "position": "1st", "id": "{F:F:FIN:winner}" },
+              { "position": "2nd", "id": "{F:F:FIN:loser}" },
+              { "position": "3rd", "id": "{F:F:PO:winner}" },
+              { "position": "4th", "id": "{F:F:PO:loser}" }
+            ]
+          },
+          "matches": [
+            { "id": "SF1",  "type": "match", "homeTeam": { "id": "{P:A:league:1}", "scores": [] }, "awayTeam": { "id": "{P:B:league:2}", "scores": [] }, "officials": { "team": "{P:B:league:1}" } },
+            { "id": "SF2",  "type": "match", "homeTeam": { "id": "{P:B:league:1}", "scores": [] }, "awayTeam": { "id": "{P:A:league:2}", "scores": [] }, "officials": { "team": "{F:F:SF1:loser}" } },
+            { "type": "break", "name": "Lunch break" },
+            { "id": "PO",  "type": "match", "homeTeam": { "id": "{F:F:SF1:loser}", "scores": [] }, "awayTeam": { "id": "{F:F:SF2:loser}", "scores": [] }, "officials": { "team": "{F:F:SF1:winner}=={P:A:league:1}?{F:F:SF2:winner}:{P:A:league:1}" } },
+            { "id": "FIN",  "type": "match", "homeTeam": { "id": "{F:F:SF1:winner}", "scores": [] }, "awayTeam": { "id": "{F:F:SF2:winner}", "scores": [] }, "officials": { "team": "{F:F:PO:loser}" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

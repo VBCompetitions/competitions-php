@@ -1,0 +1,49 @@
+{
+  "name": "Continuous Home Win",
+  "teams": [
+    {
+      "id": "TM1",
+      "name": "Team 1"
+    },
+    {
+      "id": "TM2",
+      "name": "Team 2"
+    }
+  ],
+  "stages": [
+    {
+      "name": "S",
+      "id": "S",
+      "groups": [
+        {
+          "name": "G",
+          "id": "SG",
+          "type": "league",
+          "matchType": "continuous",
+          "league": {
+            "ordering": [ "WINS", "PD" ],
+            "points": {}
+          },
+          "drawsAllowed": true,
+          "matches": [
+            {
+              "id": "SG1",
+              "court": "1",
+              "type": "match",
+              "start": "09:20",
+              "complete": false,
+              "homeTeam": {
+                "id": "TM1",
+                "scores": []
+              },
+              "awayTeam": {
+                "id": "TM2",
+                "scores": []
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

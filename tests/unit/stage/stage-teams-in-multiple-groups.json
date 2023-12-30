@@ -1,0 +1,62 @@
+{
+  "name": "Test League Table by PD",
+  "teams": [
+    { "id": "TM1", "name": "B Team 1" },
+    { "id": "TM2", "name": "A Team 2" },
+    { "id": "TM3", "name": "D Team 3" },
+    { "id": "TM4", "name": "C Team 4" },
+    { "id": "TM5", "name": "F Team 5" },
+    { "id": "TM6", "name": "E Team 6" },
+    { "id": "TM7", "name": "H Team 7" },
+    { "id": "TM8", "name": "G Team 8" }
+  ],
+  "stages": [
+    {
+      "id": "L",
+      "groups": [
+        {
+          "id": "L1",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {},
+          "league": {
+            "ordering": [ "WINS", "SD", "PD", "H2H" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "homeTeam": { "id": "TM1", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM2", "scores": [ 22, 22, 22 ] } },
+            { "id": "LG2", "type": "match", "homeTeam": { "id": "TM1", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 22, 21, 23 ] } }
+          ]
+        },
+        {
+          "id": "L2",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {},
+          "league": {
+            "ordering": [ "WINS", "SD", "PD", "H2H" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "homeTeam": { "id": "TM3", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM2", "scores": [ 22, 22, 22 ] } },
+            { "id": "LG2", "type": "match", "homeTeam": { "id": "TM3", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 22, 21, 23 ] } }
+          ]
+        },
+        {
+          "id": "L3",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {},
+          "league": {
+            "ordering": [ "WINS", "SD", "PD", "H2H" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "homeTeam": { "id": "TM5", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM6", "scores": [ 22, 22, 22 ] } },
+            { "id": "LG2", "type": "match", "homeTeam": { "id": "TM5", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM7", "scores": [ 22, 21, 23 ] } }
+          ]
+        }
+      ]
+    }
+  ]
+}

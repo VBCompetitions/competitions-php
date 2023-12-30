@@ -1,0 +1,36 @@
+{
+  "name": "Test League Table by PD",
+  "teams": [
+    { "id": "TM1", "name": "B Team 1" },
+    { "id": "TM2", "name": "A Team 2" },
+    { "id": "TM3", "name": "D Team 3" },
+    { "id": "TM4", "name": "C Team 4" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "L",
+      "groups": [
+        {
+          "name": "League 1",
+          "id": "LG",
+          "type": "league",
+          "matchType": "continuous",
+          "league": {
+            "ordering": [ "WINS", "SD", "PD", "H2H" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "LG1", "court": "1", "type": "match", "date": "2020-02-20", "start": "09:20", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 22 ] }, "officials": { "team": "TM1" } },
+            { "id": "LG2", "court": "1", "type": "match", "date": "2020-02-20", "start": "10:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 25 ] }, "awayTeam": { "id": "TM3", "scores": [ 22 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "court": "1", "type": "match", "date": "2020-02-20", "start": "11:20", "homeTeam": { "id": "TM2", "scores": [ 24 ] }, "awayTeam": { "id": "TM3", "scores": [ 26 ] }, "officials": { "team": "TM4" } },
+            { "id": "LG4", "court": "1", "type": "match", "date": "2020-02-20", "start": "12:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 26 ] }, "awayTeam": { "id": "TM4", "scores": [ 28 ] }, "officials": { "team": "TM3" } },
+            { "type": "break", "date": "2020-02-20", "start": "13:20", "duration": "1:00", "name": "Lunch break" },
+            { "id": "LG5", "court": "1", "type": "match", "date": "2020-02-20", "start": "14:20", "complete": true, "homeTeam": { "id": "TM3", "scores": [ 28 ] }, "awayTeam": { "id": "TM4", "scores": [ 30 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG6", "court": "1", "type": "match", "date": "2020-02-20", "start": "15:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 30 ] }, "awayTeam": { "id": "TM2", "scores": [ 32 ] }, "officials": { "team": "TM4" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

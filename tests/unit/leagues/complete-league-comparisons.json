@@ -1,0 +1,178 @@
+{
+  "name": "Four Team League",
+  "teams": [
+    { "id": "TM1", "name": "Team 1" },
+    { "id": "TM2", "name": "Team 2" },
+    { "id": "TM3", "name": "Team 3" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "PTS",
+      "groups": [
+        {
+          "name": "PTS",
+          "id": "PTS",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {
+            "setsToWin": 2
+          },
+          "league": {
+            "ordering": [ "PTS" ],
+            "points": {
+              "win": 1,
+              "winByOne": 1,
+              "perSet": 1
+            }
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "start": "09:00", "homeTeam": { "id": "TM1", "scores": [ 25, 25 ] }, "awayTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "officials": { "team": "TM3" } },
+            { "id": "LG2", "type": "match", "start": "10:00", "homeTeam": { "id": "TM1", "scores": [ 25, 22, 23 ] }, "awayTeam": { "id": "TM3", "scores": [ 23, 25, 25 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "type": "match", "start": "11:00", "homeTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "awayTeam": { "id": "TM3", "scores": [ 25, 25 ] }, "officials": { "team": "TM1" } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "League",
+      "id": "LOSSES",
+      "groups": [
+        {
+          "name": "PTS",
+          "id": "LOSSES",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {
+            "setsToWin": 2
+          },
+          "league": {
+            "ordering": [ "LOSSES" ],
+            "points": {
+              "win": 1,
+              "winByOne": 1,
+              "perSet": 1
+            }
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "start": "09:00", "homeTeam": { "id": "TM1", "scores": [ 25, 25 ] }, "awayTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "officials": { "team": "TM3" } },
+            { "id": "LG2", "type": "match", "start": "10:00", "homeTeam": { "id": "TM1", "scores": [ 25, 22, 23 ] }, "awayTeam": { "id": "TM3", "scores": [ 23, 25, 25 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "type": "match", "start": "11:00", "homeTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "awayTeam": { "id": "TM3", "scores": [ 25, 25 ] }, "officials": { "team": "TM1" } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "League",
+      "id": "PF",
+      "groups": [
+        {
+          "name": "PTS",
+          "id": "PF",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {
+            "setsToWin": 2
+          },
+          "league": {
+            "ordering": [ "PF" ],
+            "points": {
+              "win": 1,
+              "winByOne": 1,
+              "perSet": 1
+            }
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "start": "09:00", "homeTeam": { "id": "TM1", "scores": [ 25, 25 ] }, "awayTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "officials": { "team": "TM3" } },
+            { "id": "LG2", "type": "match", "start": "10:00", "homeTeam": { "id": "TM1", "scores": [ 25, 22, 23 ] }, "awayTeam": { "id": "TM3", "scores": [ 23, 25, 25 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "type": "match", "start": "11:00", "homeTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "awayTeam": { "id": "TM3", "scores": [ 25, 25 ] }, "officials": { "team": "TM1" } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "League",
+      "id": "PA",
+      "groups": [
+        {
+          "name": "PTS",
+          "id": "PA",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {
+            "setsToWin": 2
+          },
+          "league": {
+            "ordering": [ "PA" ],
+            "points": {
+              "win": 1,
+              "winByOne": 1,
+              "perSet": 1
+            }
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "start": "09:00", "homeTeam": { "id": "TM1", "scores": [ 25, 25 ] }, "awayTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "officials": { "team": "TM3" } },
+            { "id": "LG2", "type": "match", "start": "10:00", "homeTeam": { "id": "TM1", "scores": [ 25, 22, 23 ] }, "awayTeam": { "id": "TM3", "scores": [ 23, 25, 25 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "type": "match", "start": "11:00", "homeTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "awayTeam": { "id": "TM3", "scores": [ 25, 25 ] }, "officials": { "team": "TM1" } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "League",
+      "id": "SF",
+      "groups": [
+        {
+          "name": "PTS",
+          "id": "SF",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {
+            "setsToWin": 2
+          },
+          "league": {
+            "ordering": [ "SF" ],
+            "points": {
+              "win": 1,
+              "winByOne": 1,
+              "perSet": 1
+            }
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "start": "09:00", "homeTeam": { "id": "TM1", "scores": [ 25, 25 ] }, "awayTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "officials": { "team": "TM3" } },
+            { "id": "LG2", "type": "match", "start": "10:00", "homeTeam": { "id": "TM1", "scores": [ 25, 22, 23 ] }, "awayTeam": { "id": "TM3", "scores": [ 23, 25, 25 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "type": "match", "start": "11:00", "homeTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "awayTeam": { "id": "TM3", "scores": [ 25, 25 ] }, "officials": { "team": "TM1" } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "League",
+      "id": "SA",
+      "groups": [
+        {
+          "name": "PTS",
+          "id": "SA",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {
+            "setsToWin": 2
+          },
+          "league": {
+            "ordering": [ "SA" ],
+            "points": {
+              "win": 1,
+              "winByOne": 1,
+              "perSet": 1
+            }
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "start": "09:00", "homeTeam": { "id": "TM1", "scores": [ 25, 25 ] }, "awayTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "officials": { "team": "TM3" } },
+            { "id": "LG2", "type": "match", "start": "10:00", "homeTeam": { "id": "TM1", "scores": [ 25, 22, 23 ] }, "awayTeam": { "id": "TM3", "scores": [ 23, 25, 25 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "type": "match", "start": "11:00", "homeTeam": { "id": "TM2", "scores": [ 22, 22 ] }, "awayTeam": { "id": "TM3", "scores": [ 25, 25 ] }, "officials": { "team": "TM1" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,48 @@
+{
+  "name": "Single header with contacts",
+  "teams": [
+    {
+      "id": "TM1",
+      "name": "Team 1"
+    },
+    {
+      "id": "TM2",
+      "name": "Team 2",
+      "players": [
+        {
+          "id": "P1",
+          "name": "Alice Alison"
+        }
+      ]
+    },
+    {
+      "id": "TM3",
+      "name": "Team 3",
+      "players": [
+        { "id": "P1", "name": "Alice Alison", "number": 1, "notes": "junior" },
+        { "id": "P2", "name": "Bobby Bobs", "number": 2 },
+        { "id": "P3", "name": "Charlie Charleston", "number": 7 },
+        { "id": "P4", "name": "Dave Davidson", "number": 4 },
+        { "id": "P5", "name": "Emma Emerson", "number": 11 },
+        { "id": "P6", "name": "Frankie Frank", "number": 8 }
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "name": "S",
+      "id": "S",
+      "groups": [
+        {
+          "name": "G",
+          "id": "SG",
+          "type": "crossover",
+          "matchType": "continuous",
+          "matches": [
+            { "id": "SG1", "court": "1", "type": "match", "start": "09:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [14] }, "awayTeam": { "id": "TM2", "scores": [15] }, "officials": { "team": "TM3" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

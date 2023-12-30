@@ -1,0 +1,76 @@
+{
+  "name": "test",
+  "teams": [
+    { "id": "TM1", "name": "Alice VC" },
+    { "id": "TM2", "name": "Bob VC" },
+    { "id": "TM3", "name": "Charlie VC" },
+    { "id": "TM4", "name": "David VC" },
+    { "id": "TM5", "name": "Erin VC" },
+    { "id": "TM6", "name": "Frank VC" },
+    { "id": "TM7", "name": "Grace VC" },
+    { "id": "TM8", "name": "Heidi VC" }
+  ],
+  "stages": [
+    {
+      "id": "L0",
+      "groups": [
+        {
+          "name": "Recreational League",
+          "id": "RL",
+          "type": "league",
+          "league": {
+            "ordering": [ "WINS", "PF", "PD", "H2H" ],
+            "points": {
+              "win": 1
+            }
+          },
+          "matchType": "continuous",
+          "matches": [
+            { "id": "RLM1", "court": "5", "type": "match", "start": "10:00", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [17] }, "awayTeam": { "id": "TM2", "scores": [22] }, "officials": { "team": "TM3" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L1",
+      "name": "league",
+      "groups": [
+        {
+          "name": "Recreational League",
+          "id": "RL",
+          "type": "league",
+          "league": {
+            "ordering": [ "WINS", "PF", "PD", "H2H" ],
+            "points": {
+              "win": 1
+            }
+          },
+          "matchType": "continuous",
+          "matches": [
+            { "id": "RLM1", "court": "5", "type": "match", "start": "10:00", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [17] }, "awayTeam": { "id": "TM2", "scores": [22] }, "officials": { "team": "TM3" } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "L2",
+      "groups": [
+        {
+          "name": "Recreational League",
+          "id": "RL",
+          "type": "league",
+          "league": {
+            "ordering": [ "WINS", "PF", "PD", "H2H" ],
+            "points": {
+              "win": 1
+            }
+          },
+          "matchType": "continuous",
+          "matches": [
+            { "id": "RLM1", "court": "5", "type": "match", "start": "10:00", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [17] }, "awayTeam": { "id": "TM2", "scores": [22] }, "officials": { "team": "TM3" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

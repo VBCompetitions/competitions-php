@@ -1,0 +1,44 @@
+{
+  "name": "Single header with contacts",
+  "teams": [
+    {
+      "id": "TM1",
+      "name": "Team 1"
+    },
+    {
+      "id": "TM2",
+      "name": "Team 2",
+      "players": [
+        {
+          "id": "P1",
+          "name": "Alice Alison"
+        },
+        {
+          "id": "P1",
+          "name": "Alice Bobson"
+        }
+      ]
+    },
+    {
+      "id": "TM3",
+      "name": "Team 3"
+    }
+  ],
+  "stages": [
+    {
+      "name": "S",
+      "id": "S",
+      "groups": [
+        {
+          "name": "G",
+          "id": "SG",
+          "type": "crossover",
+          "matchType": "continuous",
+          "matches": [
+            { "id": "SG1", "court": "1", "type": "match", "start": "09:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [14] }, "awayTeam": { "id": "TM2", "scores": [15] }, "officials": { "team": "TM3" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

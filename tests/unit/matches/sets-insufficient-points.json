@@ -1,0 +1,55 @@
+{
+  "name": "Continuous Home Win",
+  "teams": [
+    {
+      "id": "TM1",
+      "name": "Team 1"
+    },
+    {
+      "id": "TM2",
+      "name": "Team 2"
+    }
+  ],
+  "stages": [
+    {
+      "name": "S",
+      "id": "S",
+      "groups": [
+        {
+          "name": "G",
+          "id": "SG",
+          "type": "knockout",
+          "matchType": "sets",
+          "sets": {
+            "maxSets": 3,
+            "setsToWin": 2,
+            "minPoints": 5,
+            "pointsToWin": 21
+          },
+          "matches": [
+            {
+              "id": "SG1",
+              "court": "1",
+              "type": "match",
+              "start": "09:20",
+              "homeTeam": {
+                "id": "TM1",
+                "scores": [
+                  21,
+                  4
+                ]
+              },
+              "awayTeam": {
+                "id": "TM2",
+                "scores": [
+                  19,
+                  4
+                ]
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

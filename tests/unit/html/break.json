@@ -1,0 +1,30 @@
+{
+  "name": "Four Team League",
+  "teams": [
+    { "id": "TM1", "name": "Team 1" },
+    { "id": "TM2", "name": "Team 2" },
+    { "id": "TM3", "name": "Team 3" },
+    { "id": "TM4", "name": "Team 4" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "L",
+      "groups": [
+        {
+          "name": "League 1",
+          "id": "LG",
+          "type": "league",
+          "matchType": "continuous",
+          "league": {
+            "ordering": [ "WINS", "PD" ],
+            "points": {}
+          },
+          "matches": [
+            { "type": "break", "start": "12:20", "name": "Lunch break", "duration": "1:00" }
+          ]
+        }
+      ]
+    }
+  ]
+}

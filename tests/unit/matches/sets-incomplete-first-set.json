@@ -1,0 +1,33 @@
+{
+  "name": "test",
+  "teams": [
+    { "id": "TM1", "name": "Team 1" },
+    { "id": "TM2", "name": "Team 2" },
+    { "id": "TM3", "name": "Team 3" }
+  ],
+  "stages": [
+    {
+      "id": "S",
+      "name": "league",
+      "groups": [
+        {
+          "name": "Recreational League",
+          "id": "SG",
+          "type": "league",
+          "league": {
+            "ordering": [ "WINS", "PTS", "PD", "H2H" ],
+            "points": {}
+          },
+          "matchType": "sets",
+          "sets": {
+            "maxSets": 3,
+            "setsToWin": 1
+          },
+          "matches": [
+            { "id": "SG1", "court": "1", "type": "match", "start": "10:00", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM1", "scores": [17] }, "awayTeam": { "id": "TM2", "scores": [22] }, "officials": { "team": "TM3" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

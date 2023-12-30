@@ -1,0 +1,33 @@
+{
+  "name": "Crossover Stage",
+  "teams": [
+    { "id": "TM1", "name": "Team 1" },
+    { "id": "TM2", "name": "Team 2" },
+    { "id": "TM3", "name": "Team 3" },
+    { "id": "TM4", "name": "Team 4" }
+  ],
+  "stages": [
+    {
+      "name": "Crossovers",
+      "id": "C",
+      "groups": [
+        {
+          "name": "Crossovers",
+          "id": "CO",
+          "type": "crossover",
+          "matchType": "sets",
+          "sets": {
+            "maxSets": 3,
+            "setsToWin": 2,
+            "minPoints": 5
+          },
+          "matches": [
+            { "id": "CO1", "type": "match", "start": "10:00", "homeTeam": { "id": "TM1", "scores": [ 21, 19 ] }, "awayTeam": { "id": "TM3", "scores": [ 25, 25 ] }, "officials": { "first": "Alice", "second": "Bob" } },
+            { "type": "break", "start": "12:00", "duration": "1:00", "name": "Lunch!" },
+            { "id": "CO2", "type": "match", "start": "13:00", "homeTeam": { "id": "TM2", "scores": [ 22, 25, 13 ] }, "awayTeam": { "id": "TM4", "scores": [ 25, 14, 15 ] }, "officials": { "first": "Charlie", "second": "Debbie" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

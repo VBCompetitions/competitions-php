@@ -1,0 +1,42 @@
+{
+  "name": "Test League Table by PD",
+  "teams": [
+    { "id": "TM1", "name": "Team 1" },
+    { "id": "TM2", "name": "Team 2" },
+    { "id": "TM3", "name": "Team 3" },
+    { "id": "TM4", "name": "Team 4" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "L",
+      "groups": [
+        {
+          "name": "League 1",
+          "id": "LG1",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {},
+          "league": {
+            "ordering": [ "WINS", "SD", "PD", "H2H" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "LG1", "court": "1", "type": "match", "start": "09:20", "homeTeam": { "id": "TM2", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 22, 22, 22 ] }, "officials": { "team": "TM1" } },
+            { "id": "LG2", "court": "1", "type": "match", "start": "10:20", "homeTeam": { "id": "TM1", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM3", "scores": [ 22, 21, 23 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "court": "1", "type": "match", "start": "11:20", "homeTeam": { "id": "TM2", "scores": [ 24, 14, 21 ] }, "awayTeam": { "id": "TM3", "scores": [ 26, 25, 25 ] }, "officials": { "team": "TM4" } },
+            { "id": "LG4", "court": "1", "type": "match", "start": "12:20", "homeTeam": { "id": "TM1", "scores": [ 26, 21, 20 ] }, "awayTeam": { "id": "TM4", "scores": [ 28, 25, 25 ] }, "officials": { "team": "TM3" } },
+            { "id": "LG5", "court": "1", "type": "match", "start": "13:20", "homeTeam": { "id": "TM3", "scores": [ 28, 21, 19 ] }, "awayTeam": { "id": "TM4", "scores": [ 30, 25, 25 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG6", "court": "1", "type": "match", "start": "14:20", "homeTeam": { "id": "TM1", "scores": [ 30, 18, 12 ] }, "awayTeam": { "id": "TM2", "scores": [ 32, 25, 25 ] }, "officials": { "team": "TM4" } },
+            { "id": "LG7", "court": "1", "type": "match", "start": "15:20", "homeTeam": { "id": "TM2", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 22, 22, 22 ] }, "officials": { "team": "TM1" } },
+            { "id": "LG8", "court": "1", "type": "match", "start": "16:20", "homeTeam": { "id": "TM1", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM3", "scores": [ 22, 21, 23 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG9", "court": "1", "type": "match", "start": "17:20", "homeTeam": { "id": "TM2", "scores": [ 24, 14, 21 ] }, "awayTeam": { "id": "TM3", "scores": [ 26, 25, 25 ] }, "officials": { "team": "TM4" } },
+            { "id": "LG10", "court": "1", "type": "match", "start": "18:20", "homeTeam": { "id": "TM1", "scores": [ 26, 21, 20 ] }, "awayTeam": { "id": "TM4", "scores": [ 28, 25, 25 ] }, "officials": { "team": "TM3" } },
+            { "id": "LG11", "court": "1", "type": "match", "start": "19:20", "homeTeam": { "id": "TM3", "scores": [ 28, 21, 19 ] }, "awayTeam": { "id": "TM4", "scores": [ 30, 25, 25 ] }, "officials": { "team": "TM2" } },
+            { "id": "LG12", "court": "1", "type": "match", "start": "20:20", "homeTeam": { "id": "TM1", "scores": [ 30, 18, 12 ] }, "awayTeam": { "id": "TM2", "scores": [ 32, 25, 25 ] }, "officials": { "team": "TM4" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

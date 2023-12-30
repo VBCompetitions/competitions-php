@@ -1,0 +1,117 @@
+{
+  "name": "SuperLeague",
+  "teams": [
+    { "id": "TM1", "name": "Alice VC", "notes": "Alice is the first team, but they cannot play the first match as they have far to travel" },
+    { "id": "TM2",
+      "name": "Bob VC",
+      "contacts": [
+        {
+          "id": "C1",
+          "name": "Alice Alison",
+          "roles": ["secretary"],
+          "emails": ["alice@example.com"],
+          "phones": ["01234 567890"]
+        },
+        {
+          "id": "C2",
+          "name": "Bobby Bobs",
+          "roles": ["treasurer"],
+          "emails": ["bobby@example.com"],
+          "phones": ["+1234 567891"]
+        },
+        {
+          "id": "C3",
+          "name": "Charlie Charleston",
+          "roles": ["manager"],
+          "emails": ["charlie@example.com"],
+          "phones": ["01234 567892"]
+        },
+        {
+          "id": "C4",
+          "name": "Dave Davidson",
+          "roles": ["captain"],
+          "emails": ["dave@example.com"],
+          "phones": ["01234 567893"]
+        },
+        {
+          "id": "C5",
+          "name": "Emma Emerson",
+          "roles": ["coach"],
+          "emails": ["emma@example.com"],
+          "phones": ["01234 567894"]
+        },
+        {
+          "id": "C6",
+          "name": "Frankie Frank",
+          "roles": ["assistantCoach"],
+          "emails": ["frankie@example.com"],
+          "phones": ["01234 567895"]
+        },
+        {
+          "id": "C7",
+          "name": "George Grey",
+          "roles": ["medic"],
+          "emails": ["george@example.com"],
+          "phones": ["01234 567895"]
+        }
+      ]
+    },
+    { "id": "TM3", "name": "Charlie VC" },
+    { "id": "TM4", "name": "David VC" },
+    { "id": "TM5", "name": "Erin VC" },
+    { "id": "TM6", "name": "Frank VC" },
+    { "id": "TM7", "name": "Grace VC" },
+    { "id": "TM8", "name": "Heidi VC" }
+  ],
+  "stages": [
+    {
+      "id": "L",
+      "name": "league",
+      "groups": [
+        {
+          "name": "Recreational League",
+          "id": "RL",
+          "type": "league",
+          "league": {
+            "ordering": [ "WINS", "PF", "PD", "H2H" ],
+            "points": {
+              "win": 1
+            }
+          },
+          "matchType": "continuous",
+          "matches": [
+            { "id": "RLM1", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-15", "complete": true, "homeTeam": { "id": "TM1", "scores": [17] }, "awayTeam": { "id": "TM2", "scores": [22] }, "officials": { "team": "TM5" } },
+            { "id": "RLM2", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-15", "complete": true, "homeTeam": { "id": "TM3", "scores": [23] }, "awayTeam": { "id": "TM4", "scores": [18] }, "officials": { "team": "TM7" } },
+            { "id": "RLM3", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-15", "complete": true, "homeTeam": { "id": "TM5", "scores": [19] }, "awayTeam": { "id": "TM6", "scores": [26] }, "officials": { "team": "TM1" } },
+            { "id": "RLM4", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-15", "complete": true, "homeTeam": { "id": "TM7", "scores": [24] }, "awayTeam": { "id": "TM8", "scores": [18] }, "officials": { "team": "TM3" } },
+            { "id": "RLM5", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-15", "complete": true, "homeTeam": { "id": "TM1", "scores": [33] }, "awayTeam": { "id": "TM3", "scores": [35] }, "officials": { "team": "TM6" } },
+            { "id": "RLM6", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-15", "complete": true, "homeTeam": { "id": "TM2", "scores": [31] }, "awayTeam": { "id": "TM4", "scores": [41] }, "officials": { "team": "TM8" } },
+            { "id": "RLM7", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-15", "complete": true, "homeTeam": { "id": "TM5", "scores": [40] }, "awayTeam": { "id": "TM7", "scores": [45] }, "officials": { "team": "TM2" } },
+            { "id": "RLM8", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-22", "complete": true, "homeTeam": { "id": "TM6", "scores": [21] }, "awayTeam": { "id": "TM8", "scores": [25] }, "officials": { "team": "TM4" } },
+            { "id": "RLM9", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "complete": true, "homeTeam": { "id": "TM1", "scores": [24] }, "awayTeam": { "id": "TM4", "scores": [33] }, "officials": { "team": "TM5" } },
+            { "id": "RLM10", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-22", "complete": true, "homeTeam": { "id": "TM2", "scores": [34] }, "awayTeam": { "id": "TM3", "scores": [27] }, "officials": { "team": "TM7" } },
+            { "id": "RLM11", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-22", "complete": true, "homeTeam": { "id": "TM5", "scores": [36] }, "awayTeam": { "id": "TM8", "scores": [32] }, "officials": { "team": "TM1" } },
+            { "id": "RLM12", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-22", "complete": true, "homeTeam": { "id": "TM6", "scores": [44] }, "awayTeam": { "id": "TM7", "scores": [12] }, "officials": { "team": "TM3" } },
+            { "id": "RLM13", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-22", "complete": true, "homeTeam": { "id": "TM1", "scores": [17] }, "awayTeam": { "id": "TM5", "scores": [28] }, "officials": { "team": "TM8" } },
+            { "id": "RLM14", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-22", "complete": true, "homeTeam": { "id": "TM2", "scores": [28] }, "awayTeam": { "id": "TM6", "scores": [29] }, "officials": { "team": "TM4" } },
+            { "start": "13:30", "type": "break", "name": "Break" },
+            { "id": "RLM15", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-29", "complete": false, "homeTeam": { "id": "TM3", "scores": [0] }, "awayTeam": { "id": "TM7", "scores": [0] }, "officials": { "team": "TM2" } },
+            { "id": "RLM16", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-29", "complete": false, "homeTeam": { "id": "TM4", "scores": [0] }, "awayTeam": { "id": "TM8", "scores": [0] }, "officials": { "team": "TM6" } },
+            { "id": "RLM17", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-29", "complete": false, "homeTeam": { "id": "TM1", "scores": [0] }, "awayTeam": { "id": "TM6", "scores": [0] }, "officials": { "team": "TM3" } },
+            { "id": "RLM18", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-29", "complete": false, "homeTeam": { "id": "TM2", "scores": [0] }, "awayTeam": { "id": "TM5", "scores": [0] }, "officials": { "team": "TM7" } },
+            { "id": "RLM19", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-29", "complete": false, "homeTeam": { "id": "TM3", "scores": [0] }, "awayTeam": { "id": "TM8", "scores": [0] }, "officials": { "team": "TM1" } },
+            { "id": "RLM20", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-29", "complete": false, "homeTeam": { "id": "TM4", "scores": [0] }, "awayTeam": { "id": "TM7", "scores": [0] }, "officials": { "team": "TM6" } },
+            { "id": "RLM21", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-10-29", "complete": false, "homeTeam": { "id": "TM1", "scores": [0] }, "awayTeam": { "id": "TM7", "scores": [0] }, "officials": { "team": "TM5" } },
+            { "id": "RLM22", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-11-05", "complete": false, "homeTeam": { "id": "TM2", "scores": [0] }, "awayTeam": { "id": "TM8", "scores": [0] }, "officials": { "team": "TM4" } },
+            { "id": "RLM23", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-11-05", "complete": false, "homeTeam": { "id": "TM3", "scores": [0] }, "awayTeam": { "id": "TM5", "scores": [0] }, "officials": { "team": "TM8" } },
+            { "id": "RLM24", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-11-05", "complete": false, "homeTeam": { "id": "TM4", "scores": [0] }, "awayTeam": { "id": "TM6", "scores": [0] }, "officials": { "team": "TM2" } },
+            { "id": "RLM25", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-11-05", "complete": false, "homeTeam": { "id": "TM1", "scores": [0] }, "awayTeam": { "id": "TM8", "scores": [0] }, "officials": { "team": "TM3" } },
+            { "id": "RLM26", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-11-05", "complete": false, "homeTeam": { "id": "TM2", "scores": [0] }, "awayTeam": { "id": "TM7", "scores": [0] }, "officials": { "team": "TM6" } },
+            { "id": "RLM27", "court": "5", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-11-05", "complete": false, "homeTeam": { "id": "TM3", "scores": [0] }, "awayTeam": { "id": "TM6", "scores": [0] }, "officials": { "team": "TM1" } },
+            { "id": "RLM28", "court": "6", "type": "match", "venue": "Springfield Town Sports Centre", "date": "2023-11-05", "complete": false, "homeTeam": { "id": "TM4", "scores": [0] }, "awayTeam": { "id": "TM5", "scores": [0] }, "officials": { "team": "TM7" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

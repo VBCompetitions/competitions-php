@@ -1,0 +1,115 @@
+{
+  "name": "Single header with contacts",
+  "teams": [
+    {
+      "id": "TM1",
+      "name": "Team 1"
+    },
+    {
+      "id": "TM2",
+      "name": "Team 2",
+      "contacts": [
+        {
+          "id": "C1",
+          "name": "Alice Alison",
+          "roles": ["secretary"],
+          "emails": ["alice@example.com"]
+        }
+      ]
+    },
+    {
+      "id": "TM3",
+      "name": "Team 3",
+      "contacts": [
+        {
+          "id": "C1",
+          "name": "Alice Alison",
+          "roles": ["secretary", "assistantCoach"],
+          "emails": ["alice@example.com"],
+          "phones": ["01234 567890"]
+        },
+        {
+          "id": "C2",
+          "name": "Bobby Bobs",
+          "roles": ["treasurer"],
+          "emails": ["bobby@example.com"],
+          "phones": ["+1234 567891"]
+        },
+        {
+          "id": "C3",
+          "name": "Charlie Charleston",
+          "roles": ["manager"],
+          "emails": ["charlie@example.com"],
+          "phones": ["01234 567892"]
+        },
+        {
+          "id": "C4",
+          "name": "Dave Davidson",
+          "roles": ["captain"],
+          "emails": ["dave@example.com"],
+          "phones": ["01234 567893"]
+        },
+        {
+          "id": "C5",
+          "name": "Emma Emerson",
+          "roles": ["coach"],
+          "emails": ["emma@example.com"],
+          "phones": ["01234 567894"]
+        },
+        {
+          "id": "C6",
+          "name": "Frankie Frank",
+          "roles": ["assistantCoach"],
+          "emails": ["frankie@example.com"],
+          "phones": ["01234 567895"]
+        },
+        {
+          "id": "C7",
+          "name": "George Grey",
+          "roles": ["medic"],
+          "emails": ["george@example.com"],
+          "phones": ["01234 567895"]
+        }
+      ]
+    }
+  ],
+  "stages": [
+    {
+      "name": "S",
+      "id": "S",
+      "groups": [
+        {
+          "name": "G",
+          "id": "SG",
+          "type": "crossover",
+          "matchType": "continuous",
+          "matches": [
+            {
+              "id": "SG1",
+              "court": "1",
+              "type": "match",
+              "start": "09:20",
+              "duration": "0:20",
+              "complete": true,
+              "homeTeam": {
+                "id": "TM1",
+                "scores": [
+                  14
+                ]
+              },
+              "awayTeam": {
+                "id": "TM2",
+                "scores": [
+                  15
+                ]
+              },
+              "officials": {
+                "team": "TM3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

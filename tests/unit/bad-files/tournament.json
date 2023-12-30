@@ -1,0 +1,86 @@
+{
+  "name": "Mixed Tournament - 24th Sept",
+  "teams": [
+    { "id": "T1", "name": "Team 1" },
+    { "id": "T2", "name": "Team 2" },
+    { "id": "T3", "name": "Team 3" },
+    { "id": "T4", "name": "Team 4" },
+    { "id": "T5", "name": "Team 5" },
+    { "id": "T6", "name": "Team 6" },
+    { "id": "T7", "name": "Team 7" },
+    { "id": "T8", "name": "Team 8" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "M",
+      "groups": [
+        {
+          "name": "Mixed League",
+          "description": [
+            "Teams must have at least 3 female players on court at all times",
+            "Matches are played as a continuous set with no points limit",
+            "Matches are limited to 20 minutes, with 5 minutes between matches (including the warmup)",
+            "The start and end times will be marked by a loud blast from the hooter",
+            "There are no timeouts",
+            "If the ball is in play when the time ends, the rally must be completed",
+            "If the scores are tied at the end of the match, an additional point must be played to establish a winner",
+            "Teams are allowed unlimited substitutions, and may use rolling substitutions"
+          ],
+          "id": "MX",
+          "type": "league",
+          "league": {
+              "ordering": [
+                  "WINS",
+                  "PF",
+                  "PD",
+                  "H2H"
+              ],
+              "points": {
+                  "played": 0,
+                  "perSet": 0,
+                  "win": 3,
+                  "winByOne": 0,
+                  "lose": 0,
+                  "loseByOne": 0,
+                  "forfeit": 0
+              }
+          },
+          "matchType": "continuous",
+          "drawsAllowed": false,
+          "matches": [
+            { "id": "MX1", "court": "1", "type": "match", "start": "10:00", "complete": false, "homeTeam": { "id": "T1", "scores": [] }, "awayTeam": { "id": "T2", "scores": [] }, "officials": { "team": "T5" } },
+            { "id": "MX2", "court": "2", "type": "match", "start": "10:00", "complete": false, "homeTeam": { "id": "T3", "scores": [] }, "awayTeam": { "id": "T4", "scores": [] }, "officials": { "team": "T7" } },
+            { "id": "MX3", "court": "1", "type": "match", "start": "10:25", "complete": false, "homeTeam": { "id": "T5", "scores": [] }, "awayTeam": { "id": "T6", "scores": [] }, "officials": { "team": "T1" } },
+            { "id": "MX4", "court": "2", "type": "match", "start": "10:25", "complete": false, "homeTeam": { "id": "T7", "scores": [] }, "awayTeam": { "id": "T8", "scores": [] }, "officials": { "team": "T3" } },
+            { "id": "MX5", "court": "1", "type": "match", "start": "10:50", "complete": false, "homeTeam": { "id": "T1", "scores": [] }, "awayTeam": { "id": "T3", "scores": [] }, "officials": { "team": "T6" } },
+            { "id": "MX6", "court": "2", "type": "match", "start": "10:50", "complete": false, "homeTeam": { "id": "T2", "scores": [] }, "awayTeam": { "id": "T4", "scores": [] }, "officials": { "team": "T8" } },
+            { "id": "MX7", "court": "1", "type": "match", "start": "11:15", "complete": false, "homeTeam": { "id": "T5", "scores": [] }, "awayTeam": { "id": "T7", "scores": [] }, "officials": { "team": "T2" } },
+            { "id": "MX8", "court": "2", "type": "match", "start": "11:15", "complete": false, "homeTeam": { "id": "T6", "scores": [] }, "awayTeam": { "id": "T8", "scores": [] }, "officials": { "team": "T4" } },
+            { "id": "MX9", "court": "1", "type": "match", "start": "11:40", "complete": false, "homeTeam": { "id": "T1", "scores": [] }, "awayTeam": { "id": "T4", "scores": [] }, "officials": { "team": "T5" } },
+            { "id": "MX10", "court": "2", "type": "match", "start": "11:40", "complete": false, "homeTeam": { "id": "T2", "scores": [] }, "awayTeam": { "id": "T3", "scores": [] }, "officials": { "team": "T7" } },
+            { "id": "MX11", "court": "1", "type": "match", "start": "12:05", "complete": false, "homeTeam": { "id": "T5", "scores": [] }, "awayTeam": { "id": "T8", "scores": [] }, "officials": { "team": "T1" } },
+            { "id": "MX12", "court": "2", "type": "match", "start": "12:05", "complete": false, "homeTeam": { "id": "T6", "scores": [] }, "awayTeam": { "id": "T7", "scores": [] }, "officials": { "team": "T3" } },
+            { "start": "12:25", "type": "break", "name": "Lunch Break" },
+            { "id": "MX13", "court": "1", "type": "match", "start": "12:55", "complete": false, "homeTeam": { "id": "T1", "scores": [] }, "awayTeam": { "id": "T5", "scores": [] }, "officials": { "team": "T8" } },
+            { "id": "MX14", "court": "2", "type": "match", "start": "12:55", "complete": false, "homeTeam": { "id": "T2", "scores": [] }, "awayTeam": { "id": "T6", "scores": [] }, "officials": { "team": "T4" } },
+            { "id": "MX15", "court": "1", "type": "match", "start": "13:20", "complete": false, "homeTeam": { "id": "T3", "scores": [] }, "awayTeam": { "id": "T7", "scores": [] }, "officials": { "team": "T2" } },
+            { "id": "MX16", "court": "2", "type": "match", "start": "13:20", "complete": false, "homeTeam": { "id": "T4", "scores": [] }, "awayTeam": { "id": "T8", "scores": [] }, "officials": { "team": "T6" } },
+            { "id": "MX17", "court": "1", "type": "match", "start": "13:45", "complete": false, "homeTeam": { "id": "T1", "scores": [] }, "awayTeam": { "id": "T6", "scores": [] }, "officials": { "team": "T3" } },
+            { "id": "MX18", "court": "2", "type": "match", "start": "13:45", "complete": false, "homeTeam": { "id": "T2", "scores": [] }, "awayTeam": { "id": "T5", "scores": [] }, "officials": { "team": "T7" } },
+            { "id": "MX19", "court": "1", "type": "match", "start": "14:10", "complete": false, "homeTeam": { "id": "T3", "scores": [] }, "awayTeam": { "id": "T8", "scores": [] }, "officials": { "team": "T1" } },
+            { "id": "MX20", "court": "2", "type": "match", "start": "14:10", "complete": false, "homeTeam": { "id": "T4", "scores": [] }, "awayTeam": { "id": "T7", "scores": [] }, "officials": { "team": "T6" } },
+            { "id": "MX21", "court": "1", "type": "match", "start": "14:35", "complete": false, "homeTeam": { "id": "T1", "scores": [] }, "awayTeam": { "id": "T7", "scores": [] }, "officials": { "team": "T5" } },
+            { "id": "MX22", "court": "2", "type": "match", "start": "14:35", "complete": false, "homeTeam": { "id": "T2", "scores": [] }, "awayTeam": { "id": "T8", "scores": [] }, "officials": { "team": "T4" } },
+            { "id": "MX23", "court": "1", "type": "match", "start": "15:00", "complete": false, "homeTeam": { "id": "T3", "scores": [] }, "awayTeam": { "id": "T5", "scores": [] }, "officials": { "team": "T8" } },
+            { "id": "MX24", "court": "2", "type": "match", "start": "15:00", "complete": false, "homeTeam": { "id": "T4", "scores": [] }, "awayTeam": { "id": "T6", "scores": [] }, "officials": { "team": "T2" } },
+            { "id": "MX25", "court": "1", "type": "match", "start": "15:25", "complete": false, "homeTeam": { "id": "T1", "scores": [] }, "awayTeam": { "id": "T8", "scores": [] }, "officials": { "team": "T3" } },
+            { "id": "MX26", "court": "2", "type": "match", "start": "15:25", "complete": false, "homeTeam": { "id": "T2", "scores": [] }, "awayTeam": { "id": "T7", "scores": [] }, "officials": { "team": "T6" } },
+            { "id": "MX27", "court": "1", "type": "match", "start": "15:50", "complete": false, "homeTeam": { "id": "T3", "scores": [] }, "awayTeam": { "id": "T6", "scores": [] }, "officials": { "team": "T1" } },
+            { "id": "MX28", "court": "2", "type": "match", "start": "15:50", "complete": false, "homeTeam": { "id": "T4", "scores": [] }, "awayTeam": { "id": "T5", "scores": [] }, "officials": { "team": "T7" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

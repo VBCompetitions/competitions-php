@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+
+namespace VBCompetitions\Competitions;
+
+$root = dirname(__DIR__);
+
+if (!is_file(join(DIRECTORY_SEPARATOR, array($root, 'vendor')).DIRECTORY_SEPARATOR.'autoload.php')) {
+    $root = dirname(__DIR__, 4);
+}
+
+require_once(join(DIRECTORY_SEPARATOR, array($root, 'vendor')).DIRECTORY_SEPARATOR.'autoload.php');
+
+use Throwable;
+
+if ($argc != 2) {
+    echo 'Usage: vbc-validate [competition JSON file]'.PHP_EOL;
+    exit(1);
+}
+
+try {
+    $path_info = pathinfo($argv[1]);
+    $competition = new Competition($path_info['dirname'], $path_info['basename']);
+    echo 'File is valid'.PHP_EOL;
+} catch (Throwable $th) {
+    echo PHP_EOL.'Errors found in file:'.PHP_EOL.PHP_EOL;
+    echo $th->getMessage().PHP_EOL;
+    if (!is_null($th->getPrevious())) {
+        echo $th->getPrevious()->getMessage().PHP_EOL;
+    }
+}
+
+// TODO, use https://tech.osteel.me/posts/how-to-build-and-distribute-beautiful-command-line-applications-with-php-and-composer
+// -w warnings
+//   Warnings as an array in the Competition?  So Website can optionally show them too?

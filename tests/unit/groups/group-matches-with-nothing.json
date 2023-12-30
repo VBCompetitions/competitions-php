@@ -1,0 +1,36 @@
+{
+  "name": "Test League Table by PD",
+  "teams": [
+    { "id": "TM1", "name": "B Team 1" },
+    { "id": "TM2", "name": "A Team 2" },
+    { "id": "TM3", "name": "D Team 3" },
+    { "id": "TM4", "name": "C Team 4" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "L",
+      "groups": [
+        {
+          "id": "LG",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {},
+          "league": {
+            "ordering": [ "WINS", "SD", "PD", "H2H" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "LG1", "type": "match", "homeTeam": { "id": "TM2", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 22, 22, 22 ] } },
+            { "id": "LG2", "type": "match", "homeTeam": { "id": "TM1", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM3", "scores": [ 22, 21, 23 ] } },
+            { "id": "LG3", "type": "match", "homeTeam": { "id": "TM2", "scores": [ 24, 14, 21 ] }, "awayTeam": { "id": "TM3", "scores": [ 26, 25, 25 ] } },
+            { "id": "LG4", "type": "match", "homeTeam": { "id": "TM1", "scores": [ 26, 21, 20 ] }, "awayTeam": { "id": "TM4", "scores": [ 28, 25, 25 ] } },
+            { "type": "break" },
+            { "id": "LG5", "type": "match", "homeTeam": { "id": "TM3", "scores": [ 28, 21, 19 ] }, "awayTeam": { "id": "TM4", "scores": [ 30, 25, 25 ] } },
+            { "id": "LG6", "type": "match", "homeTeam": { "id": "TM1", "scores": [ 30, 18, 12 ] }, "awayTeam": { "id": "TM2", "scores": [ 32, 25, 25 ] } }
+          ]
+        }
+      ]
+    }
+  ]
+}

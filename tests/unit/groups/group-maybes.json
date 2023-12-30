@@ -1,0 +1,97 @@
+{
+  "name": "Test Knockout",
+  "teams": [
+    { "id": "TM1", "name": "Alice VC" },
+    { "id": "TM2", "name": "Bob VC" },
+    { "id": "TM3", "name": "Charlie VC" },
+    { "id": "TM4", "name": "David VC" },
+    { "id": "TM5", "name": "Erin VC" },
+    { "id": "TM6", "name": "Frank VC" },
+    { "id": "TM7", "name": "Grace VC" },
+    { "id": "TM8", "name": "Heidi VC" },
+    { "id": "TM9", "name": "Isla VC" }
+  ],
+  "stages": [
+    {
+      "id": "S1",
+      "groups": [
+        {
+          "id": "G1",
+          "type": "league",
+          "league": {
+            "ordering": ["PTS", "WINS", "PD"],
+            "points": {}
+          },
+          "matchType": "continuous",
+          "matches": [
+            { "id": "M1", "type": "match", "complete": false, "homeTeam": { "id": "TM7", "scores": [] }, "awayTeam": { "id": "TM8", "scores": [] } },
+            { "id": "M2", "type": "match", "complete": false, "homeTeam": { "id": "TM7", "scores": [] }, "awayTeam": { "id": "TM9", "scores": [] } },
+            { "id": "M3", "type": "match", "complete": false, "homeTeam": { "id": "TM8", "scores": [] }, "awayTeam": { "id": "TM9", "scores": [] } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S2",
+      "groups": [
+        {
+          "id": "QF",
+          "type": "knockout",
+          "matchType": "continuous",
+          "matches": [
+            { "id": "M1", "type": "match", "complete": false, "homeTeam": { "id": "TM5", "scores": [] }, "awayTeam": { "id": "TM6", "scores": [] } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S3",
+      "groups": [
+        {
+          "id": "SFA",
+          "type": "knockout",
+          "matchType": "continuous",
+          "matches": [
+            { "id": "M1", "type": "match", "complete": false, "homeTeam": { "id": "TM1", "scores": [] }, "awayTeam": { "id": "TM2", "scores": [] } }
+          ]
+        },
+        {
+          "id": "SFB",
+          "type": "league",
+          "league": {
+            "ordering": ["PTS", "WINS", "PD"],
+            "points": {}
+          },
+          "matchType": "continuous",
+          "matches": [
+            { "id": "M1", "type": "match", "complete": false, "homeTeam": { "id": "TM3", "scores": [] }, "awayTeam": { "id": "TM4", "scores": [] } },
+            { "id": "M2", "type": "match", "complete": false, "homeTeam": { "id": "TM3", "scores": [] }, "awayTeam": { "id": "{S2:QF:M1:winner}", "scores": [] } },
+            { "id": "M3", "type": "match", "complete": false, "homeTeam": { "id": "TM4", "scores": [] }, "awayTeam": { "id": "{S2:QF:M1:winner}", "scores": [] } }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "S4",
+      "groups": [
+        {
+          "id": "FINA",
+          "type": "knockout",
+          "matchType": "continuous",
+          "matches": [
+            { "id": "M1", "type": "match", "complete": false, "homeTeam": { "id": "{S3:SFA:M1:winner}", "scores": [] }, "awayTeam": { "id": "{S3:SFB:league:1}", "scores": [] } }
+          ]
+        },
+        {
+          "id": "FINB",
+          "type": "knockout",
+          "matchType": "continuous",
+          "matches": [
+            { "id": "M1", "type": "match", "complete": false, "homeTeam": { "id": "{S3:SFB:league:2}", "scores": [] }, "awayTeam": { "id": "{S1:G1:league:1}", "scores": [] } }
+          ]
+        }
+      ]
+    }
+  ]
+}
+

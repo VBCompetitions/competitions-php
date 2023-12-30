@@ -1,0 +1,68 @@
+{
+  "name": "BadRef",
+  "teams": [
+    { "id": "TM1", "name": "Team 1" },
+    { "id": "TM2", "name": "Team 2" },
+    { "id": "TM3", "name": "Team 3" },
+    { "id": "TM4", "name": "Team 4" }
+  ],
+  "stages": [
+    {
+      "name": "Pool",
+      "id": "P",
+      "groups": [
+        {
+          "name": "Pool A",
+          "id": "A",
+          "type": "league",
+          "matchType": "continuous",
+          "league": {
+            "ordering": [ "WINS", "SD", "PD" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "PA1", "court": "1", "type": "match", "start": "09:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 10 ] }, "awayTeam": { "id": "TM2", "scores": [ 20 ] }, "officials": { "team": "TM3" } },
+            { "id": "PA2", "court": "1", "type": "match", "start": "10:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 15 ] }, "awayTeam": { "id": "TM3", "scores": [ 12 ] }, "officials": { "team": "TM4" } },
+            { "id": "PA3", "court": "1", "type": "match", "start": "11:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM3", "scores": [ 16 ] }, "awayTeam": { "id": "TM4", "scores": [ 10 ] }, "officials": { "team": "TM1" } },
+            { "id": "PA4", "court": "1", "type": "match", "start": "12:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 16 ] }, "awayTeam": { "id": "TM3", "scores": [ 10 ] }, "officials": { "team": "TM2" } },
+            { "id": "PA5", "court": "1", "type": "match", "start": "13:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 16 ] }, "awayTeam": { "id": "TM4", "scores": [ 10 ] }, "officials": { "team": "TM3" } },
+            { "id": "PA6", "court": "1", "type": "match", "start": "14:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 16 ] }, "awayTeam": { "id": "TM4", "scores": [ 10 ] }, "officials": { "team": "TM2" } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Finals",
+      "id": "F",
+      "groups": [
+        {
+          "name": "Finals",
+          "id": "F",
+          "type": "knockout",
+          "matchType": "continuous",
+          "matches": [
+            { "id": "SF1", "court": "1", "type": "match", "start": "16:00", "duration": "0:50", "complete": false, "homeTeam": { "id": "{P:A:league:1}", "scores": [] }, "awayTeam": { "id": "{P:A:league:3}", "scores": [] }, "officials": { "team": "{P:A:league:2" } },
+            { "id": "SF2", "court": "1", "type": "match", "start": "16:00", "duration": "0:50", "complete": false, "homeTeam": { "id": "{P:A:league:2}", "scores": [] }, "awayTeam": { "id": "{P:A:league:4}", "scores": [] }, "officials": { "team": "{P:A:league:3}" } },
+            { "id": "PO", "court": "1", "type": "match", "start": "16:00", "duration": "0:50", "complete": false, "homeTeam": { "id": "{F:F:SF1:loser}", "scores": [] }, "awayTeam": { "id": "{F:F:SF2:loser}", "scores": [] }, "officials": { "team": "{F:F:SF1:winner}" } },
+            { "id": "FIN", "court": "1", "type": "match", "start": "16:00", "duration": "0:50", "complete": false, "homeTeam": { "id": "{F:F:SF1:winner}", "scores": [] }, "awayTeam": { "id": "{F:F:SF1:winner}", "scores": [] }, "officials": { "team": "{F:F:PO:loser}" } }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "Final Replay",
+      "id": "FR",
+      "groups": [
+        {
+          "name": "Final",
+          "id": "F",
+          "type": "knockout",
+          "matchType": "continuous",
+          "matches": [
+            { "id": "FIN", "court": "1", "type": "match", "start": "13:00", "duration": "0:50", "complete": true, "homeTeam": { "id": "{F:F:FIN:winner}", "scores": [ 10 ] }, "awayTeam": { "id": "{F:F:FIN:loser}", "scores": [ 20 ] }, "officials": { "team": "{P:A:league:3}" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

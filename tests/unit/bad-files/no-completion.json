@@ -1,0 +1,44 @@
+{
+  "name": "Mixed Tournament - 24th Sept",
+  "teams": [
+    { "id": "T1", "name": "Team 1" },
+    { "id": "T2", "name": "Team 2" },
+    { "id": "T3", "name": "Team 3" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "M",
+      "groups": [
+        {
+          "name": "Mixed League",
+          "id": "MX",
+          "type": "league",
+          "league": {
+              "ordering": [
+                  "WINS",
+                  "PF",
+                  "PD",
+                  "H2H"
+              ],
+              "points": {
+                  "played": 0,
+                  "perSet": 0,
+                  "win": 3,
+                  "winByOne": 0,
+                  "lose": 0,
+                  "loseByOne": 0,
+                  "forfeit": 0
+              }
+          },
+          "matchType": "continuous",
+          "drawsAllowed": false,
+          "matches": [
+            { "id": "MX1", "court": "1", "type": "match", "start": "10:00", "homeTeam": { "id": "T1", "scores": [] }, "awayTeam": { "id": "T2", "scores": [] }, "officials": { "team": "T3" } },
+            { "start": "12:25", "type": "break", "name": "Lunch Break" }
+          ]
+        }
+      ]
+    }
+  ]
+}

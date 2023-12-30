@@ -1,0 +1,64 @@
+{
+  "name": "other",
+  "teams": [
+    { "id": "TMR1", "name": "Alice VC" },
+    { "id": "TMR2", "name": "Bob VC" },
+    { "id": "TMR3", "name": "Charlie VC" },
+    { "id": "TMR4", "name": "David VC" },
+    { "id": "TMR5", "name": "Erin VC" },
+    { "id": "TMR6", "name": "Frank VC" },
+    { "id": "TMR7", "name": "Grace VC" },
+    { "id": "TMR8", "name": "Heidi VC" }
+  ],
+  "stages": [
+    {
+      "id": "L",
+      "name": "league",
+      "groups": [
+        {
+          "name": "Recreational League",
+          "id": "RL",
+          "type": "league",
+          "league": {
+            "ordering": [ "WINS", "PF", "PD", "H2H" ],
+            "points": {
+              "win": 1
+            }
+          },
+          "matchType": "continuous",
+          "matches": [
+            { "id": "RLM1", "court": "5", "type": "match", "start": "10:00", "complete": true, "homeTeam": { "id": "TMR1", "scores": [17] }, "awayTeam": { "id": "TMR2", "scores": [22] }, "officials": { "team": "TMR5" } },
+            { "id": "RLM2", "court": "6", "type": "match", "start": "10:00", "complete": true, "homeTeam": { "id": "TMR3", "scores": [23] }, "awayTeam": { "id": "TMR4", "scores": [18] }, "officials": { "team": "TMR7" } },
+            { "id": "RLM3", "court": "5", "type": "match", "start": "10:30", "complete": true, "homeTeam": { "id": "TMR5", "scores": [19] }, "awayTeam": { "id": "TMR6", "scores": [26] }, "officials": { "team": "TMR1" } },
+            { "id": "RLM4", "court": "6", "type": "match", "start": "10:30", "complete": true, "homeTeam": { "id": "TMR7", "scores": [24] }, "awayTeam": { "id": "TMR8", "scores": [18] }, "officials": { "team": "TMR3" } },
+            { "id": "RLM5", "court": "5", "type": "match", "start": "11:00", "complete": true, "homeTeam": { "id": "TMR1", "scores": [33] }, "awayTeam": { "id": "TMR3", "scores": [35] }, "officials": { "team": "TMR6" } },
+            { "id": "RLM6", "court": "6", "type": "match", "start": "11:00", "complete": true, "homeTeam": { "id": "TMR2", "scores": [31] }, "awayTeam": { "id": "TMR4", "scores": [41] }, "officials": { "team": "TMR8" } },
+            { "id": "RLM7", "court": "5", "type": "match", "start": "11:30", "complete": true, "homeTeam": { "id": "TMR5", "scores": [40] }, "awayTeam": { "id": "TMR7", "scores": [45] }, "officials": { "team": "TMR2" } },
+            { "id": "RLM8", "court": "6", "type": "match", "start": "11:30", "complete": true, "homeTeam": { "id": "TMR6", "scores": [21] }, "awayTeam": { "id": "TMR8", "scores": [25] }, "officials": { "team": "TMR4" } },
+            { "id": "RLM9", "court": "5", "type": "match", "start": "12:00", "complete": true, "homeTeam": { "id": "TMR1", "scores": [24] }, "awayTeam": { "id": "TMR4", "scores": [33] }, "officials": { "team": "TMR5" } },
+            { "id": "RLM10", "court": "6", "type": "match", "start": "12:00", "complete": true, "homeTeam": { "id": "TMR2", "scores": [34] }, "awayTeam": { "id": "TMR3", "scores": [27] }, "officials": { "team": "TMR7" } },
+            { "id": "RLM11", "court": "5", "type": "match", "start": "12:30", "complete": true, "homeTeam": { "id": "TMR5", "scores": [36] }, "awayTeam": { "id": "TMR8", "scores": [32] }, "officials": { "team": "TMR1" } },
+            { "id": "RLM12", "court": "6", "type": "match", "start": "12:30", "complete": true, "homeTeam": { "id": "TMR6", "scores": [44] }, "awayTeam": { "id": "TMR7", "scores": [12] }, "officials": { "team": "TMR3" } },
+            { "id": "RLM13", "court": "5", "type": "match", "start": "13:00", "complete": true, "homeTeam": { "id": "TMR1", "scores": [17] }, "awayTeam": { "id": "TMR5", "scores": [28] }, "officials": { "team": "TMR8" } },
+            { "id": "RLM14", "court": "6", "type": "match", "start": "13:00", "complete": true, "homeTeam": { "id": "TMR2", "scores": [28] }, "awayTeam": { "id": "TMR6", "scores": [29] }, "officials": { "team": "TMR4" } },
+            { "start": "13:30", "type": "break", "name": "Lunch" },
+            { "id": "RLM15", "court": "5", "type": "match", "start": "14:00", "complete": false, "homeTeam": { "id": "TMR3", "scores": [0] }, "awayTeam": { "id": "TMR7", "scores": [0] }, "officials": { "team": "TMR2" } },
+            { "id": "RLM16", "court": "6", "type": "match", "start": "14:00", "complete": false, "homeTeam": { "id": "TMR4", "scores": [0] }, "awayTeam": { "id": "TMR8", "scores": [0] }, "officials": { "team": "TMR6" } },
+            { "id": "RLM17", "court": "5", "type": "match", "start": "14:30", "complete": false, "homeTeam": { "id": "TMR1", "scores": [0] }, "awayTeam": { "id": "TMR6", "scores": [0] }, "officials": { "team": "TMR3" } },
+            { "id": "RLM18", "court": "6", "type": "match", "start": "14:30", "complete": false, "homeTeam": { "id": "TMR2", "scores": [0] }, "awayTeam": { "id": "TMR5", "scores": [0] }, "officials": { "team": "TMR7" } },
+            { "id": "RLM19", "court": "5", "type": "match", "start": "15:00", "complete": false, "homeTeam": { "id": "TMR3", "scores": [0] }, "awayTeam": { "id": "TMR8", "scores": [0] }, "officials": { "team": "TMR1" } },
+            { "id": "RLM20", "court": "6", "type": "match", "start": "15:00", "complete": false, "homeTeam": { "id": "TMR4", "scores": [0] }, "awayTeam": { "id": "TMR7", "scores": [0] }, "officials": { "team": "TMR6" } },
+            { "id": "RLM21", "court": "5", "type": "match", "start": "15:30", "complete": false, "homeTeam": { "id": "TMR1", "scores": [0] }, "awayTeam": { "id": "TMR7", "scores": [0] }, "officials": { "team": "TMR5" } },
+            { "id": "RLM22", "court": "6", "type": "match", "start": "15:30", "complete": false, "homeTeam": { "id": "TMR2", "scores": [0] }, "awayTeam": { "id": "TMR8", "scores": [0] }, "officials": { "team": "TMR4" } },
+            { "id": "RLM23", "court": "5", "type": "match", "start": "16:00", "complete": false, "homeTeam": { "id": "TMR3", "scores": [0] }, "awayTeam": { "id": "TMR5", "scores": [0] }, "officials": { "team": "TMR8" } },
+            { "id": "RLM24", "court": "6", "type": "match", "start": "16:00", "complete": false, "homeTeam": { "id": "TMR4", "scores": [0] }, "awayTeam": { "id": "TMR6", "scores": [0] }, "officials": { "team": "TMR2" } },
+            { "id": "RLM25", "court": "5", "type": "match", "start": "16:30", "complete": false, "homeTeam": { "id": "TMR1", "scores": [0] }, "awayTeam": { "id": "TMR8", "scores": [0] }, "officials": { "team": "TMR3" } },
+            { "id": "RLM26", "court": "6", "type": "match", "start": "16:30", "complete": false, "homeTeam": { "id": "TMR2", "scores": [0] }, "awayTeam": { "id": "TMR7", "scores": [0] }, "officials": { "team": "TMR6" } },
+            { "id": "RLM27", "court": "5", "type": "match", "start": "17:00", "complete": false, "homeTeam": { "id": "TMR3", "scores": [0] }, "awayTeam": { "id": "TMR6", "scores": [0] }, "officials": { "team": "TMR1" } },
+            { "id": "RLM28", "court": "6", "type": "match", "start": "17:00", "complete": false, "homeTeam": { "id": "TMR4", "scores": [0] }, "awayTeam": { "id": "TMR5", "scores": [0] }, "officials": { "team": "TMR7" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

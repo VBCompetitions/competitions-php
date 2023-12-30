@@ -1,0 +1,42 @@
+{
+  "name": "Test League Table by PD",
+  "teams": [
+    { "id": "TM1", "name": "B Team 1" },
+    { "id": "TM2", "name": "A Team 2" },
+    { "id": "TM3", "name": "D Team 3" },
+    { "id": "TM4", "name": "C Team 4" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "L",
+      "groups": [
+        {
+          "name": "League 1",
+          "id": "LG",
+          "type": "league",
+          "matchType": "sets",
+          "sets": {},
+          "league": {
+            "ordering": [ "WINS", "SD", "PD", "H2H" ],
+            "points": {}
+          },
+          "notes": "These are notes on the group",
+          "description": [
+            "This is a description about the group",
+            "This is some more words"
+          ],
+          "matches": [
+            { "id": "LG1", "court": "1", "date":"2023-11-05", "venue": "City Sports Centre", "type": "match", "warmup": "09:10", "start": "09:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 22, 22, 22 ] }, "officials": { "team": "TM1" }, "notes": "Nothing of consequence happened", "manager": "Alan Measles", "mvp": "Alice Alison"  },
+            { "id": "LG2", "court": "1", "date":"2023-11-05", "venue": "City Sports Centre", "type": "match", "warmup": "10:10", "start": "10:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 25, 25, 25 ] }, "awayTeam": { "id": "TM3", "scores": [ 22, 21, 23 ] }, "officials": { "team": "TM2" }, "notes": "Nothing of consequence happened", "manager": "Alan Measles", "mvp": "Bobby Bobs"  },
+            { "id": "LG3", "court": "1", "date":"2023-11-05", "venue": "City Sports Centre", "type": "match", "warmup": "11:10", "start": "11:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 24, 14, 21 ] }, "awayTeam": { "id": "TM3", "scores": [ 26, 25, 25 ] }, "officials": { "team": "TM4" }, "notes": "Nothing of consequence happened", "manager": "Alan Measles", "mvp": "Charlie Charleston"  },
+            { "id": "LG4", "court": "1", "date":"2023-11-05", "venue": "City Sports Centre", "type": "match", "warmup": "12:10", "start": "12:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 26, 21, 20 ] }, "awayTeam": { "id": "TM4", "scores": [ 28, 25, 25 ] }, "officials": { "team": "TM3" }, "notes": "Nothing of consequence happened", "manager": "Alan Measles", "mvp": "Dave Davidson"  },
+            { "type": "break" },
+            { "id": "LG5", "court": "1", "date":"2023-11-05", "venue": "City Sports Centre", "type": "match", "warmup": "13:10", "start": "13:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM3", "scores": [ 28, 21, 19 ] }, "awayTeam": { "id": "TM4", "scores": [ 30, 25, 25 ] }, "officials": { "team": "TM2" }, "notes": "Nothing of consequence happened", "manager": "Alan Measles", "mvp": "Emma Emerson"  },
+            { "id": "LG6", "court": "1", "date":"2023-11-05", "venue": "City Sports Centre", "type": "match", "warmup": "14:10", "start": "14:20", "duration": "0:50", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 30, 18, 12 ] }, "awayTeam": { "id": "TM2", "scores": [ 32, 25, 25 ] }, "officials": { "team": "TM4" }, "notes": "Nothing of consequence happened", "manager": "Alan Measles", "mvp": "Frankie Frank" }
+          ]
+        }
+      ]
+    }
+  ]
+}

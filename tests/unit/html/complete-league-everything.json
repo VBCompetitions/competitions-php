@@ -1,0 +1,36 @@
+{
+  "name": "Four Team League",
+  "teams": [
+    { "id": "TM1", "name": "Team 1" },
+    { "id": "TM2", "name": "Team 2" },
+    { "id": "TM3", "name": "Team 3" },
+    { "id": "TM4", "name": "Team 4" }
+  ],
+  "stages": [
+    {
+      "name": "League",
+      "id": "L",
+      "groups": [
+        {
+          "name": "League 1",
+          "id": "LG",
+          "type": "league",
+          "matchType": "continuous",
+          "league": {
+            "ordering": [ "WINS", "PD" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "LG1", "venue": "City Sports Centre", "court": "1", "date": "2023-06-21", "type": "match", "warmup": "09:10", "start": "09:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 21 ], "mvp": "A Adams" }, "awayTeam": { "id": "TM4", "scores": [ 22 ], "mvp": "D Dodds" }, "officials": { "team": "TM1" }, "manager": { "team": "TM1" }, "mvp": "A Adams", "notes": "some notes" },
+            { "id": "LG2", "venue": "City Sports Centre", "court": "1", "date": "2023-06-21", "type": "match", "warmup": "10:10", "start": "10:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 22 ] }, "awayTeam": { "id": "TM3", "scores": [ 24 ] }, "officials": { "team": "TM2" }, "manager": { "team": "TM2" }, "mvp": "B Betts", "notes": "some notes" },
+            { "id": "LG3", "venue": "City Sports Centre", "court": "1", "date": "2023-06-21", "type": "match", "warmup": "11:10", "start": "11:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 23 ] }, "awayTeam": { "id": "TM3", "scores": [ 26 ] }, "officials": { "team": "TM4" }, "manager": { "team": "TM4" }, "mvp": "C Crosier", "notes": "some notes" },
+            { "date": "2023-06-21", "type": "break", "start": "12:20", "name": "Lunch break", "duration": "1:00" },
+            { "id": "LG4", "venue": "City Sports Centre", "court": "1", "date": "2023-06-21", "type": "match", "warmup": "13:10", "start": "13:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 24 ] }, "awayTeam": { "id": "TM4", "scores": [ 28 ] }, "officials": { "team": "TM3" }, "manager": { "team": "TM3" }, "mvp": "D Dodds", "notes": "some notes" },
+            { "id": "LG5", "venue": "City Sports Centre", "court": "1", "date": "2023-06-21", "type": "match", "warmup": "14:10", "start": "14:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM3", "scores": [ 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 30 ] }, "officials": { "team": "TM2" }, "manager": { "team": "TM2" }, "mvp": "E Edwards", "notes": "some notes" },
+            { "id": "LG6", "venue": "City Sports Centre", "court": "1", "date": "2023-06-21", "type": "match", "warmup": "15:10", "start": "15:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 26 ] }, "awayTeam": { "id": "TM2", "scores": [ 32 ] }, "officials": { "team": "TM4" }, "manager": { "team": "TM4" }, "mvp": "F Franks", "notes": "some notes" }
+          ]
+        }
+      ]
+    }
+  ]
+}
