@@ -2,8 +2,45 @@
   <head>
     <title>VBCompetitions-php example competition view</title>
     <style>
-        th, td {
-         border: 1px solid black;
+        th {
+            border: 1px solid #444444;
+            border-radius: 3px;
+            background-color: #aaaaaa;
+            padding: 1px 3px 1px 3px;
+        }
+
+        td {
+            border-radius: 3px;
+            /* background-color: #dddddd; */
+            padding: 1px 3px 1px 3px;
+        }
+
+        td[class*="vbc-"] {
+            background-color: #dddddd;
+        }
+
+        td.vbc-league-table-num {
+            text-align: center;
+        }
+
+        td.vbc-this-team {
+            border: 2px solid #7777dd;
+            background-color: #ccccdd;
+        }
+
+        td.vbc-match-score {
+            background-color: #bbbbbb;
+            text-align: center;
+        }
+
+        td.vbc-match-winner {
+            background-color: #99dd99;
+            text-align: center;
+        }
+
+        td.vbc-match-loser {
+            background-color: #cccccc;
+            text-align: center;
         }
     </style>
   </head>
