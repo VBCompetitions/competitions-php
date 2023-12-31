@@ -44,10 +44,8 @@
 require(__DIR__.'/../vendor/autoload.php');
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\Knockout;
-use VBCompetitions\Competitions\KnockoutUtils;
 use VBCompetitions\Competitions\League;
 use VBCompetitions\Competitions\HTML;
-use VBCompetitions\Competitions\MatchUtils;
 
 $dataDir = realpath(__DIR__.'/data');
 

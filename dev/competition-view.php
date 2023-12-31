@@ -59,8 +59,6 @@ use VBCompetitions\Competitions\League;
 use VBCompetitions\Competitions\GroupType;
 use VBCompetitions\Competitions\HTML;
 
-// use VBCompetitions\Competitions\MatchType;
-
 $dataDir = realpath(__DIR__.'/data');
 
 $competitionList = Competition::competitionList($dataDir);
