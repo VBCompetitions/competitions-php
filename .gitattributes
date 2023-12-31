@@ -1,4 +1,4 @@
-# .gitattributes
+/.gitattributes    export-ignore
 /.github           export-ignore
 /.gitignore        export-ignore
 /.vscode           export-ignore
