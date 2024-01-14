@@ -684,8 +684,8 @@ class HTML {
      *                            cell with an empty string for the text and the class "vbc-blank"
      *   breakHeadings: []      - the list of headings to populate before printing a break's "name" value.  This defaults
      *                            to MATCH_COLUMN_DATE, HTML::MATCH_COLUMN_START
-     *   headingMap: {}         - object where the key is the heading name (using the HTML::MATCH_COLUMN_* constants), and the
-     *                            value is the new text to use for that heading
+     *   headingMap: {}         - associative array the key is the heading name (using the HTML::MATCH_COLUMN_* constants),
+     *                            and the value is the new text to use for that heading
      *   merge: []              - the list of headings where rows with matching data can be merged together (by a "rowspan"
      *                            property), e.g. all matches on the same date share a single cell in the output for that date
      *                            field.  By default this contains MATCH_COLUMN_DATE
@@ -757,8 +757,8 @@ class HTML {
      *                            cell with an empty string for the text and the class "vbc-blank"
      *   breakHeadings: []      - the list of headings to populate before printing a break's "name" value.  This defaults
      *                            to MATCH_COLUMN_DATE, HTML::MATCH_COLUMN_START
-     *   headingMap: {}         - object where the key is the heading name (using the HTML::MATCH_COLUMN_* constants), and the
-     *                            value is the new text to use for that heading
+     *   headingMap: {}         - associative array where the key is the heading name (using the HTML::MATCH_COLUMN_* constants),
+     *                            and the value is the new text to use for that heading
      *   merge: []              - the list of headings where rows with matching data can be merged together (by a "rowspan"
      *                            property), e.g. all matches on the same date share a single cell in the output for that date
      *                            field.  By default this contains MATCH_COLUMN_DATE
@@ -970,8 +970,8 @@ class HTML {
      * The $config object can be used to configure the league table data as described below:
      * <pre>{
      *   headings: []      - the list of headings (using the HTML::LEAGUE_COLUMN_* constants) in the desired order
-     *   headingMap: {}    - object where the key is the heading name (using the HTML::LEAGUE_COLUMN_* constants), and the
-     *                       value is the new text to use for that heading
+     *   headingMap: {}    - associative array where the key is the heading name (using the HTML::LEAGUE_COLUMN_* constants),
+     *                       and the value is the new text to use for that heading
      * }
      * </pre>
      *
@@ -1011,8 +1011,8 @@ class HTML {
      * The $config object can be used to configure the league table data as described below:
      * <pre>{
      *   headings: []      - the list of headings (using the HTML::LEAGUE_COLUMN_* constants) in the desired order
-     *   headingMap: {}    - object where the key is the heading name (using the HTML::LEAGUE_COLUMN_* constants), and the
-     *                       value is the new text to use for that heading
+     *   headingMap: {}    - associative array where the key is the heading name (using the HTML::LEAGUE_COLUMN_* constants),
+     *                       and the value is the new text to use for that heading
      * }
      * </pre>
      *
