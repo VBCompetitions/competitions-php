@@ -14,7 +14,7 @@ use VBCompetitions\Competitions\MatchTeam;
 final class MatchTeamTest extends TestCase {
     public function testMatchTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matchteam'))), 'competition.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matchteam'))), 'competition.json');
         $match = $competition->getStageById('L')->getGroupById('RL')->getMatches()[0];
         $this->assertInstanceOf('VBCompetitions\Competitions\MatchInterface', $match);
 

@@ -17,7 +17,7 @@ use VBCompetitions\Competitions\Player;
 final class PlayerTest extends TestCase {
     public function testPlayersNone() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
 
         $team = $competition->getTeamByID('TM1');
         $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
@@ -27,12 +27,12 @@ final class PlayerTest extends TestCase {
     public function testPlayersDuplicateID() : void
     {
         $this->expectExceptionMessage('Competition data failed validation: team players with duplicate IDs within a team not allowed');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players-duplicate-ids.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players-duplicate-ids.json');
     }
 
     public function testPlayersGetByID() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
         $team = $competition->getTeamByID('TM3');
 
         $this->assertEquals('Alice Alison', $team->getPlayerByID('P1')->name);
@@ -51,7 +51,7 @@ final class PlayerTest extends TestCase {
 
     public function testPlayersGetByIDOutOfBounds() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
 
         $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Player with ID NO-SUCH-TEAM not found');

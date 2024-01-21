@@ -13,7 +13,7 @@ use VBCompetitions\Competitions\GroupBreak;
 final class GroupBreakTest extends TestCase {
     public function testGroupBreakBasicData() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
         $break = null;
         foreach ($group->getMatches() as $match) {

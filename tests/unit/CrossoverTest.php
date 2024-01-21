@@ -19,7 +19,7 @@ use VBCompetitions\Competitions\Stage;
 final class CrossoverTest extends TestCase {
     public function testCrossover() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'complete-crossover.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'complete-crossover.json');
         $crossover = $competition->getStageById('C')->getGroupById('CO');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\Crossover', $crossover, 'Group should be a crossover');
@@ -34,7 +34,7 @@ final class CrossoverTest extends TestCase {
 
     public function testCrossoverWithSets() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'complete-crossover-sets.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'complete-crossover-sets.json');
         $crossover = $competition->getStageById('C')->getGroupById('CO');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\Crossover', $crossover, 'Group should be a crossover');
@@ -48,7 +48,7 @@ final class CrossoverTest extends TestCase {
 
     public function testCrossoverIncomplete() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'incomplete-crossover.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'incomplete-crossover.json');
         $crossover = $competition->getStageById('C')->getGroupById('CO');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\Crossover', $crossover, 'Group should be a crossover');
@@ -59,12 +59,12 @@ final class CrossoverTest extends TestCase {
     public function testCrossoverDrawsNotAllowed() : void
     {
         $this->expectExceptionMessage('Invalid match information (in match {C:CO:CO1}): scores show a draw but draws are not allowed');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'crossover-with-drawn-match.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'crossover-with-drawn-match.json');
     }
 
     public function testCrossoverGroupsWithoutNames() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'crossover-no-names.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'crossover-no-names.json');
         $crossover = $competition->getStageById('C');
 
         $this->assertNull($crossover->getGroupById('CO0')->getName());

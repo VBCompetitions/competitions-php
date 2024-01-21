@@ -33,7 +33,7 @@ final class CompetitionUpdateMatchTest extends TestCase {
         $score_updated = Competition::updateMatchResults(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition.json', 'L', 'RL', 'RLM15', [23], [19], true);
         $this->assertTrue($score_updated);
 
-        $updated_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition.json');
+        $updated_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition.json');
         $match_14 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM14');
         $match_15 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM15');
         $match_16 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM16');
@@ -76,7 +76,7 @@ final class CompetitionUpdateMatchTest extends TestCase {
         $score_updated = Competition::updateMatchResults(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition-sets.json', 'L', 'RL', 'RLM15', [25, 25], [19, 19], null);
         $this->assertTrue($score_updated);
 
-        $updated_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition-sets.json');
+        $updated_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition-sets.json');
         $match_14 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM14');
         $match_15 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM15');
         $match_16 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM16');
@@ -97,7 +97,7 @@ final class CompetitionUpdateMatchTest extends TestCase {
         $score_updated = Competition::updateMatchResults(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition-sets-duration.json', 'L', 'RL', 'RLM15', [25, 25], [19, 19], true);
         $this->assertTrue($score_updated);
 
-        $updated_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition-sets-duration.json');
+        $updated_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition-sets-duration.json');
         $match_14 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM14');
         $match_15 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM15');
         $match_16 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM16');
@@ -118,7 +118,7 @@ final class CompetitionUpdateMatchTest extends TestCase {
         $score_updated = Competition::updateMatchResults(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition.json', 'L', 'RL', 'RLM15', [23], [19], false);
         $this->assertTrue($score_updated);
 
-        $updated_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition.json');
+        $updated_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition.json');
         $match_14 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM14');
         $match_15 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM15');
         $match_16 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM16');

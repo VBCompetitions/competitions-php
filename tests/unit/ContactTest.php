@@ -19,7 +19,7 @@ use VBCompetitions\Competitions\ContactType;
 final class ContactTest extends TestCase {
     public function testContactsNone() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
 
         $team = $competition->getTeamByID('TM1');
         $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
@@ -28,7 +28,7 @@ final class ContactTest extends TestCase {
 
     public function testContactsDefaultSecretary() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
 
         $team = $competition->getTeamByID('TM2');
         $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
@@ -47,12 +47,12 @@ final class ContactTest extends TestCase {
     public function testContactsDuplicateID() : void
     {
         $this->expectExceptionMessage('Competition data failed validation: team contacts with duplicate IDs within a team not allowed');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts-duplicate-ids.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts-duplicate-ids.json');
     }
 
     public function testContactsEach() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
         $team = $competition->getTeamByID('TM3');
 
         $this->assertEquals(7, count($team->getContacts()), 'Team 3 should have 7 contacts defined');
@@ -82,7 +82,7 @@ final class ContactTest extends TestCase {
 
     public function testContactsGetByIDOutOfBounds() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
 
         $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Contact with ID NO-SUCH-TEAM not found');

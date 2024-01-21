@@ -92,7 +92,7 @@ if (realpath($path_info['dirname']) !== $dataDir) {
 }
 
 try {
-    $competition = new Competition($dataDir, $filename);
+    $competition = Competition::loadFromFile($dataDir, $filename);
 } catch (\Throwable $th) {
     echo "    <p>Failed to load data</p>".PHP_EOL;
     echo "    <p>".str_replace('\n', '<br>', $th->getMessage())."</p>\n";
@@ -111,7 +111,7 @@ if ($competition_name == null) {
     <ul>
 <?php
 foreach ($competition->getStages() as $stage) {
-    echo '      <li><a href="./competition-view.php?file='.$competition->getFilename().'&stage='.$stage->getID().'">'.$stage->getName().'</a></li>';
+    echo '      <li><a href="./competition-view.php?file='.$filename.'&stage='.$stage->getID().'">'.$stage->getName().'</a></li>';
 }
 ?>
     </ul>
@@ -135,7 +135,7 @@ if ($stage_name == null) {
     <ul>
 <?php
 foreach ($stage->getGroups() as $group) {
-    echo '      <li><a href="./competition-view.php?file='.$competition->getFilename().'&stage='.$stage_id.'&group='.$group->getID().'">'.$group->getName().'</a></li>';
+    echo '      <li><a href="./competition-view.php?file='.$filename.'&stage='.$stage_id.'&group='.$group->getID().'">'.$group->getName().'</a></li>';
 }
 ?>
     </ul>

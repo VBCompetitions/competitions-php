@@ -14,7 +14,7 @@ use VBCompetitions\Competitions\ICS;
 final class ICSTest extends TestCase {
     public function testICSCalendarHeaders() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times.json');
         $ics = new ICS($competition);
 
         $this->assertEquals('text/calendar', $ics->getContentType());
@@ -24,7 +24,7 @@ final class ICSTest extends TestCase {
 
     public function testICSDispositionNoSuchTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times.json');
         $ics = new ICS($competition);
 
         $this->expectExceptionMessage('Team with ID "FOO" does not exist');
@@ -33,7 +33,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarNoSuchTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times.json');
         $ics = new ICS($competition);
 
         $this->expectExceptionMessage('Team with ID "FOO" does not exist');
@@ -42,7 +42,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyIngoresMatchesWithNoDate() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times-missing-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times-missing-dates.json');
         $ics = new ICS($competition);
 
         $this->expectExceptionMessage('error while generating calendar: match {L:RL:RLM9} has no date');
@@ -51,7 +51,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyNoTimes() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-times.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -108,7 +108,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyWithDurationsOnly() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-warmup-times-and-durations.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-warmup-times-and-durations.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -169,7 +169,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyWithStartTimesOnly() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-start-times-only.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-start-times-only.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -226,7 +226,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyWithStartTimesAndDurations() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-start-times-and-durations.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-start-times-and-durations.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -287,7 +287,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyWithoutVenue() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-no-venue.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-no-venue.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -344,7 +344,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyWithoutOfficials() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-officials.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-no-officials.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -401,7 +401,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyMultipleStages() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-across-multiple-stages.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-across-multiple-stages.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -462,7 +462,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyMultipleStagesAll() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-across-multiple-stages.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-across-multiple-stages.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -553,7 +553,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyMultipleStagesAllBreakFirst() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-across-multiple-stages-break-first.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-across-multiple-stages-break-first.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -652,7 +652,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyMultipleStagesAllSplitVenue() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-across-multiple-stages-split-venue.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-across-multiple-stages-split-venue.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -752,7 +752,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyWithStartTimesAndDurationsAll() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-start-times-and-durations.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-start-times-and-durations.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -831,7 +831,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarBodyWithFullOfficials() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-individual-refs.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-with-individual-refs.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';
@@ -910,7 +910,7 @@ final class ICSTest extends TestCase {
 
     public function testICSCalendarFirstMatchStartTime() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-first-match-start-times.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ics'))), 'competition-first-match-start-times.json');
         $ics = new ICS($competition);
 
         $unique_id = 'example.com';

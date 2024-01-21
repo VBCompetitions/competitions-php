@@ -80,7 +80,7 @@ if (realpath($path_info['dirname']) !== $dataDir) {
 }
 
 try {
-    $competition = new Competition($dataDir, $filename);
+    $competition = Competition::loadFromFile($dataDir, $filename);
 } catch (\Throwable $th) {
     echo '    <p>Failed to load data</p>';
     echo '    <p>'.$th->getMessage().'</p>';
@@ -95,7 +95,7 @@ try {
     <ul>
 <?php
 foreach ($competition->getTeams() as $team) {
-    echo '<li><a href="./team-view.php?file='.$competition->getFilename().'&team='.$team->getID().'">'.$team->getName().'</a></li>';
+    echo '<li><a href="./team-view.php?file='.$filename.'&team='.$team->getID().'">'.$team->getName().'</a></li>';
 }
 ?>
     </ul>

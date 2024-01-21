@@ -41,25 +41,20 @@ final class Competition implements JsonSerializable
     /** A Lookup table from stage IDs to the stage */
     private object $stage_lookup;
 
-    /** The filename that was loaded into this Competition */
-    private string $filename;
 
     /** The "unknown" team, typically for matching against */
     private CompetitionTeam $unknown_team;
 
     /**
-     * Loads a competition file and parses its content, creating any metadata needed
+     * Takes in the Competition JSON string and creates the Competition object representing that data
      *
-     * @param string $competition_data_dir The directory to load the competition file from
-     * @param string $competition_file The name of the competition file
+     * @param string $competition_json The JSON data for the competition
      *
      * @throws Exception thrown when the competition data is invalid
      */
-    function __construct(string $competition_data_dir, string $competition_file)
+    function __construct(string $competition_json)
     {
-        $this->filename = $competition_file;
-
-        $competition_data = json_decode(file_get_contents(realpath($competition_data_dir.DIRECTORY_SEPARATOR.$competition_file)));
+        $competition_data = json_decode($competition_json);
 
         if ($competition_data === null) {
             throw new Exception('Document does not contain valid JSON');
@@ -105,6 +100,23 @@ final class Competition implements JsonSerializable
     }
 
     /**
+     * Loads a competition JSON file and parses its content, then instantiates a Competition object
+     *
+     * @param string $competition_data_dir The directory to load the competition file from
+     * @param string $competition_file The name of the competition file
+     *
+     * @throws Exception thrown when the competition data is invalid
+     */
+    public static function loadFromFile(string $competition_data_dir, string $competition_file) : Competition
+    {
+        $competition_json = file_get_contents(realpath($competition_data_dir.DIRECTORY_SEPARATOR.$competition_file));
+        if ($competition_json === false) {
+            throw new Exception('Failed to load file');
+        }
+        return new Competition($competition_json);
+    }
+
+    /**
      * Save the whole Competition as a competition JSON file
      *
      * @param string $competition_data_dir The directory to save the competition file to
@@ -113,7 +125,7 @@ final class Competition implements JsonSerializable
      * @throws Exception thrown when the competition file cannot be saved
 
      */
-    public function save(string $competition_data_dir, string $competition_file)
+    public function saveToFile(string $competition_data_dir, string $competition_file) : void
     {
         $competition_data = json_encode($this, JSON_PRETTY_PRINT);
         Competition::validateJSON(json_decode($competition_data));
@@ -255,16 +267,6 @@ final class Competition implements JsonSerializable
     }
 
     /**
-     * Gets the name of the file loaded for this Competition
-     *
-     * @return string The filename for this Competition
-     */
-    public function getFilename() : string
-    {
-        return $this->filename;
-    }
-
-    /**
      * Serialize the data in JSON format
      */
     public function jsonSerialize() : mixed
@@ -315,7 +317,7 @@ final class Competition implements JsonSerializable
 
             $competition_item = new stdClass();
             try {
-                $competition = new Competition($competition_data_dir, $competition_file);
+                $competition = Competition::loadFromFile($competition_data_dir, $competition_file);
                 $competition_item->file = $competition_file;
                 $competition_item->is_valid = true;
                 $competition_item->is_complete = $competition->isComplete();

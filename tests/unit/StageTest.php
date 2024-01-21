@@ -17,7 +17,7 @@ use VBCompetitions\Competitions\Stage;
 final class StageTest extends TestCase {
   public function testStageGetters() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'competition.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'competition.json');
         $stage = $competition->getStageById('L');
         $groups = $stage->getGroups();
 
@@ -28,7 +28,7 @@ final class StageTest extends TestCase {
 
     public function testStageMatchesWithAllOptionalFields() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-matches-with-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-matches-with-everything.json');
         $stage = $competition->getStageById('L');
 
         $this->assertEquals('Matches with Everything', $stage->getCompetition()->getName());
@@ -52,7 +52,7 @@ final class StageTest extends TestCase {
 
     public function testStageMatchesWithNoOptionalFields() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-matches-with-nothing.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-matches-with-nothing.json');
         $stage = $competition->getStageById('L');
 
         $this->assertNull($stage->getName());
@@ -73,19 +73,19 @@ final class StageTest extends TestCase {
     public function testStageBlockTeamsInTwoGroups() : void
     {
         $this->expectExceptionMessage('Groups in the same stage cannot contain the same team. Groups {L:L1} and {L:L2} both contain the following team IDs: "TM2", "TM4"');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-teams-in-multiple-groups.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-teams-in-multiple-groups.json');
     }
 
     public function testStageGetTeamIDsFixed() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
         $incomplete_pool_team_ids = $incomplete_competition->getStageById('P')->getTeamIDs();
         $incomplete_division_team_ids = $incomplete_competition->getStageById('D')->getTeamIDs();
 
         $this->assertCount(8, $incomplete_pool_team_ids);
         $this->assertCount(0, $incomplete_division_team_ids);
 
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
         $complete_pool_team_ids = $complete_competition->getStageById('P')->getTeamIDs();
         $complete_division_team_ids = $complete_competition->getStageById('D')->getTeamIDs();
 
@@ -95,14 +95,14 @@ final class StageTest extends TestCase {
 
     public function testStageGetTeamIDsKnown() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
         $incomplete_pool_team_ids = $incomplete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_KNOWN);
         $incomplete_division_team_ids = $incomplete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_KNOWN);
 
         $this->assertCount(8, $incomplete_pool_team_ids);
         $this->assertCount(0, $incomplete_division_team_ids);
 
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
         $complete_pool_team_ids = $complete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_KNOWN);
         $complete_division_team_ids = $complete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_KNOWN);
 
@@ -112,14 +112,14 @@ final class StageTest extends TestCase {
 
     public function testStageGetTeamIDsMaybe() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
         $incomplete_pool_team_ids = $incomplete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_MAYBE);
         $incomplete_division_team_ids = $incomplete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_MAYBE);
 
         $this->assertCount(0, $incomplete_pool_team_ids);
         $this->assertCount(8, $incomplete_division_team_ids);
 
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
         $complete_pool_team_ids = $complete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_MAYBE);
         $complete_division_team_ids = $complete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_MAYBE);
 
@@ -129,14 +129,14 @@ final class StageTest extends TestCase {
 
     public function testStageGetTeamIDsAll() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
         $incomplete_pool_team_ids = $incomplete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_ALL);
         $incomplete_division_team_ids = $incomplete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_ALL);
 
         $this->assertCount(8, $incomplete_pool_team_ids);
         $this->assertCount(18, $incomplete_division_team_ids);
 
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
         $complete_pool_team_ids = $complete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_ALL);
         $complete_division_team_ids = $complete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_ALL);
 
@@ -146,14 +146,14 @@ final class StageTest extends TestCase {
 
     public function testStageGetTeamIDsPlaying() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
         $incomplete_pool_team_ids = $incomplete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_PLAYING);
         $incomplete_division_team_ids = $incomplete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_PLAYING);
 
         $this->assertCount(8, $incomplete_pool_team_ids);
         $this->assertCount(16, $incomplete_division_team_ids);
 
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
         $complete_pool_team_ids = $complete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_PLAYING);
         $complete_division_team_ids = $complete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_PLAYING);
 
@@ -163,14 +163,14 @@ final class StageTest extends TestCase {
 
     public function testStageGetTeamIDsOfficiating() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
         $incomplete_pool_team_ids = $incomplete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_OFFICIATING);
         $incomplete_division_team_ids = $incomplete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_OFFICIATING);
 
         $this->assertCount(8, $incomplete_pool_team_ids);
         $this->assertCount(8, $incomplete_division_team_ids);
 
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
         $complete_pool_team_ids = $complete_competition->getStageById('P')->getTeamIDs(VBC_TEAMS_OFFICIATING);
         $complete_division_team_ids = $complete_competition->getStageById('D')->getTeamIDs(VBC_TEAMS_OFFICIATING);
 
@@ -180,8 +180,8 @@ final class StageTest extends TestCase {
 
     public function testStageTeamHasMatches() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
 
         $this->assertTrue($incomplete_competition->getStageById('P')->teamHasMatches('TM1'));
         $this->assertTrue($complete_competition->getStageById('P')->teamHasMatches('TM1'));
@@ -192,8 +192,8 @@ final class StageTest extends TestCase {
 
     public function testStageTeamHasOfficiating() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
 
         $this->assertTrue($incomplete_competition->getStageById('P')->teamHasOfficiating('TM1'));
         $this->assertTrue($complete_competition->getStageById('P')->teamHasOfficiating('TM1'));
@@ -204,9 +204,9 @@ final class StageTest extends TestCase {
 
     public function testStageTeamMayHaveMatches() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
-        $reffing_ref_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete-reffing-reference.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $reffing_ref_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete-reffing-reference.json');
 
         $this->assertFalse($incomplete_competition->getStageById('P')->teamMayHaveMatches('TM1'));
         $this->assertFalse($complete_competition->getStageById('P')->teamMayHaveMatches('TM1'));
@@ -220,7 +220,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesAllInStage() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
 
         $this->assertCount(12, $incomplete_competition->getStageById('P')->getMatches());
         // Check cached answer
@@ -230,8 +230,8 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesAllInGroup() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
 
         $this->assertCount(6, $incomplete_competition->getStageById('P')->getMatches('TM1', VBC_MATCH_ALL_IN_GROUP));
         $this->assertCount(0, $incomplete_competition->getStageById('D')->getMatches('TM1', VBC_MATCH_ALL_IN_GROUP));
@@ -242,8 +242,8 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesPlaying() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
 
         $this->assertCount(3, $incomplete_competition->getStageById('P')->getMatches('TM1', VBC_MATCH_PLAYING));
         $this->assertCount(0, $incomplete_competition->getStageById('D')->getMatches('TM1', VBC_MATCH_PLAYING));
@@ -254,9 +254,9 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesOfficiating() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
-        $cross_group_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-cross-group-reffing.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $cross_group_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-cross-group-reffing.json');
 
         $this->assertCount(1, $incomplete_competition->getStageById('P')->getMatches('TM1', VBC_MATCH_OFFICIATING));
         $this->assertCount(0, $incomplete_competition->getStageById('D')->getMatches('TM1', VBC_MATCH_OFFICIATING));
@@ -270,9 +270,9 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesPlayingAndOfficiating() : void
     {
-        $incomplete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
-        $complete_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
-        $cross_group_competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-cross-group-reffing.json');
+        $incomplete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-incomplete.json');
+        $complete_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-complete.json');
+        $cross_group_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'pools-knockout-cross-group-reffing.json');
 
         $this->assertCount(4, $incomplete_competition->getStageById('P')->getMatches('TM1', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING));
         $this->assertCount(0, $incomplete_competition->getStageById('D')->getMatches('TM1', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING));
@@ -286,7 +286,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchDates() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
         $stageA = $competition->getStageById('HVAGP');
         $stageB = $competition->getStageById('HVAGP2');
         $datesA = $stageA->getMatchDates();
@@ -300,7 +300,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchDatesForTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
         $stageA = $competition->getStageById('HVAGP');
         $stageB = $competition->getStageById('HVAGP2');
         $datesTMKA = $stageA->getMatchDates('TMK');
@@ -314,7 +314,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchDatesForTeamPlaying() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
         $stageA = $competition->getStageById('HVAGP');
         $stageB = $competition->getStageById('HVAGP2');
         $datesTMKA = $stageA->getMatchDates('TMK', VBC_MATCH_PLAYING);
@@ -328,7 +328,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchDatesForTeamOfficiating() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
         $stageA = $competition->getStageById('HVAGP');
         $stageB = $competition->getStageById('HVAGP2');
         $datesTMMA = $stageA->getMatchDates('TMM', VBC_MATCH_OFFICIATING);
@@ -342,7 +342,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesOnDate() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
         $stageA = $competition->getStageById('HVAGP');
         $matchesA = $stageA->getMatchesOnDate('2023-10-22');
         $matchesB = $stageA->getMatchesOnDate('2023-11-26');
@@ -355,7 +355,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesOnDateForTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
         $stageA = $competition->getStageById('HVAGP');
 
         $matchesTMC = $stageA->getMatchesOnDate('2024-01-21', 'TMC');
@@ -365,7 +365,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesOnDateForTeamPlaying() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
         $stageA = $competition->getStageById('HVAGP');
         $matchesTMC = $stageA->getMatchesOnDate('2023-10-22', 'TMC', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
         $this->assertCount(1, $matchesTMC);
@@ -379,7 +379,7 @@ final class StageTest extends TestCase {
 
     public function testStageGetMatchesOnDateForTeamOfficiating() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'group-with-dates.json');
         $stageB = $competition->getStageById('HVAGP2');
         $matchesTMM = $stageB->getMatchesOnDate('2024-02-25', 'TMM', VBC_MATCH_OFFICIATING);
         $this->assertCount(1, $matchesTMM);

@@ -76,50 +76,42 @@ final class CompetitionTest extends TestCase {
     public function testCompetitionLoad_InvalidData() : void
     {
         $this->expectExceptionMessageMatches('/Competition data failed schema validation.*\[#\/required\] \[#\] The required properties \(name, teams, stages\) are missing/s');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'invalid-competition.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'invalid-competition.json');
     }
 
     public function testCompetitionLoad_InvalidVersion() : void
     {
         $this->expectExceptionMessage('Document version 0.0.1 not supported');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-version-competition.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-version-competition.json');
     }
 
     public function testCompetitionLoad_InvalidJSON() : void
     {
         $this->expectExceptionMessage('Document does not contain valid JSON');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-not-json.json');
-    }
-
-    public function testCompetitionLoad() : void
-    {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
-        $this->assertIsArray($competition->getTeams());
-        $this->assertEquals('competition.json', $competition->getFilename());
-        $this->assertEquals('1.0.0', $competition->getVersion());
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-not-json.json');
     }
 
     public function testCompetitionDuplicateTeamIDs() : void
     {
         $this->expectExceptionMessage('Competition data failed validation. Teams with duplicate IDs not allowed: "TM1"');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-team-ids.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-team-ids.json');
     }
 
     public function testCompetitionDuplicateStageIDs() : void
     {
         $this->expectExceptionMessage('Competition data failed validation. Stages with duplicate IDs not allowed: {L}');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-stage-ids.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-stage-ids.json');
     }
 
     public function testCompetitionDuplicateGroupIDs() : void
     {
         $this->expectExceptionMessage('Competition data failed validation. Groups in a Stage with duplicate IDs not allowed: {L:RL}');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-group-ids.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-group-ids.json');
     }
 
     public function testCompetitionGetTeamByIDTernaries() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
         $competition->addTeamReference('team:lookup:league:1', $competition->getTeamByID('TM1'));
         $competition->addTeamReference('team:lookup:league-a:2', $competition->getTeamByID('TM2'));
         $competition->addTeamReference('team:lookup:league-b:2', $competition->getTeamByID('TM2'));
@@ -140,7 +132,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionGetStageLookups() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
         $this->assertEquals(1, count($competition->getStages()));
         $this->assertEquals('L', $competition->getStages()[0]->getID());
         $stage = $competition->getStageById('L');
@@ -149,14 +141,14 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionGetStageLookupFails() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
         $this->expectExceptionMessage('Stage with ID NO-STAGE not found');
         $competition->getStageById('NO-STAGE');
     }
 
     public function testCompetitionGetTeamLookupsIncomplete() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
         $competition->addTeamReference('{X:Y:Z:1}', $competition->getTeamByID('TM1'));
 
         $this->assertTrue($competition->teamIdExists('TM1'));
@@ -183,7 +175,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionGetTeamLookupsComplete() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
 
         $this->assertTrue($competition->teamIdExists('TM1'));
         $this->assertTrue($competition->teamIdExists('TM8'));
@@ -209,7 +201,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionAddTeamReferenceToMetadataBlocksMismatches() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
 
         $this->expectExceptionMessageMatches('/Key mismatch in team lookup table.  Key {REF1} currently set to team with ID TM1, call tried to set to team with ID TM2/');
         $competition->addTeamReference('{REF1}', $competition->getTeamByID('TM1'));
@@ -218,7 +210,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionStageWithNoName() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-stages-no-name.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-stages-no-name.json');
 
         $this->assertNull($competition->getStageById('L0')->getName());
         $this->assertEquals('league', $competition->getStageById('L1')->getName());
@@ -227,7 +219,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionIncompleteWithTeamReferences() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-half-done-with-references.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-half-done-with-references.json');
 
         $this->assertFalse($competition->getStageById('Divisions')->getGroupById('Division 1')->getMatchById('D1M1')->isComplete());
     }
@@ -238,25 +230,25 @@ final class CompetitionTest extends TestCase {
         // in a second stage, the code would go into an infinite loop on calling teamMayHaveMatches, thinking there was a team
         // reference but unable to resolve that reference
         $this->expectExceptionMessage('Invalid team reference for homeTeam in match with ID "SF1": "{P:A:league:1"');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-home-team-ref.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-home-team-ref.json');
     }
 
     public function testCompetitionValidAwayTeamRef() : void
     {
         $this->expectExceptionMessage('Invalid team reference for awayTeam in match with ID "SF1": "{P:A:league:3"');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-away-team-ref.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-away-team-ref.json');
     }
 
     public function testCompetitionValidOfficialTeamRef() : void
     {
         $this->expectExceptionMessage('Invalid team reference for officials > team in match with ID "SF1": "{P:A:league:2"');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-officials-team-ref.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-officials-team-ref.json');
     }
 
     public function testCompetitionValidHomeTeamID() : void
     {
         try {
-            new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-home-team-id.json');
+            Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-home-team-id.json');
             $this->fail('Test should have caught a bad homeTeam ID');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID for homeTeam in match with ID "PA1"', $e->getMessage());
@@ -267,7 +259,7 @@ final class CompetitionTest extends TestCase {
     public function testCompetitionValidAwayTeamID() : void
     {
         try {
-            new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-away-team-id.json');
+            Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-away-team-id.json');
             $this->fail('Test should have caught a bad awayTeam ID');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID for awayTeam in match with ID "PA1"', $e->getMessage());
@@ -278,7 +270,7 @@ final class CompetitionTest extends TestCase {
     public function testCompetitionValidOfficialTeamID() : void
     {
         try {
-            new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-officials-team-id.json');
+            Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'bad-officials-team-id.json');
             $this->fail('Test should have caught a bad officials team ID');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID for officials > team in match with ID "PA3"', $e->getMessage());
@@ -288,7 +280,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionValidateTeamID() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
 
         $competition->validateTeamID('{L:RL:league:1}', 'match_id', 'field');
         $competition->validateTeamID('TM1', 'match_id', 'field');
@@ -321,7 +313,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionValidateTeamIDBadTernaryLeftPart() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
 
         try {
             $competition->validateTeamID('{L:RL:league:1=={L:RL:RLM1:winner}?{L:RL:league:1}:{L:RL:league:2}', 'match_id', 'field');
@@ -381,7 +373,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionValidateTeamIDBadTernaryRightPart() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
 
         try {
             $competition->validateTeamID('{L:RL:league:1}=={L:RL:RLM1:winner?{L:RL:league:1}:{L:RL:league:2}', 'match_id', 'field');
@@ -442,7 +434,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionValidateTeamIDBadTernaryTrueTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
 
         try {
             $competition->validateTeamID('{L:RL:league:1}=={L:RL:RLM1:winner}?{L:RL:league:1:{L:RL:league:2}', 'match_id', 'field');
@@ -503,7 +495,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionValidateTeamIDBadTernaryFalseTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
 
         try {
             $competition->validateTeamID('{L:RL:league:1}=={L:RL:RLM1:winner}?{L:RL:league:1}:{L:RL:league:2', 'match_id', 'field');
@@ -574,18 +566,18 @@ final class CompetitionTest extends TestCase {
     {
         $this->expectNotToPerformAssertions();
         // We should be able to load a competition including ternaries that refer the group those ternary references are in
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-ternary-referes-to-this-stage-group.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-ternary-refers-to-this-stage-group.json');
     }
 
     public function testCompetitionWithNotes() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-with-notes.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-with-notes.json');
         $this->assertEquals('This is a note', $competition->getNotes());
     }
 
     public function testCompetitionWithoutNotes() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-without-notes.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-without-notes.json');
         $this->assertNull($competition->getNotes());
     }
 }

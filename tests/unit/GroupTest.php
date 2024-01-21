@@ -21,7 +21,7 @@ use VBCompetitions\Competitions\Stage;
 final class GroupTest extends TestCase {
     public function testGroupGetMatch() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $this->assertEquals('LG', $group->getID());
@@ -30,7 +30,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchSkipBreak() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $this->assertEquals('TM1', $group->getMatchById('LG6')->getHomeTeam()->getID());
@@ -38,7 +38,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchOutOfBounds() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $this->expectExceptionMessage('Match with ID FOO not found');
@@ -47,7 +47,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetTeamIDsSimple() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $expected_teams_sorted = ['TM1', 'TM2', 'TM3', 'TM4'];
@@ -73,7 +73,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetTeamIDsMaybes() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-maybes.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-maybes.json');
 
         $fina_teams = $competition->getStageById('S4')->getGroupByID('FINA')->getTeamIDs(VBC_TEAMS_MAYBE);
         $this->assertCount(6, $fina_teams);
@@ -103,18 +103,18 @@ final class GroupTest extends TestCase {
     public function testGroupMatchesWithMatchingIDs() : void
     {
         $this->expectExceptionMessage('Group {L:LG}: matches with duplicate IDs {LG1} not allowed');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'group-same-match-id.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'group-same-match-id.json');
     }
 
     public function testGroupContinuousMatchesWithoutComplete() : void
     {
         $this->expectExceptionMessage('Group {L:LG}, match ID {LG3}, missing field "complete"');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'group-continuous-missing-complete.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'group-continuous-missing-complete.json');
     }
 
     public function testGroupGroupMatchesWithAllOptionalFields() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-matches-with-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-matches-with-everything.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $this->assertEquals('Test League Table by PD', $group->getCompetition()->getName());
@@ -141,7 +141,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGroupMatchesWithNoOptionalFields() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-matches-with-nothing.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-matches-with-nothing.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $this->assertNull($group->getName());
@@ -163,7 +163,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesAllInGroup() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $matches = $group->getMatches('TM1', VBC_MATCH_ALL_IN_GROUP);
@@ -179,7 +179,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesUnknownTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $matches = $group->getMatches(CompetitionTeam::UNKNOWN_TEAM_ID);
@@ -195,7 +195,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesKnownTeamPlaying() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_PLAYING);
@@ -208,7 +208,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesKnownTeamOfficiating() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_OFFICIATING);
@@ -221,7 +221,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesKnownTeamAll() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
@@ -234,7 +234,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesWithReferencesKnownTeamPlaying() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
         $group = $competition->getStageById('C')->getGroupById('CP');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_PLAYING);
@@ -251,7 +251,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesWithReferencesKnownTeamOfficiating() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
         $group = $competition->getStageById('C')->getGroupById('CP');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_OFFICIATING);
@@ -263,7 +263,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesWithReferencesKnownTeamAll() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
         $group = $competition->getStageById('C')->getGroupById('CP');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
@@ -276,7 +276,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchDatesFromGroup() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
         $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
         $groupB = $competition->getStageById('HVAGP')->getGroupById('B');
         $datesA = $groupA->getMatchDates();
@@ -290,7 +290,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchDatesForTeamFromGroup() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
         $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
         $datesTMC = $groupA->getMatchDates('TMC');
 
@@ -300,7 +300,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchDatesForTeamPlaying() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
         $groupC = $competition->getStageById('HVAGP2')->getGroupById('C');
         $datesTMK = $groupC->getMatchDates('TMK', VBC_MATCH_PLAYING);
 
@@ -310,7 +310,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchDatesForTeamOfficiating() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
         $groupC = $competition->getStageById('HVAGP2')->getGroupById('C');
         $datesTMM = $groupC->getMatchDates('TMM', VBC_MATCH_OFFICIATING);
 
@@ -320,7 +320,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesOnDate() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
         $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
         $matches = $groupA->getMatchesOnDate('2023-10-22');
 
@@ -330,7 +330,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesOnDateForTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
         $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
         $matchesTMC = $groupA->getMatchesOnDate('2024-01-21', 'TMC');
         $this->assertCount(12, $matchesTMC);
@@ -339,7 +339,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesOnDateForTeamPlaying() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
         $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
         $matchesTMC = $groupA->getMatchesOnDate('2023-10-22', 'TMC', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
         $this->assertCount(1, $matchesTMC);
@@ -353,7 +353,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupGetMatchesOnDateForTeamOfficiating() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
         $groupC = $competition->getStageById('HVAGP2')->getGroupById('C');
         $matchesTMM = $groupC->getMatchesOnDate('2024-02-25', 'TMM', VBC_MATCH_OFFICIATING);
         $this->assertCount(1, $matchesTMM);
@@ -362,7 +362,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupAllTeamsKnown() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
         $poolA = $competition->getStageById('P')->getGroupById('A');
         $poolB = $competition->getStageById('P')->getGroupById('B');
         $finals = $competition->getStageById('F')->getGroupById('F');
@@ -374,7 +374,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupTeamHasMatches() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
         $poolA = $competition->getStageById('P')->getGroupById('A');
         $finals = $competition->getStageById('F')->getGroupById('F');
 
@@ -387,7 +387,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupTeamHasOfficiating() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
         $poolA = $competition->getStageById('P')->getGroupById('A');
         $finals = $competition->getStageById('F')->getGroupById('F');
 
@@ -399,7 +399,7 @@ final class GroupTest extends TestCase {
 
     public function testGroupTeamMayHaveMatches() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
         $poolA = $competition->getStageById('P')->getGroupById('A');
         $finals = $competition->getStageById('F')->getGroupById('F');
 

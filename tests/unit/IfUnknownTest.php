@@ -22,7 +22,7 @@ use VBCompetitions\Competitions\MatchType;
 final class IfUnknownTest extends TestCase {
     public function testLoadIfUnknown() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage.json');
         $if_unknown = $competition->getStageById('F')->getIfUnknown();
 
         $this->assertEquals(MatchType::CONTINUOUS, $if_unknown->getMatchType());
@@ -77,7 +77,7 @@ final class IfUnknownTest extends TestCase {
 
     public function testLoadIfUnknownSparse() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage-sparse.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage-sparse.json');
         $if_unknown = $competition->getStageById('F')->getIfUnknown();
 
         $this->assertEquals(MatchType::CONTINUOUS, $if_unknown->getMatchType());
@@ -131,7 +131,7 @@ final class IfUnknownTest extends TestCase {
 
     public function testIfUnknownMatchSaveScoresIsIgnored() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
         $if_unknown = $competition->getStageById('L')->getIfUnknown();
         $match = $if_unknown->getMatches()[0];
 
@@ -143,12 +143,12 @@ final class IfUnknownTest extends TestCase {
     public function testIfUnknownNoDuplicateMatchIDs() : void
     {
         $this->expectExceptionMessage('stage ID {F}, ifUnknown: matches with duplicate IDs {FIN} not allowed');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'duplicate-match-ids.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'duplicate-match-ids.json');
     }
 
     public function testIfUnknownNoSuchMatch() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage-sparse.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage-sparse.json');
         $this->expectExceptionMessage('Match with ID NO_SUCH_MATCH not found');
         $this->expectException(OutOfBoundsException::class);
         $competition->getStageById('F')->getIfUnknown()->getMatchById('NO_SUCH_MATCH');

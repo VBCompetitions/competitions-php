@@ -15,7 +15,7 @@ use stdClass;
 final class HTMLTest extends TestCase {
     public function testHTMLMatchesForHTMLPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $matches = HTML::getMatchesForHTML($competition->getStageById('L')->getGroupById('LG'));
 
         $this->assertEquals('vbc-match vbc-match-group-LG', $matches->class);
@@ -241,7 +241,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesForHTMLWithEverything() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
         $matches = HTML::getMatchesForHTML($competition->getStageById('L')->getGroupById('LG'));
 
         $this->assertEquals('vbc-match vbc-match-group-LG', $matches->class);
@@ -629,7 +629,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesForHTMLSetsPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $matches = HTML::getMatchesForHTML($competition->getStageById('LS')->getGroupById('LG'));
 
         $this->assertEquals('vbc-match vbc-match-group-LG', $matches->class);
@@ -837,7 +837,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'));
 
         $expected_table = '<table class="vbc-match vbc-match-group-LG">';
@@ -859,7 +859,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLNoMatches() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'empty.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'empty.json');
         $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'));
 
         $expected_table = '<table class="vbc-match vbc-match-group-LG">';
@@ -874,7 +874,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLNoMerge() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $matches_config = new stdClass();
         $matches_config->merge = [];
         $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), $matches_config);
@@ -898,7 +898,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLEverythingMerging() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
         $matches_config = new stdClass();
         $matches_config->merge = [HTML::MATCH_COLUMN_NOTES];
         $matches_config->headings = [HTML::MATCH_COLUMN_ID, HTML::MATCH_COLUMN_HOME_TEAM, HTML::MATCH_COLUMN_AWAY_TEAM, HTML::MATCH_COLUMN_NOTES, HTML::MATCH_COLUMN_OFFICIALS];
@@ -929,7 +929,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLEverything() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
         $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'));
 
         $expected_table = '<table class="vbc-match vbc-match-group-LG">';
@@ -954,7 +954,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLEverythingControlledColumns() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
         $matches_config = new stdClass();
         $matches_config->headings = [HTML::MATCH_COLUMN_ID, HTML::MATCH_COLUMN_HOME_TEAM, HTML::MATCH_COLUMN_AWAY_TEAM];
         $matches_config->headingMap = [
@@ -984,7 +984,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLEverythingControlledColumnsJustThisTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
         $matches_config = new stdClass();
         $matches_config->headings = [HTML::MATCH_COLUMN_ID, HTML::MATCH_COLUMN_HOME_TEAM, HTML::MATCH_COLUMN_AWAY_TEAM, HTML::MATCH_COLUMN_OFFICIALS];
         $matches_config->headingMap = [
@@ -1012,7 +1012,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLOtherConfig() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
         $matches_config = new stdClass();
         $matches_config->headings = [HTML::MATCH_COLUMN_ID, HTML::MATCH_COLUMN_BLANK, HTML::MATCH_COLUMN_HOME_TEAM, HTML::MATCH_COLUMN_AWAY_TEAM, HTML::MATCH_COLUMN_OFFICIALS, HTML::MATCH_COLUMN_MANAGER];
         $matches_config->headingMap = [
@@ -1041,7 +1041,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLBreak() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'break.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'break.json');
         $matches_config = new stdClass();
         $matches_config->headings = [HTML::MATCH_COLUMN_ID, HTML::MATCH_COLUMN_DURATION, HTML::MATCH_COLUMN_HOME_TEAM, HTML::MATCH_COLUMN_AWAY_TEAM];
         $matches_config->headingMap = [
@@ -1066,7 +1066,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLDrawsAllowed() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'incomplete-league-draws.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'incomplete-league-draws.json');
         $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'));
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
@@ -1088,7 +1088,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLMatchesHTMLSetsDrawsAllowed() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'incomplete-league-draws.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'incomplete-league-draws.json');
         $matches_html = HTML::getMatchesHTML($competition->getStageById('LS')->getGroupById('LG'));
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
@@ -1116,7 +1116,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLLeagueForHTMLPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $league_table = HTML::getLeagueTableForHTML($competition->getStageById('L')->getGroupById('LG'));
 
         $this->assertEquals('vbc-league-table vbc-league-table-group-LG', $league_table->class);
@@ -1266,7 +1266,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLLeagueForHTMLThisTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $league_table = HTML::getLeagueTableForHTML($competition->getStageById('L')->getGroupById('LG'), null, 'TM4');
 
         $this->assertEquals('vbc-league-table vbc-league-table-group-LG', $league_table->class);
@@ -1281,7 +1281,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLLeagueForHTMLConfigControlledColumns() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $league_table_config = new stdClass();
         $league_table_config->headings = [HTML::LEAGUE_COLUMN_POSITION, HTML::LEAGUE_COLUMN_TEAM, HTML::LEAGUE_COLUMN_LEAGUE_POINTS];
         $league_table_config->headingMap = [
@@ -1348,7 +1348,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLLeagueForHTMLSetsPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $league_table = HTML::getLeagueTableForHTML($competition->getStageById('LS')->getGroupById('LG'));
 
         $this->assertEquals('vbc-league-table vbc-league-table-group-LG', $league_table->class);
@@ -1558,7 +1558,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLLeagueHTMLPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('L')->getGroupById('LG'));
 
         $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
@@ -1578,7 +1578,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLLeagueHTMLThisTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('L')->getGroupById('LG'), null, 'TM3');
 
         $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
@@ -1598,7 +1598,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLLeagueHTMLSetsPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('LS')->getGroupById('LG'));
 
         $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
@@ -1618,7 +1618,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLLeagueHTMLSetsControlledColumns() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $league_table_config = new stdClass();
         $league_table_config->headings = [HTML::LEAGUE_COLUMN_POSITION, HTML::LEAGUE_COLUMN_TEAM, HTML::LEAGUE_COLUMN_LEAGUE_POINTS];
         $league_table_config->headingMap = [
@@ -1645,7 +1645,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLKnockoutStandingForHTMLPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
         $final_standing = HTML::getFinalStandingForHTML($competition->getStageById('KO')->getGroupById('CUP'));
 
         $this->assertEquals('vbc-knockout', $final_standing->class);
@@ -1691,7 +1691,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLKnockoutStandingForHTMLThisTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
         $final_standing = HTML::getFinalStandingForHTML($competition->getStageById('KO')->getGroupById('CUP'), 'TM7');
 
         $this->assertCount(4, $final_standing->rows);
@@ -1704,7 +1704,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLKnockoutStandingForHTMLNoStanding() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout-nostanding.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout-nostanding.json');
         $final_standing = HTML::getFinalStandingForHTML($competition->getStageById('KO')->getGroupById('CUP'));
 
         $this->assertEquals('vbc-knockout', $final_standing->class);
@@ -1722,7 +1722,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLKnockoutStandingHTMLPlain() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
         $final_standing_html = HTML::getFinalStandingHTML($competition->getStageById('KO')->getGroupById('CUP'));
 
         $expected_table = '<table class="vbc-knockout">';
@@ -1741,7 +1741,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLKnockoutStandingHTMLThisTeam() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
         $final_standing_html = HTML::getFinalStandingHTML($competition->getStageById('KO')->getGroupById('CUP'), 'TM7');
 
         $expected_table = '<table class="vbc-knockout">';
@@ -1760,7 +1760,7 @@ final class HTMLTest extends TestCase {
 
     public function testHTMLKnockoutStandingHTMLNoStanding() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout-nostanding.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout-nostanding.json');
         $final_standing_html = HTML::getFinalStandingHTML($competition->getStageById('KO')->getGroupById('CUP'));
 
         $this->assertEquals(

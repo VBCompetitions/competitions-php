@@ -19,7 +19,7 @@ use VBCompetitions\Competitions\SetConfig;
 final class GroupMatchTest extends TestCase {
     public function testGroupMatchContinuousHomeWin() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-home-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-home-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertTrue($match->isComplete(), 'Match should be found as completed');
@@ -46,7 +46,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchContinuousAwayWin() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-away-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-away-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertTrue($match->isComplete(), 'Match should be found as completed');
@@ -57,7 +57,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchContinuousDrawThrowsWinner() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-draw.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-draw.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertTrue($match->isComplete(), 'Match should be found as completed');
@@ -69,7 +69,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchContinuousDrawThrowsLoser() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-draw.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-draw.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertTrue($match->isComplete(), 'Match should be found as completed');
@@ -82,13 +82,13 @@ final class GroupMatchTest extends TestCase {
     public function testGroupMatchContinuousDrawDisallowed() : void
     {
         $this->expectExceptionMessage('Invalid match information (in match {S:SG:SG1}): scores show a draw but draws are not allowed');
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-draw-disallowed.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-draw-disallowed.json');
         $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
     }
 
     public function testGroupMatchContinuousThrowsGettingHomeSets() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-away-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-away-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->expectExceptionMessage('Match has no sets because the match type is continuous');
@@ -97,7 +97,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchContinuousThrowsGettingAwaySets() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-away-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-away-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->expectExceptionMessage('Match has no sets because the match type is continuous');
@@ -107,13 +107,13 @@ final class GroupMatchTest extends TestCase {
     public function testGroupMatchSetsLengthMismatch() : void
     {
         $this->expectExceptionMessage('Invalid match information for match SG1: team scores have different length');
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-scores-length-mismatch.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-scores-length-mismatch.json');
         $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
     }
 
     public function testGroupMatchSetsHomeWin() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-home-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-home-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertTrue($match->isComplete(), 'Match should be found as completed');
@@ -123,7 +123,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSetsAwayWin() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-away-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-away-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertTrue($match->isComplete(), 'Match should be found as completed');
@@ -133,7 +133,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSetsGetSets() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-home-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-home-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertTrue($match->isComplete(), 'Match should be found as completed');
@@ -143,7 +143,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSetsIncompleteBestOfGetWinnerThrows() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-maxsets.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-maxsets.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertFalse($match->isComplete(), 'Match should be found as incomplete');
@@ -154,7 +154,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSetsIncompleteBestOfGetLoserThrows() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-maxsets.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-maxsets.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertFalse($match->isComplete(), 'Match should be found as incomplete');
@@ -165,7 +165,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSetsIncompleteMinPointsGetWinnerThrows() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-maxsets.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-maxsets.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertFalse($match->isComplete(), 'Match should be found as incomplete');
@@ -176,7 +176,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSetsIncompleteMinPointsGetLoserThrows() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-maxsets.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-maxsets.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertFalse($match->isComplete(), 'Match should be found as incomplete');
@@ -187,7 +187,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSetsIncompleteFirstSetMatchDeclaredCompleteHasResult() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-first-set.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-incomplete-first-set.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
 
         $this->assertTrue($match->isComplete(), 'Match should be found as incomplete');
@@ -195,14 +195,14 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSetsInsufficientPoints() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-insufficient-points.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-insufficient-points.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
         $this->assertFalse($match->isComplete());
     }
 
     public function testGroupMatchSetsDawnGame() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-draw.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-draw.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
         $this->assertTrue($match->isDraw());
     }
@@ -210,13 +210,13 @@ final class GroupMatchTest extends TestCase {
     public function testGroupMatchSetsDrawsDisallowed() : void
     {
         $this->expectExceptionMessage('Invalid match information (in match {S:SG:SG1}): scores show a draw but draws are not allowed');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-draw-disallowed.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-draw-disallowed.json');
     }
 
     public function testGroupMatchSetsTooManySets() : void
     {
         $this->expectExceptionMessage('Invalid match information (in match {S:SG:SG1}): team scores have more sets than the maximum allowed length');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-too-many-sets.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'sets-too-many-sets.json');
     }
 
     public function testGroupMatchSetsMatchDifferentScoreLengths() : void
@@ -266,7 +266,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchGetScoreReadOnly() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-home-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-home-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
         $home_score = $match->getHomeTeam()->getScores();
         $home_score[0] = 19;
@@ -276,7 +276,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchGetCompleteReadOnly() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-home-win.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-home-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
         $complete = $match->getComplete();
         $complete = false;
@@ -292,18 +292,18 @@ final class GroupMatchTest extends TestCase {
     public function testGroupMatchHomeTeamCannotOfficiateSelf() : void
     {
         $this->expectExceptionMessage('Refereeing team (in match {S:SG:SG1}) cannot be the same as one of the playing teams');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'home-team-officiates-self.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'home-team-officiates-self.json');
     }
 
     public function testGroupMatchAwayTeamCannotOfficiateSelf() : void
     {
         $this->expectExceptionMessage('Refereeing team (in match {S:SG:SG1}) cannot be the same as one of the playing teams');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'away-team-officiates-self.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'away-team-officiates-self.json');
     }
 
     public function testGroupMatchNoScores() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-no-result.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-no-result.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
         $this->assertEquals(0, count($match->getHomeTeam()->getScores()));
         $this->expectExceptionMessage('Match incomplete, there is no winner');
@@ -312,7 +312,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSaveScoresContinuous() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
         $group = $competition->getStageById('L')->getGroupById('RL');
         $match = $group->getMatches()[0];
         $home_team = $match->getHomeTeam();
@@ -329,7 +329,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSaveScoresContinuousCatchBannedDraws() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
         $match = $competition->getStageById('L')->getGroupById('RL')->getMatches()[0];
 
         $this->expectExceptionMessage('Invalid score: draws not allowed in this group');
@@ -338,7 +338,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSaveScoresContinuousWantsCompleteness() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
         $group = $competition->getStageById('L')->getGroupById('RL');
         $match = $group->getMatches()[0];
 
@@ -348,7 +348,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSaveScoresSets() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
         $match = $competition->getStageById('L')->getGroupById('RS')->getMatches()[0];
 
         $match->setScores([25, 25, 25], [17, 19, 12], false);
@@ -362,7 +362,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchSaveScoresSetsCatchBannedDraws() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
         $match = $competition->getStageById('L')->getGroupById('RS')->getMatches()[0];
 
         $this->expectExceptionMessage('Invalid set scores: data contains non-zero scores for a set after an incomplete set');
@@ -371,7 +371,7 @@ final class GroupMatchTest extends TestCase {
 
     public function testGroupMatchMatchSaveScoresSetsWantsCompleteness() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
         $group = $competition->getStageById('L')->getGroupById('RS');
         $match = $group->getMatches()[0];
 

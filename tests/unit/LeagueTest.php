@@ -21,7 +21,7 @@ use VBCompetitions\Competitions\Stage;
 final class LeagueTest extends TestCase {
     public function testLeague1() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league.json');
         $league = $competition->getStageById('L')->getGroupById('LG');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -94,7 +94,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueByPD() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-pd.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-pd.json');
         $league = $competition->getStageById('L')->getGroupById('LG');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -175,7 +175,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueBySD() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-sd.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-sd.json');
         $league = $competition->getStageById('L')->getGroupById('LG');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -256,7 +256,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueByH2HA() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-h2h.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-h2h.json');
         $league = $competition->getStageById('L')->getGroupById('LG1');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -337,7 +337,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueByH2HB() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-h2h.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-h2h.json');
         $league = $competition->getStageById('L2')->getGroupById('LG2');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -418,7 +418,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueByH2HPlayTwice() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-h2h-twice.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-h2h-twice.json');
         $league = $competition->getStageById('L')->getGroupById('LG1');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -499,7 +499,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueByPTS() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
         $league = $competition->getStageById('PTS')->getGroupById('PTS');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -561,7 +561,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueByPF() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
         $league = $competition->getStageById('PF')->getGroupById('PF');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -623,7 +623,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueByPA() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
         $league = $competition->getStageById('PA')->getGroupById('PA');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -685,7 +685,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueBySF() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
         $league = $competition->getStageById('SF')->getGroupById('SF');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -747,7 +747,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueBySA() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-comparisons.json');
         $league = $competition->getStageById('SA')->getGroupById('SA');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -809,7 +809,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueIncomplete() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'incomplete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'incomplete-league.json');
         $league = $competition->getStageById('L')->getGroupById('LG');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -882,7 +882,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueIncompleteDraws() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'incomplete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'incomplete-league.json');
         $league = $competition->getStageById('LD')->getGroupById('LG');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -957,7 +957,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueIncompleteSets() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'incomplete-league.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'incomplete-league.json');
         $league = $competition->getStageById('LS')->getGroupById('LG');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -1032,7 +1032,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueWithForfeitsBonusPenalties() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-forfeit.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-forfeit.json');
         $league = $competition->getStageById('L')->getGroupById('LG');
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
 
@@ -1102,7 +1102,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueWithEveryOrderAndPoints() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-everything.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-everything.json');
         $league = $competition->getStageById('L')->getGroupById('LG');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
@@ -1118,7 +1118,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueWithNoScoring() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-no-scoring.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league-no-scoring.json');
         $league = $competition->getStageById('L')->getGroupById('LG');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\League', $league, 'Group should be a league');
@@ -1132,7 +1132,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueGroupsWithoutNames() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'league-no-names.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'league-no-names.json');
         $league = $competition->getStageById('L');
 
         $this->assertNull($league->getGroupById('LG0')->getName());

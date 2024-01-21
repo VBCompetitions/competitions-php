@@ -19,7 +19,7 @@ use VBCompetitions\Competitions\Stage;
 final class KnockoutTest extends TestCase {
     public function testKnockout() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'knockout'))), 'complete-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'knockout'))), 'complete-knockout.json');
         $knockout = $competition->getStageById('KO')->getGroupById('CUP');
 
         if ($knockout instanceof Knockout) {
@@ -39,7 +39,7 @@ final class KnockoutTest extends TestCase {
 
     public function testKnockoutWithSets() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'knockout'))), 'complete-knockout-sets.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'knockout'))), 'complete-knockout-sets.json');
         $knockout = $competition->getStageById('KO')->getGroupById('CUP');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\Knockout', $knockout, 'Group should be a knockout');
@@ -54,7 +54,7 @@ final class KnockoutTest extends TestCase {
 
     public function testKnockoutIncomplete() : void
     {
-        $competition = new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'knockout'))), 'incomplete-knockout.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'knockout'))), 'incomplete-knockout.json');
         $knockout = $competition->getStageById('KO')->getGroupById('CUP');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\Knockout', $knockout, 'Group should be a knockout');
@@ -65,6 +65,6 @@ final class KnockoutTest extends TestCase {
     public function testKnockoutDrawsNotAllowed() : void
     {
         $this->expectExceptionMessage('Invalid match information (in match {KO:CUP:QF1}): scores show a draw but draws are not allowed');
-        new Competition(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'knockout'))), 'knockout-with-drawn-match.json');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'knockout'))), 'knockout-with-drawn-match.json');
     }
 }
