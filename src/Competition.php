@@ -441,7 +441,7 @@ final class Competition implements JsonSerializable
      *
      * @throws Exception An exception containing a list of schema validation errors
      */
-    private static function validateJSON(mixed $competition_data) : void
+    public static function validateJSON(mixed $competition_data) : void
     {
         $validator = new Validator();
 
