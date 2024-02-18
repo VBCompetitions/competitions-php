@@ -38,58 +38,29 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Contains the ifUnknown data of a competition, creating any metadata needed
      *
-     * @param Competition $competition A link back to the Competition this IfUnknown is in
+     * @param Stage $stage A link back to the Stage this IfUnknown is in
      * @param object $if_unknown_data The data defining this IfUnknown
      */
-    function __construct(Stage $stage, object $if_unknown_data)
+    function __construct(Stage $stage, array $description)
     {
         $this->stage = $stage;
-        $this->description = $if_unknown_data->description;
+        $this->description = $description;
         $this->match_lookup = new stdClass();
+    }
+
+    public static function loadFromData(Stage $stage, object $if_unknown_data) : IfUnknown
+    {
+        $if_unknown = new IfUnknown($stage, $if_unknown_data->description);
 
         foreach ($if_unknown_data->matches as $match) {
             if ($match->type === 'match') {
-                $new_match = new IfUnknownMatch($this, $match);
-                if (property_exists($this->match_lookup, $new_match->getID())) {
-                    throw new Exception('stage ID {'.$this->stage->getID().'}, ifUnknown: matches with duplicate IDs {'.$match->id.'} not allowed');
-                }
-                array_push($this->matches, $new_match);
-                $this->match_lookup->{$match->id} = $new_match;
-
-                if (property_exists($match, 'court')) {
-                    $this->matches_have_courts = true;
-                }
-                if (property_exists($match, 'date')) {
-                    $this->matches_have_dates = true;
-                }
-                if (property_exists($match, 'duration')) {
-                    $this->matches_have_durations = true;
-                }
-                if (property_exists($match, 'mvp')) {
-                    $this->matches_have_mvps = true;
-                }
-                if (property_exists($match, 'manager')) {
-                    $this->matches_have_managers = true;
-                }
-                if (property_exists($match, 'notes')) {
-                    $this->matches_have_notes = true;
-                }
-                if (property_exists($match, 'officials')) {
-                    $this->matches_have_officials = true;
-                }
-                if (property_exists($match, 'start')) {
-                    $this->matches_have_starts = true;
-                }
-                if (property_exists($match, 'venue')) {
-                    $this->matches_have_venues = true;
-                }
-                if (property_exists($match, 'warmup')) {
-                    $this->matches_have_warmups = true;
-                }
+                $if_unknown->addMatch(IfUnknownMatch::loadFromData($if_unknown, $match));
             } elseif ($match->type === 'break') {
-                array_push($this->matches, new IfUnknownBreak($this, $match));
+                $if_unknown->addBreak(IfUnknownBreak::loadFromData($if_unknown, $match));
             }
         }
+
+        return $if_unknown;
     }
 
     /**
@@ -118,9 +89,57 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
         return $this->description;
     }
 
+    public function addMatch(IfUnknownMatch $match) : int
+    {
+        array_push($this->matches, $match);
+        $this->match_lookup->{$match->getID()} = $match;
+        if (property_exists($match, 'court')) {
+            $this->matches_have_courts = true;
+        }
+        if (property_exists($match, 'date')) {
+            $this->matches_have_dates = true;
+        }
+        if (property_exists($match, 'duration')) {
+            $this->matches_have_durations = true;
+        }
+        if (property_exists($match, 'mvp')) {
+            $this->matches_have_mvps = true;
+        }
+        if (property_exists($match, 'manager')) {
+            $this->matches_have_managers = true;
+        }
+        if (property_exists($match, 'notes')) {
+            $this->matches_have_notes = true;
+        }
+        if (property_exists($match, 'officials')) {
+            $this->matches_have_officials = true;
+        }
+        if (property_exists($match, 'start')) {
+            $this->matches_have_starts = true;
+        }
+        if (property_exists($match, 'venue')) {
+            $this->matches_have_venues = true;
+        }
+        if (property_exists($match, 'warmup')) {
+            $this->matches_have_warmups = true;
+        }
+        return count($this->matches);
+    }
+
+    public function addBreak(IfUnknownBreak $break) : int
+    {
+        array_push($this->matches, $break);
+        return count($this->matches);
+    }
+
     public function getMatches(string $team_id = null, int $flags = 0) : array
     {
         return $this->matches;
+    }
+
+    public function hasMatchWithID($id) : bool
+    {
+        return property_exists($this->match_lookup, $id);
     }
 
     public function getTeamIDs(int $flags = 0) : array

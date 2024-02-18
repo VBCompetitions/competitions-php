@@ -11,10 +11,11 @@ interface MatchInterface {
     public function getWarmup() : ?string;
     public function getDuration() : ?string;
     public function getStart() : ?string;
-    public function getManager() : mixed;
+    public function getManager() : ?MatchManager;
     public function getMVP() : ?string;
     public function getNotes() : ?string;
-    public function getOfficials() : ?object;
+    public function getOfficials() : ?MatchOfficials;
+    public function hasOfficials() : bool;
     public function getID() : string;
     public function getWinnerTeamId() : string;
     public function getLoserTeamId() : string;

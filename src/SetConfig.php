@@ -35,90 +35,66 @@ final class SetConfig implements JsonSerializable
     /** The upper limit of points that can be scored in the last set */
     private int $last_set_max_points = 1000;
 
+    /** The group that this SetConfig belongs to */
+    private Group $group;
+
     /**
      * Contains the configuration data that define the sets in a match.  Uses the defaults if the config is null
      *
      * @param object|null $set_config The configuration defining the set
      */
-    function __construct(object $set_config = null)
+    function __construct(Group $group)
     {
-        if (is_null($set_config)) {
-            return;
-        }
-
-        if (property_exists($set_config, 'maxSets')) {
-            $this->max_sets = $set_config->maxSets;
-        }
-
-        if (property_exists($set_config, 'setsToWin')) {
-            $this->sets_to_win = $set_config->setsToWin;
-        }
-
-        if (property_exists($set_config, 'clearPoints')) {
-            $this->clear_points = $set_config->clearPoints;
-        }
-
-        if (property_exists($set_config, 'minPoints')) {
-            $this->min_points = $set_config->minPoints;
-        }
-
-        if (property_exists($set_config, 'pointsToWin')) {
-            $this->points_to_win = $set_config->pointsToWin;
-        }
-
-        if (property_exists($set_config, 'lastSetPointsToWin')) {
-            $this->last_set_points_to_win = $set_config->lastSetPointsToWin;
-        }
-
-        if (property_exists($set_config, 'maxPoints')) {
-            $this->max_points = $set_config->maxPoints;
-        }
-
-        if (property_exists($set_config, 'lastSetMaxPoints')) {
-            $this->last_set_max_points = $set_config->lastSetMaxPoints;
-        }
+        $this->group = $group;
     }
 
-    public function getMaxSets() : int
+    public static function loadFromData(Group $group, object $set_data) : SetConfig
     {
-        return $this->max_sets;
+        $set_config = new SetConfig($group);
+
+        if (is_null($set_data)) {
+            return $set_config;
+        }
+
+        if (property_exists($set_data, 'maxSets')) {
+            $set_config->setMaxSets($set_data->maxSets);
+        }
+
+        if (property_exists($set_data, 'setsToWin')) {
+            $set_config->setSetsToWin($set_data->setsToWin);
+        }
+
+        if (property_exists($set_data, 'clearPoints')) {
+            $set_config->setClearPoints($set_data->clearPoints);
+        }
+
+        if (property_exists($set_data, 'minPoints')) {
+            $set_config->setMinPoints($set_data->minPoints);
+        }
+
+        if (property_exists($set_data, 'pointsToWin')) {
+            $set_config->setPointsToWin($set_data->pointsToWin);
+        }
+
+        if (property_exists($set_data, 'lastSetPointsToWin')) {
+            $set_config->setLastSetPointsToWin($set_data->lastSetPointsToWin);
+        }
+
+        if (property_exists($set_data, 'maxPoints')) {
+            $set_config->setMaxPoints($set_data->maxPoints);
+        }
+
+        if (property_exists($set_data, 'lastSetMaxPoints')) {
+            $set_config->setLastSetMaxPoints($set_data->lastSetMaxPoints);
+        }
+
+        return $set_config;
     }
 
-    public function getSetsToWin() : int
+    public function getGroup() : Group
     {
-        return $this->sets_to_win;
+        return $this->group;
     }
-
-    public function getClearPoints() : int
-    {
-        return $this->clear_points;
-    }
-
-    public function getMinPoints() : int
-    {
-        return $this->min_points;
-    }
-
-    public function getPointsToWin() : int
-    {
-        return $this->points_to_win;
-    }
-
-    public function getLastSetPointsToWin() : int
-    {
-        return $this->last_set_points_to_win;
-    }
-
-    public function getMaxPoints() : int
-    {
-        return $this->max_points;
-    }
-
-    public function getLastSetMaxPoints() : int
-    {
-        return $this->last_set_max_points;
-    }
-
 
     /**
      * Return the list of team definition suitable for saving into a competition file
@@ -139,5 +115,85 @@ final class SetConfig implements JsonSerializable
         $set_config->lastSetMaxPoints = $this->last_set_max_points;
 
         return $set_config;
+    }
+
+    public function setMaxSets(int $max_sets) : void
+    {
+        $this->max_sets = $max_sets;
+    }
+
+    public function getMaxSets() : int
+    {
+        return $this->max_sets;
+    }
+
+    public function setSetsToWin(int $sets_to_win) : void
+    {
+        $this->sets_to_win = $sets_to_win;
+    }
+
+    public function getSetsToWin() : int
+    {
+        return $this->sets_to_win;
+    }
+
+    public function setClearPoints(int $clear_points) : void
+    {
+        $this->clear_points = $clear_points;
+    }
+
+    public function getClearPoints() : int
+    {
+        return $this->clear_points;
+    }
+
+    public function setMinPoints(int $min_points) : void
+    {
+        $this->min_points = $min_points;
+    }
+
+    public function getMinPoints() : int
+    {
+        return $this->min_points;
+    }
+
+    public function setPointsToWin(int $points_to_win) : void
+    {
+        $this->points_to_win = $points_to_win;
+    }
+
+    public function getPointsToWin() : int
+    {
+        return $this->points_to_win;
+    }
+
+    public function setLastSetPointsToWin(int $last_set_points_to_win) : void
+    {
+        $this->last_set_points_to_win = $last_set_points_to_win;
+    }
+
+    public function getLastSetPointsToWin() : int
+    {
+        return $this->last_set_points_to_win;
+    }
+
+    public function setMaxPoints(int $max_points) : void
+    {
+        $this->max_points = $max_points;
+    }
+
+    public function getMaxPoints() : int
+    {
+        return $this->max_points;
+    }
+
+    public function setLastSetMaxPoints(int $last_set_max_points) : void
+    {
+        $this->last_set_max_points = $last_set_max_points;
+    }
+
+    public function getLastSetMaxPoints() : int
+    {
+        return $this->last_set_max_points;
     }
 }

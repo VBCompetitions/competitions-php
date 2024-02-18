@@ -28,12 +28,12 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     private array $groups = [];
 
     /** It can be useful to still present something to the user about the later stages of a competition, even if the teams playing in that stage is not yet known. This defines what should be presented in any application handling this competition's data in such cases */
-    private ?object $ifUnknown = null;
+    private ?object $if_unknown = null;
 
     /** The Competition this Stage is in */
     private Competition $competition;
 
-    /** @param array<MatchInterface|BreakInterface> all of the matches in all of the group in this stage */
+    /** @param array<MatchInterface|BreakInterface> $all_matches all of the matches in all of the group in this stage */
     private array $all_matches;
 
     /** A Lookup table from group IDs to the group */
@@ -46,39 +46,103 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      * @param Competition $competition A link back to the Competition this Stage is in
      * @param object $stage_data The data defining this Stage
      */
-    function __construct($competition, $stage_data)
+    // function __construct(Competition $competition, $stage_data)
+    // {
+    //     if ($competition->hasStageWithId($stage_data->id)) {
+    //         throw new Exception('Competition data failed validation. Stages with duplicate IDs not allowed: {'.$stage_data->id.'}');
+    //     }
+    //     $this->id = $stage_data->id;
+    //     $this->competition = $competition;
+
+    //     if (property_exists($stage_data, 'name')) {
+    //         $this->name = $stage_data->name;
+    //     }
+
+    //     if (property_exists($stage_data, 'notes')) {
+    //         $this->notes = $stage_data->notes;
+    //     }
+
+    //     if (property_exists($stage_data, 'description')) {
+    //         $this->description = $stage_data->description;
+    //     }
+
+    //     $this->group_lookup = new stdClass();
+
+    //     foreach ($stage_data->groups as $group_data) {
+    //         match ($group_data->type) {
+    //             'league' => new League($this, $group_data),
+    //             'crossover' => new Crossover($this, $group_data),
+    //             'knockout' => new Knockout($this, $group_data),
+    //         };
+    //     }
+
+    //     if (property_exists($stage_data, 'ifUnknown')) {
+    //         $this->ifUnknown = new IfUnknown($this, $stage_data->ifUnknown);
+    //     }
+
+    //     $this->checkMatches();
+    // }
+
+    function __construct(Competition $competition, string $stage_id)
     {
-        $this->id = $stage_data->id;
+        $stage_id_length = strlen($stage_id);
+        if ($stage_id_length > 100 || $stage_id_length < 1) {
+            throw new Exception('Invalid stage ID: must be between 1 and 100 characters long');
+        }
+
+        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $stage_id)) {
+            throw new Exception('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =');
+        }
+
+        if ($competition->hasStageWithID($stage_id)) {
+            throw new Exception('Stage with ID "'.$stage_id.'" already exists in the competition');
+        }
+
+        $this->id = $stage_id;
         $this->competition = $competition;
-        $this->competition->appendStage($this);
+        $this->group_lookup = new stdClass();
+    }
+
+    public static function loadFromData(Competition $competition, object $stage_data) : Stage
+    {
+        $stage = new Stage($competition, $stage_data->id);
 
         if (property_exists($stage_data, 'name')) {
-            $this->name = $stage_data->name;
+            $stage->setName($stage_data->name);
         }
 
         if (property_exists($stage_data, 'notes')) {
-            $this->notes = $stage_data->notes;
+            $stage->setNotes($stage_data->notes);
         }
 
         if (property_exists($stage_data, 'description')) {
-            $this->description = $stage_data->description;
+            $stage->setDescription($stage_data->description);
         }
 
-        $this->group_lookup = new stdClass();
-
         foreach ($stage_data->groups as $group_data) {
-            match ($group_data->type) {
-                'league' => new League($this, $group_data),
-                'crossover' => new Crossover($this, $group_data),
-                'knockout' => new Knockout($this, $group_data),
+            $group = match ($group_data->type) {
+                'league' => League::loadFromData($stage, $group_data),
+                'crossover' => Crossover::loadFromData($stage, $group_data),
+                'knockout' => Knockout::loadFromData($stage, $group_data),
+                default => throw new Exception('Unknown group type')
             };
+            $stage->addGroup($group);
         }
 
         if (property_exists($stage_data, 'ifUnknown')) {
-            $this->ifUnknown = new IfUnknown($this, $stage_data->ifUnknown);
+            $stage->setIfUnknown(IfUnknown::loadFromData($stage, $stage_data->ifUnknown));
         }
 
-        $this->checkMatches();
+        $stage->checkMatches();
+
+        return $stage;
+    }
+
+    public function processMatches() : void
+    {
+        foreach ($this->groups as $group) {
+            $group->processMatches();
+        }
     }
 
     public function appendGroup(Group $new_group) : void
@@ -99,6 +163,40 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     {
         return $this->id;
     }
+
+    public function addGroup(Group $group) : Group
+    {
+        if ($group->getStage() !== $this) {
+            throw new Exception('Group was initialised with a different Stage');
+        }
+        array_push($this->groups, $group);
+        $this->group_lookup->{$group->getID()} = $group;
+        return $group;
+    }
+    // public function addGroupTemp(string $group_id, GroupType $group_type, MatchType $match_type) : Stage
+    // {
+    //     $group_id_length = strlen($group_id);
+    //     if ($group_id_length > 100 || $group_id_length < 1) {
+    //         throw new Exception('Invalid group ID: must be between 1 and 100 characters long');
+    //     }
+
+    //     if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $group_id)) {
+    //         throw new Exception('Invalid group ID: must contain only ASCII printable characters excluding " : { } ? =');
+    //     }
+
+    //     if (property_exists($this->group_lookup, $group_id)) {
+    //         throw new Exception('Group with ID "'.$group_id.'" already exists');
+    //     }
+
+    //     $stage_data = new stdClass();
+    //     $stage_data->id = $group_id;
+    //     $stage_data->matches = [];
+    //     $new_stage = new Stage($this, $stage_data);
+    //     array_push($this->stages, $new_stage);
+    //     $this->stage_lookup->{$stage_id} = $new_stage;
+
+    //     return $new_stage;
+    // }
 
     /**
      * Get the groups as an array
@@ -121,6 +219,16 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     }
 
     /**
+     * Set the stage Name
+     *
+     * @param string $name the new name for the stage
+     */
+    public function setName(string $name) : void
+    {
+        $this->name = $name;
+    }
+
+    /**
      * Get the notes for this group
      *
      * @return string|null the notes for this group
@@ -131,18 +239,43 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Get the description for this group
+     * Set the notes for this stage
      *
-     * @return array<string>|null the description for this group
+     * @param string|null $notes the notes for this stage
+     */
+    public function setNotes(?string $notes) : void
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * Get the description for this stage
+     *
+     * @return array<string>|null the description for this stage
      */
     public function getDescription() : array|null
     {
         return $this->description;
     }
 
+    /**
+     * Set the description for this stage
+     *
+     * @param array<string>|null $description the description for this stage
+     */
+    public function setDescription($description) : void
+    {
+        $this->description = $description;
+    }
+
     public function getIfUnknown() : ?IfUnknown
     {
-        return $this->ifUnknown;
+        return $this->if_unknown;
+    }
+
+    public function setIfUnknown(?IfUnknown $if_unknown) : void
+    {
+        $this->if_unknown = $if_unknown;
     }
 
     /**
@@ -169,8 +302,8 @@ final class Stage implements JsonSerializable, MatchContainerInterface
 
         $stage->groups = $this->groups;
 
-        if ($this->ifUnknown !== null) {
-            $stage->ifUnknown = $this->ifUnknown;
+        if ($this->if_unknown !== null) {
+            $stage->ifUnknown = $this->if_unknown;
         }
 
         return $stage;
@@ -192,6 +325,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         }
     }
 
+    /**
+     * Get the competition this stage is in
+     *
+     * @return Competition
+     */
     public function getCompetition() : Competition
     {
         return $this->competition;
@@ -219,7 +357,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             TODO how do we handle duplicate breaks?
         */
 
-        if (is_null($team_id) || $team_id === CompetitionTeam::UNKNOWN_TEAM_ID || strncmp($team_id, '{', 1) === 0) {
+        if ($team_id === null || $team_id === CompetitionTeam::UNKNOWN_TEAM_ID || strncmp($team_id, '{', 1) === 0) {
             return $this->getAllMatchesInStage();
         }
 
@@ -325,10 +463,10 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         usort($matches, function ($a, $b) {
             // Both GroupBreak and GroupMatch may have "start" and may have "date", or may have neither
             // so give them some defaults to make them sortable
-            $a_date = is_null($a->getDate()) ? '2023-01-01' : $a->getDate();
-            $b_date = is_null($a->getDate()) ? '2023-01-01' : $b->getDate();
-            $a_start = is_null($a->getStart()) ? '10:00' : $a->getStart();
-            $b_start = is_null($a->getStart()) ? '10:00' : $b->getStart();
+            $a_date = $a->getDate() === null ? '2023-01-01' : $a->getDate();
+            $b_date = $a->getDate() === null ? '2023-01-01' : $b->getDate();
+            $a_start = $a->getStart() === null ? '10:00' : $a->getStart();
+            $b_start = $a->getStart() === null ? '10:00' : $b->getStart();
 
             return strcmp($a_date.$a_start, $b_date.$b_start);
         });
@@ -504,8 +642,8 @@ final class Stage implements JsonSerializable, MatchContainerInterface
                                 $this->team_stg_grp_lookup[$key] = $stage_and_group;
                             }
                         }
-                        if (!is_null($match->getOfficials()) && property_exists($match->getOfficials(), 'team')) {
-                            $referee_team_parts = explode(':', substr($match->getOfficials()->team, 1), 3);
+                        if ($match->getOfficials() !== null && $match->getOfficials()->isTeam()) {
+                            $referee_team_parts = explode(':', substr($match->getOfficials()->getTeamID(), 1), 3);
                             if (count($referee_team_parts) > 2) {
                                 $key = $referee_team_parts[0].':'.$referee_team_parts[1];
                                 if (!key_exists($key, $this->team_stg_grp_lookup)) {

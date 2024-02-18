@@ -33,71 +33,27 @@ final class GroupBreak implements JsonSerializable, BreakInterface
      * @param Group $group The Group this break is in
      * @param object $break_data The data defining this Break
      */
-    function __construct($group, $break_data)
+    function __construct($group)
     {
         $this->group = $group;
+    }
+
+    public static function loadFromData(Group $group, object $break_data) : GroupBreak
+    {
+        $break = new GroupBreak($group);
         if (property_exists($break_data, 'start')) {
-            $this->start = $break_data->start;
+            $break->setStart($break_data->start);
         }
         if (property_exists($break_data, 'date')) {
-            $this->date = $break_data->date;
+            $break->setDate($break_data->date);
         }
         if (property_exists($break_data, 'duration')) {
-            $this->duration = $break_data->duration;
+            $break->setDuration($break_data->duration);
         }
         if (property_exists($break_data, 'name')) {
-            $this->name = $break_data->name;
+            $break->setName($break_data->name);
         }
-    }
-
-    /**
-     * Get the start time for this break
-     *
-     * @return string the start time for this break
-     */
-    public function getStart() : ?string
-    {
-        return $this->start;
-    }
-
-    /**
-     * Get the date for this break
-     *
-     * @return string the date for this break
-     */
-    public function getDate() : ?string
-    {
-        return $this->date;
-    }
-
-    /**
-     * Get the duration for this break
-     *
-     * @return string the duration for this break
-     */
-    public function getDuration() : ?string
-    {
-        return $this->duration;
-    }
-
-    /**
-     * Get the name for this break
-     *
-     * @return string the name for this break
-     */
-    public function getName() : ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get the Group this break is in
-     *
-     * @return Group the group this break is in
-     */
-    public function getGroup() : Group
-    {
-        return $this->group;
+        return $break;
     }
 
     /**
@@ -124,5 +80,107 @@ final class GroupBreak implements JsonSerializable, BreakInterface
         }
 
         return $break;
+    }
+
+    /**
+     * Get the Group this break is in
+     *
+     * @return Group the group this break is in
+     */
+    public function getGroup() : Group
+    {
+        return $this->group;
+    }
+
+    /**
+     * Set the start time for this break
+     *
+     * @param string $start the start time for this break
+     *
+     * @return GroupBreak this break
+     */
+    public function setStart(null|string $start) : GroupBreak
+    {
+        $this->start = $start;
+        return $this;
+    }
+
+    /**
+     * Get the start time for this break
+     *
+     * @return string the start time for this break
+     */
+    public function getStart() : ?string
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set the date for this break
+     *
+     * @param string $date the date for this break
+     *
+     * @return GroupBreak this break
+     */
+    public function setDate(null|string $date) : GroupBreak
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get the date for this break
+     *
+     * @return string the date for this break
+     */
+    public function getDate() : ?string
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set the duration for this break
+     *
+     * @param string $duration the duration for this break
+     *
+     * @return GroupBreak this break
+     */
+    public function setDuration(null|string $duration) : GroupBreak
+    {
+        $this->duration = $duration;
+        return $this;
+    }
+
+    /**
+     * Get the duration for this break
+     *
+     * @return string the duration for this break
+     */
+    public function getDuration() : ?string
+    {
+        return $this->duration;
+    }
+
+    /**
+     * Set the name for this break
+     *
+     * @param string $name the name for this break
+     *
+     * @return GroupBreak this break
+     */
+    public function setName(null|string $name) : GroupBreak
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get the name for this break
+     *
+     * @return string the name for this break
+     */
+    public function getName() : ?string
+    {
+        return $this->name;
     }
 }

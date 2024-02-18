@@ -49,13 +49,13 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     private MatchTeam $away_team;
 
     /** The officials for this match */
-    private ?object $officials = null;
+    private ?MatchOfficials $officials = null;
 
     /** A most valuable player award for the match */
     private ?string $mvp = null;
 
     /** The court manager in charge of this match */
-    private mixed $manager = null;
+    private ?MatchManager $manager = null;
 
     /** Free form string to add notes about a match */
     private ?string $notes = null;
@@ -81,275 +81,76 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      *
      * @throws Exception If the two teams have scores arrays of different lengths
      */
-    function __construct($group, $match_data)
+    function __construct($group, $id)
     {
+        if ($group->hasMatchWithID($id)) {
+            throw new Exception('Group {'.$group->getStage()->getID().':'.$group->getID().':'.$id.'}: matches with duplicate IDs {'.$id.'} not allowed');
+        }
         $this->group = $group;
-        $this->id = $match_data->id;
+        $this->id = $id;
+    }
+
+    public static function loadFromData(Group $group, object $match_data) : GroupMatch
+    {
+        $match = new GroupMatch($group, $match_data->id);
+
         if (property_exists($match_data, 'court')) {
-            $this->court = $match_data->court;
+            $match->setCourt($match_data->court);
         }
         if (property_exists($match_data, 'venue')) {
-            $this->venue = $match_data->venue;
+            $match->setVenue($match_data->venue);
         }
         if (property_exists($match_data, 'date')) {
-            $this->date = $match_data->date;
+            $match->setDate($match_data->date);
         }
         if (property_exists($match_data, 'warmup')) {
-            $this->warmup = $match_data->warmup;
+            $match->setWarmup($match_data->warmup);
         }
         if (property_exists($match_data, 'start')) {
-            $this->start = $match_data->start;
+            $match->setStart($match_data->start);
         }
         if (property_exists($match_data, 'duration')) {
-            $this->duration = $match_data->duration;
+            $match->setDuration($match_data->duration);
         }
         if (property_exists($match_data, 'complete')) {
-            $this->complete = $match_data->complete;
-            $this->is_complete = $match_data->complete;
-        }
-        $this->home_team = new MatchTeam($match_data->homeTeam, $this);
-        $this->home_team_scores = $match_data->homeTeam->scores;
-        $this->away_team = new MatchTeam($match_data->awayTeam, $this);
-        $this->away_team_scores = $match_data->awayTeam->scores;
-        if (property_exists($match_data, 'officials')) {
-            $this->officials = $match_data->officials;
-            if (property_exists($this->officials, 'team') &&
-            ($this->officials->team === $this->home_team->getID() || $this->officials->team === $this->away_team->getID())) {
-                throw new Exception('Refereeing team (in match {'.$this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.'}) cannot be the same as one of the playing teams');
+            $match->setComplete($match_data->complete);
+        } else {
+            // There seems to be a bug in opis/json-schema such that the schema rule to require the "complete" field when the "matchType" is "continuous"
+            // is thrown off when the array of matches also includes a "break", so manually check here
+            if ($group->getMatchType() === MatchType::CONTINUOUS) {
+                throw new Exception('Group {'.$group->getStage()->getID().':'.$group->getID().'}, match ID {'.$match_data->id.'}, missing field "complete"');
             }
         }
+
+        $match->setHomeTeam(MatchTeam::loadFromData($match, $match_data->homeTeam));
+        $match->setAwayTeam(MatchTeam::loadFromData($match, $match_data->awayTeam));
+
+        // $this->home_team = new MatchTeam($this, $match_data->homeTeam);
+        // $this->home_team_scores = $match_data->homeTeam->scores;
+        // $this->away_team = new MatchTeam($this, $match_data->awayTeam);
+        // $this->away_team_scores = $match_data->awayTeam->scores;
+
+        if (property_exists($match_data, 'officials')) {
+            $officials = MatchOfficials::loadFromData($match, $match_data->officials);
+            if ($officials->isTeam() &&
+               ($officials->getTeamID() === $match->getHomeTeam()->getID() || $officials->getTeamID() === $match->getAwayTeam()->getID())) {
+                throw new Exception('Refereeing team (in match {'.$group->getStage()->getID().':'.$group->getID().':'.$match->getID().'}) cannot be the same as one of the playing teams');
+            }
+            $match->setOfficials($officials);
+        }
         if (property_exists($match_data, 'mvp')) {
-            $this->mvp = $match_data->mvp;
+            $match->setMVP($match_data->mvp);
         }
         if (property_exists($match_data, 'manager')) {
-            $this->manager = $match_data->manager;
+            $match->setManager(MatchManager::loadFromData($match, $match_data->manager));
         }
         if (property_exists($match_data, 'notes')) {
-            $this->notes = $match_data->notes;
+            $match->setNotes($match_data->notes);
         }
 
-        $this->calculateResult();
-    }
+        // $this->calculateResult();
 
-    /**
-     * Get the ID for this match
-     *
-     * @return string the ID for this match
-     */
-    public function getID() : string
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the court for this match
-     *
-     * @return ?string the court for this match
-     */
-    public function getCourt() : ?string
-    {
-        return $this->court;
-    }
-
-    /**
-     * Get the venue for this match
-     *
-     * @return ?string the venue for this match
-     */
-    public function getVenue() : ?string
-    {
-        return $this->venue;
-    }
-
-    /**
-     * Get the date for this match
-     *
-     * @return ?string the date for this match
-     */
-    public function getDate() : ?string
-    {
-        return $this->date;
-    }
-
-    /**
-     * Get the warmup time for this match
-     *
-     * @return ?string the warmup time for this match
-     */
-    public function getWarmup() : ?string
-    {
-        return $this->warmup;
-    }
-
-    /**
-     * Get the start time for this match
-     *
-     * @return ?string the start time for this match
-     */
-    public function getStart() : ?string
-    {
-        return $this->start;
-    }
-
-    /**
-     * Get the duration for this match
-     *
-     * @return ?string the duration for this match
-     */
-    public function getDuration() : ?string
-    {
-        return $this->duration;
-    }
-
-    /**
-     * Get the completeness for this match.  This is the explicit "complete" value from the original data
-     *
-     * @return bool|null the completeness for this match
-     */
-    public function getComplete() : ?bool
-    {
-        return $this->complete;
-    }
-
-    /**
-     * Set the completeness for this match
-     *
-     * @param bool $complete the completeness for this match
-     *
-     * @return void
-     */
-    public function setComplete(bool $complete) : void
-    {
-        $this->complete = $complete;
-        $this->is_complete = $complete;
-    }
-
-    /**
-     * Get the <i>calculated</i> completeness for this match.  This is for when the data does not explicitly state
-     * the completeness, but the match configuration allows us to calculate whether the match is complete (e.g. set-based
-     * matches without a duration limit)
-     *
-     * @return bool the completeness for this match
-     */
-    public function isComplete() : bool
-    {
-        return $this->is_complete;
-    }
-
-    /**
-     * Get whether the match is a draw
-     *
-     * @return bool whether the match is a draw
-     */
-    public function isDraw() : bool
-    {
-        return $this->is_draw;
-    }
-
-    /**
-     * Get the home team for this match
-     *
-     * @return MatchTeam the home team for this match
-     */
-    public function getHomeTeam() : MatchTeam
-    {
-        return $this->home_team;
-    }
-
-    public function getHomeTeamScores() : array
-    {
-        return $this->home_team_scores;
-    }
-
-    /**
-     * Get the number of sets won by the home team
-     *
-     * @return int the number of sets won by the home team
-     */
-    public function getHomeTeamSets() : int
-    {
-        if ($this->group->getMatchType() === MatchType::CONTINUOUS) {
-            throw new Exception('Match has no sets because the match type is continuous');
-        }
-        return $this->home_team_sets;
-    }
-
-    /**
-     * Get the away team for this match
-     *
-     * @return MatchTeam the away team for this match
-     */
-    public function getAwayTeam() : MatchTeam
-    {
-        return $this->away_team;
-    }
-
-    public function getAwayTeamScores() : array
-    {
-        return $this->away_team_scores;
-    }
-
-    /**
-     * Get the number of sets won by the away team
-     *
-     * @return int the number of sets won by the away team
-     */
-    public function getAwayTeamSets() : int
-    {
-        if ($this->group->getMatchType() === MatchType::CONTINUOUS) {
-            throw new Exception('Match has no sets because the match type is continuous');
-        }
-        return $this->away_team_sets;
-    }
-
-    /**
-     * Get the officials for this match
-     *
-     * @return object|null the officials for this match
-     */
-    public function getOfficials() : ?object
-    {
-        return $this->officials;
-    }
-
-    /**
-     * Get the MVP for this match
-     *
-     * @return ?string the MVP for this match
-     */
-    public function getMVP() : ?string
-    {
-        return $this->mvp;
-    }
-
-    /**
-     * Get the court manager for this match
-     *
-     * @return mixed the court manager for this match
-     */
-    public function getManager() : mixed
-    {
-        return $this->manager;
-    }
-
-    /**
-     * Get the notes for this match
-     *
-     * @return ?string the notes for this match
-     */
-    public function getNotes() : ?string
-    {
-        return $this->notes;
-    }
-
-    /**
-     * Get the Group this match is in
-     *
-     * @return Group|IfUnknown the Group this match is in
-     */
-    public function getGroup() : Group|IfUnknown
-    {
-        return $this->group;
+        return $match;
     }
 
     /**
@@ -406,6 +207,408 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     }
 
     /**
+     * Get the Group this match is in
+     *
+     * @return Group|IfUnknown the Group this match is in
+     */
+    public function getGroup() : Group|IfUnknown
+    {
+        return $this->group;
+    }
+
+    /**
+     * Get the ID for this match
+     *
+     * @return string the ID for this match
+     */
+    public function getID() : string
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the court for this match
+     *
+     * @param ?string $court the court for this match
+     */
+    public function setCourt(null|string $court) : GroupMatch
+    {
+        $this->court = $court;
+        return $this;
+    }
+
+    /**
+     * Get the court for this match
+     *
+     * @return ?string the court for this match
+     */
+    public function getCourt() : ?string
+    {
+        return $this->court;
+    }
+
+    public function hasCourt() : bool
+    {
+        return $this->court !== null;
+    }
+
+    /**
+     * Set the venue for this match
+     *
+     * @param ?string $venue the venue for this match
+     */
+    public function setVenue(null|string $venue) : GroupMatch
+    {
+        $this->venue = $venue;
+        return $this;
+    }
+
+    /**
+     * Get the venue for this match
+     *
+     * @return ?string the venue for this match
+     */
+    public function getVenue() : ?string
+    {
+        return $this->venue;
+    }
+
+    public function hasVenue() : bool
+    {
+        return $this->venue !== null;
+    }
+
+    /**
+     * Set the date for this match
+     *
+     * @param ?string $date the date for this match
+     */
+    public function setDate(null|string $date) : GroupMatch
+    {
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get the date for this match
+     *
+     * @return ?string the date for this match
+     */
+    public function getDate() : ?string
+    {
+        return $this->date;
+    }
+
+    public function hasDate() : bool
+    {
+        return $this->date !== null;
+    }
+
+    /**
+     * Set the warmup time for this match
+     *
+     * @param ?string $warmup the warmup time for this match
+     */
+    public function setWarmup(null|string $warmup) : GroupMatch
+    {
+        $this->warmup = $warmup;
+        return $this;
+    }
+
+    /**
+     * Get the warmup time for this match
+     *
+     * @return ?string the warmup time for this match
+     */
+    public function getWarmup() : ?string
+    {
+        return $this->warmup;
+    }
+
+    public function hasWarmup() : bool
+    {
+        return $this->warmup !== null;
+    }
+
+    /**
+     * Set the start time for this match
+     *
+     * @param ?string $start the start time for this match
+     */
+    public function setStart(null|string $start) : GroupMatch
+    {
+        $this->start = $start;
+        return $this;
+    }
+
+    /**
+     * Get the start time for this match
+     *
+     * @return ?string the start time for this match
+     */
+    public function getStart() : ?string
+    {
+        return $this->start;
+    }
+
+    public function hasStart() : bool
+    {
+        return $this->start !== null;
+    }
+    /**
+     * Set the duration for this match
+     *
+     * @param ?string $duration the duration for this match
+     */
+    public function setDuration(null|string $duration) : GroupMatch
+    {
+        $this->duration = $duration;
+        return $this;
+    }
+
+    /**
+     * Get the duration for this match
+     *
+     * @return ?string the duration for this match
+     */
+    public function getDuration() : ?string
+    {
+        return $this->duration;
+    }
+
+    public function hasDuration() : bool
+    {
+        return $this->duration !== null;
+    }
+
+    /**
+     * Set the completeness for this match
+     *
+     * @param bool $complete the completeness for this match
+     *
+     * @return void
+     */
+    public function setComplete(bool $complete) : void
+    {
+        $this->complete = $complete;
+        $this->is_complete = $complete;
+    }
+
+    /**
+     * Get the completeness for this match.  This is the explicit "complete" value from the original data
+     *
+     * @return bool|null the completeness for this match
+     */
+    public function getComplete() : ?bool
+    {
+        return $this->complete;
+    }
+
+    /**
+     * Get the <i>calculated</i> completeness for this match.  This is for when the data does not explicitly state
+     * the completeness, but the match configuration allows us to calculate whether the match is complete (e.g. set-based
+     * matches without a duration limit)
+     *
+     * @return bool the completeness for this match
+     */
+    public function isComplete() : bool
+    {
+        return $this->is_complete;
+    }
+
+    /**
+     * Get whether the match is a draw
+     *
+     * @return bool whether the match is a draw
+     */
+    public function isDraw() : bool
+    {
+        return $this->is_draw;
+    }
+
+    /**
+     * Set the home team for this match
+     *
+     * @param MatchTeam $home_team the home team for this match
+     */
+    public function setHomeTeam(MatchTeam $home_team) : GroupMatch
+    {
+        $this->home_team = $home_team;
+        return $this;
+    }
+
+    /**
+     * Get the home team for this match
+     *
+     * @return MatchTeam the home team for this match
+     */
+    public function getHomeTeam() : MatchTeam
+    {
+        return $this->home_team;
+    }
+
+    public function getHomeTeamScores() : array
+    {
+        return $this->home_team_scores;
+    }
+
+    /**
+     * Get the number of sets won by the home team
+     *
+     * @return int the number of sets won by the home team
+     */
+    public function getHomeTeamSets() : int
+    {
+        if ($this->group->getMatchType() === MatchType::CONTINUOUS) {
+            throw new Exception('Match has no sets because the match type is continuous');
+        }
+        return $this->home_team_sets;
+    }
+
+    /**
+     * Set the away team for this match
+     *
+     * @param MatchTeam $away_team the away team for this match
+     */
+    public function setAwayTeam(MatchTeam $away_team) : GroupMatch
+    {
+        $this->away_team = $away_team;
+        return $this;
+    }
+
+    /**
+     * Get the away team for this match
+     *
+     * @return MatchTeam the away team for this match
+     */
+    public function getAwayTeam() : MatchTeam
+    {
+        return $this->away_team;
+    }
+
+    public function getAwayTeamScores() : array
+    {
+        return $this->away_team_scores;
+    }
+
+    /**
+     * Get the number of sets won by the away team
+     *
+     * @return int the number of sets won by the away team
+     */
+    public function getAwayTeamSets() : int
+    {
+        if ($this->group->getMatchType() === MatchType::CONTINUOUS) {
+            throw new Exception('Match has no sets because the match type is continuous');
+        }
+        return $this->away_team_sets;
+    }
+
+    /**
+     * Set the officials for this match
+     *
+     * @param ?MatchOfficials $officials the officials for this match
+     */
+    public function setOfficials(null|MatchOfficials $officials) : GroupMatch
+    {
+        $this->officials = $officials;
+        return $this;
+    }
+
+    /**
+     * Get the officials for this match
+     *
+     * @return ?MatchOfficials the officials for this match
+     */
+    public function getOfficials() : ?MatchOfficials
+    {
+        return $this->officials;
+    }
+
+    public function hasOfficials() : bool
+    {
+        return $this->officials !== null;
+    }
+
+    /**
+     * Set the MVP for this match
+     *
+     * @param ?string $mvp the MVP for this match
+     */
+    public function setMVP(null|string $mvp) : GroupMatch
+    {
+        $this->mvp = $mvp;
+        return $this;
+    }
+
+    /**
+     * Get the MVP for this match
+     *
+     * @return ?string the MVP for this match
+     */
+    public function getMVP() : ?string
+    {
+        return $this->mvp;
+    }
+
+    public function hasMVP() : bool
+    {
+        return $this->mvp !== null;
+    }
+
+    /**
+     * Set the court manager for this match
+     *
+     * @param ?MatchManager $manager the court manager for this match
+     */
+    public function setManager(null|MatchManager $manager) : GroupMatch
+    {
+        $this->manager = $manager;
+        return $this;
+    }
+
+    /**
+     * Get the court manager for this match
+     *
+     * @return ?MatchManager the court manager for this match
+     */
+    public function getManager() : ?MatchManager
+    {
+        return $this->manager;
+    }
+
+    public function hasManager() : bool
+    {
+        return $this->manager !== null;
+    }
+
+    /**
+     * Set the notes for this match
+     *
+     * @param ?string $notes the notes for this match
+     */
+    public function setNotes(null|string $notes) : GroupMatch
+    {
+        $this->notes = $notes;
+        return $this;
+    }
+
+    /**
+     * Get the notes for this match
+     *
+     * @return ?string the notes for this match
+     */
+    public function getNotes() : ?string
+    {
+        return $this->notes;
+    }
+
+    public function hasNotes() : bool
+    {
+        return $this->notes !== null;
+    }
+
+    /**
      * Set the scores for this match
      *
      * @param array<int> $home_team_scores The score array for the home team
@@ -422,7 +625,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
             $this->setComplete($complete);
         } else {
             GroupMatch::assertSetScoresValid($home_team_scores, $away_team_scores, $this->group->getSetConfig());
-            if (!is_null($this->duration) && is_null($complete)) {
+            if ($this->duration !== null && $complete === null) {
                 throw new Exception('Invalid results: match type is sets and match has a duration, but the match completeness is not set');
             }
             if ($complete !== null) {

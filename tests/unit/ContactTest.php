@@ -10,12 +10,12 @@ use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\Contact;
-use VBCompetitions\Competitions\ContactType;
+use VBCompetitions\Competitions\ContactRole;
 
 #[CoversClass(Contact::class)]
 #[CoversClass(Competition::class)]
 #[CoversClass(CompetitionTeam::class)]
-#[CoversClass(ContactType::class)]
+#[CoversClass(ContactRole::class)]
 final class ContactTest extends TestCase {
     public function testContactsNone() : void
     {
@@ -23,7 +23,7 @@ final class ContactTest extends TestCase {
 
         $team = $competition->getTeamByID('TM1');
         $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
-        $this->assertEquals(0, count($team->getContacts()), 'Team 1 should have no contacts defined');
+        $this->assertCount(0, $team->getContacts(), 'Team 1 should have no contacts defined');
     }
 
     public function testContactsDefaultSecretary() : void
@@ -34,19 +34,15 @@ final class ContactTest extends TestCase {
         $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
 
         $this->assertEquals(1, count($team->getContacts()), 'Team 2 should have only one contact defined');
-        $expected_team2_contact1 = new Contact((object) [
-            'id' => 'C1',
-            'name' => 'Alice Alison',
-            'roles' => ['secretary'],
-            'emails' => ['alice@example.com']
-        ]);
-        $this->assertEquals($expected_team2_contact1, $team->getContactByID('C1'));
-        $this->assertEquals([ContactType::SECRETARY], $team->getContactByID('C1')->getRoles());
+        $this->assertEquals('C1', $team->getContactByID('C1')->getID());
+        $this->assertEquals('Alice Alison', $team->getContactByID('C1')->getName());
+        $this->assertEquals(['alice@example.com'], $team->getContactByID('C1')->getEmails());
+        $this->assertEquals([ContactRole::SECRETARY], $team->getContactByID('C1')->getRoles());
     }
 
     public function testContactsDuplicateID() : void
     {
-        $this->expectExceptionMessage('Competition data failed validation: team contacts with duplicate IDs within a team not allowed');
+        $this->expectExceptionMessage('Contact with ID "C1" already exists in the team');
         Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts-duplicate-ids.json');
     }
 
@@ -63,21 +59,21 @@ final class ContactTest extends TestCase {
         $this->assertEquals(['alice@example.com'], $contactC1->getEmails());
         $this->assertEquals(['01234 567890'], $contactC1->getPhones());
 
-        $this->assertEquals([ContactType::SECRETARY, ContactType::ASSISTANT_COACH], $contactC1->getRoles());
-        $this->assertTrue($contactC1->hasRole(ContactType::SECRETARY));
-        $this->assertTrue($contactC1->hasRole(ContactType::ASSISTANT_COACH));
-        $this->assertFalse($contactC1->hasRole(ContactType::TREASURER));
-        $this->assertFalse($contactC1->hasRole(ContactType::MANAGER));
-        $this->assertFalse($contactC1->hasRole(ContactType::CAPTAIN));
-        $this->assertFalse($contactC1->hasRole(ContactType::COACH));
-        $this->assertFalse($contactC1->hasRole(ContactType::MEDIC));
+        $this->assertEquals([ContactRole::SECRETARY, ContactRole::ASSISTANT_COACH], $contactC1->getRoles());
+        $this->assertTrue($contactC1->hasRole(ContactRole::SECRETARY));
+        $this->assertTrue($contactC1->hasRole(ContactRole::ASSISTANT_COACH));
+        $this->assertFalse($contactC1->hasRole(ContactRole::TREASURER));
+        $this->assertFalse($contactC1->hasRole(ContactRole::MANAGER));
+        $this->assertFalse($contactC1->hasRole(ContactRole::CAPTAIN));
+        $this->assertFalse($contactC1->hasRole(ContactRole::COACH));
+        $this->assertFalse($contactC1->hasRole(ContactRole::MEDIC));
 
-        $this->assertEquals([ContactType::TREASURER], $team->getContactByID('C2')->getRoles());
-        $this->assertEquals([ContactType::MANAGER], $team->getContactByID('C3')->getRoles());
-        $this->assertEquals([ContactType::CAPTAIN], $team->getContactByID('C4')->getRoles());
-        $this->assertEquals([ContactType::COACH], $team->getContactByID('C5')->getRoles());
-        $this->assertEquals([ContactType::ASSISTANT_COACH], $team->getContactByID('C6')->getRoles());
-        $this->assertEquals([ContactType::MEDIC], $team->getContactByID('C7')->getRoles());
+        $this->assertEquals([ContactRole::TREASURER], $team->getContactByID('C2')->getRoles());
+        $this->assertEquals([ContactRole::MANAGER], $team->getContactByID('C3')->getRoles());
+        $this->assertEquals([ContactRole::CAPTAIN], $team->getContactByID('C4')->getRoles());
+        $this->assertEquals([ContactRole::COACH], $team->getContactByID('C5')->getRoles());
+        $this->assertEquals([ContactRole::ASSISTANT_COACH], $team->getContactByID('C6')->getRoles());
+        $this->assertEquals([ContactRole::MEDIC], $team->getContactByID('C7')->getRoles());
     }
 
     public function testContactsGetByIDOutOfBounds() : void

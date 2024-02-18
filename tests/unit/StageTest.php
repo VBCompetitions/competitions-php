@@ -15,7 +15,8 @@ use VBCompetitions\Competitions\Stage;
 #[CoversClass(Stage::class)]
 #[CoversClass(Group::class)]
 final class StageTest extends TestCase {
-  public function testStageGetters() : void
+    const EMPTY_STAGE = '{"name":"Test Competition", "teams": [], "stages": []}';
+    public function testStageGetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'competition.json');
         $stage = $competition->getStageById('L');
@@ -48,6 +49,29 @@ final class StageTest extends TestCase {
         $this->assertTrue($stage->matchesHaveStarts());
         $this->assertTrue($stage->matchesHaveVenues());
         $this->assertTrue($stage->matchesHaveWarmups());
+    }
+
+    public function testStageSetters() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-matches-with-everything.json');
+        $stage = $competition->getStageById('L');
+
+        $this->assertEquals('League', $stage->getName());
+        $stage->setName('New League');
+        $this->assertEquals('New League', $stage->getName());
+
+        $this->assertEquals('These are notes on the stage', $stage->getNotes());
+        $stage->setNotes('Now there are notes');
+        $this->assertEquals('Now there are notes', $stage->getNotes());
+
+        $this->assertIsArray($stage->getDescription());
+        $this->assertCount(2, $stage->getDescription());
+        $this->assertEquals('This is a description about the stage', $stage->getDescription()[0]);
+        $this->assertEquals('This is some more words', $stage->getDescription()[1]);
+        $stage->setDescription(['A new description']);
+        $this->assertIsArray($stage->getDescription());
+        $this->assertCount(1, $stage->getDescription());
+        $this->assertEquals('A new description', $stage->getDescription()[0]);
     }
 
     public function testStageMatchesWithNoOptionalFields() : void

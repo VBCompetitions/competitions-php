@@ -37,9 +37,10 @@ final class MatchTeam implements JsonSerializable
      *
      * Contains the team data of a match, creating any metadata needed
      *
+     * @param MatchInterface $match the match this team is playing in
      * @param object $team_data The data defining this Team
      */
-    function __construct(object $team_data, MatchInterface $match)
+    function __construct(MatchInterface $match, object $team_data)
     {
         $this->match = $match;
         $this->id = $team_data->id;
@@ -55,6 +56,12 @@ final class MatchTeam implements JsonSerializable
         if (property_exists($team_data, 'players')) {
             $this->players = $team_data->players;
         }
+    }
+
+    public static function loadFromData(MatchInterface $match, object $team_data) : MatchTeam
+    {
+        $team = new MatchTeam($match, $team_data);
+        return $team;
     }
 
     public function getID() : string
@@ -101,9 +108,9 @@ final class MatchTeam implements JsonSerializable
     }
 
     /**
-     * The players in this match
+     * The IDs of the players in this match
      *
-     * @return array<Player> the players in this match
+     * @return array<string> the IDs of the players in this match
      */
     public function getPlayers() : array
     {

@@ -3,21 +3,14 @@
 namespace VBCompetitions\Competitions;
 
 use Exception;
-use stdClass;
 
 /**
  * A group within this stage of the competition.  Leagues expect all teams to play each other at least once, and have a league table
  */
 final class League extends Group
 {
-    /** Configuration for the league */
-    protected object $league;
-
     /** The table for this group, if the group type is league */
     private LeagueTable $table;
-
-    /** Whether this group is complete, i.e. have all matches been played */
-    protected bool $is_complete = false;
 
     /**
      * Contains the group data of a stage, creating any metadata needed
@@ -25,40 +18,29 @@ final class League extends Group
      * @param Stage $stage A link back to the Stage this Group is in
      * @param object $league_data The data defining this Group
      */
-    function __construct(Stage $stage, object $league_data)
+    function __construct(Stage $stage, string $id, string $match_type, bool $draws_allowed)
     {
-        parent::__construct($stage, $league_data);
-
-        $this->draws_allowed = $league_data->drawsAllowed;
-
-        $this->league = new stdClass();
-        $this->league->ordering = $league_data->league->ordering;
-        $this->league->points = $league_data->league->points;
-
-        $this->processMatches();
+        parent::__construct($stage, $id, $match_type);
+        $this->type = GroupType::LEAGUE;
+        $this->draws_allowed = $draws_allowed;
     }
 
     /**
      * Summary of calculateLeagueTable
      * @return void
      */
-    protected function processMatches() : void
+    private function processMatches() : void
     {
-        parent::processMatches();
+        // parent::processMatches();
 
         $this->table = new LeagueTable($this);
 
         $team_results = array();
 
-        $completed_matches = 0;
-        $matches_in_this_pool = 0;
-
         foreach($this->matches as $match) {
             if ($match instanceof GroupBreak) {
                 continue;
             }
-
-            $matches_in_this_pool++;
             $home_team_id = $match->getHomeTeam()->getID();
             $away_team_id = $match->getAwayTeam()->getID();
 
@@ -71,8 +53,6 @@ final class League extends Group
             }
 
             if ($match->isComplete()) {
-                $completed_matches++;
-
                 // Handle draws
                 if (!$match->isDraw()) {
                     $team_results[$match->getWinnerTeamId()]->setWins($team_results[$match->getWinnerTeamId()]->getWins() + 1);
@@ -124,18 +104,18 @@ final class League extends Group
                     $team_results[$away_team_id]->setSF($team_results[$away_team_id]->getSF() + $away_team_sets);
                     $team_results[$away_team_id]->setSA($team_results[$away_team_id]->getSA() + $home_team_sets);
 
-                    $team_results[$home_team_id]->setPTS($team_results[$home_team_id]->getPTS() + ($this->league->points->perSet * $home_team_sets));
-                    $team_results[$away_team_id]->setPTS($team_results[$away_team_id]->getPTS() + ($this->league->points->perSet * $away_team_sets));
+                    $team_results[$home_team_id]->setPTS($team_results[$home_team_id]->getPTS() + ($this->league_config->getPoints()->getPerSet() * $home_team_sets));
+                    $team_results[$away_team_id]->setPTS($team_results[$away_team_id]->getPTS() + ($this->league_config->getPoints()->getPerSet() * $away_team_sets));
                     if ($match->isDraw()) {
                         $team_results[$home_team_id]->setDraws($team_results[$home_team_id]->getDraws() + 1);
                         $team_results[$away_team_id]->setDraws($team_results[$away_team_id]->getDraws() + 1);
                     } else {
                         if (abs($home_team_sets - $away_team_sets) === 1) {
-                            $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league->points->winByOne);
-                            $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league->points->loseByOne);
+                            $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league_config->getPoints()->getWinByOne());
+                            $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league_config->getPoints()->getLoseByOne());
                         } else {
-                            $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league->points->win);
-                            $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league->points->lose);
+                            $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league_config->getPoints()->getWin());
+                            $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league_config->getPoints()->getLose());
                         }
                     }
                 } else {
@@ -148,16 +128,16 @@ final class League extends Group
                         $team_results[$home_team_id]->setDraws($team_results[$home_team_id]->getDraws() + 1);
                         $team_results[$away_team_id]->setDraws($team_results[$away_team_id]->getDraws() + 1);
                     } else {
-                        $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league->points->win);
-                        $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league->points->lose);
+                        $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league_config->getPoints()->getWin());
+                        $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league_config->getPoints()->getLose());
                     }
                 }
 
                 if ($match->getHomeTeam()->getForfeit()) {
-                    $team_results[$home_team_id]->setPTS($team_results[$home_team_id]->getPTS() - $this->league->points->forfeit);
+                    $team_results[$home_team_id]->setPTS($team_results[$home_team_id]->getPTS() - $this->league_config->getPoints()->getForfeit());
                 }
                 if ($match->getAwayTeam()->getForfeit()) {
-                    $team_results[$away_team_id]->setPTS($team_results[$away_team_id]->getPTS() - $this->league->points->forfeit);
+                    $team_results[$away_team_id]->setPTS($team_results[$away_team_id]->getPTS() - $this->league_config->getPoints()->getForfeit());
                 }
                 $team_results[$home_team_id]->setPTS($team_results[$home_team_id]->getPTS() + $match->getHomeTeam()->getBonusPoints());
                 $team_results[$home_team_id]->setPTS($team_results[$home_team_id]->getPTS() - $match->getHomeTeam()->getPenaltyPoints());
@@ -169,15 +149,13 @@ final class League extends Group
         foreach ($team_results as $team_line) {
             $team_line->setPD($team_line->getPF() - $team_line->getPA());
             $team_line->setSD($team_line->getSF() - $team_line->getSA());
-            $team_line->setPTS($team_line->getPTS() + ($team_line->getPlayed() * $this->league->points->played));
+            $team_line->setPTS($team_line->getPTS() + ($team_line->getPlayed() * $this->league_config->getPoints()->getPlayed()));
             array_push($this->table->entries, $team_line);
         }
 
-        $this->is_complete = $completed_matches === $matches_in_this_pool;
-
         usort($this->table->entries, [League::class, 'sortLeagueTable']);
 
-        if ($this->is_complete) {
+        if ($this->isComplete()) {
             for ($i = 0; $i < count($this->table->entries); $i++) {
                 $this->competition->addTeamReference(
                     $this->stage->getID().':'.$this->id.':league:'.($i+1),
@@ -195,9 +173,10 @@ final class League extends Group
      */
     private function sortLeagueTable(LeagueTableEntry $a, LeagueTableEntry $b) : int
     {
-        for ($i = 0; $i < count($this->league->ordering); $i++) {
+        $ordering = $this->league_config->getOrdering();
+        for ($i = 0; $i < count($ordering); $i++) {
             $compare_result = 0;
-            switch ($this->league->ordering[$i]) {
+            switch ($ordering[$i]) {
                 case 'PTS':
                     $compare_result = League::compareLeaguePoints($a, $b);
                     break;
@@ -367,36 +346,17 @@ final class League extends Group
      */
     public function getLeagueTable() : LeagueTable
     {
+        $this->processMatches();
         return $this->table;
-    }
-
-    /**
-     * Returns whether the League group is complete, i.e. all matches in the group are complete.
-     *
-     * @return bool whether the League group is complete
-     */
-    public function isComplete() : bool
-    {
-        return $this->is_complete;
-    }
-
-    /**
-     * Return this group type
-     *
-     * @return GroupType the type for this Group
-     */
-    public function getType() : GroupType
-    {
-        return GroupType::LEAGUE;
     }
 
     /**
      * Return the config object for the league, containing the ordering config and the league pints config
      *
-     * @return object the league config
+     * @return LeagueConfig the league config
      */
-    public function getLeagueConfig() : object
+    public function getLeagueConfig() : LeagueConfig
     {
-        return $this->league;
+        return $this->league_config;
     }
 }

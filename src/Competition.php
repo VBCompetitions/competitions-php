@@ -26,6 +26,9 @@ final class Competition implements JsonSerializable
     /** Free form string to add notes about the competition.  This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
+    /** A list of clubs that the teams are in */
+    private array $clubs = [];
+
     /** The list of all teams in this competition */
     private array $teams = [];
 
@@ -41,6 +44,9 @@ final class Competition implements JsonSerializable
     /** A Lookup table from stage IDs to the stage */
     private object $stage_lookup;
 
+    /** A Lookup table from club IDs to the club */
+    private object $club_lookup;
+
 
     /** The "unknown" team, typically for matching against */
     private CompetitionTeam $unknown_team;
@@ -52,51 +58,20 @@ final class Competition implements JsonSerializable
      *
      * @throws Exception thrown when the competition data is invalid
      */
-    function __construct(string $competition_json)
+    function __construct(string $name)
     {
-        $competition_data = json_decode($competition_json);
-
-        if ($competition_data === null) {
-            throw new Exception('Document does not contain valid JSON');
+        if (strlen($name) > 1000 || strlen($name) < 1) {
+            throw new Exception('Invalid team name: must be between 1 and 1000 characters long');
         }
-
-        if (property_exists($competition_data, 'version')) {
-            $this->version = $competition_data->version;
-        }
-
-        // This supports only version 1.0.0 (and all documents without an explicit version are assumed to be at version 1.0.0)
-        if (version_compare($this->version, '1.0.0', 'ne')) {
-            throw new Exception('Document version '.$this->version.' not supported');
-        }
-
-        $this->validateJSON($competition_data);
-
-        $unknown_team_data = new stdClass();
-        $unknown_team_data->id = CompetitionTeam::UNKNOWN_TEAM_ID;
-        $unknown_team_data->name = CompetitionTeam::UNKNOWN_TEAM_NAME;
-        $this->unknown_team = new CompetitionTeam($unknown_team_data);
+        $this->name = $name;
 
         $this->team_lookup = new stdClass();
         $this->stage_lookup = new stdClass();
+        $this->club_lookup = new stdClass();
 
-        foreach ($competition_data->teams as $team_data) {
-            $new_team = new CompetitionTeam($team_data);
-            array_push($this->teams, $new_team);
-            if (property_exists($this->team_lookup, $new_team->getID())) {
-                throw new Exception('Competition data failed validation. Teams with duplicate IDs not allowed: "'.$new_team->getID().'"');
-            }
-            $this->team_lookup->{$new_team->getID()} = $new_team;
-        }
+        $this->unknown_team = new CompetitionTeam($this, CompetitionTeam::UNKNOWN_TEAM_ID, CompetitionTeam::UNKNOWN_TEAM_NAME);
 
-        $this->name = $competition_data->name;
-
-        if (property_exists($competition_data, 'notes')) {
-            $this->notes = $competition_data->notes;
-        }
-
-        foreach ($competition_data->stages as $stage_data) {
-            new Stage($this, $stage_data);
-        }
+        $this->processMatches();
     }
 
     /**
@@ -113,7 +88,48 @@ final class Competition implements JsonSerializable
         if ($competition_json === false) {
             throw new Exception('Failed to load file');
         }
-        return new Competition($competition_json);
+        return Competition::loadFromCompetitionJSON($competition_json);
+    }
+
+    public static function loadFromCompetitionJSON(string $competition_json) : Competition
+    {
+        $competition_data = json_decode($competition_json);
+
+        if ($competition_data === null) {
+            throw new Exception('Document does not contain valid JSON');
+        }
+
+        if (property_exists($competition_data, 'version')) {
+            // This supports only version 1.0.0 (and all documents without an explicit version are assumed to be at version 1.0.0)
+            if (version_compare($competition_data->version, '1.0.0', 'ne')) {
+                throw new Exception('Document version '.$competition_data->version.' not supported');
+            }
+        }
+
+        Competition::validateJSON($competition_data);
+
+        $competition = new Competition($competition_data->name);
+        $competition->setVersion($competition_data->version);
+
+        if (property_exists($competition_data, 'notes')) {
+            $competition->setNotes($competition_data->notes);
+        }
+
+        if (property_exists($competition_data, 'clubs')) {
+            foreach ($competition_data->clubs as $club_data) {
+                $competition->addClub(Club::loadFromData($competition, $club_data));
+            }
+        }
+
+        foreach ($competition_data->teams as $team_data) {
+            $competition->addTeam(CompetitionTeam::loadFromData($competition, $team_data));
+        }
+
+        foreach ($competition_data->stages as $stage_data) {
+            $competition->addStage(Stage::loadFromData($competition, $stage_data));
+        }
+
+        return $competition;
     }
 
     /**
@@ -132,13 +148,11 @@ final class Competition implements JsonSerializable
         file_put_contents(realpath($competition_data_dir)."/".$competition_file, $competition_data, LOCK_EX);
     }
 
-    public function appendStage(Stage $new_stage) : void
+    public function processMatches() : void
     {
-        array_push($this->stages, $new_stage);
-        if (property_exists($this->stage_lookup, $new_stage->getID())) {
-            throw new Exception('Competition data failed validation. Stages with duplicate IDs not allowed: {'.$new_stage->getID().'}');
+        foreach ($this->stages as $stage) {
+            $stage->processMatches();
         }
-        $this->stage_lookup->{$new_stage->getID()} = $new_stage;
     }
 
     /**
@@ -149,6 +163,16 @@ final class Competition implements JsonSerializable
     public function getVersion() : string
     {
         return $this->version;
+    }
+
+    /**
+     * Set the competition version
+     *
+     * @param string $version the version for the competition data
+     */
+    public function setVersion(string $version) : void
+    {
+        $this->version = $version;
     }
 
     /**
@@ -182,6 +206,35 @@ final class Competition implements JsonSerializable
     }
 
     /**
+     * Set the notes for this competition
+     *
+     * @param string|null $notes the notes for this competition
+     */
+    public function setNotes(?string $notes) : void
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * Add a new team to the competition
+     *
+     * @param string $team_id the unique ID for the new team.  It must be between 1 and 100 characters long, and contain only ASCII printable characters excluding " : { } ? =
+     * @param string $team_name the name for the team.  It must be between 1 and 1000 characters long
+     *
+     * @throws Exception If the input parameters are invalid or if a team with the requested ID already exists
+     * @return CompetitionTeam the new team
+     */
+    public function addTeam(CompetitionTeam $team) : CompetitionTeam
+    {
+        if ($team->getCompetition() !== $this) {
+            throw new Exception('Team was initialised with a different Competition');
+        }
+        array_push($this->teams, $team);
+        $this->team_lookup->{$team->getID()} = $team;
+        return $team;
+    }
+
+    /**
      * Get the teams in this competition
      *
      * @return array the teams in this competition
@@ -209,7 +262,7 @@ final class Competition implements JsonSerializable
         /*
          * Check for ternaries like {team_id_1}=={team_id_2}?{team_id_true}:{team_id_false}
          * Note that we only allow one level of ternary, i.e. this does not resolve:
-         *  {{ta}=={tb}?{t_true}:{t_false}}=={T2}?{T_True}:{T_False}
+         *  { {ta}=={tb}?{t_true}:{t_false} }=={T2}?{T_True}:{T_False}
          */
         if (preg_match('/^([^=]*)==([^?]*)\?(.*)$/', $team_id, $lr_matches)) {
             $left_team = $this->getTeamByID($lr_matches[1]);
@@ -222,7 +275,7 @@ final class Competition implements JsonSerializable
                 $true_team = $this->getTeamByID($tf_matches[1]);
                 $false_team = $this->getTeamByID($tf_matches[2]);
             }
-            if (!is_null($true_team)) {
+            if ($true_team !== null) {
                 return $left_team == $right_team ? $true_team : $false_team;
             }
         }
@@ -237,6 +290,28 @@ final class Competition implements JsonSerializable
         }
 
         return $this->unknown_team;
+    }
+
+    public function hasTeamWithID(string $team_id) : bool
+    {
+        return property_exists($this->team_lookup, $team_id);
+    }
+
+    public function deleteTeam(string $team_id) : void
+    {
+        // TODO
+        // What if the team has matches?  Have to throw and force the matches to be removed first
+        // Also remove team from any club's list
+    }
+
+    public function addStage(Stage $stage) : Stage
+    {
+        if ($stage->getCompetition() !== $this) {
+            throw new Exception('Stage was initialised with a different Competition');
+        }
+        array_push($this->stages, $stage);
+        $this->stage_lookup->{$stage->getID()} = $stage;
+        return $stage;
     }
 
     /**
@@ -258,12 +333,78 @@ final class Competition implements JsonSerializable
      *
      * @return Stage the requested stage
      */
-    public function getStageById(string $stage_id) : Stage
+    public function getStageById(string $id) : Stage
     {
-        if (!property_exists($this->stage_lookup, $stage_id)) {
-            throw new OutOfBoundsException('Stage with ID '.$stage_id.' not found');
+        if (!property_exists($this->stage_lookup, $id)) {
+            throw new OutOfBoundsException('Stage with ID '.$id.' not found');
         }
-        return $this->stage_lookup->$stage_id;
+        return $this->stage_lookup->$id;
+    }
+
+    public function hasStageWithID(string $id) : bool
+    {
+        return property_exists($this->stage_lookup, $id);
+    }
+
+    public function deleteStage($stage_id) : void
+    {
+        // TODO
+    }
+
+    /**
+     * Add a new club to the competition
+     *
+     * @param string $club_id the unique ID for the new club.  It must be between 1 and 100 characters long, and contain only ASCII printable characters excluding " : { } ? =
+     * @param string $club_name the name for the club.  It must be between 1 and 1000 characters long
+     *
+     * @throws Exception If the input parameters are invalid or if a club with the requested ID already exists
+     * @return Club the new club
+     */
+    public function addClub(Club $club) : Club
+    {
+        if ($club->getCompetition() !== $this) {
+            throw new Exception('Club was initialised with a different Competition');
+        }
+        array_push($this->clubs, $club);
+        $this->club_lookup->{$club->getID()} = $club;
+        return $club;
+    }
+
+    /**
+     * Get the clubs in this competition
+     *
+     * @return array the clubs in this competition
+     */
+    public function getClubs() : array
+    {
+        return $this->clubs;
+    }
+
+    /**
+     * Returns the Club with the requested ID, or throws if the ID is not found
+     *
+     * @param string $club_id The ID of the club to return
+     *
+     * @throws OutOfBoundsException No Club with the requested ID was not found
+     *
+     * @return Club the requested club
+     */
+    public function getClubById(string $club_id) : Club
+    {
+        if (!property_exists($this->club_lookup, $club_id)) {
+            throw new OutOfBoundsException('Club with ID "'.$club_id.'" not found');
+        }
+        return $this->club_lookup->$club_id;
+    }
+
+    public function hasClubWithID(string $club_id) : bool
+    {
+        return property_exists($this->club_lookup, $club_id);
+    }
+
+    public function deleteClub(string $club_id) : void
+    {
+        // TODO
     }
 
     /**
@@ -280,6 +421,8 @@ final class Competition implements JsonSerializable
         if ($this->notes !== null) {
             $competition->notes = $this->notes;
         }
+
+        $competition->clubs = $this->clubs;
 
         $competition->teams = $this->teams;
 
@@ -382,7 +525,7 @@ final class Competition implements JsonSerializable
             }
         }
 
-        if (is_null($stage)) {
+        if ($stage === null) {
             throw new OutOfBoundsException('Stage with ID '.$stage_id.' not found');
         }
 
@@ -394,7 +537,7 @@ final class Competition implements JsonSerializable
             }
         }
 
-        if (is_null($group)) {
+        if ($group === null) {
             throw new OutOfBoundsException('Group with ID '.$group_id.' not found');
         }
 
@@ -406,7 +549,7 @@ final class Competition implements JsonSerializable
             }
         }
 
-        if (is_null($match)) {
+        if ($match === null) {
             throw new OutOfBoundsException('Match with ID '.$match_id.' not found');
         }
 
@@ -603,7 +746,7 @@ final class Competition implements JsonSerializable
             } else {
                 try {
                     $group->getMatchById($parts[3]);
-                } catch (Throwable $th) {
+                } catch (Throwable $_) {
                     throw new Exception('Invalid Match part in reference '.$team_ref.' : Match with ID "'.$parts[3].'" does not exist in stage:group with IDs "'.$parts[1].':'.$parts[2].'"');
                 }
                 if ($parts[4] !== 'winner' && $parts[4] !== 'loser') {
@@ -624,7 +767,12 @@ final class Competition implements JsonSerializable
      */
     public function teamIdExists(string $team_id) : bool
     {
-        return property_exists($this->team_lookup, $team_id);
+        // default to false if property_exists hits an error and returns null
+        $team_exists = property_exists($this->team_lookup, $team_id);
+        if ($team_exists === false || $team_exists === null) {
+            return false;
+        }
+        return true;
     }
 
     /**

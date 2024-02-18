@@ -29,7 +29,7 @@ final class LeagueTable
         $this->league = $league;
         $this->has_draws = $league->getDrawsAllowed();
         $this->has_sets = $league->getMatchType() === MatchType::SETS;
-        $this->ordering = $league->getLeagueConfig()->ordering;
+        $this->ordering = $league->getLeagueConfig()->getOrdering();
     }
 
     public function getOrderingText() : string
@@ -68,28 +68,28 @@ final class LeagueTable
             }
         };
 
-        $league_config = $this->league->getLeagueConfig()->points;
+        $league_config = $this->league->getLeagueConfig()->getPoints();
         $scoring_text = 'Teams win ';
-        if ($league_config->played !== 0) {
-            $scoring_text .= $textBuilder($league_config->played, 'played');
+        if ($league_config->getPlayed() !== 0) {
+            $scoring_text .= $textBuilder($league_config->getPlayed(), 'played');
         }
-        if ($league_config->win !== 0) {
-            $scoring_text .= $textBuilder($league_config->win, 'win');
+        if ($league_config->getWin() !== 0) {
+            $scoring_text .= $textBuilder($league_config->getWin(), 'win');
         }
-        if ($league_config->perSet !== 0) {
-            $scoring_text .= $textBuilder($league_config->perSet, 'set');
+        if ($league_config->getPerSet() !== 0) {
+            $scoring_text .= $textBuilder($league_config->getPerSet(), 'set');
         }
-        if ($league_config->winByOne !== 0 && $league_config->win !== $league_config->winByOne) {
-            $scoring_text .= $textBuilder($league_config->winByOne, 'win by one set');
+        if ($league_config->getWinByOne() !== 0 && $league_config->getWin() !== $league_config->getWinByOne()) {
+            $scoring_text .= $textBuilder($league_config->getWinByOne(), 'win by one set');
         }
-        if ($league_config->lose !== 0) {
-            $scoring_text .= $textBuilder($league_config->lose, 'loss');
+        if ($league_config->getLose() !== 0) {
+            $scoring_text .= $textBuilder($league_config->getLose(), 'loss');
         }
-        if ($league_config->loseByOne !== 0 && $league_config->win !== $league_config->loseByOne) {
-            $scoring_text .= $textBuilder($league_config->loseByOne, 'loss by one set');
+        if ($league_config->getLoseByOne() !== 0 && $league_config->getWin() !== $league_config->getLoseByOne()) {
+            $scoring_text .= $textBuilder($league_config->getLoseByOne(), 'loss by one set');
         }
-        if ($league_config->forfeit !== 0) {
-            $scoring_text .= $textBuilder($league_config->forfeit, 'forfeited match');
+        if ($league_config->getForfeit() !== 0) {
+            $scoring_text .= $textBuilder($league_config->getForfeit(), 'forfeited match');
         }
         if (strlen($scoring_text) < 12) {
             // Everything is zero; weird but possible

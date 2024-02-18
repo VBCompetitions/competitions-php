@@ -1020,13 +1020,13 @@ final class HTMLTest extends TestCase {
             HTML::MATCH_COLUMN_HOME_TEAM => 'Team Name',
             HTML::MATCH_COLUMN_AWAY_TEAM => 'League Points',
             HTML::MATCH_COLUMN_OFFICIALS => 'Referees',
-            HTML::MATCH_COLUMN_MANAGER => 'Referees',
+            HTML::MATCH_COLUMN_MANAGER => 'Managers',
         ];
         $matches_config->lookupTeamIDs = false;
         $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), $matches_config, 'TM1', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
-        $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">Match</th><th class="vbc-match-blank vbc-match-group-LG"></th><th class="vbc-match-team vbc-match-group-LG">Team Name</th><th class="vbc-match-team vbc-match-group-LG">League Points</th><th class="vbc-match-officials vbc-match-group-LG">Referees</th><th class="vbc-match-manager vbc-match-group-LG">Referees</th></tr>';
+        $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">Match</th><th class="vbc-match-blank vbc-match-group-LG"></th><th class="vbc-match-team vbc-match-group-LG">Team Name</th><th class="vbc-match-team vbc-match-group-LG">League Points</th><th class="vbc-match-officials vbc-match-group-LG">Referees</th><th class="vbc-match-manager vbc-match-group-LG">Managers</th></tr>';
         $expected_matches .= '<tr><td class="vbc-match-id vbc-match-group-LG">LG1</td><td class="vbc-match-blank vbc-match-group-LG"></td><td class="vbc-match-team vbc-match-group-LG">TM2</td><td class="vbc-match-team vbc-match-group-LG">TM4</td><td class="vbc-match-officials vbc-match-group-LG vbc-this-team">TM1</td><td class="vbc-match-manager vbc-match-group-LG vbc-this-team">TM1</td></tr>';
         $expected_matches .= '<tr><td class="vbc-match-id vbc-match-group-LG">LG2</td><td class="vbc-match-blank vbc-match-group-LG"></td><td class="vbc-match-team vbc-match-group-LG vbc-this-team">TM1</td><td class="vbc-match-team vbc-match-group-LG">TM3</td><td class="vbc-match-officials vbc-match-group-LG">TM2</td><td class="vbc-match-manager vbc-match-group-LG">TM2</td></tr>';
         $expected_matches .= '<tr><td class="vbc-match-id vbc-match-group-LG">LG4</td><td class="vbc-match-blank vbc-match-group-LG"></td><td class="vbc-match-team vbc-match-group-LG vbc-this-team">TM1</td><td class="vbc-match-team vbc-match-group-LG">TM4</td><td class="vbc-match-officials vbc-match-group-LG">TM3</td><td class="vbc-match-manager vbc-match-group-LG">TM3</td></tr>';

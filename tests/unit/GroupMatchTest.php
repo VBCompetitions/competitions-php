@@ -38,9 +38,9 @@ final class GroupMatchTest extends TestCase {
         $this->assertEquals('09:20', $match->getStart());
         $this->assertEquals('0:20', $match->getDuration());
         $this->assertTrue($match->getComplete());
-        $this->assertEquals('Dave', $match->getOfficials()->first);
+        $this->assertEquals('Dave', $match->getOfficials()->getFirstRef());
         $this->assertEquals('A Bobs', $match->getMVP());
-        $this->assertEquals('Dave', $match->getManager());
+        $this->assertEquals('Dave', $match->getManager()->getManagerName());
         $this->assertEquals('Local derby', $match->getNotes());
     }
 

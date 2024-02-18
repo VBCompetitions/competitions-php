@@ -2,13 +2,14 @@
 
 namespace VBCompetitions\Competitions;
 
+use Exception;
 use JsonSerializable;
 use stdClass;
 
 /**
  * The role of the contact within a team.  There may me multiple contacts with the same role
  */
-enum ContactType
+enum ContactRole
 {
     /** A team treasurer */
     case TREASURER;
@@ -46,108 +47,55 @@ final class Contact implements JsonSerializable
     /** A telephone number for this contact.  If a contact has multiple phone numbers then add them as another contact */
     private ?array $phones = [];
 
+    /** The team this contact belongs to */
+    private CompetitionTeam $team;
+
     /**
      * Defines a Team Contact
      *
      * @param object $contact_data The data defining this Contact
      */
-    function __construct(object $contact_data)
+    function __construct(CompetitionTeam $team, string $id, array $roles)
     {
-        $this->id = $contact_data->id;
-        if (property_exists($contact_data, 'name')) {
-            $this->name = $contact_data->name;
+        if (strlen($id) > 100 || strlen($id) < 1) {
+            throw new Exception('Invalid contact ID: must be between 1 and 100 characters long');
         }
-        foreach ($contact_data->roles as $role) {
-            switch ($role) {
-                case 'secretary':
-                    array_push($this->roles, ContactType::SECRETARY);
-                    break;
-                case 'treasurer':
-                    array_push($this->roles, ContactType::TREASURER);
-                    break;
-                case 'manager':
-                    array_push($this->roles, ContactType::MANAGER);
-                    break;
-                case 'captain':
-                    array_push($this->roles, ContactType::CAPTAIN);
-                    break;
-                case 'coach':
-                    array_push($this->roles, ContactType::COACH);
-                    break;
-                case 'assistantCoach':
-                    array_push($this->roles, ContactType::ASSISTANT_COACH);
-                    break;
-                case 'medic':
-                    array_push($this->roles, ContactType::MEDIC);
-                    break;
+
+        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $id)) {
+            throw new Exception('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =');
+        }
+
+        if ($team->hasContactWithID($id)) {
+            throw new Exception('Contact with ID "'.$id.'" already exists in the team');
+        }
+
+        $this->id = $id;
+
+        foreach ($roles as $role) {
+            $this->addRole($role);
+        }
+    }
+
+    public static function loadFromData(CompetitionTeam $competition_team, object $contact_data) : Contact
+    {
+        $contact = new Contact($competition_team, $contact_data->id, $contact_data->roles);
+
+        if (property_exists($contact_data, 'name')) {
+            $contact->setName($contact_data->name);
+        }
+
+        if (property_exists($contact_data, 'emails')) {
+            foreach ($contact_data->emails as $email) {
+                $contact->addEmail($email);
             }
         }
-        if (property_exists($contact_data, 'emails')) {
-            $this->emails = $contact_data->emails;
-        }
         if (property_exists($contact_data, 'phones')) {
-            $this->phones = $contact_data->phones;
+            foreach ($contact_data->phones as $phone) {
+                $contact->addPhone($phone);
+            }
         }
-    }
 
-    /**
-     * Get the ID for this contact
-     *
-     * @return string the id for this contact
-     */
-    public function getID() : string
-    {
-        return $this->id;
-    }
-
-    /**
-     * Get the name for this contact
-     *
-     * @return string the name for this contact
-     */
-    public function getName() : string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get the roles for this contact
-     *
-     * @return array<ContactType> the roles for this contact
-     */
-    public function getRoles() : array
-    {
-        return $this->roles;
-    }
-
-    /**
-     * Return whether this contact has the specified role
-     *
-     * @return bool whether the contact has the specified role
-     */
-    public function hasRole(ContactType $role) : bool
-    {
-        return in_array($role, $this->roles);
-    }
-
-    /**
-     * Get the email addresses for this contact
-     *
-     * @return array<string> the email addresses for this contact
-     */
-    public function getEmails() : array
-    {
-        return $this->emails;
-    }
-
-    /**
-     * Get the phone numbers for this contact
-     *
-     * @return array<string> the phone numbers for this contact
-     */
-    public function getPhones() : array
-    {
-        return $this->phones;
+        return $contact;
     }
 
     /**
@@ -166,13 +114,13 @@ final class Contact implements JsonSerializable
         $contact->roles = [];
         foreach ($this->roles as $role) {
             array_push($contact->roles, match($role) {
-                ContactType::SECRETARY => 'secretary',
-                ContactType::TREASURER => 'treasurer',
-                ContactType::MANAGER => 'manager',
-                ContactType::CAPTAIN => 'captain',
-                ContactType::COACH => 'coach',
-                ContactType::ASSISTANT_COACH => 'assistantCoach',
-                ContactType::MEDIC => 'medic'
+                ContactRole::SECRETARY => 'secretary',
+                ContactRole::TREASURER => 'treasurer',
+                ContactRole::MANAGER => 'manager',
+                ContactRole::CAPTAIN => 'captain',
+                ContactRole::COACH => 'coach',
+                ContactRole::ASSISTANT_COACH => 'assistantCoach',
+                ContactRole::MEDIC => 'medic'
             });
         }
 
@@ -185,5 +133,141 @@ final class Contact implements JsonSerializable
         }
 
         return $contact;
+    }
+
+    public function getTeam() : CompetitionTeam
+    {
+        return $this->team;
+    }
+
+    /**
+     * Get the ID for this contact
+     *
+     * @return string the id for this contact
+     */
+    public function getID() : string
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set the name for this contact
+     *
+     * @param string the name for this contact
+     */
+    public function setName($name) : void
+    {
+        if (strlen($name) > 1000 || strlen($name) < 1) {
+            throw new Exception('Invalid contact name: must be between 1 and 1000 characters long');
+        }
+        $this->name = $name;
+    }
+
+    /**
+     * Get the name for this contact
+     *
+     * @return string the name for this contact
+     */
+    public function getName() : string
+    {
+        return $this->name;
+    }
+
+    /**
+     * Get the roles for this contact
+     *
+     * @return array<ContactRole> the roles for this contact
+     */
+    public function getRoles() : array
+    {
+        return $this->roles;
+    }
+
+    /**
+     * Add the role to this contact
+     *
+     * @param string the role to add to this contact
+     *
+     *
+     */
+    public function addRole(string $role) : int
+    {
+        // TODO this could be bitwise maths so any duplicates are ignored?
+        // Todo whatever - still need to scan for dupes
+        switch ($role) {
+            case 'secretary':
+                array_push($this->roles, ContactRole::SECRETARY);
+                break;
+            case 'treasurer':
+                array_push($this->roles, ContactRole::TREASURER);
+                break;
+            case 'manager':
+                array_push($this->roles, ContactRole::MANAGER);
+                break;
+            case 'captain':
+                array_push($this->roles, ContactRole::CAPTAIN);
+                break;
+            case 'coach':
+                array_push($this->roles, ContactRole::COACH);
+                break;
+            case 'assistantCoach':
+                array_push($this->roles, ContactRole::ASSISTANT_COACH);
+                break;
+            case 'medic':
+                array_push($this->roles, ContactRole::MEDIC);
+                break;
+            default:
+                throw new Exception('Role "'.$role.'" is not a valid role for a contact');
+        }
+        return count($this->roles);
+    }
+
+    /**
+     * Return whether this contact has the specified role
+     *
+     * @return bool whether the contact has the specified role
+     */
+    public function hasRole(ContactRole $role) : bool
+    {
+        return in_array($role, $this->roles);
+    }
+
+    /**
+     * Get the email addresses for this contact
+     *
+     * @return array<string> the email addresses for this contact
+     */
+    public function getEmails() : array
+    {
+        return $this->emails;
+    }
+
+    /**
+     * Add the email addresses to this contact
+     *
+     * @param string $email the email address to add to this contact
+     */
+    public function addEmail($email) : int
+    {
+        // TODO - screen for duplicates
+        array_push($this->emails, $email);
+        return count($this->emails);
+    }
+
+    /**
+     * Get the phone numbers for this contact
+     *
+     * @return array<string> the phone numbers for this contact
+     */
+    public function getPhones() : array
+    {
+        return $this->phones;
+    }
+
+    public function addPhone($phone) : int
+    {
+        // TODO - screen for duplicates
+        array_push($this->phones, $phone);
+        return count($this->phones);
     }
 }

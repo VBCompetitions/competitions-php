@@ -43,7 +43,7 @@ class ICS {
             throw new Exception('Team with ID "'.$team_id.'" does not exist', 1);
         }
 
-        if (is_null($filename)) {
+        if ($filename === null) {
             $filename = $this->c->getTeamByID($team_id)->getName() . '-' . $this->c->getName() . '.ics';
         }
         // TODO - allow filename override
@@ -68,7 +68,7 @@ class ICS {
      */
     public function getCalendar(string $unique_id, string $team_id = null) : string
     {
-        if (!is_null($team_id) && !$this->c->teamIdExists($team_id)) {
+        if ($team_id !== null && !$this->c->teamIdExists($team_id)) {
             throw new Exception('Team with ID "'.$team_id.'" does not exist');
         }
 
@@ -82,7 +82,7 @@ class ICS {
                 $date = $match->getDate();
                 $venue = 'unknown';
 
-                if (is_null($date)) {
+                if ($date === null) {
                     if ($match instanceof GroupMatch) {
                         throw new Exception('error while generating calendar: match {'.$stage->getID().':'.$match->getGroup()->getID().':'.$match->getID().'} has no date');
                     } else {
@@ -98,7 +98,7 @@ class ICS {
                 }
 
                 if ($match instanceof GroupMatch) {
-                    if (!is_null($match->getVenue())) {
+                    if ($match->getVenue() !== null) {
                         $venue = $match->getVenue();
                         $last_seen_venue = $venue;
                     }
@@ -120,7 +120,7 @@ class ICS {
             foreach ($matches_on_date as $venue => $matches_on_date_at_venue) {
                 $cal .= "BEGIN:VEVENT\r\n";
                 $cal .= 'SUMMARY:';
-                if (!is_null($team_id)) {
+                if ($team_id !== null) {
                     $cal .= $this->c->getTeamByID($team_id)->getName().' ';
                 }
                 $cal .= $this->c->getName()." matches\r\n";
@@ -133,13 +133,13 @@ class ICS {
                     if ($matches_on_date_at_venue[$i] instanceof GroupBreak) {
                         continue;
                     }
-                    if (is_null($matches_on_date_at_venue[$i]->getWarmup())) {
+                    if ($matches_on_date_at_venue[$i]->getWarmup() === null) {
                         $all_fixtures_have_warmup = false;
                     }
-                    if (is_null($matches_on_date_at_venue[$i]->getStart())) {
+                    if ($matches_on_date_at_venue[$i]->getStart() === null) {
                         $all_fixtures_have_start = false;
                     }
-                    if (is_null($matches_on_date_at_venue[$i]->getDuration())) {
+                    if ($matches_on_date_at_venue[$i]->getDuration() === null) {
                         $all_fixtures_have_duration = false;
                     }
                 }
@@ -166,7 +166,7 @@ class ICS {
                     $cal .= 'DTSTART;VALUE=DATE:'.str_replace('-', '', $date)."\r\n";
                 }
                 $cal .= 'UID:D'.str_replace('-', '', $date).'T';
-                if (!is_null($team_id)){
+                if ($team_id !== null) {
                     $cal .= $team_id.'-';
                 }
                 $cal .= $unique_id."\r\n";
@@ -176,7 +176,7 @@ class ICS {
                 $cal .= 'DESCRIPTION:';
                 for ($i = 0; $i < count($matches_on_date_at_venue); $i++) {
                     if ($matches_on_date_at_venue[$i] instanceof GroupMatch) {
-                        $cal .= ($i === 0 ? '' : ' ').$this->getMatchDescription($matches_on_date_at_venue[$i], $all_fixtures_have_warmup, $all_fixtures_have_start)."\r\n";
+                        $cal .= ($i === 0 ? '' : ' ').$this->getMatchDescription($matches_on_date_at_venue[$i])."\r\n";
                     } else {
                         $cal .= ($i === 0 ? '' : ' ').$this->getBreakDescription($matches_on_date_at_venue[$i]);
                     }
@@ -199,10 +199,10 @@ class ICS {
     private function getBreakDescription(BreakInterface $break) : string
     {
         $description = '';
-        if (!is_null($break->getStart())) {
+        if ($break->getStart() !== null) {
             $description .= $break->getStart().' - ';
         }
-        if (!is_null($break->getName())) {
+        if ($break->getName() !== null) {
             $description .= $break->getName();
         }
         return $description."\r\n";
@@ -221,23 +221,29 @@ class ICS {
 
         $description = '';
 
-        if (!is_null($match->getWarmup())) {
+        if ($match->getWarmup() !== null) {
             $description .= $match->getWarmup().' ';
-        } else if (!is_null($match->getStart())) {
+        } else if ($match->getStart() !== null) {
             $description .= $match->getStart().' ';
         }
-        if (!is_null($match->getCourt())) {
+        if ($match->getCourt() !== null) {
             $description .= 'court '.$match->getCourt().' ';
         }
         $description .= '- '.$this->c->getTeamByID($match->getHomeTeam()->getID())->getName().' v '.$this->c->getTeamByID($match->getAwayTeam()->getID())->getName();
 
-        if (!is_null($match->getOfficials())) {
-            if (property_exists($match->getOfficials(), 'team')) {
-                $description .= ' ('.$this->c->getTeamByID($match->getOfficials()->team)->getName().' ref)';
+        if ($match->getOfficials() !== null) {
+            if ($match->getOfficials()->isTeam()) {
+                $description .= ' ('.$this->c->getTeamByID($match->getOfficials()->getTeamID())->getName().' ref)';
             } else {
-                $description .= ' (First ref: '.$match->getOfficials()->first;
-                $description .= property_exists($match->getOfficials(), 'second') ? ', Second ref: '.$match->getOfficials()->second : '';
-                $description .= property_exists($match->getOfficials(), 'scorer') ? ', Scorer: '.$match->getOfficials()->scorer : '';
+                $description .= ' (First ref: '.$match->getOfficials()->getFirstRef();
+                $description .= $match->getOfficials()->hasSecondRef() ? ', Second ref: '.$match->getOfficials()->getSecondRef() : '';
+                $description .= $match->getOfficials()->hasChallengeRef() ? ', Challenge ref: '.$match->getOfficials()->getChallengeRef() : '';
+                $description .= $match->getOfficials()->hasAssistantChallengeRef() ? ', Assistant challenge ref: '.$match->getOfficials()->getAssistantChallengeRef() : '';
+                $description .= $match->getOfficials()->hasReserveRef() ? ', Reserve ref: '.$match->getOfficials()->getReserveRef() : '';
+                $description .= $match->getOfficials()->hasScorer() ? ', Scorer: '.$match->getOfficials()->getScorer() : '';
+                $description .= $match->getOfficials()->hasAssistantScorer() ? ', Assistant scorer: '.$match->getOfficials()->getAssistantScorer() : '';
+                $description .= $match->getOfficials()->hasLinespersons() ? ', Linespersons: '.join(', ', $match->getOfficials()->getLinespersons()) : '';
+                $description .= $match->getOfficials()->hasBallCrew() ? ', Ball crew: '.join(', ', $match->getOfficials()->getBallCrew()) : '';
                 $description .= ')';
             }
         }

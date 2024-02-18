@@ -58,9 +58,9 @@ final class IfUnknownTest extends TestCase {
         $this->assertEquals('0:50', $second_match->getDuration());
         $this->assertEquals('10:10', $second_match->getStart());
         $this->assertNull($second_match->getNotes());
-        $this->assertEquals('SF1 loser', $second_match->getOfficials()->team);
+        $this->assertEquals('SF1 loser', $second_match->getOfficials()->getTeamID());
 
-        $this->assertEquals('A Bobs', $if_unknown->getMatchById('FIN')->getManager());
+        $this->assertEquals('A Bobs', $if_unknown->getMatchById('FIN')->getManager()->getManagerName());
         $this->assertEquals('J Doe', $if_unknown->getMatchById('FIN')->getMVP());
 
         $break = $if_unknown->getMatches()[2];

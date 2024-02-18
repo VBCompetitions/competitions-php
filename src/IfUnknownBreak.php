@@ -2,6 +2,8 @@
 
 namespace VBCompetitions\Competitions;
 
+use DateTime;
+use Exception;
 use JsonSerializable;
 use stdClass;
 
@@ -14,18 +16,18 @@ final class IfUnknownBreak implements JsonSerializable
     // public string $type;
 
     /** The start time for the break */
-    public ?string $start = null;
+    private ?string $start = null;
 
     /** The date of the break */
-    public ?string $date = null;
+    private ?string $date = null;
 
     /** The duration of the break */
-    public ?string $duration = null;
+    private ?string $duration = null;
 
     /** The name for the break, e.g. 'Lunch break' */
-    public ?string $name = null;
+    private ?string $name = null;
 
-    public IfUnknown $if_unknown;
+    private IfUnknown $if_unknown;
 
     /**
      * Contains the match break data
@@ -33,71 +35,29 @@ final class IfUnknownBreak implements JsonSerializable
      * @param IfUnknown $if_unknown The IfUnknown this break is in
      * @param object $break_data The data defining this break
      */
-    function __construct($if_unknown, $break_data)
+    function __construct($if_unknown)
     {
         $this->if_unknown = $if_unknown;
-        if (property_exists($break_data, 'start')) {
-            $this->start = $break_data->start;
+    }
+
+    public static function loadFromData(IfUnknown $if_unknown, object $if_unknown_break_data) : IfUnknownBreak
+    {
+        $break = new IfUnknownBreak($if_unknown);
+
+        if (property_exists($if_unknown_break_data, 'start')) {
+            $break->setStart($if_unknown_break_data->start);
         }
-        if (property_exists($break_data, 'date')) {
-            $this->date = $break_data->date;
+        if (property_exists($if_unknown_break_data, 'date')) {
+            $break->setDate($if_unknown_break_data->date);
         }
-        if (property_exists($break_data, 'duration')) {
-            $this->duration = $break_data->duration;
+        if (property_exists($if_unknown_break_data, 'duration')) {
+            $break->setDuration($if_unknown_break_data->duration);
         }
-        if (property_exists($break_data, 'name')) {
-            $this->name = $break_data->name;
+        if (property_exists($if_unknown_break_data, 'name')) {
+            $break->setName($if_unknown_break_data->name);
         }
-    }
 
-    /**
-     * Get the start time for this break
-     *
-     * @return string the start time for this break
-     */
-    public function getStart() : ?string
-    {
-        return $this->start;
-    }
-
-    /**
-     * Get the date for this break
-     *
-     * @return string the date for this break
-     */
-    public function getDate() : ?string
-    {
-        return $this->date;
-    }
-
-    /**
-     * Get the duration for this break
-     *
-     * @return string the duration for this break
-     */
-    public function getDuration() : ?string
-    {
-        return $this->duration;
-    }
-
-    /**
-     * Get the name for this break
-     *
-     * @return string the name for this break
-     */
-    public function getName() : ?string
-    {
-        return $this->name;
-    }
-
-    /**
-     * Get the IfUnknown this break is in
-     *
-     * @return IfUnknown the IfUnknown this break is in
-     */
-    public function getIfUnknown() : IfUnknown
-    {
-        return $this->if_unknown;
+        return $break;
     }
 
     /**
@@ -124,5 +84,125 @@ final class IfUnknownBreak implements JsonSerializable
         }
 
         return $break;
+    }
+
+    /**
+     * Get the IfUnknown this break is in
+     *
+     * @return IfUnknown the IfUnknown this break is in
+     */
+    public function getIfUnknown() : IfUnknown
+    {
+        return $this->if_unknown;
+    }
+
+    /**
+     * Set the start time for this break
+     *
+     * @param string $start the start time for this break
+     *
+     * @return IfUnknownBreak the updated break
+     */
+    public function setStart($start) : IfUnknownBreak
+    {
+        if (!preg_match('/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/', $start)) {
+            throw new Exception('Invalid start time "'.$start.'": must contain a value of the form "HH:mm" using a 24 hour clock');
+        }
+        $this->start = $start;
+        return $this;
+    }
+
+    /**
+     * Get the start time for this break
+     *
+     * @return string the start time for this break
+     */
+    public function getStart() : ?string
+    {
+        return $this->start;
+    }
+
+    /**
+     * Set the date for this break
+     *
+     * @param string $date the date for this break
+     *
+     * @return IfUnknownBreak the updated break
+     */
+    public function setDate($date) : IfUnknownBreak
+    {
+        if (!preg_match('/^[0-9]{4}-(0[0-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/', $date)) {
+            throw new Exception('Invalid date "'.$date.'": must contain a value of the form "YYYY-MM-DD"');
+        }
+
+        $d = DateTime::createFromFormat('Y-m-d', $date);
+        if ($d === false || $d->format('Y-m-d') !== $date) {
+            throw new Exception('Invalid date "'.$date.'": date does not exist');
+        }
+
+        $this->date = $date;
+        return $this;
+    }
+
+    /**
+     * Get the date for this break
+     *
+     * @return string the date for this break
+     */
+    public function getDate() : ?string
+    {
+        return $this->date;
+    }
+
+    /**
+     * Set the duration for this break
+     *
+     * @param string the duration for this break
+     *
+     * @return IfUnknownBreak the updated break
+     */
+    public function setDuration($duration) : IfUnknownBreak
+    {
+        if (!preg_match('/^[0-9]+:[0-5][0-9]$/', $duration)) {
+            throw new Exception('Invalid duration "'.$duration.'": must contain a value of the form "HH:mm"');
+        }
+        $this->duration = $duration;
+        return $this;
+    }
+
+    /**
+     * Get the duration for this break
+     *
+     * @return string the duration for this break
+     */
+    public function getDuration() : ?string
+    {
+        return $this->duration;
+    }
+
+    /**
+     * Set the name for this break
+     *
+     * @param string the name for this break
+     *
+     * @return IfUnknownBreak the updated break
+     */
+    public function setName($name) : IfUnknownBreak
+    {
+        if (strlen($name) > 1000 || strlen($name) < 1) {
+            throw new Exception('Invalid break name: must be between 1 and 1000 characters long');
+        }
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Get the name for this break
+     *
+     * @return string the name for this break
+     */
+    public function getName() : ?string
+    {
+        return $this->name;
     }
 }
