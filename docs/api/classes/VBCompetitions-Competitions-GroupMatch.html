@@ -257,7 +257,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-GroupMatch.html#property_manager">$manager</a>
     <span>
-                        &nbsp;: mixed            </span>
+                        &nbsp;: <a href="classes/VBCompetitions-Competitions-MatchManager.html"><abbr title="\VBCompetitions\Competitions\MatchManager">MatchManager</abbr></a>|null            </span>
 </dt>
 <dd>The court manager in charge of this match</dd>
 
@@ -278,7 +278,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-GroupMatch.html#property_officials">$officials</a>
     <span>
-                        &nbsp;: object|null            </span>
+                        &nbsp;: <a href="classes/VBCompetitions-Competitions-MatchOfficials.html"><abbr title="\VBCompetitions\Competitions\MatchOfficials">MatchOfficials</abbr></a>|null            </span>
 </dt>
 <dd>The officials for this match</dd>
 
@@ -425,7 +425,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_getManager">getManager()</a>
     <span>
-                                &nbsp;: mixed    </span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-MatchManager.html"><abbr title="\VBCompetitions\Competitions\MatchManager">MatchManager</abbr></a>|null    </span>
 </dt>
 <dd>Get the court manager for this match</dd>
 
@@ -446,7 +446,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_getOfficials">getOfficials()</a>
     <span>
-                                &nbsp;: object|null    </span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-MatchOfficials.html"><abbr title="\VBCompetitions\Competitions\MatchOfficials">MatchOfficials</abbr></a>|null    </span>
 </dt>
 <dd>Get the officials for this match</dd>
 
@@ -479,6 +479,76 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
 <dd>Get the ID of the winning team</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasCourt">hasCourt()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasDate">hasDate()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasDuration">hasDuration()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasManager">hasManager()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasMVP">hasMVP()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasNotes">hasNotes()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasOfficials">hasOfficials()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasStart">hasStart()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasVenue">hasVenue()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasWarmup">hasWarmup()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_isComplete">isComplete()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -502,6 +572,20 @@ matches without a duration limit)</dd>
 <dd>Return the match data suitable for saving into a competition file</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_loadFromData">loadFromData()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setAwayTeam">setAwayTeam()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the away team for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setComplete">setComplete()</a>
     <span>
                                 &nbsp;: void    </span>
@@ -509,11 +593,88 @@ matches without a duration limit)</dd>
 <dd>Set the completeness for this match</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setCourt">setCourt()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the court for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setDate">setDate()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the date for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setDuration">setDuration()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the duration for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setHomeTeam">setHomeTeam()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the home team for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setManager">setManager()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the court manager for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setMVP">setMVP()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the MVP for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setNotes">setNotes()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the notes for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setOfficials">setOfficials()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the officials for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setScores">setScores()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
 <dd>Set the scores for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setStart">setStart()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the start time for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setVenue">setVenue()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the venue for this match</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setWarmup">setWarmup()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
+</dt>
+<dd>Set the warmup time for this match</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_calculateContinuousResult">calculateContinuousResult()</a>
@@ -1105,7 +1266,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">mixed</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-MatchManager.html"><abbr title="\VBCompetitions\Competitions\MatchManager">MatchManager</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$manager</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -1207,7 +1368,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type">object|null</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-MatchOfficials.html"><abbr title="\VBCompetitions\Competitions\MatchOfficials">MatchOfficials</abbr></a>|null</span>
     <span class="phpdocumentor-signature__name">$officials</span>
      = <span class="phpdocumentor-signature__default-value">null</span></code>
 
@@ -1381,7 +1542,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$group</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$group</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1396,12 +1557,11 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$match_data</span>
-                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The data defining this Match</p>
-</section>
+                    <section class="phpdocumentor-description"></section>
 
             </dd>
             </dl>
@@ -1443,7 +1603,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">516</span>
+    <span class="phpdocumentor-element-found-in__line">719</span>
 
     </aside>
 
@@ -1522,7 +1682,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">606</span>
+    <span class="phpdocumentor-element-found-in__line">809</span>
 
     </aside>
 
@@ -1601,7 +1761,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">282</span>
+    <span class="phpdocumentor-element-found-in__line">484</span>
 
     </aside>
 
@@ -1636,7 +1796,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">287</span>
+    <span class="phpdocumentor-element-found-in__line">489</span>
 
     </aside>
 
@@ -1668,7 +1828,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">297</span>
+    <span class="phpdocumentor-element-found-in__line">499</span>
 
     </aside>
 
@@ -1703,7 +1863,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">209</span>
+    <span class="phpdocumentor-element-found-in__line">402</span>
 
     </aside>
 
@@ -1738,7 +1898,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">149</span>
+    <span class="phpdocumentor-element-found-in__line">245</span>
 
     </aside>
 
@@ -1773,7 +1933,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">169</span>
+    <span class="phpdocumentor-element-found-in__line">297</span>
 
     </aside>
 
@@ -1808,7 +1968,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">199</span>
+    <span class="phpdocumentor-element-found-in__line">374</span>
 
     </aside>
 
@@ -1843,7 +2003,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">350</span>
+    <span class="phpdocumentor-element-found-in__line">214</span>
 
     </aside>
 
@@ -1878,7 +2038,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">254</span>
+    <span class="phpdocumentor-element-found-in__line">445</span>
 
     </aside>
 
@@ -1913,7 +2073,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">259</span>
+    <span class="phpdocumentor-element-found-in__line">450</span>
 
     </aside>
 
@@ -1945,7 +2105,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">269</span>
+    <span class="phpdocumentor-element-found-in__line">460</span>
 
     </aside>
 
@@ -1980,7 +2140,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">139</span>
+    <span class="phpdocumentor-element-found-in__line">224</span>
 
     </aside>
 
@@ -2015,7 +2175,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">721</span>
+    <span class="phpdocumentor-element-found-in__line">924</span>
 
     </aside>
 
@@ -2064,7 +2224,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">330</span>
+    <span class="phpdocumentor-element-found-in__line">575</span>
 
     </aside>
 
@@ -2072,14 +2232,14 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getManager</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">getManager</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-MatchManager.html"><abbr title="\VBCompetitions\Competitions\MatchManager">MatchManager</abbr></a>|null</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">mixed</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-MatchManager.html"><abbr title="\VBCompetitions\Competitions\MatchManager">MatchManager</abbr></a>|null</span>
             &mdash;
             <section class="phpdocumentor-description"><p>the court manager for this match</p>
 </section>
@@ -2099,7 +2259,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">320</span>
+    <span class="phpdocumentor-element-found-in__line">549</span>
 
     </aside>
 
@@ -2134,7 +2294,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">340</span>
+    <span class="phpdocumentor-element-found-in__line">601</span>
 
     </aside>
 
@@ -2169,7 +2329,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">310</span>
+    <span class="phpdocumentor-element-found-in__line">523</span>
 
     </aside>
 
@@ -2177,14 +2337,14 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getOfficials</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">object|null</span></code>
+                    <span class="phpdocumentor-signature__name">getOfficials</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-MatchOfficials.html"><abbr title="\VBCompetitions\Competitions\MatchOfficials">MatchOfficials</abbr></a>|null</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">object|null</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-MatchOfficials.html"><abbr title="\VBCompetitions\Competitions\MatchOfficials">MatchOfficials</abbr></a>|null</span>
             &mdash;
             <section class="phpdocumentor-description"><p>the officials for this match</p>
 </section>
@@ -2204,7 +2364,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">189</span>
+    <span class="phpdocumentor-element-found-in__line">349</span>
 
     </aside>
 
@@ -2239,7 +2399,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">159</span>
+    <span class="phpdocumentor-element-found-in__line">271</span>
 
     </aside>
 
@@ -2274,7 +2434,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">179</span>
+    <span class="phpdocumentor-element-found-in__line">323</span>
 
     </aside>
 
@@ -2309,7 +2469,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">703</span>
+    <span class="phpdocumentor-element-found-in__line">906</span>
 
     </aside>
 
@@ -2351,6 +2511,336 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_hasCourt">
+        hasCourt()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasCourt" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">250</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasCourt</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasDate">
+        hasDate()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasDate" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">302</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasDate</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasDuration">
+        hasDuration()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasDuration" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">379</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasDuration</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasManager">
+        hasManager()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasManager" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">580</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasManager</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasMVP">
+        hasMVP()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasMVP" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">554</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasMVP</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasNotes">
+        hasNotes()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasNotes" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">606</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasNotes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasOfficials">
+        hasOfficials()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasOfficials" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">528</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasOfficials</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasStart">
+        hasStart()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasStart" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">354</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasStart</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasVenue">
+        hasVenue()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasVenue" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">276</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasVenue</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasWarmup">
+        hasWarmup()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_hasWarmup" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">328</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasWarmup</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_isComplete">
         isComplete()
         <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_isComplete" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2358,7 +2848,7 @@ identifiers in the document must be unique or a document reader&#039;s behaviour
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">234</span>
+    <span class="phpdocumentor-element-found-in__line">414</span>
 
     </aside>
 
@@ -2395,7 +2885,7 @@ matches without a duration limit)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">244</span>
+    <span class="phpdocumentor-element-found-in__line">424</span>
 
     </aside>
 
@@ -2430,7 +2920,7 @@ matches without a duration limit)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">360</span>
+    <span class="phpdocumentor-element-found-in__line">161</span>
 
     </aside>
 
@@ -2454,6 +2944,103 @@ matches without a duration limit)</p>
         class="phpdocumentor-element
             -method
             -public
+                                    -static                    "
+>
+    <h4 class="phpdocumentor-element__name" id="method_loadFromData">
+        loadFromData()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_loadFromData" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">93</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$group</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"></section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$group</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$match_data</span>
+                : <span class="phpdocumentor-signature__argument__return-type">object</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"></section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setAwayTeam">
+        setAwayTeam()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setAwayTeam" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">473</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the away team for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setAwayTeam</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchTeam.html"><abbr title="\VBCompetitions\Competitions\MatchTeam">MatchTeam</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$away_team</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$away_team</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchTeam.html"><abbr title="\VBCompetitions\Competitions\MatchTeam">MatchTeam</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the away team for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
                                                         "
 >
     <h4 class="phpdocumentor-element__name" id="method_setComplete">
@@ -2463,7 +3050,7 @@ matches without a duration limit)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">221</span>
+    <span class="phpdocumentor-element-found-in__line">391</span>
 
     </aside>
 
@@ -2501,6 +3088,366 @@ matches without a duration limit)</p>
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_setCourt">
+        setCourt()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setCourt" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">234</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the court for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setCourt</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$court</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$court</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the court for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setDate">
+        setDate()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setDate" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">286</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the date for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setDate</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$date</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$date</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the date for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setDuration">
+        setDuration()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setDuration" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">363</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the duration for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setDuration</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$duration</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$duration</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the duration for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setHomeTeam">
+        setHomeTeam()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setHomeTeam" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">434</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the home team for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setHomeTeam</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchTeam.html"><abbr title="\VBCompetitions\Competitions\MatchTeam">MatchTeam</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$home_team</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$home_team</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchTeam.html"><abbr title="\VBCompetitions\Competitions\MatchTeam">MatchTeam</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the home team for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setManager">
+        setManager()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setManager" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">564</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the court manager for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setManager</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchManager.html"><abbr title="\VBCompetitions\Competitions\MatchManager">MatchManager</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$manager</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$manager</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchManager.html"><abbr title="\VBCompetitions\Competitions\MatchManager">MatchManager</abbr></a>|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the court manager for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setMVP">
+        setMVP()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setMVP" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">538</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the MVP for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setMVP</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$mvp</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$mvp</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the MVP for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setNotes">
+        setNotes()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setNotes" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">590</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the notes for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setNotes</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$notes</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$notes</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the notes for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setOfficials">
+        setOfficials()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setOfficials" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">512</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the officials for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setOfficials</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchOfficials.html"><abbr title="\VBCompetitions\Competitions\MatchOfficials">MatchOfficials</abbr></a>|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$officials</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$officials</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchOfficials.html"><abbr title="\VBCompetitions\Competitions\MatchOfficials">MatchOfficials</abbr></a>|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the officials for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_setScores">
         setScores()
         <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setScores" class="headerlink"><i class="fas fa-link"></i></a>
@@ -2508,7 +3455,7 @@ matches without a duration limit)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">415</span>
+    <span class="phpdocumentor-element-found-in__line">618</span>
 
     </aside>
 
@@ -2561,6 +3508,141 @@ matches without a duration limit)</p>
                     <article
         class="phpdocumentor-element
             -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setStart">
+        setStart()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setStart" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">338</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the start time for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setStart</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$start</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the start time for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setVenue">
+        setVenue()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setVenue" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">260</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the venue for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setVenue</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$venue</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$venue</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the venue for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_setWarmup">
+        setWarmup()
+        <a href="classes/VBCompetitions-Competitions-GroupMatch.html#method_setWarmup" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">312</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Set the warmup time for this match</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">setWarmup</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$warmup</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$warmup</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the warmup time for this match</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
             -private
                                                         "
 >
@@ -2571,7 +3653,7 @@ matches without a duration limit)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">467</span>
+    <span class="phpdocumentor-element-found-in__line">670</span>
 
     </aside>
 
@@ -2620,7 +3702,7 @@ matches without a duration limit)</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">442</span>
+    <span class="phpdocumentor-element-found-in__line">645</span>
 
     </aside>
 
@@ -2670,7 +3752,7 @@ how many sets did each team score, are the results valid</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">538</span>
+    <span class="phpdocumentor-element-found-in__line">741</span>
 
     </aside>
 
@@ -2719,7 +3801,7 @@ how many sets did each team score, are the results valid</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">690</span>
+    <span class="phpdocumentor-element-found-in__line">893</span>
 
     </aside>
 
@@ -2793,7 +3875,7 @@ how many sets did each team score, are the results valid</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">672</span>
+    <span class="phpdocumentor-element-found-in__line">875</span>
 
     </aside>
 
@@ -2867,7 +3949,7 @@ how many sets did each team score, are the results valid</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/GroupMatch.php"><a href="files/src-groupmatch.html"><abbr title="src/GroupMatch.php">GroupMatch.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">652</span>
+    <span class="phpdocumentor-element-found-in__line">855</span>
 
     </aside>
 

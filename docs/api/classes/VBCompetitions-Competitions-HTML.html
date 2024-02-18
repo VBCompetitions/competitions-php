@@ -1417,7 +1417,7 @@ in a way where the caller can manipulate the data (for example injecting their o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/HTML.php"><a href="files/src-html.html"><abbr title="src/HTML.php">HTML.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1167</span>
+    <span class="phpdocumentor-element-found-in__line">1194</span>
 
     </aside>
 
@@ -1507,7 +1507,7 @@ in a way where the caller can manipulate the data (for example injecting their o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/HTML.php"><a href="files/src-html.html"><abbr title="src/HTML.php">HTML.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1100</span>
+    <span class="phpdocumentor-element-found-in__line">1127</span>
 
     </aside>
 
@@ -1563,7 +1563,7 @@ in a way where the caller can manipulate the data (for example injecting their o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/HTML.php"><a href="files/src-html.html"><abbr title="src/HTML.php">HTML.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1073</span>
+    <span class="phpdocumentor-element-found-in__line">1100</span>
 
     </aside>
 
@@ -1578,8 +1578,8 @@ in a way where the caller can manipulate the data (for example injecting their o
 <p>The $config object can be used to configure the league table data as described below:</p>
 <pre class="prettyprint">{
   headings: []      - the list of headings (using the HTML::LEAGUE_COLUMN_* constants) in the desired order
-  headingMap: }    - object where the key is the heading name (using the HTML::LEAGUE_COLUMN_* constants), and the
-                      value is the new text to use for that heading
+  headingMap: }    - associative array where the key is the heading name (using the HTML::LEAGUE_COLUMN_* constants),
+                      and the value is the new text to use for that heading
 }
 </pre>
 <p>The data returned is an object of the form:</p>
@@ -1683,7 +1683,7 @@ in a way where the caller can manipulate the data (for example injecting their o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/HTML.php"><a href="files/src-html.html"><abbr title="src/HTML.php">HTML.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">984</span>
+    <span class="phpdocumentor-element-found-in__line">1011</span>
 
     </aside>
 
@@ -1697,8 +1697,8 @@ how the league positions are determined</p>
         <section class="phpdocumentor-description"><p>The $config object can be used to configure the league table data as described below:</p>
 <pre class="prettyprint">{
   headings: []      - the list of headings (using the HTML::LEAGUE_COLUMN_* constants) in the desired order
-  headingMap: }    - object where the key is the heading name (using the HTML::LEAGUE_COLUMN_* constants), and the
-                      value is the new text to use for that heading
+  headingMap: }    - associative array where the key is the heading name (using the HTML::LEAGUE_COLUMN_* constants),
+                      and the value is the new text to use for that heading
 }
 </pre>
 </section>
@@ -1757,7 +1757,7 @@ how the league positions are determined</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/HTML.php"><a href="files/src-html.html"><abbr title="src/HTML.php">HTML.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">843</span>
+    <span class="phpdocumentor-element-found-in__line">876</span>
 
     </aside>
 
@@ -1778,8 +1778,8 @@ in a way where the caller can manipulate the data (for example injecting their o
                            cell with an empty string for the text and the class "vbc-blank"
   breakHeadings: []      - the list of headings to populate before printing a break's "name" value.  This defaults
                            to MATCH_COLUMN_DATE, HTML::MATCH_COLUMN_START
-  headingMap: }         - object where the key is the heading name (using the HTML::MATCH_COLUMN_* constants), and the
-                           value is the new text to use for that heading
+  headingMap: }         - associative array where the key is the heading name (using the HTML::MATCH_COLUMN_* constants),
+                           and the value is the new text to use for that heading
   merge: []              - the list of headings where rows with matching data can be merged together (by a "rowspan"
                            property), e.g. all matches on the same date share a single cell in the output for that date
                            field.  By default this contains MATCH_COLUMN_DATE
@@ -1915,7 +1915,7 @@ in a way where the caller can manipulate the data (for example injecting their o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/HTML.php"><a href="files/src-html.html"><abbr title="src/HTML.php">HTML.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">710</span>
+    <span class="phpdocumentor-element-found-in__line">743</span>
 
     </aside>
 
@@ -1934,8 +1934,8 @@ in a way where the caller can manipulate the data (for example injecting their o
                            cell with an empty string for the text and the class "vbc-blank"
   breakHeadings: []      - the list of headings to populate before printing a break's "name" value.  This defaults
                            to MATCH_COLUMN_DATE, HTML::MATCH_COLUMN_START
-  headingMap: }         - object where the key is the heading name (using the HTML::MATCH_COLUMN_* constants), and the
-                           value is the new text to use for that heading
+  headingMap: }         - associative array the key is the heading name (using the HTML::MATCH_COLUMN_* constants),
+                           and the value is the new text to use for that heading
   merge: []              - the list of headings where rows with matching data can be merged together (by a "rowspan"
                            property), e.g. all matches on the same date share a single cell in the output for that date
                            field.  By default this contains MATCH_COLUMN_DATE
@@ -2118,7 +2118,7 @@ in a way where the caller can manipulate the data (for example injecting their o
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/HTML.php"><a href="files/src-html.html"><abbr title="src/HTML.php">HTML.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">635</span>
+    <span class="phpdocumentor-element-found-in__line">668</span>
 
     </aside>
 
@@ -2349,7 +2349,7 @@ in a way where the caller can manipulate the data (for example injecting their o
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">generateMatchRow</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchContainerInterface.html"><abbr title="\VBCompetitions\Competitions\MatchContainerInterface">MatchContainerInterface</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match_container</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchInterface.html"><abbr title="\VBCompetitions\Competitions\MatchInterface">MatchInterface</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$home_team_match</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$away_team_match</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$official_team_match</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">bool&nbsp;</span><span class="phpdocumentor-signature__argument__name">$manager_team_match</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">generateMatchRow</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchContainerInterface.html"><abbr title="\VBCompetitions\Competitions\MatchContainerInterface">MatchContainerInterface</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match_container</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$config</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchInterface.html"><abbr title="\VBCompetitions\Competitions\MatchInterface">MatchInterface</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
         <section class="phpdocumentor-description"></section>
 
@@ -2380,32 +2380,8 @@ in a way where the caller can manipulate the data (for example injecting their o
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$home_team_match</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$away_team_match</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$official_team_match</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$manager_team_match</span>
-                : <span class="phpdocumentor-signature__argument__return-type">bool</span>
+                <span class="phpdocumentor-signature__argument__name">$team_id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"></section>
