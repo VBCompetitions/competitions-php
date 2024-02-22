@@ -29,9 +29,12 @@ final class League extends Group
      * Summary of calculateLeagueTable
      * @return void
      */
-    private function processMatches() : void
+    public function processMatches() : void
     {
-        // parent::processMatches();
+        if ($this->matches_processed) {
+            return;
+        }
+        $this->matches_processed = true;
 
         $this->table = new LeagueTable($this);
 
@@ -155,14 +158,14 @@ final class League extends Group
 
         usort($this->table->entries, [League::class, 'sortLeagueTable']);
 
-        if ($this->isComplete()) {
-            for ($i = 0; $i < count($this->table->entries); $i++) {
-                $this->competition->addTeamReference(
-                    $this->stage->getID().':'.$this->id.':league:'.($i+1),
-                    $this->competition->getTeamByID($this->table->entries[$i]->getTeamID())
-                );
-            }
-        }
+        // if ($this->isComplete()) {
+        //     for ($i = 0; $i < count($this->table->entries); $i++) {
+        //         $this->competition->addTeamReference(
+        //             $this->stage->getID().':'.$this->id.':league:'.($i+1),
+        //             $this->competition->getTeamByID($this->table->entries[$i]->getTeamID())
+        //         );
+        //     }
+        // }
     }
 
     /**
@@ -358,5 +361,27 @@ final class League extends Group
     public function getLeagueConfig() : LeagueConfig
     {
         return $this->league_config;
+    }
+
+    public function getTeamByID(string $type, string $entity) : CompetitionTeam
+    {
+        if ($type === 'league') {
+            $this->processMatches();
+            if (!$this->isComplete()) {
+                throw new Exception('Cannot get the team in a league position on an incomplete league');
+            }
+            if ((int)$entity > count($this->table->entries)) {
+                throw new Exception('Invalid League position: position is bigger than the number of teams');
+            }
+            return $this->competition->getTeamByID($this->table->entries[$entity-1]->getTeamID());
+        }
+
+        $match = $this->getMatchById($type);
+
+        return match ($entity) {
+            'winner' => $this->competition->getTeamByID($match->getWinnerTeamId()),
+            'loser' => $this->competition->getTeamByID($match->getLoserTeamId()),
+            default => throw new Exception('Invalid entity "'.$entity.'" in team reference'),
+        };
     }
 }

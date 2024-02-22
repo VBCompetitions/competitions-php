@@ -71,7 +71,7 @@ final class Competition implements JsonSerializable
 
         $this->unknown_team = new CompetitionTeam($this, CompetitionTeam::UNKNOWN_TEAM_ID, CompetitionTeam::UNKNOWN_TEAM_NAME);
 
-        $this->processMatches();
+        // $this->processMatches();
     }
 
     /**
@@ -117,16 +117,18 @@ final class Competition implements JsonSerializable
 
         if (property_exists($competition_data, 'clubs')) {
             foreach ($competition_data->clubs as $club_data) {
-                $competition->addClub(Club::loadFromData($competition, $club_data));
+                $competition->addClub((new Club($competition, $club_data->id, $club_data->name))->loadFromData($club_data));
             }
         }
 
         foreach ($competition_data->teams as $team_data) {
-            $competition->addTeam(CompetitionTeam::loadFromData($competition, $team_data));
+            $competition->addTeam((new CompetitionTeam($competition, $team_data->id, $team_data->name))->loadFromData($team_data));
         }
 
         foreach ($competition_data->stages as $stage_data) {
-            $competition->addStage(Stage::loadFromData($competition, $stage_data));
+            $stage = new Stage($competition, $stage_data->id);
+            $competition->addStage($stage);
+            $stage->loadFromData($stage_data);
         }
 
         return $competition;
@@ -148,10 +150,14 @@ final class Competition implements JsonSerializable
         file_put_contents(realpath($competition_data_dir)."/".$competition_file, $competition_data, LOCK_EX);
     }
 
-    public function processMatches() : void
+    private function processMatches() : void
     {
         foreach ($this->stages as $stage) {
-            $stage->processMatches();
+            foreach ($stage->getGroups() as $group) {
+                if (!$group->isProcessed()) {
+                    $group->processMatches();
+                }
+            }
         }
     }
 
@@ -222,16 +228,16 @@ final class Competition implements JsonSerializable
      * @param string $team_name the name for the team.  It must be between 1 and 1000 characters long
      *
      * @throws Exception If the input parameters are invalid or if a team with the requested ID already exists
-     * @return CompetitionTeam the new team
+     * @return Competition this competition
      */
-    public function addTeam(CompetitionTeam $team) : CompetitionTeam
+    public function addTeam(CompetitionTeam $team) : Competition
     {
         if ($team->getCompetition() !== $this) {
             throw new Exception('Team was initialised with a different Competition');
         }
         array_push($this->teams, $team);
         $this->team_lookup->{$team->getID()} = $team;
-        return $team;
+        return $this;
     }
 
     /**
@@ -253,6 +259,8 @@ final class Competition implements JsonSerializable
      */
     public function getTeamByID(string $team_id) : CompetitionTeam
     {
+        $this->processMatches();
+
         if (strncmp($team_id, '{', 1) !== 0) {
             if (property_exists($this->team_lookup, $team_id)) {
                 return $this->team_lookup->$team_id;
@@ -280,13 +288,18 @@ final class Competition implements JsonSerializable
             }
         }
 
-        if (preg_match('/^{.*}$/', $team_id)) {
-            // As we go through the results, we populate the lookup table
-            // e.g. when a league group is complete, we can populate {Stage1:Group1:league:1} with the team in position 1 in Group 1 in Stage 1
-            // If we look up a key and get a hit then the team is known, if not then we don't know so return "unknown"
-            if (property_exists($this->team_lookup, $team_id)) {
-                return $this->team_lookup->{$team_id};
+        if (preg_match('/^{([^:]*):([^:]*):([^:]*):([^:]*)}$/', $team_id, $team_ref_parts)) {
+            try {
+                return $this->getStageById($team_ref_parts[1])->getGroupByID($team_ref_parts[2])->getTeamByID($team_ref_parts[3], $team_ref_parts[4]);
+            } catch (Throwable $th) {
+                return $this->unknown_team;
             }
+            // // As we go through the results, we populate the lookup table
+            // // e.g. when a league group is complete, we can populate {Stage1:Group1:league:1} with the team in position 1 in Group 1 in Stage 1
+            // // If we look up a key and get a hit then the team is known, if not then we don't know so return "unknown"
+            // if (property_exists($this->team_lookup, $team_id)) {
+            //     return $this->team_lookup->{$team_id};
+            // }
         }
 
         return $this->unknown_team;
@@ -304,14 +317,14 @@ final class Competition implements JsonSerializable
         // Also remove team from any club's list
     }
 
-    public function addStage(Stage $stage) : Stage
+    public function addStage(Stage $stage) : Competition
     {
         if ($stage->getCompetition() !== $this) {
             throw new Exception('Stage was initialised with a different Competition');
         }
         array_push($this->stages, $stage);
         $this->stage_lookup->{$stage->getID()} = $stage;
-        return $stage;
+        return $this;
     }
 
     /**
@@ -360,14 +373,14 @@ final class Competition implements JsonSerializable
      * @throws Exception If the input parameters are invalid or if a club with the requested ID already exists
      * @return Club the new club
      */
-    public function addClub(Club $club) : Club
+    public function addClub(Club $club) : Competition
     {
         if ($club->getCompetition() !== $this) {
             throw new Exception('Club was initialised with a different Competition');
         }
         array_push($this->clubs, $club);
         $this->club_lookup->{$club->getID()} = $club;
-        return $club;
+        return $this;
     }
 
     /**
@@ -560,7 +573,10 @@ final class Competition implements JsonSerializable
             }
             $match->complete = $complete;
         } else {
-            GroupMatch::assertSetScoresValid($home_team_scores, $away_team_scores, new SetConfig($group->sets));
+            $dummy_competition = new Competition('dummy for score update');
+            $dummy_stage = new Stage($dummy_competition, $stage->id);
+            $dummy_group = new Crossover($dummy_stage, $group->id, 'sets');
+            GroupMatch::assertSetScoresValid($home_team_scores, $away_team_scores, (new SetConfig($dummy_group))->loadFromData($group->sets));
             if (property_exists($match, 'duration') && $complete === null) {
                 throw new Exception('Invalid results: match type is sets and match has a duration, but the match completeness is not set');
             }
@@ -739,7 +755,7 @@ final class Competition implements JsonSerializable
                 }
                 if ($group->isComplete()) {
                     $teams_in_group = $group->getTeamIDs(VBC_TEAMS_KNOWN);
-                    if (count($teams_in_group) < $parts[4]) {
+                    if (count($teams_in_group) < (int)$parts[4]) {
                         throw new Exception('Invalid League position: position is bigger than the number of teams');
                     }
                 }
@@ -775,21 +791,43 @@ final class Competition implements JsonSerializable
         return true;
     }
 
-    /**
-     * Add a team reference to the team lookup table, for later lookup in resolving team ids
-     *
-     * @param string $key the team reference key (without braces)
-     * @param CompetitionTeam $team the resolved team for the reference
-     *
-     * @throws Exception thrown when the key already exists and the team is different from the existing entry
-     */
-    public function addTeamReference(string $key, CompetitionTeam $team) : void
-    {
-        if (isset($this->team_lookup->{'{'.$key.'}'}) && $this->team_lookup->{'{'.$key.'}'}->getID() !== $team->getID()) {
-            throw new Exception('Key mismatch in team lookup table.  Key '.$key.' currently set to team with ID '.$this->team_lookup->{'{'.$key.'}'}->getID().', call tried to set to team with ID '.$team->getID());
-        }
-        $this->team_lookup->{'{'.$key.'}'} = $team;
-    }
+    // /**
+    //  * Add a team reference to the team lookup table, for later lookup in resolving team ids
+    //  *
+    //  * @param string $key the team reference key (without braces)
+    //  * @param CompetitionTeam $team the resolved team for the reference
+    //  *
+    //  * @throws Exception thrown when the key already exists and the team is different from the existing entry
+    //  */
+    // public function addTeamReference(string $key, CompetitionTeam $team) : Competition
+    // {
+
+    //     // TODO Loading now has a problem where every time you add a team to a league, as far as it can tell that league
+    //     // is complete if the match is finished, so it wants to calculate the league positions.  The problem is that when you add
+    //     // the next match it wants to recalculate the league positions, which means a new {STG:GRP:league:pos} value, but we can't override a value
+    //     // Problem 1 - this means that we can't update a result with an API call update and have this validation pass
+    //     // Problem 2 - I tried the code below in the processMatches function, but it ran really slowly.  Why isn't reference lookup for a reference
+    //     //             deferred to that stage:group?  That way the group can worry about when to do it and whether it's accurate or known
+
+    //     // Make sure any team references referring to a league position are wiped.  Whenever we add a
+    //     // match to the league we reset that league to being incomplete, but it may have already
+    //     // processed the matches an populated the reference table with {STG:GRP:league:pos} values
+    //     // and overwriting that with a new value throws an exception
+
+    //     // if ($group instanceof League) {
+    //     //     foreach ($this->team_lookup as $team_id => $_) {
+    //     //         if (str_starts_with($team_id, '{'.$stage->getID().':'.$group->getID().':league:')) {
+    //     //             unset($this->team_lookup->$team_id);
+    //     //         }
+    //     //     }
+    //     // }
+
+    //     if (isset($this->team_lookup->{'{'.$key.'}'}) && $this->team_lookup->{'{'.$key.'}'}->getID() !== $team->getID()) {
+    //         throw new Exception('Key mismatch in team lookup table.  Key '.$key.' currently set to team with ID '.$this->team_lookup->{'{'.$key.'}'}->getID().', call tried to set to team with ID '.$team->getID());
+    //     }
+    //     $this->team_lookup->{'{'.$key.'}'} = $team;
+    //     return $this;
+    // }
 
     /**
      * Check whether all stages are complete, i.e. all matches in all stages have results
