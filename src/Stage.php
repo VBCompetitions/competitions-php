@@ -103,56 +103,46 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         $this->group_lookup = new stdClass();
     }
 
-    public static function loadFromData(Competition $competition, object $stage_data) : Stage
+    public function loadFromData(object $stage_data) : Stage
     {
-        $stage = new Stage($competition, $stage_data->id);
-
         if (property_exists($stage_data, 'name')) {
-            $stage->setName($stage_data->name);
+            $this->setName($stage_data->name);
         }
 
         if (property_exists($stage_data, 'notes')) {
-            $stage->setNotes($stage_data->notes);
+            $this->setNotes($stage_data->notes);
         }
 
         if (property_exists($stage_data, 'description')) {
-            $stage->setDescription($stage_data->description);
+            $this->setDescription($stage_data->description);
         }
 
         foreach ($stage_data->groups as $group_data) {
             $group = match ($group_data->type) {
-                'league' => League::loadFromData($stage, $group_data),
-                'crossover' => Crossover::loadFromData($stage, $group_data),
-                'knockout' => Knockout::loadFromData($stage, $group_data),
+                'crossover' => new Crossover($this, $group_data->id, $group_data->matchType),
+                'knockout' => new Knockout($this, $group_data->id, $group_data->matchType),
+                'league' => new League($this, $group_data->id, $group_data->matchType, $group_data->drawsAllowed),
                 default => throw new Exception('Unknown group type')
             };
-            $stage->addGroup($group);
+            $this->addGroup($group);
+            $group->loadFromData($group_data);
         }
 
         if (property_exists($stage_data, 'ifUnknown')) {
-            $stage->setIfUnknown(IfUnknown::loadFromData($stage, $stage_data->ifUnknown));
+            $this->setIfUnknown(new IfUnknown($this, $stage_data->ifUnknown->description))->loadFromData($stage_data->ifUnknown);
         }
 
-        $stage->checkMatches();
+        $this->checkMatches();
 
-        return $stage;
+        return $this;
     }
 
-    public function processMatches() : void
-    {
-        foreach ($this->groups as $group) {
-            $group->processMatches();
-        }
-    }
-
-    public function appendGroup(Group $new_group) : void
-    {
-        array_push($this->groups, $new_group);
-        if (property_exists($this->group_lookup, $new_group->getID())) {
-            throw new Exception('Competition data failed validation. Groups in a Stage with duplicate IDs not allowed: {'.$this->id.':'.$new_group->getID().'}');
-        }
-        $this->group_lookup->{$new_group->getID()} = $new_group;
-    }
+    // public function processMatches() : void
+    // {
+    //     foreach ($this->groups as $group) {
+    //         $group->processMatches();
+    //     }
+    // }
 
     /**
      * Get the ID for this stage
@@ -164,15 +154,19 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return $this->id;
     }
 
-    public function addGroup(Group $group) : Group
+    public function addGroup(Group $group) : Stage
     {
         if ($group->getStage() !== $this) {
             throw new Exception('Group was initialised with a different Stage');
         }
+        if ($this->hasGroupWithID($group->getID())) {
+            throw new Exception('Groups in a Stage with duplicate IDs not allowed: {'.$this->id.':'.$group->getID().'}');
+        }
         array_push($this->groups, $group);
         $this->group_lookup->{$group->getID()} = $group;
-        return $group;
+        return $this;
     }
+
     // public function addGroupTemp(string $group_id, GroupType $group_type, MatchType $match_type) : Stage
     // {
     //     $group_id_length = strlen($group_id);
@@ -273,9 +267,10 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return $this->if_unknown;
     }
 
-    public function setIfUnknown(?IfUnknown $if_unknown) : void
+    public function setIfUnknown(?IfUnknown $if_unknown) : IfUnknown
     {
         $this->if_unknown = $if_unknown;
+        return $if_unknown;
     }
 
     /**
@@ -427,6 +422,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             throw new OutOfBoundsException('Group with ID '.$group_id.' not found in stage with ID '.$this->id);
         }
         return $this->group_lookup->$group_id;
+    }
+
+    public function hasGroupWithID(string $group_id) : bool
+    {
+        return property_exists($this->group_lookup, $group_id);
     }
 
     /**

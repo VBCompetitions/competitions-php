@@ -76,26 +76,24 @@ final class Contact implements JsonSerializable
         }
     }
 
-    public static function loadFromData(CompetitionTeam $competition_team, object $contact_data) : Contact
+    public function loadFromData(object $contact_data) : Contact
     {
-        $contact = new Contact($competition_team, $contact_data->id, $contact_data->roles);
-
         if (property_exists($contact_data, 'name')) {
-            $contact->setName($contact_data->name);
+            $this->setName($contact_data->name);
         }
 
         if (property_exists($contact_data, 'emails')) {
             foreach ($contact_data->emails as $email) {
-                $contact->addEmail($email);
+                $this->addEmail($email);
             }
         }
         if (property_exists($contact_data, 'phones')) {
             foreach ($contact_data->phones as $phone) {
-                $contact->addPhone($phone);
+                $this->addPhone($phone);
             }
         }
 
-        return $contact;
+        return $this;
     }
 
     /**
@@ -190,7 +188,7 @@ final class Contact implements JsonSerializable
      *
      *
      */
-    public function addRole(string $role) : int
+    public function addRole(string $role) : Contact
     {
         // TODO this could be bitwise maths so any duplicates are ignored?
         // Todo whatever - still need to scan for dupes
@@ -219,7 +217,7 @@ final class Contact implements JsonSerializable
             default:
                 throw new Exception('Role "'.$role.'" is not a valid role for a contact');
         }
-        return count($this->roles);
+        return $this;
     }
 
     /**
@@ -247,11 +245,11 @@ final class Contact implements JsonSerializable
      *
      * @param string $email the email address to add to this contact
      */
-    public function addEmail($email) : int
+    public function addEmail($email) : Contact
     {
         // TODO - screen for duplicates
         array_push($this->emails, $email);
-        return count($this->emails);
+        return $this;
     }
 
     /**
@@ -264,10 +262,10 @@ final class Contact implements JsonSerializable
         return $this->phones;
     }
 
-    public function addPhone($phone) : int
+    public function addPhone($phone) : Contact
     {
         // TODO - screen for duplicates
         array_push($this->phones, $phone);
-        return count($this->phones);
+        return $this;
     }
 }

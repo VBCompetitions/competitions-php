@@ -80,49 +80,47 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
         $this->id = $id;
     }
 
-    public static function loadFromData(IfUnknown $if_unknown, object $match_data) : IfUnknownMatch
+    public function loadFromData(object $match_data) : IfUnknownMatch
     {
-        $match = new IfUnknownMatch($if_unknown, $match_data->id);
-
         if (property_exists($match_data, 'court')) {
-            $match->setCourt($match_data->court);
+            $this->setCourt($match_data->court);
         }
         if (property_exists($match_data, 'venue')) {
-            $match->setVenue($match_data->venue);
+            $this->setVenue($match_data->venue);
         }
         if (property_exists($match_data, 'date')) {
-            $match->setDate($match_data->date);
+            $this->setDate($match_data->date);
         }
         if (property_exists($match_data, 'warmup')) {
-            $match->setWarmup($match_data->warmup);
+            $this->setWarmup($match_data->warmup);
         }
         if (property_exists($match_data, 'start')) {
-            $match->setStart($match_data->start);
+            $this->setStart($match_data->start);
         }
         if (property_exists($match_data, 'duration')) {
-            $match->setDuration($match_data->duration);
+            $this->setDuration($match_data->duration);
         }
         if (property_exists($match_data, 'complete')) {
-            $match->setComplete($match_data->complete);
+            $this->setComplete($match_data->complete);
         }
 
-        $match->setHomeTeam(MatchTeam::loadFromData($match, $match_data->homeTeam));
-        $match->setAwayTeam(MatchTeam::loadFromData($match, $match_data->awayTeam));
+        $this->setHomeTeam(MatchTeam::loadFromData($this, $match_data->homeTeam));
+        $this->setAwayTeam(MatchTeam::loadFromData($this, $match_data->awayTeam));
 
         if (property_exists($match_data, 'officials')) {
-            $match->setOfficials(MatchOfficials::loadFromData($match, $match_data->officials));
+            $this->setOfficials(MatchOfficials::loadFromData($this, $match_data->officials));
         }
         if (property_exists($match_data, 'mvp')) {
-            $match->setMVP($match_data->mvp);
+            $this->setMVP($match_data->mvp);
         }
         if (property_exists($match_data, 'manager')) {
-            $match->setManager(MatchManager::loadFromData($match, $match_data->manager));
+            $this->setManager(MatchManager::loadFromData($this, $match_data->manager));
         }
         if (property_exists($match_data, 'notes')) {
-            $match->setNotes($match_data->notes);
+            $this->setNotes($match_data->notes);
         }
 
-        return $match;
+        return $this;
     }
 
     /**

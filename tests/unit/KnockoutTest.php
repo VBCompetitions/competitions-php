@@ -10,10 +10,12 @@ use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\GroupMatch;
 use VBCompetitions\Competitions\GroupType;
 use VBCompetitions\Competitions\Knockout;
+use VBCompetitions\Competitions\KnockoutConfig;
 use VBCompetitions\Competitions\Stage;
 
 #[CoversClass(Competition::class)]
 #[CoversClass(Knockout::class)]
+#[CoversClass(KnockoutConfig::class)]
 #[CoversClass(Stage::class)]
 #[CoversClass(GroupMatch::class)]
 final class KnockoutTest extends TestCase {
@@ -23,7 +25,7 @@ final class KnockoutTest extends TestCase {
         $knockout = $competition->getStageById('KO')->getGroupById('CUP');
 
         if ($knockout instanceof Knockout) {
-            $this->assertEquals('1st', $knockout->getKnockoutConfig()->standing[0]->position);
+            $this->assertEquals('1st', $knockout->getKnockoutConfig()->getStanding()[0]->position);
         } else {
             $this->fail('Group should be a knockout');
         }

@@ -436,9 +436,10 @@ final class GroupTest extends TestCase {
         // $group->setLeague('');
         // $this->assertEquals('', $group->getLeague());
 
-        $this->assertEquals(MatchType::SETS, $group->getMatchType());
-        $group->setMatchType(MatchType::CONTINUOUS);
-        $this->assertEquals(MatchType::CONTINUOUS, $group->getMatchType());
+        // Can't change this after Group construction
+        // $this->assertEquals(MatchType::SETS, $group->getMatchType());
+        // $group->setMatchType(MatchType::CONTINUOUS);
+        // $this->assertEquals(MatchType::CONTINUOUS, $group->getMatchType());
 
         // $this->assertEquals('', $group->getSetConfig());
         // $group->setSetConfig('');

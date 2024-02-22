@@ -48,47 +48,41 @@ final class SetConfig implements JsonSerializable
         $this->group = $group;
     }
 
-    public static function loadFromData(Group $group, object $set_data) : SetConfig
+    public function loadFromData(object $set_data) : SetConfig
     {
-        $set_config = new SetConfig($group);
-
-        if (is_null($set_data)) {
-            return $set_config;
-        }
-
         if (property_exists($set_data, 'maxSets')) {
-            $set_config->setMaxSets($set_data->maxSets);
+            $this->setMaxSets($set_data->maxSets);
         }
 
         if (property_exists($set_data, 'setsToWin')) {
-            $set_config->setSetsToWin($set_data->setsToWin);
+            $this->setSetsToWin($set_data->setsToWin);
         }
 
         if (property_exists($set_data, 'clearPoints')) {
-            $set_config->setClearPoints($set_data->clearPoints);
+            $this->setClearPoints($set_data->clearPoints);
         }
 
         if (property_exists($set_data, 'minPoints')) {
-            $set_config->setMinPoints($set_data->minPoints);
+            $this->setMinPoints($set_data->minPoints);
         }
 
         if (property_exists($set_data, 'pointsToWin')) {
-            $set_config->setPointsToWin($set_data->pointsToWin);
+            $this->setPointsToWin($set_data->pointsToWin);
         }
 
         if (property_exists($set_data, 'lastSetPointsToWin')) {
-            $set_config->setLastSetPointsToWin($set_data->lastSetPointsToWin);
+            $this->setLastSetPointsToWin($set_data->lastSetPointsToWin);
         }
 
         if (property_exists($set_data, 'maxPoints')) {
-            $set_config->setMaxPoints($set_data->maxPoints);
+            $this->setMaxPoints($set_data->maxPoints);
         }
 
         if (property_exists($set_data, 'lastSetMaxPoints')) {
-            $set_config->setLastSetMaxPoints($set_data->lastSetMaxPoints);
+            $this->setLastSetMaxPoints($set_data->lastSetMaxPoints);
         }
 
-        return $set_config;
+        return $this;
     }
 
     public function getGroup() : Group

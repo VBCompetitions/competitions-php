@@ -120,35 +120,32 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionDuplicateStageIDs() : void
     {
-        $this->expectExceptionMessage('Stage with ID "L" already exists in the competition}');
+        $this->expectExceptionMessage('Stage with ID "L" already exists in the competition');
         Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-stage-ids.json');
     }
 
     public function testCompetitionDuplicateGroupIDs() : void
     {
-        $this->expectExceptionMessage('Competition data failed validation. Groups in a Stage with duplicate IDs not allowed: {L:RL}');
+        $this->expectExceptionMessage('Groups in a Stage with duplicate IDs not allowed: {L:RL}');
         Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-group-ids.json');
     }
 
     public function testCompetitionGetTeamByIDTernaries() : void
     {
-        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
-        $competition->addTeamReference('team:lookup:league:1', $competition->getTeamByID('TM1'));
-        $competition->addTeamReference('team:lookup:league-a:2', $competition->getTeamByID('TM2'));
-        $competition->addTeamReference('team:lookup:league-b:2', $competition->getTeamByID('TM2'));
-        $competition->addTeamReference('team:lookup:league:3', $competition->getTeamByID('TM3'));
-        $competition->addTeamReference('team:lookup:league:4', $competition->getTeamByID('TM4'));
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-with-references.json');
+        $matchF1 = $competition->getStageById('F')->getGroupById('F')->getMatchById('F1');
+        $matchF2 = $competition->getStageById('F')->getGroupById('F')->getMatchById('F2');
 
-        $truthyTeam = $competition->getTeamByID('{team:lookup:league-a:2}=={team:lookup:league-b:2}?TM3:TM4');
-        $falsyTeam = $competition->getTeamByID('{team:lookup:league:1}=={team:lookup:league-a:2}?TM3:TM4');
+        $truthyTeam = $competition->getTeamByID($matchF1->getHomeTeam()->getID());
+        $falsyTeam = $competition->getTeamByID($matchF1->getAwayTeam()->getID());
 
-        $truthyTeamRef = $competition->getTeamByID('{team:lookup:league-a:2}=={team:lookup:league-b:2}?{team:lookup:league:3}:{team:lookup:league:4}');
-        $falsyTeamRef = $competition->getTeamByID('{team:lookup:league:1}=={team:lookup:league-a:2}?{team:lookup:league:3}:{team:lookup:league:4}');
+        $truthyTeamRef = $competition->getTeamByID($matchF2->getHomeTeam()->getID());
+        $falsyTeamRef = $competition->getTeamByID($matchF2->getAwayTeam()->getID());
 
-        $this->assertEquals('TM3', $truthyTeam->getID());
-        $this->assertEquals('TM4', $falsyTeam->getID());
-        $this->assertEquals('TM3', $truthyTeamRef->getID());
-        $this->assertEquals('TM4', $falsyTeamRef->getID());
+        $this->assertEquals('TM1', $truthyTeam->getID());
+        $this->assertEquals('TM2', $falsyTeam->getID());
+        $this->assertEquals('TM6', $truthyTeamRef->getID());
+        $this->assertEquals('TM7', $falsyTeamRef->getID());
     }
 
     public function testCompetitionGetStageLookups() : void
@@ -170,7 +167,6 @@ final class CompetitionTest extends TestCase {
     public function testCompetitionGetTeamLookupsIncomplete() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
-        $competition->addTeamReference('{X:Y:Z:1}', $competition->getTeamByID('TM1'));
 
         $this->assertTrue($competition->teamIdExists('TM1'));
         $this->assertTrue($competition->teamIdExists('TM8'));
@@ -219,15 +215,6 @@ final class CompetitionTest extends TestCase {
 
         $this->assertFalse($competition->teamIdExists('{NO:SUCH:TEAM:REF}'));
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{NO:SUCH:TEAM:REF}')->getID());
-    }
-
-    public function testCompetitionAddTeamReferenceToMetadataBlocksMismatches() : void
-    {
-        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
-
-        $this->expectExceptionMessageMatches('/Key mismatch in team lookup table.  Key {REF1} currently set to team with ID TM1, call tried to set to team with ID TM2/');
-        $competition->addTeamReference('{REF1}', $competition->getTeamByID('TM1'));
-        $competition->addTeamReference('{REF1}', $competition->getTeamByID('TM2'));
     }
 
     public function testCompetitionStageWithNoName() : void

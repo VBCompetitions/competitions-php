@@ -32,11 +32,11 @@ final class LeagueConfig implements JsonSerializable
         $this->league = $league;
     }
 
-    public static function loadFromData(League $league, object $league_data) : LeagueConfig
+    public function loadFromData(object $league_data) : LeagueConfig
     {
-        $league_config = new LeagueConfig($league);
-        $league_config->setOrdering($league_data->ordering)->setPoints(LeagueConfigPoints::loadFromData($league_config, $league_data->points));
-        return $league_config;
+        $league_config_points = (new LeagueConfigPoints($this))->loadFromData($league_data->points);
+        $this->setOrdering($league_data->ordering)->setPoints($league_config_points);
+        return $this;
     }
 
     /**

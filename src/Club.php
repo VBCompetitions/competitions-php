@@ -58,15 +58,21 @@ final class Club implements JsonSerializable
         $this->team_lookup = new stdClass();
     }
 
-    public static function loadFromData($competition, object $club_data) : Club
+    /**
+     * Assumes this is a freshly made Club object and loads it with the data extracted
+     * from the Competitions JSON file for this club
+     *
+     * @param object Data from a Competitions JSON file for a single club
+     *
+     * @return Club the updated club object
+     */
+    public function loadFromData(object $club_data) : Club
     {
-        $club = new Club($competition, $club_data->id, $club_data->name);
-
         if (property_exists($club_data, 'notes')) {
-            $club->setNotes($club_data->notes);
+            $this->setNotes($club_data->notes);
         }
 
-        return $club;
+        return $this;
     }
 
     /**
@@ -103,13 +109,16 @@ final class Club implements JsonSerializable
      * Set the name for this club
      *
      * @param string $name the name for this club
+     *
+     * @return Club this Club
      */
-    public function setName($name) : void
+    public function setName($name) : Club
     {
         if (strlen($name) > 1000 || strlen($name) < 1) {
             throw new Exception('Invalid club name: must be between 1 and 1000 characters long');
         }
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -126,21 +135,26 @@ final class Club implements JsonSerializable
      * Set the notes for this club
      *
      * @param string|null $notes the notes for this club
+     *
+     * @return Club this Club
      */
-    public function setNotes(?string $notes) : void
+    public function setNotes(?string $notes) : Club
     {
         $this->notes = $notes;
+        return $this;
     }
 
     /**
      * Add a team to this club
      *
      * @param CompetitionTeam $team the team to add
+     *
+     * @return Club this Club
      */
-    public function addTeam(CompetitionTeam $team) : CompetitionTeam
+    public function addTeam(CompetitionTeam $team) : Club
     {
         $this->team_lookup->{$team->getID()} = $team;
-        return $team;
+        return $this;
     }
 
     public function deleteTeam(string $team_id) : void

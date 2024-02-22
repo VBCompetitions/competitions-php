@@ -48,19 +48,17 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
         $this->match_lookup = new stdClass();
     }
 
-    public static function loadFromData(Stage $stage, object $if_unknown_data) : IfUnknown
+    public function loadFromData(object $if_unknown_data) : IfUnknown
     {
-        $if_unknown = new IfUnknown($stage, $if_unknown_data->description);
-
         foreach ($if_unknown_data->matches as $match) {
             if ($match->type === 'match') {
-                $if_unknown->addMatch(IfUnknownMatch::loadFromData($if_unknown, $match));
+                $this->addMatch((new IfUnknownMatch($this, $match->id))->loadFromData($match));
             } elseif ($match->type === 'break') {
-                $if_unknown->addBreak(IfUnknownBreak::loadFromData($if_unknown, $match));
+                $this->addBreak((new IfUnknownBreak($this))->loadFromData($match));
             }
         }
 
-        return $if_unknown;
+        return $this;
     }
 
     /**
@@ -89,7 +87,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
         return $this->description;
     }
 
-    public function addMatch(IfUnknownMatch $match) : int
+    public function addMatch(IfUnknownMatch $match) : IfUnknown
     {
         array_push($this->matches, $match);
         $this->match_lookup->{$match->getID()} = $match;
@@ -123,13 +121,13 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
         if (property_exists($match, 'warmup')) {
             $this->matches_have_warmups = true;
         }
-        return count($this->matches);
+        return $this;
     }
 
-    public function addBreak(IfUnknownBreak $break) : int
+    public function addBreak(IfUnknownBreak $break) : IfUnknown
     {
         array_push($this->matches, $break);
-        return count($this->matches);
+        return $this;
     }
 
     public function getMatches(string $team_id = null, int $flags = 0) : array

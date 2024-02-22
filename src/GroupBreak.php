@@ -38,22 +38,21 @@ final class GroupBreak implements JsonSerializable, BreakInterface
         $this->group = $group;
     }
 
-    public static function loadFromData(Group $group, object $break_data) : GroupBreak
+    public function loadFromData(object $break_data) : GroupBreak
     {
-        $break = new GroupBreak($group);
         if (property_exists($break_data, 'start')) {
-            $break->setStart($break_data->start);
+            $this->setStart($break_data->start);
         }
         if (property_exists($break_data, 'date')) {
-            $break->setDate($break_data->date);
+            $this->setDate($break_data->date);
         }
         if (property_exists($break_data, 'duration')) {
-            $break->setDuration($break_data->duration);
+            $this->setDuration($break_data->duration);
         }
         if (property_exists($break_data, 'name')) {
-            $break->setName($break_data->name);
+            $this->setName($break_data->name);
         }
-        return $break;
+        return $this;
     }
 
     /**

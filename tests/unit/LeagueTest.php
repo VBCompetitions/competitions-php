@@ -9,6 +9,8 @@ use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\GroupType;
 use VBCompetitions\Competitions\League;
+use VBCompetitions\Competitions\LeagueConfig;
+use VBCompetitions\Competitions\LeagueConfigPoints;
 use VBCompetitions\Competitions\LeagueTable;
 use VBCompetitions\Competitions\LeagueTableEntry;
 use VBCompetitions\Competitions\Stage;
@@ -16,6 +18,8 @@ use VBCompetitions\Competitions\Stage;
 #[CoversClass(Competition::class)]
 #[CoversClass(Stage::class)]
 #[CoversClass(League::class)]
+#[CoversClass(LeagueConfig::class)]
+#[CoversClass(LeagueConfigPoints::class)]
 #[CoversClass(LeagueTable::class)]
 #[CoversClass(LeagueTableEntry::class)]
 final class LeagueTest extends TestCase {

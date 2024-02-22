@@ -12,10 +12,10 @@ use stdClass;
 final class KnockoutConfig implements JsonSerializable
 {
     /** An ordered mapping from a position to a team ID */
-    private array $standing;
+    private array $standing = [];
 
     /** The knockout group this config is for */
-    private Knockout $knockout;
+    private Group $group;
 
     /**
      *
@@ -24,16 +24,15 @@ final class KnockoutConfig implements JsonSerializable
      * @param MatchInterface $match The match this Manager is managing
      * @param string|object $manager_data The data for the match manager
      */
-    function __construct(Knockout $knockout)
+    function __construct(Group $group)
     {
-        $this->knockout = $knockout;
+        $this->group = $group;
     }
 
-    public static function loadFromData(Knockout $knockout, object $knockout_data) : KnockoutConfig
+    public function loadFromData(object $knockout_data) : KnockoutConfig
     {
-        $knockout_config = new KnockoutConfig($knockout);
-        $knockout_config->setStanding($knockout_data->standing);
-        return $knockout_config;
+        $this->setStanding($knockout_data->standing);
+        return $this;
     }
 
     /**
@@ -43,7 +42,14 @@ final class KnockoutConfig implements JsonSerializable
      */
     public function jsonSerialize() : mixed
     {
-        return $this->standing;
+        $knockout = new stdClass();
+        $knockout->standing = $this->standing;
+        return $knockout;
+    }
+
+    public function getGroup() : Group
+    {
+        return $this->group;
     }
 
     /**

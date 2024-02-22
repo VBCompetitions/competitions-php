@@ -41,7 +41,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     protected GroupType $type;
 
     /** Configuration for the knockout matches */
-    protected ?KnockoutConfig $knockout_config;
+    protected ?KnockoutConfig $knockout_config = null;
 
     /** Configuration for the league */
     protected ?LeagueConfig $league_config;
@@ -108,6 +108,8 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /** A Lookup table from match IDs to that match */
     private object $match_lookup;
 
+    protected bool $matches_processed = false;
+
     /**
      * Contains the group data of a stage, creating any metadata needed
      *
@@ -129,49 +131,49 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         $this->team_ids = [];
     }
 
-    public static function loadFromData(Stage $stage, object $group_data) : Group
+    public function loadFromData(object $group_data) : Group
     {
-        $group = match ($group_data->type) {
-            'crossover' => new Crossover($stage, $group_data->id, $group_data->matchType),
-            'knockout' => new Knockout($stage, $group_data->id, $group_data->matchType),
-            'league' => new League($stage, $group_data->id, $group_data->matchType, $group_data->drawsAllowed),
-        };
-
-        foreach ($group_data->matches as $match_data) {
-            if ($match_data->type === 'match') {
-                $group->addMatch(GroupMatch::loadFromData($group, $match_data));
-            } else if ($match_data->type === 'break') {
-                $group->addBreak(GroupBreak::loadFromData($group, $match_data));
-            }
-        }
-
         if (property_exists($group_data, 'name')) {
-            $group->setName($group_data->name);
+            $this->setName($group_data->name);
         }
 
         if (property_exists($group_data, 'notes')) {
-            $group->setNotes($group_data->notes);
+            $this->setNotes($group_data->notes);
         }
 
         if (property_exists($group_data, 'description')) {
-            $group->setDescription($group_data->description);
+            $this->setDescription($group_data->description);
         }
 
         if (property_exists($group_data, 'sets')) {
-            $group->setSetConfig(SetConfig::loadFromData($group, $group_data->sets));
+            $set_config = new SetConfig($this);
+            $this->setSetConfig($set_config);
+            $set_config->loadFromData($group_data->sets);
         }
 
         if (property_exists($group_data, 'knockout')) {
-            $group->setKnockoutConfig(KnockoutConfig::loadFromData($group, $group_data->knockout));
+            $knockout_config = new KnockoutConfig($this);
+            $this->setKnockoutConfig($knockout_config);
+            $knockout_config->loadFromData($group_data->knockout);
         }
 
         if (property_exists($group_data, 'league')) {
-            $group->setLeagueConfig(LeagueConfig::loadFromData($group, $group_data->league));
-        } else if ($group instanceof League) {
+            $league_config = new LeagueConfig($this);
+            $this->setLeagueConfig($league_config);
+            $league_config->loadFromData($group_data->league);
+        } else if ($this instanceof League) {
             throw new Exception('A group of type "league" must have a league config defined');
         }
 
-        return $group;
+        foreach ($group_data->matches as $match_data) {
+            if ($match_data->type === 'match') {
+                $this->addMatch((new GroupMatch($this, $match_data->id))->loadFromData($match_data));
+            } else if ($match_data->type === 'break') {
+                $this->addBreak((new GroupBreak($this))->loadFromData($match_data));
+            }
+        }
+
+        return $this;
     }
 
     /**
@@ -313,10 +315,10 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
     // TODO - do we say you can't change these once the first (or any) match has started?  You could invalidate the whole group
 
-    public function setLeagueConfig(LeagueConfig $league_config) : League
+    public function setLeagueConfig(LeagueConfig $league_config) : LeagueConfig
     {
         $this->league_config = $league_config;
-        return $this;
+        return $league_config;
     }
 
     /**
@@ -354,9 +356,10 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
      *
      * @param SetConfig $sets the set config for this group
      */
-    public function setSetConfig(SetConfig $sets) : void
+    public function setSetConfig(SetConfig $sets) : SetConfig
     {
         $this->sets = $sets;
+        return $sets;
     }
 
     /**
@@ -390,45 +393,45 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         return $this->competition;
     }
 
-    public function addMatch(MatchInterface $match) : int
+    public function addMatch(GroupMatch $match) : Group
     {
+        $this->matches_processed = false;
+
         $this->competition->validateTeamID($match->getHomeTeam()->getID(), $match->getID(), 'homeTeam');
         $this->competition->validateTeamID($match->getAwayTeam()->getID(), $match->getID(), 'awayTeam');
 
         array_push($this->matches, $match);
         $this->match_lookup->{$match->getID()} = $match;
 
-        if ($match instanceof GroupMatch) {
-            if ($match->hasCourt()) {
-                $this->matches_have_courts = true;
-            }
-            if ($match->hasDate()) {
-                $this->matches_have_dates = true;
-            }
-            if ($match->hasDuration()) {
-                $this->matches_have_durations = true;
-            }
-            if ($match->hasMVP()) {
-                $this->matches_have_mvps = true;
-            }
-            if ($match->hasManager()) {
-                $this->matches_have_managers = true;
-            }
-            if ($match->hasNotes()) {
-                $this->matches_have_notes = true;
-            }
-            if ($match->hasOfficials()) {
-                $this->matches_have_officials = true;
-            }
-            if ($match->hasStart()) {
-                $this->matches_have_starts = true;
-            }
-            if ($match->hasVenue()) {
-                $this->matches_have_venues = true;
-            }
-            if ($match->hasWarmup()) {
-                $this->matches_have_warmups = true;
-            }
+        if ($match->hasCourt()) {
+            $this->matches_have_courts = true;
+        }
+        if ($match->hasDate()) {
+            $this->matches_have_dates = true;
+        }
+        if ($match->hasDuration()) {
+            $this->matches_have_durations = true;
+        }
+        if ($match->hasMVP()) {
+            $this->matches_have_mvps = true;
+        }
+        if ($match->hasManager()) {
+            $this->matches_have_managers = true;
+        }
+        if ($match->hasNotes()) {
+            $this->matches_have_notes = true;
+        }
+        if ($match->hasOfficials()) {
+            $this->matches_have_officials = true;
+        }
+        if ($match->hasStart()) {
+            $this->matches_have_starts = true;
+        }
+        if ($match->hasVenue()) {
+            $this->matches_have_venues = true;
+        }
+        if ($match->hasWarmup()) {
+            $this->matches_have_warmups = true;
         }
 
         if (strncmp($match->getHomeTeam()->getID(), '{', 1) === 0) {
@@ -449,16 +452,16 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
 
         $this->is_complete_known = false;
 
-        return count($this->matches);
+        return $this;
     }
 
-    public function addBreak(BreakInterface $break) : int
+    public function addBreak(GroupBreak $break) : Group
     {
         array_push($this->matches, $break);
 
         $this->is_complete_known = false;
 
-        return count($this->matches);
+        return $this;
     }
 
     /**
@@ -651,7 +654,27 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Process the matches in this group
      */
-    // protected function processMatches() : void
+    public function processMatches() : void
+    {
+        $this->matches_processed = true;
+    }
+
+    public function getTeamByID(string $type, string $entity) : CompetitionTeam
+    {
+        $match = $this->getMatchById($type);
+
+        return match ($entity) {
+            'winner' => $this->competition->getTeamByID($match->getWinnerTeamId()),
+            'loser' => $this->competition->getTeamByID($match->getLoserTeamId()),
+            default => throw new Exception('Invalid entity "'.$entity.'" in team reference'),
+        };
+    }
+
+    public function isProcessed() : bool
+    {
+        return $this->matches_processed;
+    }
+
     // {
         // foreach ($this->match_list as $match) {
         //     if ($match->type === 'match') {

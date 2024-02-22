@@ -69,19 +69,17 @@ final class CompetitionTeam implements JsonSerializable
         $this->player_lookup = new stdClass();
     }
 
-    public static function loadFromData($competition, object $team_data) : CompetitionTeam
+    public function loadFromData(object $team_data) : CompetitionTeam
     {
-        $team = new CompetitionTeam($competition, $team_data->id, $team_data->name);
-
         if (property_exists($team_data, 'contacts')) {
             foreach ($team_data->contacts as $contact_data) {
-                $team->addContact(Contact::loadFromData($team, $contact_data));
+                $this->addContact((new Contact($this, $contact_data->id, $contact_data->roles))->loadFromData($contact_data));
             }
         }
 
         if (property_exists($team_data, 'players')) {
             foreach ($team_data->players as $player_data) {
-                $team->addPlayer(Player::loadFromData($team, $player_data));
+                $this->addPlayer((new Player($this, $player_data->id, $player_data->name))->loadFromData($player_data));
             }
         //     $this->players = [];
         //     foreach ($team_data->players as $player_data) {
@@ -95,15 +93,16 @@ final class CompetitionTeam implements JsonSerializable
         }
 
         if (property_exists($team_data, 'club')) {
-            $team->setClub($team_data->club);
-            $team->getClub()->addTeam($team);
+            $this->setClub($team_data->club);
+            // TODO - this should move to setClub, and it should clear out any previous team
+            $this->getClub()->addTeam($this);
         }
 
         if (property_exists($team_data, 'notes')) {
-            $team->notes = $team_data->notes;
+            $this->notes = $team_data->notes;
         }
 
-        return $team;
+        return $this;
     }
 
     /**
@@ -229,14 +228,14 @@ final class CompetitionTeam implements JsonSerializable
      *
      * @param Contact $contact the contact to add to this team
      *
-     * @return int the number of contacts stored in this team
+     * @return Contact the contact just added
      */
-    public function addContact(Contact $contact) : int
+    public function addContact(Contact $contact) : CompetitionTeam
     {
         // TODO - screen for duplicates
         array_push($this->contacts, $contact);
         $this->contact_lookup->{$contact->getID()} = $contact;
-        return count($this->contacts);
+        return $this;
     }
 
     public function hasContactWithID(string $contact_id) : bool
@@ -276,14 +275,14 @@ final class CompetitionTeam implements JsonSerializable
      *
      * @param Player $player the player to add to this team
      *
-     * @return int the number of players stored in this team
+     * @return Player the player just added
      */
-    public function addPlayer(Player $player) : int
+    public function addPlayer(Player $player) : CompetitionTeam
     {
         // TODO - screen for duplicates
         array_push($this->players, $player);
         $this->player_lookup->{$player->getID()} = $player;
-        return count($this->players);
+        return $this;
     }
 
     public function hasPlayerWithID(string $player_id) : bool

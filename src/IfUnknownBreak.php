@@ -40,24 +40,22 @@ final class IfUnknownBreak implements JsonSerializable
         $this->if_unknown = $if_unknown;
     }
 
-    public static function loadFromData(IfUnknown $if_unknown, object $if_unknown_break_data) : IfUnknownBreak
+    public function loadFromData(object $if_unknown_break_data) : IfUnknownBreak
     {
-        $break = new IfUnknownBreak($if_unknown);
-
         if (property_exists($if_unknown_break_data, 'start')) {
-            $break->setStart($if_unknown_break_data->start);
+            $this->setStart($if_unknown_break_data->start);
         }
         if (property_exists($if_unknown_break_data, 'date')) {
-            $break->setDate($if_unknown_break_data->date);
+            $this->setDate($if_unknown_break_data->date);
         }
         if (property_exists($if_unknown_break_data, 'duration')) {
-            $break->setDuration($if_unknown_break_data->duration);
+            $this->setDuration($if_unknown_break_data->duration);
         }
         if (property_exists($if_unknown_break_data, 'name')) {
-            $break->setName($if_unknown_break_data->name);
+            $this->setName($if_unknown_break_data->name);
         }
 
-        return $break;
+        return $this;
     }
 
     /**

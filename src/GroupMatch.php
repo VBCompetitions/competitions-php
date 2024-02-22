@@ -84,73 +84,71 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     function __construct($group, $id)
     {
         if ($group->hasMatchWithID($id)) {
-            throw new Exception('Group {'.$group->getStage()->getID().':'.$group->getID().':'.$id.'}: matches with duplicate IDs {'.$id.'} not allowed');
+            throw new Exception('Group {'.$group->getStage()->getID().':'.$group->getID().'}: matches with duplicate IDs {'.$id.'} not allowed');
         }
         $this->group = $group;
         $this->id = $id;
     }
 
-    public static function loadFromData(Group $group, object $match_data) : GroupMatch
+    public function loadFromData(object $match_data) : GroupMatch
     {
-        $match = new GroupMatch($group, $match_data->id);
-
         if (property_exists($match_data, 'court')) {
-            $match->setCourt($match_data->court);
+            $this->setCourt($match_data->court);
         }
         if (property_exists($match_data, 'venue')) {
-            $match->setVenue($match_data->venue);
+            $this->setVenue($match_data->venue);
         }
         if (property_exists($match_data, 'date')) {
-            $match->setDate($match_data->date);
+            $this->setDate($match_data->date);
         }
         if (property_exists($match_data, 'warmup')) {
-            $match->setWarmup($match_data->warmup);
+            $this->setWarmup($match_data->warmup);
         }
         if (property_exists($match_data, 'start')) {
-            $match->setStart($match_data->start);
+            $this->setStart($match_data->start);
         }
         if (property_exists($match_data, 'duration')) {
-            $match->setDuration($match_data->duration);
+            $this->setDuration($match_data->duration);
         }
         if (property_exists($match_data, 'complete')) {
-            $match->setComplete($match_data->complete);
+            $this->setComplete($match_data->complete);
         } else {
             // There seems to be a bug in opis/json-schema such that the schema rule to require the "complete" field when the "matchType" is "continuous"
             // is thrown off when the array of matches also includes a "break", so manually check here
-            if ($group->getMatchType() === MatchType::CONTINUOUS) {
-                throw new Exception('Group {'.$group->getStage()->getID().':'.$group->getID().'}, match ID {'.$match_data->id.'}, missing field "complete"');
+            if ($this->group->getMatchType() === MatchType::CONTINUOUS) {
+                throw new Exception('Group {'.$this->group->getStage()->getID().':'.$this->group->getID().'}, match ID {'.$match_data->id.'}, missing field "complete"');
             }
         }
 
-        $match->setHomeTeam(MatchTeam::loadFromData($match, $match_data->homeTeam));
-        $match->setAwayTeam(MatchTeam::loadFromData($match, $match_data->awayTeam));
+        $this->setHomeTeam(MatchTeam::loadFromData($this, $match_data->homeTeam));
+        $this->setAwayTeam(MatchTeam::loadFromData($this, $match_data->awayTeam));
 
         // $this->home_team = new MatchTeam($this, $match_data->homeTeam);
-        // $this->home_team_scores = $match_data->homeTeam->scores;
+        $this->home_team_scores = $match_data->homeTeam->scores;
         // $this->away_team = new MatchTeam($this, $match_data->awayTeam);
-        // $this->away_team_scores = $match_data->awayTeam->scores;
+        $this->away_team_scores = $match_data->awayTeam->scores;
 
         if (property_exists($match_data, 'officials')) {
-            $officials = MatchOfficials::loadFromData($match, $match_data->officials);
+            $officials = MatchOfficials::loadFromData($this, $match_data->officials);
             if ($officials->isTeam() &&
-               ($officials->getTeamID() === $match->getHomeTeam()->getID() || $officials->getTeamID() === $match->getAwayTeam()->getID())) {
-                throw new Exception('Refereeing team (in match {'.$group->getStage()->getID().':'.$group->getID().':'.$match->getID().'}) cannot be the same as one of the playing teams');
+               ($officials->getTeamID() === $this->getHomeTeam()->getID() || $officials->getTeamID() === $this->getAwayTeam()->getID())) {
+                throw new Exception('Refereeing team (in match {'.$this->group->getStage()->getID().':'.$this->group->getID().':'.$this->getID().'}) cannot be the same as one of the playing teams');
             }
-            $match->setOfficials($officials);
+            $this->setOfficials($officials);
         }
         if (property_exists($match_data, 'mvp')) {
-            $match->setMVP($match_data->mvp);
+            $this->setMVP($match_data->mvp);
         }
         if (property_exists($match_data, 'manager')) {
-            $match->setManager(MatchManager::loadFromData($match, $match_data->manager));
+            $this->setManager(MatchManager::loadFromData($this, $match_data->manager));
         }
         if (property_exists($match_data, 'notes')) {
-            $match->setNotes($match_data->notes);
+            $this->setNotes($match_data->notes);
         }
 
-        // $this->calculateResult();
+        $this->calculateResult();
 
-        return $match;
+        return $this;
     }
 
     /**
@@ -680,25 +678,25 @@ final class GroupMatch implements JsonSerializable, MatchInterface
             if ($this->home_team->getScores()[0] > $this->away_team->getScores()[0]) {
                 $this->winner_team_id = $this->home_team->getID();
                 $this->loser_team_id = $this->away_team->getID();
-                $this->group->getStage()->getCompetition()->addTeamReference(
-                    $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
-                    $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
-                );
-                $this->group->getStage()->getCompetition()->addTeamReference(
-                    $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
-                    $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
-                );
+                // $this->group->getStage()->getCompetition()->addTeamReference(
+                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
+                //     $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
+                // );
+                // $this->group->getStage()->getCompetition()->addTeamReference(
+                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
+                //     $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
+                // );
             } elseif ($this->home_team->getScores()[0] < $this->away_team->getScores()[0]) {
                 $this->winner_team_id = $this->away_team->getID();
                 $this->loser_team_id = $this->home_team->getID();
-                $this->group->getStage()->getCompetition()->addTeamReference(
-                    $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
-                    $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
-                );
-                $this->group->getStage()->getCompetition()->addTeamReference(
-                    $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
-                    $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
-                );
+                // $this->group->getStage()->getCompetition()->addTeamReference(
+                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
+                //     $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
+                // );
+                // $this->group->getStage()->getCompetition()->addTeamReference(
+                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
+                //     $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
+                // );
             } elseif ($this->group->getDrawsAllowed()) {
                 $this->is_draw = true;
             } else {
@@ -770,25 +768,25 @@ final class GroupMatch implements JsonSerializable, MatchInterface
             if ($this->home_team_sets > $this->away_team_sets) {
                 $this->winner_team_id = $this->home_team->getID();
                 $this->loser_team_id = $this->away_team->getID();
-                $this->group->getStage()->getCompetition()->addTeamReference(
-                    $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
-                    $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
-                );
-                $this->group->getStage()->getCompetition()->addTeamReference(
-                    $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
-                    $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
-                );
+                // $this->group->getStage()->getCompetition()->addTeamReference(
+                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
+                //     $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
+                // );
+                // $this->group->getStage()->getCompetition()->addTeamReference(
+                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
+                //     $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
+                // );
             } elseif ($this->home_team_sets < $this->away_team_sets) {
                 $this->winner_team_id = $this->away_team->getID();
                 $this->loser_team_id = $this->home_team->getID();
-                $this->group->getStage()->getCompetition()->addTeamReference(
-                    $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
-                    $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
-                );
-                $this->group->getStage()->getCompetition()->addTeamReference(
-                    $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
-                    $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
-                );
+                // $this->group->getStage()->getCompetition()->addTeamReference(
+                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
+                //     $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
+                // );
+                // $this->group->getStage()->getCompetition()->addTeamReference(
+                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
+                //     $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
+                // );
             } elseif ($this->group->getDrawsAllowed()) {
                 $this->is_draw = true;
             } else {

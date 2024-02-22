@@ -1202,7 +1202,7 @@ class HTML {
 
         $table->rows = [];
         if ($knockout->getKnockoutConfig() !== null) {
-            foreach ($knockout->getKnockoutConfig()->standing as $standing_info) {
+            foreach ($knockout->getKnockoutConfig()->getStanding() as $standing_info) {
                 $this_team = $team_id !== null
                           && $team_id !== CompetitionTeam::UNKNOWN_TEAM_ID
                           && $knockout->getCompetition()->getTeamByID($standing_info->id) === $knockout->getCompetition()->getTeamByID($team_id);

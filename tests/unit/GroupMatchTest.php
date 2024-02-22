@@ -7,10 +7,13 @@ namespace VBCompetitions\Competitions\test;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
+use VBCompetitions\Competitions\Crossover;
 use VBCompetitions\Competitions\Group;
 use VBCompetitions\Competitions\GroupMatch;
 use VBCompetitions\Competitions\MatchTeam;
 use VBCompetitions\Competitions\SetConfig;
+use VBCompetitions\Competitions\Stage;
+
 #[CoversClass(Competition::class)]
 #[CoversClass(Group::class)]
 #[CoversClass(GroupMatch::class)]
@@ -227,40 +230,60 @@ final class GroupMatchTest extends TestCase {
         );
 
         $this->expectExceptionMessage('Invalid set scores: score arrays are different lengths');
+        $dummy_competition = new Competition('dummy for score update');
+        $dummy_stage = new Stage($dummy_competition, 'S');
+        $dummy_group = new Crossover($dummy_stage, 'G', 'sets');
+        $config = new SetConfig($dummy_group);
+        $config->loadFromData(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 25, "lastSetPointsToWin": 15, "maxPoints": 50, "lastSetMaxPoints": 30}'));
         GroupMatch::assertSetScoresValid(
             [25],
             [19, 19],
-            new SetConfig(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 25, "lastSetPointsToWin": 15, "maxPoints": 50, "lastSetMaxPoints": 30}'))
+            $config
         );
     }
 
     public function testGroupMatchSetsMatchTooManyScores() : void
     {
         $this->expectExceptionMessage('Invalid set scores: score arrays are longer than the maximum number of sets allowed');
+        $dummy_competition = new Competition('dummy for score update');
+        $dummy_stage = new Stage($dummy_competition, 'S');
+        $dummy_group = new Crossover($dummy_stage, 'G', 'sets');
+        $config = new SetConfig($dummy_group);
+        $config->loadFromData(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 25, "lastSetPointsToWin": 15, "maxPoints": 50, "lastSetMaxPoints": 30}'));
         GroupMatch::assertSetScoresValid(
             [25, 25, 25, 25, 25, 25],
             [19, 19, 19, 19, 19, 19],
-            new SetConfig(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 25, "lastSetPointsToWin": 15, "maxPoints": 50, "lastSetMaxPoints": 30}'))
+            $config
         );
     }
 
     public function testGroupMatchSetsMatchHomeTeamTooManyInDecider() : void
     {
+        $dummy_competition = new Competition('dummy for score update');
+        $dummy_stage = new Stage($dummy_competition, 'S');
+        $dummy_group = new Crossover($dummy_stage, 'G', 'sets');
+        $config = new SetConfig($dummy_group);
+        $config->loadFromData(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 25, "lastSetPointsToWin": 15, "maxPoints": 50, "lastSetMaxPoints": 30}'));
         $this->expectExceptionMessage('Invalid set scores: value for set score at index 2 shows home team scoring more points than necessary to win the set');
         GroupMatch::assertSetScoresValid(
             [25, 19, 25],
             [19, 25, 19],
-            new SetConfig(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 25, "lastSetPointsToWin": 15, "maxPoints": 50, "lastSetMaxPoints": 30}'))
+            $config
         );
     }
 
     public function testGroupMatchSetsMatchAwayTeamTooManyInDecider() : void
     {
+        $dummy_competition = new Competition('dummy for score update');
+        $dummy_stage = new Stage($dummy_competition, 'S');
+        $dummy_group = new Crossover($dummy_stage, 'G', 'sets');
+        $config = new SetConfig($dummy_group);
+        $config->loadFromData(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 25, "lastSetPointsToWin": 15, "maxPoints": 50, "lastSetMaxPoints": 30}'));
         $this->expectExceptionMessage('Invalid set scores: value for set score at index 2 shows away team scoring more points than necessary to win the set');
         GroupMatch::assertSetScoresValid(
             [25, 19, 19],
             [19, 25, 25],
-            new SetConfig(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 25, "lastSetPointsToWin": 15, "maxPoints": 50, "lastSetMaxPoints": 30}'))
+            $config
         );
     }
 

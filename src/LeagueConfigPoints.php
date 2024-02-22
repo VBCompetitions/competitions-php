@@ -46,33 +46,31 @@ final class LeagueConfigPoints implements JsonSerializable
         $this->league_config = $league_config;
     }
 
-    public static function loadFromData(LeagueConfig $league_config, object $league_config_data) : LeagueConfigPoints
+    public function loadFromData(object $league_config_data) : LeagueConfigPoints
     {
-        $league_config_points = new LeagueConfigPoints($league_config);
-
         if (property_exists($league_config_data, 'played')) {
-            $league_config_points->setPlayed($league_config_data->played);
+            $this->setPlayed($league_config_data->played);
         }
-        if (property_exists($league_config_data, 'per_set')) {
-            $league_config_points->setPerSet($league_config_data->per_set);
+        if (property_exists($league_config_data, 'perSet')) {
+            $this->setPerSet($league_config_data->perSet);
         }
         if (property_exists($league_config_data, 'win')) {
-            $league_config_points->setWin($league_config_data->win);
+            $this->setWin($league_config_data->win);
         }
-        if (property_exists($league_config_data, 'win_by_one')) {
-            $league_config_points->setWinByOne($league_config_data->win_by_one);
+        if (property_exists($league_config_data, 'winByOne')) {
+            $this->setWinByOne($league_config_data->winByOne);
         }
         if (property_exists($league_config_data, 'lose')) {
-            $league_config_points->setLose($league_config_data->lose);
+            $this->setLose($league_config_data->lose);
         }
-        if (property_exists($league_config_data, 'lose_by_one')) {
-            $league_config_points->setLoseByOne($league_config_data->lose_by_one);
+        if (property_exists($league_config_data, 'loseByOne')) {
+            $this->setLoseByOne($league_config_data->loseByOne);
         }
         if (property_exists($league_config_data, 'forfeit')) {
-            $league_config_points->setForfeit($league_config_data->forfeit);
+            $this->setForfeit($league_config_data->forfeit);
         }
 
-        return $league_config_points;
+        return $this;
     }
 
     /**
@@ -84,11 +82,11 @@ final class LeagueConfigPoints implements JsonSerializable
     {
         $league_config_points = new stdClass();
         $league_config_points->played = $this->played;
-        $league_config_points->per_set = $this->per_set;
+        $league_config_points->perSet = $this->per_set;
         $league_config_points->win = $this->win;
-        $league_config_points->win_by_one = $this->win_by_one;
+        $league_config_points->winByOne = $this->win_by_one;
         $league_config_points->lose = $this->lose;
-        $league_config_points->lose_by_one = $this->lose_by_one;
+        $league_config_points->loseByOne = $this->lose_by_one;
         $league_config_points->forfeit = $this->forfeit;
         return $league_config_points;
     }

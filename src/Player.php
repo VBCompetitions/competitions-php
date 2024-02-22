@@ -49,19 +49,17 @@ final class Player implements JsonSerializable
         $this->setName($name);
     }
 
-    public static function loadFromData(CompetitionTeam $competition_team, object $player_data) : Player
+    public function loadFromData(object $player_data) : Player
     {
-        $player = new Player($competition_team, $player_data->id, $player_data->name);
-
         if (property_exists($player_data, 'number')) {
-            $player->setNumber($player_data->number);
+            $this->setNumber($player_data->number);
         }
 
         if (property_exists($player_data, 'notes')) {
-            $player->setNotes($player_data->notes);
+            $this->setNotes($player_data->notes);
         }
 
-        return $player;
+        return $this;
     }
 
     /**
