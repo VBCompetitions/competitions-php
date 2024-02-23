@@ -81,15 +81,6 @@ final class CompetitionTeam implements JsonSerializable
             foreach ($team_data->players as $player_data) {
                 $this->addPlayer((new Player($this, $player_data->id, $player_data->name))->loadFromData($player_data));
             }
-        //     $this->players = [];
-        //     foreach ($team_data->players as $player_data) {
-        //         $new_player = new Player($player_data);
-        //         array_push($this->players, $new_player);
-        //         if (property_exists($this->player_lookup, $new_player->getID())) {
-        //             throw new Exception('Competition data failed validation: team players with duplicate IDs within a team not allowed');
-        //         }
-        //         $this->player_lookup->{$new_player->getID()} = $new_player;
-        //     }
         }
 
         if (property_exists($team_data, 'club')) {
@@ -279,7 +270,10 @@ final class CompetitionTeam implements JsonSerializable
      */
     public function addPlayer(Player $player) : CompetitionTeam
     {
-        // TODO - screen for duplicates
+        if (property_exists($this->player_lookup, $player->getID())) {
+            throw new Exception('team players with duplicate IDs within a team not allowed');
+        }
+
         array_push($this->players, $player);
         $this->player_lookup->{$player->getID()} = $player;
         return $this;

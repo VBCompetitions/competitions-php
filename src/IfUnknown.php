@@ -52,7 +52,9 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     {
         foreach ($if_unknown_data->matches as $match) {
             if ($match->type === 'match') {
-                $this->addMatch((new IfUnknownMatch($this, $match->id))->loadFromData($match));
+                $new_match = new IfUnknownMatch($this, $match->id);
+                $new_match->loadFromData($match);
+                $this->addMatch($new_match);
             } elseif ($match->type === 'break') {
                 $this->addBreak((new IfUnknownBreak($this))->loadFromData($match));
             }
@@ -77,6 +79,11 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
         return $ifUnknown;
     }
 
+    public function getStage() : Stage
+    {
+        return $this->stage;
+    }
+
     public function getCompetition() : Competition
     {
         return $this->stage->getCompetition();
@@ -91,34 +98,34 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     {
         array_push($this->matches, $match);
         $this->match_lookup->{$match->getID()} = $match;
-        if (property_exists($match, 'court')) {
+        if (!is_null($match->getCourt())) {
             $this->matches_have_courts = true;
         }
-        if (property_exists($match, 'date')) {
+        if (!is_null($match->getDate())) {
             $this->matches_have_dates = true;
         }
-        if (property_exists($match, 'duration')) {
+        if (!is_null($match->getDuration())) {
             $this->matches_have_durations = true;
         }
-        if (property_exists($match, 'mvp')) {
+        if (!is_null($match->getMVP())) {
             $this->matches_have_mvps = true;
         }
-        if (property_exists($match, 'manager')) {
+        if (!is_null($match->getManager())) {
             $this->matches_have_managers = true;
         }
-        if (property_exists($match, 'notes')) {
+        if (!is_null($match->getNotes())) {
             $this->matches_have_notes = true;
         }
-        if (property_exists($match, 'officials')) {
+        if (!is_null($match->getOfficials())) {
             $this->matches_have_officials = true;
         }
-        if (property_exists($match, 'start')) {
+        if (!is_null($match->getStart())) {
             $this->matches_have_starts = true;
         }
-        if (property_exists($match, 'venue')) {
+        if (!is_null($match->getVenue())) {
             $this->matches_have_venues = true;
         }
-        if (property_exists($match, 'warmup')) {
+        if (!is_null($match->getWarmup())) {
             $this->matches_have_warmups = true;
         }
         return $this;

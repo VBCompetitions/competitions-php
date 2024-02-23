@@ -20,7 +20,7 @@ use VBCompetitions\Competitions\MatchType;
 #[CoversClass(IfUnknownBreak::class)]
 #[CoversClass(IfUnknownMatch::class)]
 final class IfUnknownTest extends TestCase {
-    public function testLoadIfUnknown() : void
+    public function testIfUnknownLoad() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage.json');
         $if_unknown = $competition->getStageById('F')->getIfUnknown();
@@ -75,7 +75,7 @@ final class IfUnknownTest extends TestCase {
         }
     }
 
-    public function testLoadIfUnknownSparse() : void
+    public function testIfUnknownLoadSparse() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage-sparse.json');
         $if_unknown = $competition->getStageById('F')->getIfUnknown();

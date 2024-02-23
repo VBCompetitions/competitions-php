@@ -70,10 +70,10 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
      *
      * @throws Exception If the two teams have scores arrays of different lengths
      */
-    function __construct($if_unknown, string $id)
+    function __construct(IfUnknown $if_unknown, string $id)
     {
         if ($if_unknown->hasMatchWithID($id)) {
-            throw new Exception('stage ID {'.$this->if_unknown->getID().'}, ifUnknown: matches with duplicate IDs {'.$id.'} not allowed');
+            throw new Exception('stage ID {'.$if_unknown->getStage()->getID().'}, ifUnknown: matches with duplicate IDs {'.$id.'} not allowed');
         }
 
         $this->if_unknown = $if_unknown;
@@ -307,7 +307,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
         return $this;
     }
 
-    public function getManager() : MatchManager
+    public function getManager() : ?MatchManager
     {
         return $this->manager;
     }

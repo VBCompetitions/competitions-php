@@ -26,7 +26,7 @@ final class PlayerTest extends TestCase {
 
     public function testPlayersDuplicateID() : void
     {
-        $this->expectExceptionMessage('Competition data failed validation: team players with duplicate IDs within a team not allowed');
+        $this->expectExceptionMessage('team players with duplicate IDs within a team not allowed');
         Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players-duplicate-ids.json');
     }
 
