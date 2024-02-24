@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace VBCompetitions\Competitions\test;
 
-use OutOfBoundsException;
+use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
@@ -56,18 +56,130 @@ final class ClubTest extends TestCase {
         $this->assertEquals('competition-with-clubs', $clubs[0]->getCompetition()->getName());
     }
 
-    public function testClubSetters() : void
+    public function testClubSettersGetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'club'))), 'competition-with-clubs.json');
         $club = $competition->getClubByID('SOU');
 
         $this->assertEquals('Southampton', $club->getName());
         $this->assertEquals('This is a club', $club->getNotes());
+        $this->assertCount(3, $club->getTeams());
+        $this->assertEquals('Alice VC', $club->getTeams()[0]->getName());
+        $this->assertTrue($club->hasTeamWithID('TM1'));
+        $this->assertFalse($club->hasTeamWithID('TM2'));
 
         $club->setName('New Southampton');
         $club->setNotes('This is the club to be');
 
         $this->assertEquals('New Southampton', $club->getName());
         $this->assertEquals('This is the club to be', $club->getNotes());
+
+        try {
+            $club->setName('');
+            $this->fail('Club setName should not allow an empty ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+
+        try {
+            $name = 'a';
+            for ($i=0; $i < 100; $i++) {
+                $name .= '0123456789';
+            }
+            $club->setName($name);
+            $this->fail('Club setName should not allow a long ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+    }
+
+    public function testClubDelete() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'club'))), 'competition-with-clubs.json');
+        $club = $competition->getClubByID('SOU');
+        $team = $club->getTeams()[0];
+
+        $this->assertEquals('Southampton', $club->getName());
+        $this->assertEquals('This is a club', $club->getNotes());
+        $this->assertCount(3, $club->getTeams());
+        $this->assertEquals('Alice VC', $team->getName());
+        $this->assertEquals('SOU', $team->getClub()->getID());
+        $this->assertTrue($club->hasTeamWithID('TM1'));
+        $this->assertFalse($club->hasTeamWithID('TM2'));
+
+        $club_returned = $club->deleteTeam('TM1');
+        $this->assertInstanceOf('VBCompetitions\Competitions\Club', $club_returned);
+        $this->assertEquals('SOU', $club_returned->getID());
+        $this->assertCount(2, $club->getTeams());
+        $this->assertNull($team->getClub());
+        $this->assertEquals('Charlie VC', $club->getTeams()[0]->getName());
+
+        $club_returned = $club->deleteTeam('TM1');
+        $this->assertCount(2, $club->getTeams());
+        $this->assertEquals('Charlie VC', $club->getTeams()[0]->getName());
+    }
+
+    public function testClubConstructorBadID() : void
+    {
+        $competition = new Competition('test competition');
+        try {
+            new Club($competition, '', 'my club');
+            $this->fail('Club should not allow an empty ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club ID: must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        try {
+            new Club($competition, '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891', 'my club');
+            $this->fail('Club should not allow a long empty ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club ID: must be between 1 and 100 characters long', $e->getMessage());
+        }
+    }
+
+    public function testClubConstructorBadName() : void
+    {
+        $competition = new Competition('test competition');
+        try {
+            new Club($competition, 'id1', 'my "club"');
+            $this->fail('Club should not allow " character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Club($competition, 'id1', 'my : club');
+            $this->fail('Club should not allow : character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Club($competition, 'id1', 'my {club');
+            $this->fail('Club should not allow { character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Club($competition, 'id1', 'my club}');
+            $this->fail('Club should not allow } character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Club($competition, 'id1', 'my club?');
+            $this->fail('Club should not allow ? character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Club($competition, 'id1', 'my club = good');
+            $this->fail('Club should not allow = character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
     }
 }

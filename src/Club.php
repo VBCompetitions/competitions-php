@@ -11,21 +11,19 @@ use stdClass;
  */
 final class Club implements JsonSerializable
 {
-
-
-    /** A unique ID for the club, e.g. 'CLUB1'.  This must be unique within the competition.  It must only contain letters (upper or lowercase), and numbers" */
+    /** @var string A unique ID for the club, e.g. 'CLUB1'.  This must be unique within the competition.  It must only contain letters (upper or lowercase), and numbers */
     private string $id;
 
-    /** The name for the club */
+    /** @var string The name for the club */
     private string $name;
 
-    /** Free form string to add notes about a club.  This can be used for arbitrary content that various implementations can use */
+    /** @var string|null Free form string to add notes about a club.  This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
-    /** The Competition this club is in */
+    /** @var Competition The Competition this club is in */
     private Competition $competition;
 
-    /** A Lookup table from team IDs (including references) to the team */
+    /** @var object A Lookup table from team IDs (including references) to the team */
     private object $team_lookup;
 
     public const UNKNOWN_CLUB_ID = 'UNKNOWN';
@@ -37,6 +35,7 @@ final class Club implements JsonSerializable
      * @param Competition $competition A link back to the Competition this Stage is in
      * @param string $club_id The ID of this Team
      * @param string $club_name The name of this Team
+     * @throws Exception When the provided club ID is invalid or already exists in the competition
      */
     function __construct(Competition $competition, string $club_id, string $club_name)
     {
@@ -44,7 +43,7 @@ final class Club implements JsonSerializable
             throw new Exception('Invalid club ID: must be between 1 and 100 characters long');
         }
 
-        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $club_id)) {
+        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $club_name)) {
             throw new Exception('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =');
         }
 
@@ -62,8 +61,7 @@ final class Club implements JsonSerializable
      * Assumes this is a freshly made Club object and loads it with the data extracted
      * from the Competitions JSON file for this club
      *
-     * @param object Data from a Competitions JSON file for a single club
-     *
+     * @param object $club_data Data from a Competitions JSON file for a single club
      * @return Club the updated club object
      */
     public function loadFromData(object $club_data) : Club
@@ -73,6 +71,24 @@ final class Club implements JsonSerializable
         }
 
         return $this;
+    }
+
+    /**
+     * Return the list of team definition suitable for saving into a competition file
+     *
+     * @return mixed
+     */
+    public function jsonSerialize() : mixed
+    {
+        $team = new stdClass();
+        $team->id = $this->id;
+        $team->name = $this->name;
+
+        if ($this->notes !== null) {
+            $team->notes = $this->notes;
+        }
+
+        return $team;
     }
 
     /**
@@ -109,8 +125,8 @@ final class Club implements JsonSerializable
      * Set the name for this club
      *
      * @param string $name the name for this club
-     *
      * @return Club this Club
+     * @throws Exception When the provided club name is invalid
      */
     public function setName($name) : Club
     {
@@ -135,7 +151,6 @@ final class Club implements JsonSerializable
      * Set the notes for this club
      *
      * @param string|null $notes the notes for this club
-     *
      * @return Club this Club
      */
     public function setNotes(?string $notes) : Club
@@ -148,7 +163,6 @@ final class Club implements JsonSerializable
      * Add a team to this club
      *
      * @param CompetitionTeam $team the team to add
-     *
      * @return Club this Club
      */
     public function addTeam(CompetitionTeam $team) : Club
@@ -157,11 +171,21 @@ final class Club implements JsonSerializable
         return $this;
     }
 
-    public function deleteTeam(string $team_id) : void
+    /**
+     * Delete a team from this club
+     *
+     * @param string $team_id The ID of the team to delete
+     * @return void
+     */
+    public function deleteTeam(string $team_id) : Club
     {
         if ($this->hasTeamWithID($team_id)) {
+            $team = $this->team_lookup->$team_id;
             unset($this->team_lookup->$team_id);
+            $team->setClub(null);
         }
+
+        return $this;
     }
 
     /**
@@ -171,29 +195,21 @@ final class Club implements JsonSerializable
      */
     public function getTeams() : array
     {
-        return array_keys(get_object_vars($this->team_lookup));
-    }
-
-    public function hasTeamWithID(string $team_id) : bool
-    {
-        return property_exists($this->team_lookup, $team_id);
+        $teams = [];
+        foreach ($this->team_lookup as $team) {
+            array_push($teams, $team);
+        }
+        return $teams;
     }
 
     /**
-     * Return the list of team definition suitable for saving into a competition file
+     * Check if the club has a team with the specified ID
      *
-     * @return mixed
+     * @param string $team_id The ID of the team
+     * @return bool
      */
-    public function jsonSerialize() : mixed
+    public function hasTeamWithID(string $team_id) : bool
     {
-        $team = new stdClass();
-        $team->id = $this->id;
-        $team->name = $this->name;
-
-        if ($this->notes !== null) {
-            $team->notes = $this->notes;
-        }
-
-        return $team;
+        return property_exists($this->team_lookup, $team_id);
     }
 }
