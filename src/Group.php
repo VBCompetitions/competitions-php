@@ -7,19 +7,6 @@ use JsonSerializable;
 use OutOfBoundsException;
 use stdClass;
 
-enum MatchType: string
-{
-    case CONTINUOUS = 'continuous';
-    case SETS = 'sets';
-}
-
-enum GroupType: string
-{
-    case LEAGUE = 'league';
-    case CROSSOVER = 'crossover';
-    case KNOCKOUT = 'knockout';
-}
-
 /**
  * A group within a stage of the competition
  */
