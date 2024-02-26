@@ -199,48 +199,44 @@ final class CompetitionTeamTest extends TestCase {
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID: must be between 1 and 100 characters long', $e->getMessage());
         }
-    }
 
-    public function testCompetitionTeamConstructorBadName() : void
-    {
-        $competition = new Competition('test competition');
         try {
-            new CompetitionTeam($competition, 'id1', 'my "team"');
+            new CompetitionTeam($competition, '"id1"', 'my team');
             $this->fail('CompetitionTeam should not allow " character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new CompetitionTeam($competition, 'id1', 'my : team');
+            new CompetitionTeam($competition, 'id:1', 'my team');
             $this->fail('CompetitionTeam should not allow : character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new CompetitionTeam($competition, 'id1', 'my {team');
+            new CompetitionTeam($competition, 'id{1', 'my team');
             $this->fail('CompetitionTeam should not allow { character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new CompetitionTeam($competition, 'id1', 'my team}');
+            new CompetitionTeam($competition, 'id1}', 'my team');
             $this->fail('CompetitionTeam should not allow } character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new CompetitionTeam($competition, 'id1', 'my team?');
+            new CompetitionTeam($competition, 'id1?', 'my team');
             $this->fail('CompetitionTeam should not allow ? character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new CompetitionTeam($competition, 'id1', 'my team = good');
+            new CompetitionTeam($competition, 'id=1', 'my team');
             $this->fail('CompetitionTeam should not allow = character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());

@@ -136,48 +136,44 @@ final class ClubTest extends TestCase {
         } catch (Exception $e) {
             $this->assertEquals('Invalid club ID: must be between 1 and 100 characters long', $e->getMessage());
         }
-    }
 
-    public function testClubConstructorBadName() : void
-    {
-        $competition = new Competition('test competition');
         try {
-            new Club($competition, 'id1', 'my "club"');
+            new Club($competition, '"id1"', 'my club');
             $this->fail('Club should not allow " character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Club($competition, 'id1', 'my : club');
+            new Club($competition, 'id:1', 'my club');
             $this->fail('Club should not allow : character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Club($competition, 'id1', 'my {club');
+            new Club($competition, 'id{1', 'my club');
             $this->fail('Club should not allow { character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Club($competition, 'id1', 'my club}');
+            new Club($competition, 'id1}', 'my club');
             $this->fail('Club should not allow } character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Club($competition, 'id1', 'my club?');
+            new Club($competition, 'id1?', 'my club');
             $this->fail('Club should not allow ? character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Club($competition, 'id1', 'my club = good');
+            new Club($competition, 'id=1', 'my club');
             $this->fail('Club should not allow = character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());

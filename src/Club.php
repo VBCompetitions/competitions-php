@@ -43,7 +43,7 @@ final class Club implements JsonSerializable
             throw new Exception('Invalid club ID: must be between 1 and 100 characters long');
         }
 
-        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $club_name)) {
+        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $club_id)) {
             throw new Exception('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =');
         }
 
