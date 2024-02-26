@@ -7,53 +7,34 @@ use JsonSerializable;
 use stdClass;
 
 /**
- * The role of the contact within a team.  There may me multiple contacts with the same role
- */
-enum ContactRole
-{
-    /** A team treasurer */
-    case TREASURER;
-    /** A team secretary */
-    case SECRETARY;
-    /** A team manager */
-    case MANAGER;
-    /** A team captain */
-    case CAPTAIN;
-    /** A team coach */
-    case COACH;
-    /** A team assistant coach */
-    case ASSISTANT_COACH;
-    /** A team medic */
-    case MEDIC;
-}
-
-/**
  * A single contact for a team
  */
 final class Contact implements JsonSerializable
 {
-    /** A unique ID for this contact, e.g. 'TM1Contact1'.  This must be unique within the team*/
+    /** @var string A unique ID for this contact, e.g. 'TM1Contact1'. This must be unique within the team */
     private string $id;
 
-    /** The name of this contact */
+    /** @var string|null The name of this contact */
     private ?string $name = null;
 
-    /** The roles of this contact within the team */
+    /** @var array The roles of this contact within the team */
     private array $roles = [];
 
-    /** The email addresses for this contact */
+    /** @var array|null The email addresses for this contact */
     private ?array $emails = [];
 
-    /** A telephone number for this contact.  If a contact has multiple phone numbers then add them as another contact */
+    /** @var array|null A telephone number for this contact. If a contact has multiple phone numbers then add them as another contact */
     private ?array $phones = [];
 
-    /** The team this contact belongs to */
+    /** @var CompetitionTeam The team this contact belongs to */
     private CompetitionTeam $team;
 
     /**
      * Defines a Team Contact
      *
-     * @param object $contact_data The data defining this Contact
+     * @param CompetitionTeam $team The team this contact belongs to
+     * @param string $id The unique ID for this contact
+     * @param array $roles The roles of this contact within the team
      */
     function __construct(CompetitionTeam $team, string $id, array $roles)
     {
@@ -69,6 +50,7 @@ final class Contact implements JsonSerializable
             throw new Exception('Contact with ID "'.$id.'" already exists in the team');
         }
 
+        $this->team = $team;
         $this->id = $id;
 
         foreach ($roles as $role) {
@@ -76,6 +58,13 @@ final class Contact implements JsonSerializable
         }
     }
 
+    /**
+     * Loads contact data from an object
+     *
+     * @param object $contact_data The data defining this Contact
+     *
+     * @return Contact The updated Contact instance
+     */
     public function loadFromData(object $contact_data) : Contact
     {
         if (property_exists($contact_data, 'name')) {
@@ -97,7 +86,7 @@ final class Contact implements JsonSerializable
     }
 
     /**
-     * Return the contact data suitable for saving into a competition file
+     * Serializes the contact data into a format suitable for saving into a competition file
      *
      * @return mixed
      */
@@ -133,6 +122,11 @@ final class Contact implements JsonSerializable
         return $contact;
     }
 
+    /**
+     * Get the team this contact belongs to
+     *
+     * @return CompetitionTeam The team this contact belongs to
+     */
     public function getTeam() : CompetitionTeam
     {
         return $this->team;
@@ -141,7 +135,7 @@ final class Contact implements JsonSerializable
     /**
      * Get the ID for this contact
      *
-     * @return string the id for this contact
+     * @return string The ID for this contact
      */
     public function getID() : string
     {
@@ -151,22 +145,27 @@ final class Contact implements JsonSerializable
     /**
      * Set the name for this contact
      *
-     * @param string the name for this contact
+     * @param string $name The name for this contact
+     *
+     * @throws Exception If the name is invalid
+     *
+     * @return Contact This contact
      */
-    public function setName($name) : void
+    public function setName($name) : Contact
     {
         if (strlen($name) > 1000 || strlen($name) < 1) {
             throw new Exception('Invalid contact name: must be between 1 and 1000 characters long');
         }
         $this->name = $name;
+        return $this;
     }
 
     /**
      * Get the name for this contact
      *
-     * @return string the name for this contact
+     * @return string|null The name for this contact
      */
-    public function getName() : string
+    public function getName() : ?string
     {
         return $this->name;
     }
@@ -174,7 +173,7 @@ final class Contact implements JsonSerializable
     /**
      * Get the roles for this contact
      *
-     * @return array<ContactRole> the roles for this contact
+     * @return array<ContactRole> The roles for this contact
      */
     public function getRoles() : array
     {
@@ -182,24 +181,26 @@ final class Contact implements JsonSerializable
     }
 
     /**
-     * Add the role to this contact
+     * Add a role to this contact
      *
-     * @param string the role to add to this contact
+     * @param ContactRole $role The role to add to this contact
      *
-     *
+     * @return Contact Returns this contact for method chaining
      */
     public function addRole(ContactRole $role) : Contact
     {
-        // TODO this could be bitwise maths so any duplicates are ignored?
-        // Todo whatever - still need to scan for dupes
-        array_push($this->roles, $role);
+        if (!$this->hasRole($role)) {
+            array_push($this->roles, $role);
+        }
         return $this;
     }
 
     /**
-     * Return whether this contact has the specified role
+     * Check if this contact has the specified role
      *
-     * @return bool whether the contact has the specified role
+     * @param ContactRole $role The role to check for
+     *
+     * @return bool Whether the contact has the specified role
      */
     public function hasRole(ContactRole $role) : bool
     {
@@ -209,7 +210,7 @@ final class Contact implements JsonSerializable
     /**
      * Get the email addresses for this contact
      *
-     * @return array<string> the email addresses for this contact
+     * @return array<string> The email addresses for this contact
      */
     public function getEmails() : array
     {
@@ -217,31 +218,41 @@ final class Contact implements JsonSerializable
     }
 
     /**
-     * Add the email addresses to this contact
+     * Add an email address to this contact
      *
-     * @param string $email the email address to add to this contact
+     * @param string $email The email address to add
+     *
+     * @return Contact Returns this contact for method chaining
      */
     public function addEmail($email) : Contact
     {
-        // TODO - screen for duplicates
-        array_push($this->emails, $email);
+        if (!in_array($email, $this->emails)) {
+            array_push($this->emails, $email);
+        }
         return $this;
     }
 
     /**
      * Get the phone numbers for this contact
      *
-     * @return array<string> the phone numbers for this contact
+     * @return array<string> The phone numbers for this contact
      */
     public function getPhones() : array
     {
         return $this->phones;
     }
 
+    /**
+     * Add a phone number to this contact
+     *
+     * @param string $phone The phone number to add
+     * @return Contact Returns this contact for method chaining
+     */
     public function addPhone($phone) : Contact
     {
-        // TODO - screen for duplicates
-        array_push($this->phones, $phone);
+        if (!in_array($phone, $this->phones)) {
+            array_push($this->phones, $phone);
+        }
         return $this;
     }
 }

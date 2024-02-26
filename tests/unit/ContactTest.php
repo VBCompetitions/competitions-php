@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace VBCompetitions\Competitions\test;
 
+use Exception;
 use OutOfBoundsException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -83,5 +84,113 @@ final class ContactTest extends TestCase {
         $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Contact with ID "NO-SUCH-TEAM" not found');
         $competition->getTeamByID('TM1')->getContactByID('NO-SUCH-TEAM');
+    }
+
+    public function testContactSetName() : void
+    {
+        $competition = new Competition('test competition');
+        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $contact = new Contact($team, 'C1', [ContactRole::SECRETARY]);
+        $this->assertEquals('T1', $contact->getTeam()->getID());
+
+        try {
+            $contact->setName('');
+            $this->fail('Contact should not allow an empty Name');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+        $this->assertNull($contact->getName());
+
+        try {
+            $name = 'a';
+            for ($i=0; $i < 100; $i++) {
+                $name .= '0123456789';
+            }
+            $contact->setName($name);
+            $this->fail('Contact should not allow a long Name');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+        $this->assertNull($contact->getName());
+
+        $contact->setName('Alice Alison');
+        $this->assertEquals('Alice Alison', $contact->getName());
+    }
+
+    public function testContactSetSpotsDuplicates() : void
+    {
+        $competition = new Competition('test competition');
+        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $contact = new Contact($team, 'C1', [ContactRole::SECRETARY]);
+
+        $contact->addEmail('alice@example.com')->addEmail('alice@example.com')->addEmail('alice@example.com');
+        $this->assertCount(1, $contact->getEmails());
+
+        $contact->addPhone('01234 567890')->addPhone('01234 567890')->addPhone('01234 567890');
+        $this->assertCount(1, $contact->getPhones());
+
+        $contact->addRole(ContactRole::SECRETARY)->addRole(ContactRole::SECRETARY);
+        $this->assertCount(1, $contact->getRoles());
+    }
+
+    public function testContactConstructorBadID() : void
+    {
+        $competition = new Competition('test competition');
+        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
+        try {
+            new Contact($team, '', [ContactRole::SECRETARY]);
+            $this->fail('Contact should not allow an empty ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact ID: must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        try {
+            new Contact($team, '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891', [ContactRole::SECRETARY]);
+            $this->fail('Contact should not allow a long empty ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact ID: must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        try {
+            new Contact($team, '"id1"', [ContactRole::SECRETARY]);
+            $this->fail('Contact should not allow " character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Contact($team, 'id:1', [ContactRole::SECRETARY]);
+            $this->fail('Contact should not allow : character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Contact($team, 'id{1', [ContactRole::SECRETARY]);
+            $this->fail('Contact should not allow { character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Contact($team, 'id1}', [ContactRole::SECRETARY]);
+            $this->fail('Contact should not allow } character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Contact($team, 'id1?', [ContactRole::SECRETARY]);
+            $this->fail('Contact should not allow ? character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Contact($team, 'id=1', [ContactRole::SECRETARY]);
+            $this->fail('Contact should not allow = character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
     }
 }
