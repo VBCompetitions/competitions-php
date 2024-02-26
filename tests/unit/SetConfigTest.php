@@ -10,6 +10,7 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\Crossover;
+use VBCompetitions\Competitions\MatchType;
 use VBCompetitions\Competitions\SetConfig;
 use VBCompetitions\Competitions\Stage;
 
@@ -19,7 +20,7 @@ final class SetConfigTest extends TestCase {
     {
         $dummy_competition = new Competition('dummy for score update');
         $dummy_stage = new Stage($dummy_competition, 'S');
-        $dummy_group = new Crossover($dummy_stage, 'G', 'sets');
+        $dummy_group = new Crossover($dummy_stage, 'G', MatchType::SETS);
         $config = new SetConfig($dummy_group);
         $config->loadFromData(json_decode('{"maxSets": 3, "setsToWin": 1, "clearPoints": 2, "minPoints": 1, "pointsToWin": 21, "lastSetPointsToWin": 12, "maxPoints": 50, "lastSetMaxPoints": 30}'));
 
@@ -37,7 +38,7 @@ final class SetConfigTest extends TestCase {
     {
         $dummy_competition = new Competition('dummy for score update');
         $dummy_stage = new Stage($dummy_competition, 'S');
-        $dummy_group = new Crossover($dummy_stage, 'G', 'sets');
+        $dummy_group = new Crossover($dummy_stage, 'G', MatchType::SETS);
         $config = new SetConfig($dummy_group);
         $config->loadFromData(new stdClass);
 

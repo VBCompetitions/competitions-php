@@ -112,16 +112,6 @@ final class Club implements JsonSerializable
     }
 
     /**
-     * Get the name for this club
-     *
-     * @return string the name for this club
-     */
-    public function getName() : string
-    {
-        return $this->name;
-    }
-
-    /**
      * Set the name for this club
      *
      * @param string $name the name for this club
@@ -138,13 +128,13 @@ final class Club implements JsonSerializable
     }
 
     /**
-     * Get the notes for this club
+     * Get the name for this club
      *
-     * @return string|null the notes for this club
+     * @return string the name for this club
      */
-    public function getNotes() : string|null
+    public function getName() : string
     {
-        return $this->notes;
+        return $this->name;
     }
 
     /**
@@ -160,6 +150,26 @@ final class Club implements JsonSerializable
     }
 
     /**
+     * Get the notes for this club
+     *
+     * @return string|null the notes for this club
+     */
+    public function getNotes() : string|null
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Does this club have any notes attached
+     *
+     * @return bool True if the club has notes, otherwise false
+     */
+    public function hasNotes() : bool
+    {
+        return !is_null($this->notes);
+    }
+
+    /**
      * Add a team to this club
      *
      * @param CompetitionTeam $team the team to add
@@ -167,24 +177,11 @@ final class Club implements JsonSerializable
      */
     public function addTeam(CompetitionTeam $team) : Club
     {
-        $this->team_lookup->{$team->getID()} = $team;
-        return $this;
-    }
-
-    /**
-     * Delete a team from this club
-     *
-     * @param string $team_id The ID of the team to delete
-     * @return void
-     */
-    public function deleteTeam(string $team_id) : Club
-    {
-        if ($this->hasTeamWithID($team_id)) {
-            $team = $this->team_lookup->$team_id;
-            unset($this->team_lookup->$team_id);
-            $team->setClub(null);
+        if ($this->hasTeamWithID($team->getID())) {
+            return $this;
         }
-
+        $this->team_lookup->{$team->getID()} = $team;
+        $team->setClubID($this->getID());
         return $this;
     }
 
@@ -211,5 +208,22 @@ final class Club implements JsonSerializable
     public function hasTeamWithID(string $team_id) : bool
     {
         return property_exists($this->team_lookup, $team_id);
+    }
+
+    /**
+     * Delete a team from this club
+     *
+     * @param string $team_id The ID of the team to delete
+     * @return void
+     */
+    public function deleteTeam(string $team_id) : Club
+    {
+        if ($this->hasTeamWithID($team_id)) {
+            $team = $this->team_lookup->$team_id;
+            unset($this->team_lookup->$team_id);
+            $team->setClubID(null);
+        }
+
+        return $this;
     }
 }

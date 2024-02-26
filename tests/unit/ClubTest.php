@@ -63,6 +63,7 @@ final class ClubTest extends TestCase {
 
         $this->assertEquals('Southampton', $club->getName());
         $this->assertEquals('This is a club', $club->getNotes());
+        $this->assertTrue($club->hasNotes());
         $this->assertCount(3, $club->getTeams());
         $this->assertEquals('Alice VC', $club->getTeams()[0]->getName());
         $this->assertTrue($club->hasTeamWithID('TM1'));

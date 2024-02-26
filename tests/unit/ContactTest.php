@@ -81,7 +81,7 @@ final class ContactTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
 
         $this->expectException(OutOfBoundsException::class);
-        $this->expectExceptionMessage('Contact with ID NO-SUCH-TEAM not found');
+        $this->expectExceptionMessage('Contact with ID "NO-SUCH-TEAM" not found');
         $competition->getTeamByID('TM1')->getContactByID('NO-SUCH-TEAM');
     }
 }

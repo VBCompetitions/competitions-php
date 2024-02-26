@@ -54,7 +54,7 @@ final class PlayerTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
 
         $this->expectException(OutOfBoundsException::class);
-        $this->expectExceptionMessage('Player with ID NO-SUCH-TEAM not found');
+        $this->expectExceptionMessage('Player with ID "NO-SUCH-TEAM" not found');
         $competition->getTeamByID('TM1')->getPlayerByID('NO-SUCH-TEAM');
     }
 

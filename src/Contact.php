@@ -188,35 +188,11 @@ final class Contact implements JsonSerializable
      *
      *
      */
-    public function addRole(string $role) : Contact
+    public function addRole(ContactRole $role) : Contact
     {
         // TODO this could be bitwise maths so any duplicates are ignored?
         // Todo whatever - still need to scan for dupes
-        switch ($role) {
-            case 'secretary':
-                array_push($this->roles, ContactRole::SECRETARY);
-                break;
-            case 'treasurer':
-                array_push($this->roles, ContactRole::TREASURER);
-                break;
-            case 'manager':
-                array_push($this->roles, ContactRole::MANAGER);
-                break;
-            case 'captain':
-                array_push($this->roles, ContactRole::CAPTAIN);
-                break;
-            case 'coach':
-                array_push($this->roles, ContactRole::COACH);
-                break;
-            case 'assistantCoach':
-                array_push($this->roles, ContactRole::ASSISTANT_COACH);
-                break;
-            case 'medic':
-                array_push($this->roles, ContactRole::MEDIC);
-                break;
-            default:
-                throw new Exception('Role "'.$role.'" is not a valid role for a contact');
-        }
+        array_push($this->roles, $role);
         return $this;
     }
 

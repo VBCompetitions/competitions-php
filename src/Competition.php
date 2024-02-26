@@ -17,46 +17,46 @@ use Throwable;
  */
 final class Competition implements JsonSerializable
 {
-    /** The version of schema that the document conforms to. Defaults to 1.0.0 */
+    /** @var string The version of schema that the document conforms to. Defaults to 1.0.0 */
     private string $version = '1.0.0';
 
-    /** A name for the competition */
+    /** @var string A name for the competition */
     private string $name;
 
-    /** Free form string to add notes about the competition.  This can be used for arbitrary content that various implementations can use */
+    /** @var string Free form string to add notes about the competition.  This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
-    /** A list of clubs that the teams are in */
+    /** @var array  A list of clubs that the teams are in */
     private array $clubs = [];
 
-    /** The list of all teams in this competition */
+    /** @var array The list of all teams in this competition */
     private array $teams = [];
 
     /**
-     * The stages of the competition. Stages are phases of a competition that happen in order.  There may be only one stage (e.g. for a flat league) or multiple in sequence
+     * @var array The stages of the competition. Stages are phases of a competition that happen in order.  There may be only one stage (e.g. for a flat league) or multiple in sequence
      * (e.g. for a tournament with pools, then crossovers, then finals)
      */
     private array $stages = [];
 
-    /** A Lookup table from team IDs (including references) to the team */
+    /** @var object A Lookup table from team IDs (including references) to the team */
     private object $team_lookup;
 
-    /** A Lookup table from stage IDs to the stage */
+    /** @var object A Lookup table from stage IDs to the stage */
     private object $stage_lookup;
 
-    /** A Lookup table from club IDs to the club */
+    /** @var object A Lookup table from club IDs to the club */
     private object $club_lookup;
 
 
-    /** The "unknown" team, typically for matching against */
+    /** @var CompetitionTeam The "unknown" team, typically for matching against */
     private CompetitionTeam $unknown_team;
 
     /**
-     * Takes in the Competition JSON string and creates the Competition object representing that data
+     * Takes in the Competition name creates an empty Competition object with that name
      *
-     * @param string $competition_json The JSON data for the competition
+     * @param string $name The name of the competition
      *
-     * @throws Exception thrown when the competition data is invalid
+     * @throws Exception thrown when the name is invalid
      */
     function __construct(string $name)
     {
@@ -70,8 +70,6 @@ final class Competition implements JsonSerializable
         $this->club_lookup = new stdClass();
 
         $this->unknown_team = new CompetitionTeam($this, CompetitionTeam::UNKNOWN_TEAM_ID, CompetitionTeam::UNKNOWN_TEAM_NAME);
-
-        // $this->processMatches();
     }
 
     /**
@@ -81,6 +79,8 @@ final class Competition implements JsonSerializable
      * @param string $competition_file The name of the competition file
      *
      * @throws Exception thrown when the competition data is invalid
+     *
+     * @return Competition
      */
     public static function loadFromFile(string $competition_data_dir, string $competition_file) : Competition
     {
@@ -91,6 +91,15 @@ final class Competition implements JsonSerializable
         return Competition::loadFromCompetitionJSON($competition_json);
     }
 
+    /**
+     * Loads a Competition object from competition JSON data
+     *
+     * @param string $competition_json The competition JSON data
+     *
+     * @throws Exception thrown when the JSON data is invalid
+     *
+     * @return Competition
+     */
     public static function loadFromCompetitionJSON(string $competition_json) : Competition
     {
         $competition_data = json_decode($competition_json);
@@ -141,15 +150,48 @@ final class Competition implements JsonSerializable
      * @param string $competition_file The name of the competition file
      *
      * @throws Exception thrown when the competition file cannot be saved
-
+     *
+     * @return Competition the competition
      */
-    public function saveToFile(string $competition_data_dir, string $competition_file) : void
+    public function saveToFile(string $competition_data_dir, string $competition_file) : Competition
     {
         $competition_data = json_encode($this, JSON_PRETTY_PRINT);
         Competition::validateJSON(json_decode($competition_data));
         file_put_contents(realpath($competition_data_dir)."/".$competition_file, $competition_data, LOCK_EX);
+        return $this;
     }
 
+    /**
+     * Serialize the competition data into JSON format
+     *
+     * @return mixed The JSON representation of the competition data
+     */
+    public function jsonSerialize() : mixed
+    {
+        $competition = new stdClass();
+
+        $competition->version = $this->version;
+
+        $competition->name = $this->name;
+
+        if ($this->notes !== null) {
+            $competition->notes = $this->notes;
+        }
+
+        $competition->clubs = $this->clubs;
+
+        $competition->teams = $this->teams;
+
+        $competition->stages = $this->stages;
+
+        return $competition;
+    }
+
+    /**
+     * Process matches for all stages in the competition
+     *
+     * @return void
+     */
     private function processMatches() : void
     {
         foreach ($this->stages as $stage) {
@@ -175,10 +217,13 @@ final class Competition implements JsonSerializable
      * Set the competition version
      *
      * @param string $version the version for the competition data
+     *
+     * @return Competition the competition
      */
-    public function setVersion(string $version) : void
+    public function setVersion(string $version) : Competition
     {
         $this->version = $version;
+        return $this;
     }
 
     /**
@@ -195,10 +240,13 @@ final class Competition implements JsonSerializable
      * Set the competition Name
      *
      * @param string $name the new name for the competition
+     *
+     * @return Competition the competition
      */
-    public function setName(string $name) : void
+    public function setName(string $name) : Competition
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
@@ -215,25 +263,31 @@ final class Competition implements JsonSerializable
      * Set the notes for this competition
      *
      * @param string|null $notes the notes for this competition
+     *
+     * @return Competition the competition
      */
-    public function setNotes(?string $notes) : void
+    public function setNotes(?string $notes) : Competition
     {
         $this->notes = $notes;
+        return $this;
     }
 
     /**
      * Add a new team to the competition
      *
-     * @param string $team_id the unique ID for the new team.  It must be between 1 and 100 characters long, and contain only ASCII printable characters excluding " : { } ? =
-     * @param string $team_name the name for the team.  It must be between 1 and 1000 characters long
+     * @param CompetitionTeam $team The team to add to the competition
      *
      * @throws Exception If the input parameters are invalid or if a team with the requested ID already exists
-     * @return Competition this competition
+     *
+     * @return Competition This competition
      */
     public function addTeam(CompetitionTeam $team) : Competition
     {
         if ($team->getCompetition() !== $this) {
             throw new Exception('Team was initialised with a different Competition');
+        }
+        if ($this->hasTeamWithID($team->getID())) {
+            return $this;
         }
         array_push($this->teams, $team);
         $this->team_lookup->{$team->getID()} = $team;
@@ -243,7 +297,7 @@ final class Competition implements JsonSerializable
     /**
      * Get the teams in this competition
      *
-     * @return array the teams in this competition
+     * @return array The teams in this competition
      */
     public function getTeams() : array
     {
@@ -253,7 +307,7 @@ final class Competition implements JsonSerializable
     /**
      * Gets the Team for the given team ID
      *
-     * @param string $team_id The team ID to look up. This may be a pure ID, a reference or a ternary
+     * @param string $team_id The team ID to look up. This may be a pure ID, a reference, or a ternary
      *
      * @return CompetitionTeam The team
      */
@@ -305,18 +359,56 @@ final class Competition implements JsonSerializable
         return $this->unknown_team;
     }
 
+    /**
+     * Check if a team with the given ID exists in the competition
+     *
+     * @param string $team_id The ID of the team to check
+     *
+     * @return bool True if the team exists, false otherwise
+     */
     public function hasTeamWithID(string $team_id) : bool
     {
         return property_exists($this->team_lookup, $team_id);
     }
 
-    public function deleteTeam(string $team_id) : void
+    /**
+     * Delete a team from the competition
+     *
+     * @param string $team_id The ID of the team to delete
+     *
+     * @return Competition This competition
+     */
+    public function deleteTeam(string $team_id) : Competition
     {
-        // TODO
-        // What if the team has matches?  Have to throw and force the matches to be removed first
+        if (!$this->hasTeamWithID($team_id)) {
+            return $this;
+        }
+
+        $team_matches = [];
+        foreach ($this->stages as $stage) {
+            $stage_matches = $stage->getMatches($team_id, VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
+            $team_matches = array_merge($team_matches, $stage_matches);
+        }
+
+        if (count($team_matches) > 0) {
+            $collapse_matches = fn(MatchInterface $m): string => '{'.$m->getGroup()->getStage()->getID().':'.$m->getGroup()->getID().':'.$m->getID().'}';
+            throw new Exception('Team still has matches with IDs: '.join(', ', array_map($collapse_matches, $team_matches)));
+        }
+
         // Also remove team from any club's list
+
+        return $this;
     }
 
+    /**
+     * Add a new stage to the competition
+     *
+     * @param Stage $stage The stage to add to the competition
+     *
+     * @throws Exception If a stage with the requested ID already exists
+     *
+     * @return Competition This competition
+     */
     public function addStage(Stage $stage) : Competition
     {
         if ($stage->getCompetition() !== $this) {
@@ -330,7 +422,7 @@ final class Competition implements JsonSerializable
     /**
      * Get the stages in this competition
      *
-     * @return array the stages in this competition
+     * @return array The stages in this competition
      */
     public function getStages() : array
     {
@@ -340,11 +432,11 @@ final class Competition implements JsonSerializable
     /**
      * Returns the Stage with the requested ID, or throws if the ID is not found
      *
-     * @param string $stage_id The ID of the stage to return
+     * @param string $id The ID of the stage to return
      *
-     * @throws OutOfBoundsException No Stage with the requested ID was not found
+     * @throws OutOfBoundsException When no stage with the provided ID is found
      *
-     * @return Stage the requested stage
+     * @return Stage The requested stage
      */
     public function getStageById(string $id) : Stage
     {
@@ -354,24 +446,73 @@ final class Competition implements JsonSerializable
         return $this->stage_lookup->$id;
     }
 
+    /**
+     * Check if a stage with the given ID exists in the competition
+     *
+     * @param string $id The ID of the stage to check
+     *
+     * @return bool True if the stage exists, false otherwise
+     */
     public function hasStageWithID(string $id) : bool
     {
         return property_exists($this->stage_lookup, $id);
     }
 
-    public function deleteStage($stage_id) : void
+    /**
+     * Delete a stage from the competition
+     *
+     * @param mixed $stage_id The ID of the stage to delete
+     *
+     * @return Competition This competition
+     */
+    public function deleteStage($stage_id) : Competition
     {
-        // TODO
+        $stage_found = false;
+        foreach ($this->stages as $stage) {
+            if ($stage_found) {
+                foreach ($stage->getGroups() as $group) {
+                    foreach ($group->getMatches() as $match) {
+                        $team_references = [];
+                        $team_references = array_merge($team_references, $this->stripTeamReferences($match->getHomeTeam()->getID()));
+                        $team_references = array_merge($team_references, $this->stripTeamReferences($match->getAwayTeam()->getID()));
+
+                        $officials = $match->getOfficials();
+                        if ($officials !== null && $officials->isTeam()) {
+                            $team_references = array_merge($team_references, $this->stripTeamReferences($match->getOfficials()->getTeamID()));
+                        }
+
+                        foreach ($team_references as $reference) {
+                            if (preg_match('/^{([^:]*):.*}$/', $reference, $parts)) {
+                                if ($parts[1] === $stage_id) {
+                                    throw new Exception('Cannot delete stage with id "'.$stage_id.'" as it is referenced in match {'.$stage->getID().':'.$group->getID().':'.$match->getID().'}');
+                                }
+                            }
+                        }
+                    }
+                }
+            } else if ($stage->getID() === $stage_id) {
+                $stage_found = true;
+            }
+        }
+
+        if (!$stage_found) {
+            return $this;
+        }
+
+        unset($this->stage_lookup->$stage_id);
+        $this->stages = array_filter($this->stages, fn(Stage $el): bool => $el->getID() === $stage_id);
+
+        return $this;
     }
 
     /**
      * Add a new club to the competition
      *
-     * @param string $club_id the unique ID for the new club.  It must be between 1 and 100 characters long, and contain only ASCII printable characters excluding " : { } ? =
-     * @param string $club_name the name for the club.  It must be between 1 and 1000 characters long
+     * @param Club $club The club to add to the competition
      *
      * @throws Exception If the input parameters are invalid or if a club with the requested ID already exists
-     * @return Club the new club
+     *
+     * @return Competition This competition
      */
     public function addClub(Club $club) : Competition
     {
@@ -386,7 +527,7 @@ final class Competition implements JsonSerializable
     /**
      * Get the clubs in this competition
      *
-     * @return array the clubs in this competition
+     * @return array The clubs in this competition
      */
     public function getClubs() : array
     {
@@ -398,9 +539,9 @@ final class Competition implements JsonSerializable
      *
      * @param string $club_id The ID of the club to return
      *
-     * @throws OutOfBoundsException No Club with the requested ID was not found
+     * @throws OutOfBoundsException When no club with the provided ID is found
      *
-     * @return Club the requested club
+     * @return Club The requested club
      */
     public function getClubById(string $club_id) : Club
     {
@@ -410,38 +551,40 @@ final class Competition implements JsonSerializable
         return $this->club_lookup->$club_id;
     }
 
+    /**
+     * Check if a club with the given ID exists in the competition
+     *
+     * @param string $club_id The ID of the club to check
+     *
+     * @return bool True if the club exists, false otherwise
+     */
     public function hasClubWithID(string $club_id) : bool
     {
         return property_exists($this->club_lookup, $club_id);
     }
 
-    public function deleteClub(string $club_id) : void
-    {
-        // TODO
-    }
-
     /**
-     * Serialize the data in JSON format
+     * Delete a club from the competition
+     *
+     * @param string $club_id The ID of the club to delete
+     *
+     * @return Competition This competition
      */
-    public function jsonSerialize() : mixed
+    public function deleteClub(string $club_id) : Competition
     {
-        $competition = new stdClass();
-
-        $competition->version = $this->version;
-
-        $competition->name = $this->name;
-
-        if ($this->notes !== null) {
-            $competition->notes = $this->notes;
+        if (!$this->hasClubWithID($club_id)) {
+            return $this;
         }
 
-        $competition->clubs = $this->clubs;
+        $club = $this->getClubById($club_id);
+        $teams_in_club = $club->getTeams();
+        if (count($teams_in_club) > 0) {
+            throw new Exception('Club still contains teams with IDs: '.join(', ', array_map(fn(CompetitionTeam $t): string => '{'.$t->getID().'}', $teams_in_club)));
+        }
+        // throw if any team still declares this club
 
-        $competition->teams = $this->teams;
+        return $this;
 
-        $competition->stages = $this->stages;
-
-        return $competition;
     }
 
     /**
@@ -498,11 +641,12 @@ final class Competition implements JsonSerializable
      * @param string $stage_id The ID of the stage containing the match to update
      * @param string $group_id The ID of the group containing the match to update
      * @param string $match_id The ID of the match to update
-     * @param int[] $home_team_scores The new home team scores, with a continuous-score match having an array of length 1
-     * @param int[] $away_team_scores The new home team scores, with a continuous-score match having an array of length 1
+     * @param int[] $home_team_scores The new home team scores
+     * @param int[] $away_team_scores The new away team scores
+     * @param bool|null $complete Whether the match is complete
      *
-     * @throws Exception if the file starts as invalid or the new scores are invalid, e.g. more than one value for a continuous match
-     * @throws OutOfBoundsException if the stage, group or match cannot be found
+     * @throws Exception if the file starts as invalid or the new scores are invalid
+     * @throws OutOfBoundsException if the stage, group, or match cannot be found
      *
      * @return bool whether the results for the match were updated in the competition file
      */
@@ -575,7 +719,7 @@ final class Competition implements JsonSerializable
         } else {
             $dummy_competition = new Competition('dummy for score update');
             $dummy_stage = new Stage($dummy_competition, $stage->id);
-            $dummy_group = new Crossover($dummy_stage, $group->id, 'sets');
+            $dummy_group = new Crossover($dummy_stage, $group->id, MatchType::SETS);
             GroupMatch::assertSetScoresValid($home_team_scores, $away_team_scores, (new SetConfig($dummy_group))->loadFromData($group->sets));
             if (property_exists($match, 'duration') && $complete === null) {
                 throw new Exception('Invalid results: match type is sets and match has a duration, but the match completeness is not set');
@@ -594,7 +738,7 @@ final class Competition implements JsonSerializable
     }
 
     /**
-     * Performs schema validation on the JSON data
+     * Perform schema validation on the JSON data
      *
      * @param mixed $competition_data The object representation of the parsed JSON data
      *
@@ -626,7 +770,7 @@ final class Competition implements JsonSerializable
     /**
      * Validates a team ID, throwing an exception if it isn't and returning if the team Id is valid
      *
-     * @param string $team_id The team ID to check.  This may be a team ID, a team reference or a ternary
+     * @param string $team_id The team ID to check. This may be a team ID, a team reference, or a ternary
      * @param string $match_id The match that the team is a part of (for the exception message)
      * @param string $field The field the team is active in, e.g. "homeTeam", "officials > team" (for the exception message)
      *
@@ -703,13 +847,13 @@ final class Competition implements JsonSerializable
     /**
      * Takes in an exact, resolved team ID and checks that the team exists
      *
-     * @param string $team_id The team ID to check.  This must be a resolved team ID, not a team reference or a ternary
+     * @param string $team_id The team ID to check. This must be a resolved team ID, not a team reference or a ternary
      *
      * @throws Exception An exception if the team does not exist
      */
     private function validateTeamExists(string $team_id)
     {
-        if (!$this->teamIdExists($team_id)) {
+        if (!$this->hasTeamID($team_id)) {
             throw new Exception('Team with ID "'.$team_id.'" does not exist');
         }
     }
@@ -774,6 +918,25 @@ final class Competition implements JsonSerializable
         }
     }
 
+    private function stripTeamReferences(string $team_reference) : array
+    {
+        $references = [];
+        if (strncmp($team_reference, '{', 1) !== 0) {
+            return [];
+        } elseif (preg_match('/^([^=]*)==([^?]*)\?(.*)$/', $team_reference, $lr_matches)) {
+            $references = array_merge($references, $this->stripTeamReferences($lr_matches[1]));
+            $references = array_merge($references, $this->stripTeamReferences($lr_matches[2]));
+            if (preg_match('/^({[^}]*}):(.*)$/', $lr_matches[3], $tf_matches)) {
+                $references = array_merge($references, $this->stripTeamReferences($tf_matches[1]));
+                $references = array_merge($references, $this->stripTeamReferences($tf_matches[2]));
+            }
+        } else {
+            array_push($references, $team_reference);
+        }
+
+        return array_unique($references);
+    }
+
     /**
      * Checks whether the given team ID is in the list of teams for this competition
      *
@@ -781,7 +944,7 @@ final class Competition implements JsonSerializable
      *
      * @return bool Whether a team with the given ID exists
      */
-    public function teamIdExists(string $team_id) : bool
+    public function hasTeamID(string $team_id) : bool
     {
         // default to false if property_exists hits an error and returns null
         $team_exists = property_exists($this->team_lookup, $team_id);
@@ -791,49 +954,11 @@ final class Competition implements JsonSerializable
         return true;
     }
 
-    // /**
-    //  * Add a team reference to the team lookup table, for later lookup in resolving team ids
-    //  *
-    //  * @param string $key the team reference key (without braces)
-    //  * @param CompetitionTeam $team the resolved team for the reference
-    //  *
-    //  * @throws Exception thrown when the key already exists and the team is different from the existing entry
-    //  */
-    // public function addTeamReference(string $key, CompetitionTeam $team) : Competition
-    // {
-
-    //     // TODO Loading now has a problem where every time you add a team to a league, as far as it can tell that league
-    //     // is complete if the match is finished, so it wants to calculate the league positions.  The problem is that when you add
-    //     // the next match it wants to recalculate the league positions, which means a new {STG:GRP:league:pos} value, but we can't override a value
-    //     // Problem 1 - this means that we can't update a result with an API call update and have this validation pass
-    //     // Problem 2 - I tried the code below in the processMatches function, but it ran really slowly.  Why isn't reference lookup for a reference
-    //     //             deferred to that stage:group?  That way the group can worry about when to do it and whether it's accurate or known
-
-    //     // Make sure any team references referring to a league position are wiped.  Whenever we add a
-    //     // match to the league we reset that league to being incomplete, but it may have already
-    //     // processed the matches an populated the reference table with {STG:GRP:league:pos} values
-    //     // and overwriting that with a new value throws an exception
-
-    //     // if ($group instanceof League) {
-    //     //     foreach ($this->team_lookup as $team_id => $_) {
-    //     //         if (str_starts_with($team_id, '{'.$stage->getID().':'.$group->getID().':league:')) {
-    //     //             unset($this->team_lookup->$team_id);
-    //     //         }
-    //     //     }
-    //     // }
-
-    //     if (isset($this->team_lookup->{'{'.$key.'}'}) && $this->team_lookup->{'{'.$key.'}'}->getID() !== $team->getID()) {
-    //         throw new Exception('Key mismatch in team lookup table.  Key '.$key.' currently set to team with ID '.$this->team_lookup->{'{'.$key.'}'}->getID().', call tried to set to team with ID '.$team->getID());
-    //     }
-    //     $this->team_lookup->{'{'.$key.'}'} = $team;
-    //     return $this;
-    // }
-
     /**
      * Check whether all stages are complete, i.e. all matches in all stages have results
      * and the competition results can be fully calculated
      *
-     * @return bool whether the competition is complete or not
+     * @return bool Whether the competition is complete or not
      */
     public function isComplete() : bool
     {

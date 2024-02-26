@@ -39,7 +39,7 @@ class ICS {
      */
     public function getContentDisposition(string $team_id, string $filename = null) : string
     {
-        if (!$this->c->teamIdExists($team_id)) {
+        if (!$this->c->hasTeamID($team_id)) {
             throw new Exception('Team with ID "'.$team_id.'" does not exist', 1);
         }
 
@@ -68,7 +68,7 @@ class ICS {
      */
     public function getCalendar(string $unique_id, string $team_id = null) : string
     {
-        if ($team_id !== null && !$this->c->teamIdExists($team_id)) {
+        if ($team_id !== null && !$this->c->hasTeamID($team_id)) {
             throw new Exception('Team with ID "'.$team_id.'" does not exist');
         }
 

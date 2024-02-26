@@ -40,33 +40,39 @@ final class MatchTeam implements JsonSerializable
      * @param MatchInterface $match the match this team is playing in
      * @param object $team_data The data defining this Team
      */
-    function __construct(MatchInterface $match, object $team_data)
+    function __construct(MatchInterface $match, string $id)
     {
         $this->match = $match;
-        $this->id = $team_data->id;
-        if (property_exists($team_data, 'mvp')) {
-            $this->mvp = $team_data->mvp;
-        }
-        $this->forfeit = $team_data->forfeit;
-        $this->bonus_points = $team_data->bonusPoints;
-        $this->penalty_points = $team_data->penaltyPoints;
-        if (property_exists($team_data, 'notes')) {
-            $this->notes = $team_data->notes;
-        }
-        if (property_exists($team_data, 'players')) {
-            $this->players = $team_data->players;
-        }
+        $this->id = $id;
     }
 
     public static function loadFromData(MatchInterface $match, object $team_data) : MatchTeam
     {
-        $team = new MatchTeam($match, $team_data);
+        $team = new MatchTeam($match, $team_data->id);
+        if (property_exists($team_data, 'mvp')) {
+            $team->setMVP($team_data->mvp);
+        }
+        $team->setForfeit($team_data->forfeit);
+        $team->setBonusPoints($team_data->bonusPoints);
+        $team->setPenaltyPoints($team_data->penaltyPoints);
+        if (property_exists($team_data, 'notes')) {
+            $team->setNotes($team_data->notes);
+        }
+        if (property_exists($team_data, 'players')) {
+            $team->setPlayers($team_data->players);
+        }
         return $team;
     }
 
     public function getID() : string
     {
         return $this->id;
+    }
+
+    public function setForfeit(bool $forfeit) : MatchTeam
+    {
+        $this->forfeit = $forfeit;
+        return $this;
     }
 
     public function getForfeit() : bool
@@ -87,9 +93,21 @@ final class MatchTeam implements JsonSerializable
         return $this->match->getAwayTeamScores();
     }
 
+    public function setBonusPoints(int $bonus_points) : MatchTeam
+    {
+        $this->bonus_points = $bonus_points;
+        return $this;
+    }
+
     public function getBonusPoints() : int
     {
         return $this->bonus_points;
+    }
+
+    public function setPenaltyPoints(int $penalty_points) : MatchTeam
+    {
+        $this->penalty_points = $penalty_points;
+        return $this;
     }
 
     public function getPenaltyPoints() : int
@@ -97,14 +115,32 @@ final class MatchTeam implements JsonSerializable
         return $this->penalty_points;
     }
 
+    public function setMVP(?string $mvp) : MatchTeam
+    {
+        $this->mvp = $mvp;
+        return $this;
+    }
+
     public function getMVP() : string|null
     {
         return $this->mvp;
     }
 
+    public function setNotes(?string $notes) : MatchTeam
+    {
+        $this->notes = $notes;
+        return $this;
+    }
+
     public function getNotes() : string
     {
         return $this->notes;
+    }
+
+    public function setPlayers(array $players) : MatchTeam
+    {
+        $this->players = $players;
+        return $this;
     }
 
     /**

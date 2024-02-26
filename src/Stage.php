@@ -6,6 +6,7 @@ use Exception;
 use JsonSerializable;
 use OutOfBoundsException;
 use stdClass;
+use VBCompetitions\Competitions\MatchType;
 
 /**
  * A single competition stage
@@ -44,45 +45,8 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      * Contains the stage data of a competition, creating any metadata needed
      *
      * @param Competition $competition A link back to the Competition this Stage is in
-     * @param object $stage_data The data defining this Stage
+     * @param string $stage_id The unique ID of this Stage
      */
-    // function __construct(Competition $competition, $stage_data)
-    // {
-    //     if ($competition->hasStageWithId($stage_data->id)) {
-    //         throw new Exception('Competition data failed validation. Stages with duplicate IDs not allowed: {'.$stage_data->id.'}');
-    //     }
-    //     $this->id = $stage_data->id;
-    //     $this->competition = $competition;
-
-    //     if (property_exists($stage_data, 'name')) {
-    //         $this->name = $stage_data->name;
-    //     }
-
-    //     if (property_exists($stage_data, 'notes')) {
-    //         $this->notes = $stage_data->notes;
-    //     }
-
-    //     if (property_exists($stage_data, 'description')) {
-    //         $this->description = $stage_data->description;
-    //     }
-
-    //     $this->group_lookup = new stdClass();
-
-    //     foreach ($stage_data->groups as $group_data) {
-    //         match ($group_data->type) {
-    //             'league' => new League($this, $group_data),
-    //             'crossover' => new Crossover($this, $group_data),
-    //             'knockout' => new Knockout($this, $group_data),
-    //         };
-    //     }
-
-    //     if (property_exists($stage_data, 'ifUnknown')) {
-    //         $this->ifUnknown = new IfUnknown($this, $stage_data->ifUnknown);
-    //     }
-
-    //     $this->checkMatches();
-    // }
-
     function __construct(Competition $competition, string $stage_id)
     {
         $stage_id_length = strlen($stage_id);
@@ -119,9 +83,9 @@ final class Stage implements JsonSerializable, MatchContainerInterface
 
         foreach ($stage_data->groups as $group_data) {
             $group = match ($group_data->type) {
-                'crossover' => new Crossover($this, $group_data->id, $group_data->matchType),
-                'knockout' => new Knockout($this, $group_data->id, $group_data->matchType),
-                'league' => new League($this, $group_data->id, $group_data->matchType, $group_data->drawsAllowed),
+                'crossover' => new Crossover($this, $group_data->id, $group_data->matchType === 'continuous' ? MatchType::CONTINUOUS : MatchType::SETS),
+                'knockout' => new Knockout($this, $group_data->id, $group_data->matchType === 'continuous' ? MatchType::CONTINUOUS : MatchType::SETS),
+                'league' => new League($this, $group_data->id, $group_data->matchType === 'continuous' ? MatchType::CONTINUOUS : MatchType::SETS, $group_data->drawsAllowed),
                 default => throw new Exception('Unknown group type')
             };
             $this->addGroup($group);
@@ -136,13 +100,6 @@ final class Stage implements JsonSerializable, MatchContainerInterface
 
         return $this;
     }
-
-    // public function processMatches() : void
-    // {
-    //     foreach ($this->groups as $group) {
-    //         $group->processMatches();
-    //     }
-    // }
 
     /**
      * Get the ID for this stage
@@ -166,31 +123,6 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         $this->group_lookup->{$group->getID()} = $group;
         return $this;
     }
-
-    // public function addGroupTemp(string $group_id, GroupType $group_type, MatchType $match_type) : Stage
-    // {
-    //     $group_id_length = strlen($group_id);
-    //     if ($group_id_length > 100 || $group_id_length < 1) {
-    //         throw new Exception('Invalid group ID: must be between 1 and 100 characters long');
-    //     }
-
-    //     if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $group_id)) {
-    //         throw new Exception('Invalid group ID: must contain only ASCII printable characters excluding " : { } ? =');
-    //     }
-
-    //     if (property_exists($this->group_lookup, $group_id)) {
-    //         throw new Exception('Group with ID "'.$group_id.'" already exists');
-    //     }
-
-    //     $stage_data = new stdClass();
-    //     $stage_data->id = $group_id;
-    //     $stage_data->matches = [];
-    //     $new_stage = new Stage($this, $stage_data);
-    //     array_push($this->stages, $new_stage);
-    //     $this->stage_lookup->{$stage_id} = $new_stage;
-
-    //     return $new_stage;
-    // }
 
     /**
      * Get the groups as an array

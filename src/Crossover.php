@@ -11,9 +11,10 @@ final class Crossover extends Group
      * Contains the group data of a stage, creating any metadata needed
      *
      * @param Stage $stage A link back to the Stage this Group is in
-     * @param object $crossover_data The data defining this Group
+     * @param string $id The unique ID of this Group
+     * @param MatchType $match_type Whether matches are continuous or played to sets
      */
-    function __construct(Stage $stage, string $id, string $match_type)
+    function __construct(Stage $stage, string $id, MatchType $match_type)
     {
         parent::__construct($stage, $id, $match_type);
         $this->type = GroupType::CROSSOVER;

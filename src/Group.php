@@ -7,17 +7,17 @@ use JsonSerializable;
 use OutOfBoundsException;
 use stdClass;
 
-enum MatchType
+enum MatchType: string
 {
-    case CONTINUOUS;
-    case SETS;
+    case CONTINUOUS = 'continuous';
+    case SETS = 'sets';
 }
 
-enum GroupType
+enum GroupType: string
 {
-    case LEAGUE;
-    case CROSSOVER;
-    case KNOCKOUT;
+    case LEAGUE = 'league';
+    case CROSSOVER = 'crossover';
+    case KNOCKOUT = 'knockout';
 }
 
 /**
@@ -114,14 +114,15 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
      * Contains the group data of a stage, creating any metadata needed
      *
      * @param Stage $stage A link back to the Stage this Group is in
-     * @param object $group_data The data defining this Group
+     * @param string $id The unique ID of this Group
+     * @param MatchType $match_type Whether matches are continuous or played to sets
      */
-    function __construct(Stage $stage, string $id, string $match_type)
+    function __construct(Stage $stage, string $id, MatchType $match_type)
     {
         $this->id = $id;
         $this->stage = $stage;
         $this->competition = $stage->getCompetition();
-        $this->match_type = $match_type === 'continuous' ? MatchType::CONTINUOUS : MatchType::SETS;
+        $this->match_type = $match_type;
         $this->match_lookup = new stdClass();
         $this->team_has_matches_lookup = new stdClass();
         $this->team_has_officiating_lookup = new stdClass();

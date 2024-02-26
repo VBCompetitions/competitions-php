@@ -9,19 +9,24 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use Exception;
 use Throwable;
 use PHPUnit\Framework\TestCase;
+use VBCompetitions\Competitions\Club;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\CompetitionTeam;
+use VBCompetitions\Competitions\GroupMatch;
+use VBCompetitions\Competitions\League;
+use VBCompetitions\Competitions\LeagueConfig;
+use VBCompetitions\Competitions\LeagueConfigPoints;
+use VBCompetitions\Competitions\MatchTeam;
+use VBCompetitions\Competitions\MatchOfficials;
 use VBCompetitions\Competitions\Stage;
-use VBCompetitions\Competitions\club;
 use stdClass;
+use VBCompetitions\Competitions\MatchType;
 
 #[CoversClass(Competition::class)]
 #[CoversClass(CompetitionTeam::class)]
 #[CoversClass(Stage::class)]
 #[CoversClass(Club::class)]
 final class CompetitionTest extends TestCase {
-    const EMPTY_COMPETITION = '{"name":"Test Competition", "teams": [], "stages": []}';
-
     public function testCompetitionList() : void
     {
         $expectedList = [];
@@ -168,8 +173,8 @@ final class CompetitionTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
 
-        $this->assertTrue($competition->teamIdExists('TM1'));
-        $this->assertTrue($competition->teamIdExists('TM8'));
+        $this->assertTrue($competition->hasTeamID('TM1'));
+        $this->assertTrue($competition->hasTeamID('TM8'));
 
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:1}')->getID());
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:2}')->getID());
@@ -183,10 +188,10 @@ final class CompetitionTest extends TestCase {
         $this->assertEquals('TM2', $competition->getTeamByID('{L:RL:RLM1:winner}')->getID());
         $this->assertEquals('TM1', $competition->getTeamByID('{L:RL:RLM1:loser}')->getID());
 
-        $this->assertFalse($competition->teamIdExists('NO-SUCH-TEAM'));
+        $this->assertFalse($competition->hasTeamID('NO-SUCH-TEAM'));
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('NO-SUCH-TEAM')->getID());
 
-        $this->assertFalse($competition->teamIdExists('{NO:SUCH:TEAM:REF}'));
+        $this->assertFalse($competition->hasTeamID('{NO:SUCH:TEAM:REF}'));
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{NO:SUCH:TEAM:REF}')->getID());
     }
 
@@ -195,8 +200,8 @@ final class CompetitionTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
         $this->assertEquals('1.0.0', $competition->getVersion());
 
-        $this->assertTrue($competition->teamIdExists('TM1'));
-        $this->assertTrue($competition->teamIdExists('TM8'));
+        $this->assertTrue($competition->hasTeamID('TM1'));
+        $this->assertTrue($competition->hasTeamID('TM8'));
 
         $this->assertEquals('TM6', $competition->getTeamByID('{L:RL:league:1}')->getID());
         $this->assertEquals('TM5', $competition->getTeamByID('{L:RL:league:2}')->getID());
@@ -210,10 +215,10 @@ final class CompetitionTest extends TestCase {
         $this->assertEquals('TM2', $competition->getTeamByID('{L:RL:RLM1:winner}')->getID());
         $this->assertEquals('TM1', $competition->getTeamByID('{L:RL:RLM1:loser}')->getID());
 
-        $this->assertFalse($competition->teamIdExists('NO-SUCH-TEAM'));
+        $this->assertFalse($competition->hasTeamID('NO-SUCH-TEAM'));
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('NO-SUCH-TEAM')->getID());
 
-        $this->assertFalse($competition->teamIdExists('{NO:SUCH:TEAM:REF}'));
+        $this->assertFalse($competition->hasTeamID('{NO:SUCH:TEAM:REF}'));
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{NO:SUCH:TEAM:REF}')->getID());
     }
 
@@ -592,99 +597,212 @@ final class CompetitionTest extends TestCase {
         $this->assertNull($competition->getNotes());
     }
 
-    // public function testCompetitionAddTeam() : void
-    // {
-    //     $competition = new Competition(CompetitionTest::EMPTY_COMPETITION);
-    //     $this->assertCount(0, $competition->getTeams());
+    public function testCompetitionConstructorBadName() : void
+    {
+        try {
+            new Competition('');
+            $this->fail('Test should have caught a zero-length competition name');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid team name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
 
-    //     $competition->addTeam('TM1', 'Team 1');
-    //     $this->assertCount(1, $competition->getTeams());
-    //     $this->assertEquals('Team 1', $competition->getTeamByID('TM1')->getName());
-    //     $this->assertEquals('Team 1', $competition->getTeams()[0]->getName());
+        try {
+            $name = 'a';
+            for ($i=0; $i < 100; $i++) {
+                $name .= '0123456789';
+            }
+            new Competition($name);
+            $this->fail('Test should have caught a long competition name');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid team name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+    }
 
-    //     try {
-    //         $competition->addTeam('', 'Team 2');
-    //         $this->fail('Team creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Invalid team ID: must be between 1 and 100 characters long', $th->getMessage());
-    //     }
+    public function testCompetitionAddTeam() : void
+    {
+        $competition_1 = new Competition('test competition 1');
+        $competition_2 = new Competition('test competition 1');
+        $this->assertCount(0, $competition_1->getTeams());
+        $this->assertCount(0, $competition_2->getTeams());
 
-    //     try {
-    //         $competition->addTeam('01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891', 'Team 2');
-    //         $this->fail('Team creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Invalid team ID: must be between 1 and 100 characters long', $th->getMessage());
-    //     }
+        $team = new CompetitionTeam($competition_1, 'TM1', 'Team 1');
+        $this->assertCount(0, $competition_1->getTeams());
+        $this->assertCount(0, $competition_2->getTeams());
 
-    //     try {
-    //         $competition->addTeam('TM:', 'Team 2');
-    //         $this->fail('Team creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Invalid team ID: must contain only ASCII printable characters excluding " : { } ? =', $th->getMessage());
-    //     }
+        try {
+            $competition_2->addTeam($team);
+            $this->fail('Test should have caught adding team to wrong competition');
+        } catch (Exception $e) {
+            $this->assertEquals('Team was initialised with a different Competition', $e->getMessage());
+        }
 
-    //     try {
-    //         $competition->addTeam('TM1', 'Team 1');
-    //         $this->fail('Team creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Team with ID "TM1" already exists', $th->getMessage());
-    //     }
+        $competition_1->addTeam($team);
+        $this->assertCount(1, $competition_1->getTeams());
+        $this->assertCount(0, $competition_2->getTeams());
 
-    //     try {
-    //         $competition->addTeam('TM2', '');
-    //         $this->fail('Team creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Invalid team name: must be between 1 and 1000 characters long', $th->getMessage());
-    //     }
+        $competition_1->addTeam($team);
+        $this->assertCount(1, $competition_1->getTeams());
+    }
 
-    //     try {
-    //         $team_name = '';
-    //         for ($i=0; $i < 101; $i++) {
-    //             $team_name .= '0123456789';
-    //         }
-    //         $competition->addTeam('TM2', $team_name);
-    //         $this->fail('Team creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Invalid team name: must be between 1 and 1000 characters long', $th->getMessage());
-    //     }
-    // }
+    public function testCompetitionDeleteTeam() : void
+    {
+        $competition = new Competition('test competition');
+        $team_1 = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $team_2 = new CompetitionTeam($competition, 'T2', 'Team 2');
+        $team_3 = new CompetitionTeam($competition, 'T3', 'Team 3');
+        $team_4 = new CompetitionTeam($competition, 'T4', 'Team 4');
+        $competition->addTeam($team_1)->addTeam($team_2)->addTeam($team_3)->addTeam($team_4);
+        $stage = new Stage($competition, 'S');
+        $competition->addStage($stage);
+        $league = new League($stage, 'G', MatchType::CONTINUOUS, false);
+        $stage->addGroup($league);
+        $match_1 = new GroupMatch($league, 'M1');
+        $match_1->setHomeTeam(new MatchTeam($match_1, $team_1->getID()))->setAwayTeam(new MatchTeam($match_1, $team_2->getID()))->setOfficials(new MatchOfficials($match_1, $team_3->getID()));
+        $match_2 = new GroupMatch($league, 'M2');
+        $match_2->setHomeTeam(new MatchTeam($match_2, $team_2->getID()))->setAwayTeam(new MatchTeam($match_2, $team_1->getID()))->setOfficials(new MatchOfficials($match_2, $team_3->getID()));
+        $league->addMatch($match_1)->addMatch($match_2);
+        $league_config = new LeagueConfig($league);
+        $league->setLeagueConfig($league_config);
+        $league_config->setOrdering(['PTS', 'PD']);
+        $league_config_points = new LeagueConfigPoints($league_config);
+        $league_config->setPoints($league_config_points);
 
-    // public function testCompetitionAddStage() : void
-    // {
-    //     $competition = new Competition(CompetitionTest::EMPTY_COMPETITION);
-    //     $this->assertCount(0, $competition->getStages());
+        // Team with known matches cannot be deleted
+        try {
+            $competition->deleteTeam($team_1->getID());
+            $this->fail('Test should have caught deleting a team with matches');
+        } catch (Exception $e) {
+            $this->assertEquals('Team still has matches with IDs: {S:G:M1}, {S:G:M2}', $e->getMessage());
+        }
 
-    //     $competition->addStage('STG1')->setName('Stage 1');
-    //     $this->assertCount(1, $competition->getStages());
-    //     $this->assertEquals('Stage 1', $competition->getStageByID('STG1')->getName());
-    //     $this->assertEquals('Stage 1', $competition->getStages()[0]->getName());
+        try {
+            $competition->deleteTeam($team_2->getID());
+            $this->fail('Test should have caught deleting a team with matches');
+        } catch (Exception $e) {
+            $this->assertEquals('Team still has matches with IDs: {S:G:M1}, {S:G:M2}', $e->getMessage());
+        }
 
-    //     try {
-    //         $competition->addStage('');
-    //         $this->fail('Stage creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Invalid stage ID: must be between 1 and 100 characters long', $th->getMessage());
-    //     }
+        try {
+            $competition->deleteTeam($team_3->getID());
+            $this->fail('Test should have caught deleting a team with officiating duties');
+        } catch (Exception $e) {
+            $this->assertEquals('Team still has matches with IDs: {S:G:M1}, {S:G:M2}', $e->getMessage());
+        }
 
-    //     try {
-    //         $competition->addStage('01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891');
-    //         $this->fail('Stage creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Invalid stage ID: must be between 1 and 100 characters long', $th->getMessage());
-    //     }
+        $competition->deleteTeam($team_4->getID());
+        $competition->deleteTeam('undefined-team-id');
+    }
 
-    //     try {
-    //         $competition->addStage('STG:');
-    //         $this->fail('Stage creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =', $th->getMessage());
-    //     }
+    public function testCompetitionAddStage() : void
+    {
+        $competition_1 = new Competition('test competition 1');
+        $competition_2 = new Competition('test competition 1');
+        $this->assertCount(0, $competition_1->getStages());
+        $this->assertCount(0, $competition_2->getStages());
 
-    //     try {
-    //         $competition->addStage('STG1');
-    //         $this->fail('Stage creation should fail');
-    //     } catch (Throwable $th) {
-    //         $this->assertEquals('Stage with ID "STG1" already exists', $th->getMessage());
-    //     }
-    // }
+        $stage = new Stage($competition_1, 'STG');
+        $this->assertCount(0, $competition_1->getStages());
+        $this->assertCount(0, $competition_2->getStages());
+
+        try {
+            $competition_2->addStage($stage);
+            $this->fail('Test should have caught adding stage to wrong competition');
+        } catch (Exception $e) {
+            $this->assertEquals('Stage was initialised with a different Competition', $e->getMessage());
+        }
+
+        $competition_1->addStage($stage);
+        $this->assertCount(1, $competition_1->getStages());
+        $this->assertCount(0, $competition_2->getStages());
+    }
+
+    public function testCompetitionDeleteStage() : void
+    {
+        $competition = new Competition('test competition');
+        $team_1 = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $team_2 = new CompetitionTeam($competition, 'T2', 'Team 2');
+        $team_3 = new CompetitionTeam($competition, 'T3', 'Team 3');
+        $competition->addTeam($team_1)->addTeam($team_2)->addTeam($team_3);
+        $stage_1 = new Stage($competition, 'S1');
+        $competition->addStage($stage_1);
+        $league_1 = new League($stage_1, 'G1', MatchType::CONTINUOUS, false);
+        $stage_1->addGroup($league_1);
+        $match_1 = new GroupMatch($league_1, 'M1');
+        $match_1->setHomeTeam(new MatchTeam($match_1, $team_1->getID()))->setAwayTeam(new MatchTeam($match_1, $team_2->getID()))->setOfficials(new MatchOfficials($match_1, $team_3->getID()));
+        $league_1->addMatch($match_1);
+
+        $stage_2 = new Stage($competition, 'S2');
+        $competition->addStage($stage_2);
+        $league_2 = new League($stage_2, 'G2', MatchType::CONTINUOUS, false);
+        $stage_2->addGroup($league_2);
+        $match_2 = new GroupMatch($league_1, 'M2');
+        $match_2->setHomeTeam(new MatchTeam($match_2, $team_3->getID()))->setAwayTeam(new MatchTeam($match_2, '{S1:G1:M1:winner}'))->setOfficials(new MatchOfficials($match_2, '{S1:G1:M1:winner}=={S1:G1:M1:winner}?{S1:G1:M1:winner}:{S1:G1:M1:loser}'));
+        $league_2->addMatch($match_2);
+
+        try {
+            $competition->deleteStage($stage_1->getID());
+            $this->fail('Test should have caught deleting a stage with later references');
+        } catch (Exception $e) {
+            $this->assertEquals('Cannot delete stage with id "S1" as it is referenced in match {S2:G2:M2}', $e->getMessage());
+        }
+
+        $competition->deleteStage($stage_2->getID());
+        $competition->deleteStage($stage_1->getID());
+    }
+
+    public function testCompetitionAddClub() : void
+    {
+        $competition_1 = new Competition('test competition 1');
+        $competition_2 = new Competition('test competition 1');
+        $this->assertCount(0, $competition_1->getClubs());
+        $this->assertCount(0, $competition_2->getClubs());
+
+        $stage = new Club($competition_1, 'CLB1', 'Club 1');
+        $this->assertCount(0, $competition_1->getClubs());
+        $this->assertCount(0, $competition_2->getClubs());
+
+        try {
+            $competition_2->addClub($stage);
+            $this->fail('Test should have caught adding club to wrong competition');
+        } catch (Exception $e) {
+            $this->assertEquals('Club was initialised with a different Competition', $e->getMessage());
+        }
+
+        $competition_1->addClub($stage);
+        $this->assertCount(1, $competition_1->getClubs());
+        $this->assertCount(0, $competition_2->getClubs());
+    }
+
+    public function testCompetitionDeleteClub() : void
+    {
+        // Create a competition with a club containing two teams, and a second club with no teams
+        $competition = new Competition('test competition');
+        $team_1 = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $team_2 = new CompetitionTeam($competition, 'T2', 'Team 2');
+        $team_3 = new CompetitionTeam($competition, 'T3', 'Team 3');
+        $club_1 = new Club($competition, 'C1', 'Club 1');
+        $club_2 = new Club($competition, 'C2', 'Club 2');
+        $competition->addClub($club_1)->addClub($club_2);
+        $competition->addTeam($team_1)->addTeam($team_2)->addTeam($team_3);
+        $team_1->setClubID($club_1->getID());
+        $team_2->setClubID($club_1->getID());
+
+        $this->assertEquals('C1', $team_1->getClub()->getID());
+        $this->assertEquals('C1', $team_2->getClub()->getID());
+        $this->assertNull($team_3->getClub());
+
+        try {
+            $competition->deleteClub($club_1->getID());
+            $this->fail('Test should have caught deleting a club with teams');
+        } catch (Exception $e) {
+            $this->assertEquals('Club still contains teams with IDs: {T1}, {T2}', $e->getMessage());
+        }
+
+        $competition->deleteClub($club_2->getID());
+        $club_1->deleteTeam($team_1->getID());
+        $club_1->deleteTeam($team_2->getID());
+        $competition->deleteClub($club_1->getID());
+
+        $competition->deleteClub('non-existent-team-id');
+    }
 }
