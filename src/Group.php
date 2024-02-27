@@ -12,89 +12,109 @@ use stdClass;
  */
 abstract class Group implements JsonSerializable, MatchContainerInterface
 {
-    /** A unique ID for this group, e.g. 'P1' */
+    /** @var string A unique ID for this group, e.g. 'P1' */
     protected string $id;
 
-    /** Descriptive title for the group, e.g. 'Pool 1' */
+    /** @var string|null Descriptive title for the group, e.g. 'Pool 1' */
     protected ?string $name = null;
 
-    /** Free form string to add notes about this group.  This can be used for arbitrary content that various implementations can use */
+    /** @var string|null Free form string to add notes about this group. */
     protected ?string $notes = null;
 
-    /** An array of string values as a verbose description of the nature of the group, e.g. 'For the pool stage, teams will play each other once, with the top 2 teams going through to....' */
+    /** @var array|null An array of string values as a verbose description of the nature of the group */
     protected ?array $description = null;
 
-    /** The type of competition applying to this group, which may dictate how the results are processed. If this has the value 'league' then the property 'league' must be defined */
+    /** @var GroupType The type of competition applying to this group */
     protected GroupType $type;
 
-    /** Configuration for the knockout matches */
+    /** @var KnockoutConfig|null Configuration for the knockout matches */
     protected ?KnockoutConfig $knockout_config = null;
 
-    /** Configuration for the league */
+    /** @var LeagueConfig|null Configuration for the league */
     protected ?LeagueConfig $league_config;
 
-    /** Are the matches played in sets or continuous points. If this has the value 'sets' then the property 'sets' must be defined */
+    /** @var MatchType Are the matches played in sets or continuous points */
     protected MatchType $match_type;
 
-    /** Configuration defining the nature of a set */
+    /** @var SetConfig|null Configuration defining the nature of a set */
     protected ?SetConfig $sets;
 
-    /** Sets whether drawn matches are allowed */
+    /** @var bool Sets whether drawn matches are allowed */
     protected bool $draws_allowed;
 
-    /** An array of matches in this group (or breaks in play) */
+    /** @var array An array of matches in this group (or breaks in play) */
     protected array $matches = [];
 
-    /** Whether this group is complete, i.e. have all matches been played */
+    /** @var bool Whether this group is complete, i.e. have all matches been played */
     protected bool $is_complete = true;
 
-    //** A latch on whether we've calculated the latest known completeness of the group */
+    //** @var bool A latch on whether we've calculated the latest known completeness of the group */
     protected bool $is_complete_known = false;
 
-    /** The Stage this Group is in */
+    /** @var Stage The Stage this Group is in */
     protected Stage $stage;
 
-    /** The competition this Group is in */
+    /** @var Competition The competition this Group is in */
     protected Competition $competition;
 
-    /** Lookup table for whether the team has matches they're playing in.  The key is the team ID adn the value is a bool */
+    /** @var stdClass Lookup table for whether the team has matches they're playing in */
     private stdClass $team_has_matches_lookup;
 
-    /** Lookup table for whether the team have matches to officiate.  The key is the team ID adn the value is a bool */
+    /** @var stdClass Lookup table for whether the team have matches to officiate */
     private stdClass $team_has_officiating_lookup;
 
-    /** An array of team references in this group */
+    /** @var array An array of team references in this group */
     private array $team_references;
 
-    /** An array of team IDs in this group */
+    /** @var array An array of team IDs in this group */
     private array $team_ids;
 
-    /** An array of team IDs in this group */
+    /** @var array An array of team IDs in this group */
     private array $playing_team_ids;
 
-    /** An array of team IDs in this group */
+    /** @var array An array of team IDs in this group */
     private array $officiating_team_ids;
 
-    /** A lookup table of references where the key is the string "{stage ID}:{group ID}" and the value is an object linking to the Stage and Group */
+    /** @var array A lookup table of references where the key is the string "{stage ID}:{group ID}" */
     private array $stg_grp_lookup;
 
-    /** A cached list of the teams that might be in this group via a reference */
+    /** @var array A cached list of the teams that might be in this group via a reference */
     private array $maybe_teams;
 
+    /** @var bool */
     private bool $matches_have_courts = false;
+
+    /** @var bool */
     private bool $matches_have_dates = false;
+
+    /** @var bool */
     private bool $matches_have_durations = false;
+
+    /** @var bool */
     private bool $matches_have_mvps = false;
+
+    /** @var bool */
     private bool $matches_have_managers = false;
+
+    /** @var bool */
     private bool $matches_have_notes = false;
+
+    /** @var bool */
     private bool $matches_have_officials = false;
+
+    /** @var bool */
     private bool $matches_have_starts = false;
+
+    /** @var bool */
     private bool $matches_have_venues = false;
+
+    /** @var bool */
     private bool $matches_have_warmups = false;
 
-    /** A Lookup table from match IDs to that match */
+    /** @var object A Lookup table from match IDs to that match */
     private object $match_lookup;
 
+    /** @var bool */
     protected bool $matches_processed = false;
 
     /**
@@ -119,6 +139,12 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         $this->team_ids = [];
     }
 
+    /**
+     * Load group data from object
+     *
+     * @param object $group_data The data defining this Group
+     * @return Group The loaded group instance
+     */
     public function loadFromData(object $group_data) : Group
     {
         if (property_exists($group_data, 'name')) {
@@ -149,8 +175,6 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
             $league_config = new LeagueConfig($this);
             $this->setLeagueConfig($league_config);
             $league_config->loadFromData($group_data->league);
-        } else if ($this instanceof League) {
-            throw new Exception('A group of type "league" must have a league config defined');
         }
 
         foreach ($group_data->matches as $match_data) {
@@ -167,7 +191,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Return the group data suitable for saving into a competition file
      *
-     * @return mixed
+     * @return mixed The serialized group data
      */
     public function jsonSerialize() : mixed
     {
@@ -219,7 +243,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Get the stage this group is in
      *
-     * @return Stage the stage this group is in
+     * @return Stage The stage this group is in
      */
     public function getStage() : Stage
     {
@@ -229,7 +253,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Get the ID for this group
      *
-     * @return string the id for this group
+     * @return string The id for this group
      */
     public function getID() : string
     {
@@ -239,7 +263,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Get the name for this group
      *
-     * @return string|null the name for this group
+     * @return string|null The name for this group
      */
     public function getName() : string|null
     {
@@ -249,17 +273,19 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Set the group Name
      *
-     * @param string $name the new name for the group
+     * @param string $name The new name for the group
+     * @return Group The Group instance
      */
-    public function setName(string $name) : void
+    public function setName(string $name) : Group
     {
         $this->name = $name;
+        return $this;
     }
 
     /**
      * Get the notes for this group
      *
-     * @return string|null the notes for this group
+     * @return string|null The notes for this group
      */
     public function getNotes() : string|null
     {
@@ -269,11 +295,13 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Set the notes for this group
      *
-     * @param string|null $notes the notes for this group
+     * @param string|null $notes The notes for this group
+     * @return Group The Group instance
      */
-    public function setNotes(?string $notes) : void
+    public function setNotes(?string $notes) : Group
     {
         $this->notes = $notes;
+        return $this;
     }
 
     /**
@@ -289,30 +317,43 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Set the description for this group
      *
-     * @param array<string>|null $description the description for this group
+     * @param array<string>|null $description The description for this group
+     * @return Group The Group instance
      */
-    public function setDescription($description) : void
+    public function setDescription($description) : Group
     {
         $this->description = $description;
+        return $this;
     }
 
-    public function setKnockoutConfig(KnockoutConfig $knockout_config) : Knockout
+    /**
+     * Set the knockout configuration for this group
+     *
+     * @param KnockoutConfig $knockout_config The knockout configuration
+     * @return Group The Group instance
+     */
+    public function setKnockoutConfig(KnockoutConfig $knockout_config) : Group
     {
         $this->knockout_config = $knockout_config;
         return $this;
     }
-    // TODO - do we say you can't change these once the first (or any) match has started?  You could invalidate the whole group
-
-    public function setLeagueConfig(LeagueConfig $league_config) : LeagueConfig
-    {
-        $this->league_config = $league_config;
-        return $league_config;
-    }
 
     /**
+     * Set the league configuration for this group
+     *
+     * @param LeagueConfig $league_config The league configuration
+     * @return Group The Group instance
+     */
+    public function setLeagueConfig(LeagueConfig $league_config) : Group
+    {
+        $this->league_config = $league_config;
+        return $this;
+    }
+
+   /**
      * Get the type for this group
      *
-     * @return GroupType the type for this group
+     * @return GroupType The type for this group
      */
     public function getType() : GroupType
     {
@@ -322,7 +363,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Get the match type for the matches in this group
      *
-     * @return MatchType the match type for the matches in this group
+     * @return MatchType The match type for the matches in this group
      */
     public function getMatchType() : MatchType
     {
@@ -330,9 +371,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns the set config that defines a set for this group
+     * Returns the set configuration that defines a set for this group
      *
-     * @return SetConfig the set config for this group
+     * @return SetConfig The set configuration for this group
      */
     public function getSetConfig() : SetConfig
     {
@@ -340,20 +381,21 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Set the set config that defines a set for this group
+     * Set the set configuration that defines a set for this group
      *
-     * @param SetConfig $sets the set config for this group
+     * @param SetConfig $sets The set configuration for this group
+     * @return Group The Group instance
      */
-    public function setSetConfig(SetConfig $sets) : SetConfig
+    public function setSetConfig(SetConfig $sets) : Group
     {
         $this->sets = $sets;
-        return $sets;
+        return $this;
     }
 
     /**
      * Returns whether draws are allowed in this group
      *
-     * @return bool are draws allowed
+     * @return bool Are draws allowed
      */
     public function getDrawsAllowed() : bool
     {
@@ -363,24 +405,32 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Sets whether draws are allowed in this group
      *
-     * @param bool $draws_allowed are draws allowed
+     * @param bool $draws_allowed Are draws allowed
+     * @return Group The Group instance
      */
-    public function setDrawsAllowed(bool $draws_allowed) : void
+    public function setDrawsAllowed(bool $draws_allowed) : Group
     {
         // TODO - check if there are any draws already when this is set to false, and throw
         $this->draws_allowed = $draws_allowed;
+        return $this;
     }
 
     /**
      * Get the competition this group is in
      *
-     * @return Competition the competition
+     * @return Competition The competition
      */
     public function getCompetition() : Competition
     {
         return $this->competition;
     }
 
+    /**
+     * Add a match to this group
+     *
+     * @param GroupMatch $match The match to add
+     * @return Group The Group instance
+     */
     public function addMatch(GroupMatch $match) : Group
     {
         $this->matches_processed = false;
@@ -443,6 +493,12 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         return $this;
     }
 
+    /**
+     * Add a break to this group
+     *
+     * @param GroupBreak $break The break to add
+     * @return Group The Group instance
+     */
     public function addBreak(GroupBreak $break) : Group
     {
         array_push($this->matches, $break);
@@ -634,6 +690,12 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         throw new OutOfBoundsException('Match with ID '.$match_id.' not found', 1);
     }
 
+    /**
+     * Checks if a match with the given ID exists in the group.
+     *
+     * @param string $match_id The ID of the match to check
+     * @return bool True if a match with the given ID exists, false otherwise
+     */
     public function hasMatchWithID(string $match_id) : bool
     {
         return property_exists($this->match_lookup, $match_id);
@@ -647,6 +709,14 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         $this->matches_processed = true;
     }
 
+    /**
+     * Get the team by ID based on the type of entity.
+     *
+     * @param string $type The type of entity ('winner' or 'loser')
+     * @param string $entity The entity (e.g., 'winner' or 'loser')
+     * @return CompetitionTeam The CompetitionTeam instance
+     * @throws Exception If the entity is invalid
+     */
     public function getTeamByID(string $type, string $entity) : CompetitionTeam
     {
         $match = $this->getMatchById($type);
@@ -658,47 +728,20 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         };
     }
 
+    /**
+     * Checks if the matches in this group have been processed.
+     *
+     * @return bool True if the matches in this group have been processed, false otherwise
+     */
     public function isProcessed() : bool
     {
         return $this->matches_processed;
     }
 
-    // {
-        // foreach ($this->match_list as $match) {
-        //     if ($match->type === 'match') {
-        //         // $new_match = new GroupMatch($this, $match);
-        //         // array_push($this->matches, $new_match);
-        //         // $this->match_lookup->{$match->id} = $new_match;
-
-        //         ///// validateTeamID needs knowledge of whether a group is complete or not
-        //         // $this->competition->validateTeamID($match->homeTeam->id, $match->id, 'homeTeam');
-        //         // $this->competition->validateTeamID($match->awayTeam->id, $match->id, 'awayTeam');
-        //         // if (property_exists($match, 'officials') && property_exists($match->officials, 'team')) {
-        //         //     $this->competition->validateTeamID($match->officials->team, $match->id, 'officials > team');
-        //         // }
-        //         // if (strncmp($match->homeTeam->id, '{', 1) === 0) {
-        //         //     array_push($this->team_references, $match->homeTeam->id);
-        //         // }
-        //         // if (strncmp($match->awayTeam->id, '{', 1) === 0) {
-        //         //     array_push($this->team_references, $match->awayTeam->id);
-        //         // }
-
-        //         // $this->playing_team_ids[$match->homeTeam->id] = true;
-        //         // $this->playing_team_ids[$match->awayTeam->id] = true;
-        //         // $this->team_ids[$match->homeTeam->id] = true;
-        //         // $this->team_ids[$match->awayTeam->id] = true;
-        //         // if (property_exists($match, 'officials') && property_exists($match->officials, 'team')) {
-        //         //     $this->team_ids[$match->officials->team] = true;
-        //         //     $this->officiating_team_ids[$match->officials->team] = true;
-        //         // }
-        //     }
-        // }
-    // }
-
     /**
-     * Returns whether the group is complete, i.e. all matches in the group are complete.
+     * Checks if the group is complete, i.e., all matches in the group are complete.
      *
-     * @return bool whether the group is complete
+     * @return bool True if the group is complete, false otherwise
      */
     public function isComplete() : bool
     {
@@ -724,15 +767,10 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         return $this->is_complete;
     }
 
-    public function invalidateCompletenessCache() : void
-    {
-        $this->is_complete_known = false;
-    }
-
     /**
-     * Returns whether the matches in this group have courts
+     * Checks if the matches in this group have courts.
      *
-     * @return bool whether the matches in this group have courts
+     * @return bool True if the matches in this group have courts, false otherwise
      */
     public function matchesHaveCourts() : bool
     {
@@ -740,9 +778,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have dates
+     * Checks if the matches in this group have dates.
      *
-     * @return bool whether the matches in this group have dates
+     * @return bool True if the matches in this group have dates, false otherwise
      */
     public function matchesHaveDates() : bool
     {
@@ -750,9 +788,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have a duration
+     * Checks if the matches in this group have durations.
      *
-     * @return bool whether the matches in this group have a duration
+     * @return bool True if the matches in this group have durations, false otherwise
      */
     public function matchesHaveDurations() : bool
     {
@@ -760,9 +798,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have MVPs
+     * Checks if the matches in this group have MVPs.
      *
-     * @return bool whether the matches in this group have MVPs
+     * @return bool True if the matches in this group have MVPs, false otherwise
      */
     public function matchesHaveMVPs() : bool
     {
@@ -770,9 +808,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have court managers
+     * Checks if the matches in this group have court managers.
      *
-     * @return bool whether the matches in this group have court managers
+     * @return bool True if the matches in this group have court managers, false otherwise
      */
     public function matchesHaveManagers() : bool
     {
@@ -780,9 +818,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have notes
+     * Checks if the matches in this group have notes.
      *
-     * @return bool whether the matches in this group have notes
+     * @return bool True if the matches in this group have notes, false otherwise
      */
     public function matchesHaveNotes() : bool
     {
@@ -790,9 +828,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have officials
+     * Checks if the matches in this group have officials.
      *
-     * @return bool whether the matches in this group have officials
+     * @return bool True if the matches in this group have officials, false otherwise
      */
     public function matchesHaveOfficials() : bool
     {
@@ -800,9 +838,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have start times
+     * Checks if the matches in this group have start times.
      *
-     * @return bool whether the matches in this group have start times
+     * @return bool True if the matches in this group have start times, false otherwise
      */
     public function matchesHaveStarts() : bool
     {
@@ -810,9 +848,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have venues
+     * Checks if the matches in this group have venues.
      *
-     * @return bool whether the matches in this group have venues
+     * @return bool True if the matches in this group have venues, false otherwise
      */
     public function matchesHaveVenues() : bool
     {
@@ -820,9 +858,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the matches in this group have warmup times
+     * Checks if the matches in this group have warmup times.
      *
-     * @return bool whether the matches in this group have warmup times
+     * @return bool True if the matches in this group have warmup times, false otherwise
      */
     public function matchesHaveWarmups() : bool
     {
@@ -830,9 +868,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether all of the teams in this group are known yet or not
+     * Returns whether all of the teams in this group are known yet or not.
      *
-     * @return bool whether all of the teams in this group are known yet or not
+     * @return bool Whether all of the teams in this group are known yet or not
      */
     public function allTeamsKnown() : bool
     {
@@ -848,9 +886,10 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the specified team is known to have matches in this group
+     * Returns whether the specified team is known to have matches in this group.
      *
-     * @return bool whether the specified team is known to have matches in this group
+     * @param string $team_id The ID of the team
+     * @return bool Whether the specified team is known to have matches in this group
      */
     public function teamHasMatches(string $team_id) : bool
     {
@@ -874,9 +913,10 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Returns whether the specified team is known to have officiating duties in this group
+     * Returns whether the specified team is known to have officiating duties in this group.
      *
-     * @return bool whether the specified team is known to have officiating duties in this group
+     * @param string $team_id The ID of the team
+     * @return bool Whether the specified team is known to have officiating duties in this group
      */
     public function teamHasOfficiating(string $team_id) : bool
     {

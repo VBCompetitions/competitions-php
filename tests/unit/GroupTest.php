@@ -11,7 +11,7 @@ use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\Group;
 use VBCompetitions\Competitions\GroupMatch;
 use VBCompetitions\Competitions\League;
-use VBCompetitions\Competitions\MatchType;
+use VBCompetitions\Competitions\GroupType;
 use VBCompetitions\Competitions\Stage;
 
 #[CoversClass(Competition::class)]
@@ -411,7 +411,7 @@ final class GroupTest extends TestCase {
         $this->assertFalse($finals->teamMayHaveMatches('unknown-team-reference'));
     }
 
-    public function testGroupSetters() : void
+    public function testGroupSettersGetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'group-matches-with-everything.json');
         $group = $competition->getStageById('L')->getGroupById('LG');
@@ -428,26 +428,10 @@ final class GroupTest extends TestCase {
         $group->setDescription(['This is line one of the description', 'This is some more words']);
         $this->assertEquals('This is line one of the description', $group->getDescription()[0]);
 
-        // $this->assertEquals('', $group->getKnockout());
-        // $group->setKnockout('');
-        // $this->assertEquals('', $group->getKnockout());
-
-        // $this->assertEquals('', $group->getLeague());
-        // $group->setLeague('');
-        // $this->assertEquals('', $group->getLeague());
-
-        // Can't change this after Group construction
-        // $this->assertEquals(MatchType::SETS, $group->getMatchType());
-        // $group->setMatchType(MatchType::CONTINUOUS);
-        // $this->assertEquals(MatchType::CONTINUOUS, $group->getMatchType());
-
-        // $this->assertEquals('', $group->getSetConfig());
-        // $group->setSetConfig('');
-        // $this->assertEquals('', $group->getSetConfig());
-
         $this->assertFalse($group->getDrawsAllowed());
         $group->setDrawsAllowed(true);
         $this->assertTrue($group->getDrawsAllowed());
 
+        $this->assertEquals(GroupType::LEAGUE, $group->getType());
     }
 }
