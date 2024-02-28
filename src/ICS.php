@@ -6,7 +6,7 @@ use Exception;
 use DateInterval;
 
 class ICS {
-    private Competition $c;
+    private Competition $competition;
 
     /**
      * Creates an ICS calendar object that can generate ICS calendars from a competition
@@ -15,13 +15,13 @@ class ICS {
      */
     function __construct(Competition $competition)
     {
-        $this->c = $competition;
+        $this->competition = $competition;
     }
 
     /**
      * Return the HTTP content-type of the calendar.  Hard-coded to "text/calendar"
      *
-     * @return string the standard ICS content type text/calendar
+     * @return string The standard ICS content type text/calendar
      */
     public function getContentType() : string
     {
@@ -32,22 +32,21 @@ class ICS {
      * Return the content disposition of the ICS calendar, i.e. name for the file to be downloaded.
      * If $filename is defined then use that, otherwise use the team name
      *
-     * @param string $team_id the team ID of the team the calendar is for
-     * @param string $filename the filename for the calendar
+     * @param string $team_id The team ID of the team the calendar is for
+     * @param string|null $filename A filename override for the calendar (default: null)
      *
-     * @return string the ICS file's content disposition, i.e. "attachment; filename={filename}"
+     * @return string The ICS file's content disposition, i.e. "attachment; filename={filename}"
      */
     public function getContentDisposition(string $team_id, string $filename = null) : string
     {
-        if (!$this->c->hasTeamID($team_id)) {
+        if (!$this->competition->hasTeamID($team_id)) {
             throw new Exception('Team with ID "'.$team_id.'" does not exist', 1);
         }
 
         if ($filename === null) {
-            $filename = $this->c->getTeamByID($team_id)->getName() . '-' . $this->c->getName() . '.ics';
+            $filename = $this->competition->getTeamByID($team_id)->getName() . '-' . $this->competition->getName() . '.ics';
         }
-        // TODO - allow filename override
-        // If using the name then need to limit the valid chars in a team name?
+        // TODO - If using the name then need to limit the valid chars in a team name?
         // Or need to filter and remove bad chars
         // need to handle competition name being undefined
         return 'attachment; filename='. $filename;
@@ -59,23 +58,23 @@ class ICS {
      * in or officiating.  when $team_id is null, the calendar will include all matches in the competition, including ones where the
      * playing teams are not yet known
      *
-     * @param string $unique_id some unique string such as the domain name of the page generating the calendars.  This is used
+     * @param string $unique_id Some unique string such as the domain name of the page generating the calendars.  This is used
      *                          in the UID field such that the UID will contain the date and time of the calendar entry, plus this
      *                          string
-     * @param string $team_id the ID for the team taht the calendar is for.  When not specified the calendar will contain all matches
+     * @param string|null $team_id The ID for the team that the calendar is for.  When not specified the calendar will contain all matches (default: null)
      *
-     * @return string the body of the calendar
+     * @return string The body of the calendar
      */
     public function getCalendar(string $unique_id, string $team_id = null) : string
     {
-        if ($team_id !== null && !$this->c->hasTeamID($team_id)) {
+        if ($team_id !== null && !$this->competition->hasTeamID($team_id)) {
             throw new Exception('Team with ID "'.$team_id.'" does not exist');
         }
 
         $cal = "BEGIN:VCALENDAR\r\nVERSION:2.0\r\nPRODID:-//vbcompetitionsdotcom//VBC Calendar 1.0//EN\r\n";
 
         $matches_grouped_by_date_and_venue = [];
-        foreach ($this->c->getStages() as $stage) {
+        foreach ($this->competition->getStages() as $stage) {
             $matches = $stage->getMatches($team_id, VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
             $last_seen_venue = 'unknown';
             foreach ($matches as $match) {
@@ -121,9 +120,9 @@ class ICS {
                 $cal .= "BEGIN:VEVENT\r\n";
                 $cal .= 'SUMMARY:';
                 if ($team_id !== null) {
-                    $cal .= $this->c->getTeamByID($team_id)->getName().' ';
+                    $cal .= $this->competition->getTeamByID($team_id)->getName().' ';
                 }
-                $cal .= $this->c->getName()." matches\r\n";
+                $cal .= $this->competition->getName()." matches\r\n";
                 $cal .= 'DTSTAMP:' . date_format($now,'Ymd\THis') . "\r\n";
                 $match_count = count($matches_on_date_at_venue);
                 $all_fixtures_have_warmup = $match_count > 0;
@@ -192,9 +191,9 @@ class ICS {
     /**
      * Function to generate the event description for the break
      *
-     * @param BreakInterface $break the break to generate the description for
+     * @param BreakInterface $break The break to generate the description for
      *
-     * @return string the description of the break
+     * @return string The description of the break
      */
     private function getBreakDescription(BreakInterface $break) : string
     {
@@ -211,9 +210,9 @@ class ICS {
     /**
      * Function to generate the event description for the match
      *
-     * @param MatchInterface $match the match to generate the description for
+     * @param MatchInterface $match The match to generate the description for
      *
-     * @return string the description of the match
+     * @return string The description of the match
      */
     private function getMatchDescription(MatchInterface $match) : string
     {
@@ -229,11 +228,11 @@ class ICS {
         if ($match->getCourt() !== null) {
             $description .= 'court '.$match->getCourt().' ';
         }
-        $description .= '- '.$this->c->getTeamByID($match->getHomeTeam()->getID())->getName().' v '.$this->c->getTeamByID($match->getAwayTeam()->getID())->getName();
+        $description .= '- '.$this->competition->getTeamByID($match->getHomeTeam()->getID())->getName().' v '.$this->competition->getTeamByID($match->getAwayTeam()->getID())->getName();
 
         if ($match->getOfficials() !== null) {
             if ($match->getOfficials()->isTeam()) {
-                $description .= ' ('.$this->c->getTeamByID($match->getOfficials()->getTeamID())->getName().' ref)';
+                $description .= ' ('.$this->competition->getTeamByID($match->getOfficials()->getTeamID())->getName().' ref)';
             } else {
                 $description .= ' (First ref: '.$match->getOfficials()->getFirstRef();
                 $description .= $match->getOfficials()->hasSecondRef() ? ', Second ref: '.$match->getOfficials()->getSecondRef() : '';

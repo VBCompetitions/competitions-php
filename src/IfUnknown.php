@@ -2,7 +2,6 @@
 
 namespace VBCompetitions\Competitions;
 
-use Exception;
 use JsonSerializable;
 use OutOfBoundsException;
 use stdClass;
@@ -271,7 +270,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Check if matches have durations
      *
-     * @return bool
+     * @return bool True if any match has a duration, false otherwise
      */
     public function matchesHaveDurations() : bool
     {
@@ -281,7 +280,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Check if matches have managers
      *
-     * @return bool
+     * @return bool True if any match has a manager, false otherwise
      */
     public function matchesHaveManagers() : bool
     {
@@ -291,7 +290,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Check if matches have MVPs
      *
-     * @return bool
+     * @return bool True if any match has an MVP, false otherwise
      */
     public function matchesHaveMVPs() : bool
     {
@@ -301,7 +300,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Check if matches have notes
      *
-     * @return bool
+     * @return bool True if any match has notes, false otherwise
      */
     public function matchesHaveNotes() : bool
     {
@@ -311,7 +310,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Check if matches have officials
      *
-     * @return bool
+     * @return bool True if any match has officials, false otherwise
      */
     public function matchesHaveOfficials() : bool
     {
@@ -321,7 +320,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Check if matches have starts
      *
-     * @return bool
+     * @return bool True if any match has a start time, false otherwise
      */
     public function matchesHaveStarts() : bool
     {
@@ -331,7 +330,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Check if matches have venues
      *
-     * @return bool
+     * @return bool True if any match has a venue, false otherwise
      */
     public function matchesHaveVenues() : bool
     {
@@ -341,7 +340,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Check if matches have warmups
      *
-     * @return bool
+     * @return bool True if any match has a warmup time, false otherwise
      */
     public function matchesHaveWarmups() : bool
     {
@@ -349,11 +348,13 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Get the ID of this IfUnknown
+     * Get the ID of this IfUnknown. Since IfUnknown blocks don't have a unique id,
+     * this is always the string "unknown"
      *
      * @return string
      */
-    public function getID() : string{
+    public function getID() : string
+    {
         return 'unknown';
     }
 }
