@@ -42,7 +42,7 @@ final class League extends Group
         $team_results = array();
 
         foreach($this->matches as $match) {
-            if ($match instanceof GroupBreak) {
+            if ($match instanceof GroupBreak || $match->isFriendly()) {
                 continue;
             }
             $home_team_id = $match->getHomeTeam()->getID();

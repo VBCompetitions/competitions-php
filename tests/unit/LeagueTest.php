@@ -7,12 +7,17 @@ namespace VBCompetitions\Competitions\test;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
+use VBCompetitions\Competitions\CompetitionTeam;
+use VBCompetitions\Competitions\GroupMatch;
 use VBCompetitions\Competitions\GroupType;
 use VBCompetitions\Competitions\League;
 use VBCompetitions\Competitions\LeagueConfig;
 use VBCompetitions\Competitions\LeagueConfigPoints;
 use VBCompetitions\Competitions\LeagueTable;
 use VBCompetitions\Competitions\LeagueTableEntry;
+use VBCompetitions\Competitions\MatchOfficials;
+use VBCompetitions\Competitions\MatchTeam;
+use VBCompetitions\Competitions\MatchType;
 use VBCompetitions\Competitions\Stage;
 
 #[CoversClass(Competition::class)]
@@ -1142,5 +1147,64 @@ final class LeagueTest extends TestCase {
         $this->assertNull($league->getGroupById('LG0')->getName());
         $this->assertEquals('League', $league->getGroupById('LG1')->getName());
         $this->assertNull($league->getGroupById('LG2')->getName());
+    }
+
+    public function testLeagueWithFriendliesJSON() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'league-with-friendlies.json');new Competition('league with friendlies');
+
+        $league = $competition->getStageByID('S')->getGroupByID('L');
+        if ($league instanceof League) {
+            // We do this so IDEs don't complain about (Group) $league not having a getLeagueTable method
+            $table = $league->getLeagueTable();
+        }
+        $this->assertCount(3, $table->entries);
+        $this->assertEquals('TA', $table->entries[0]->getTeamID());
+        $this->assertEquals(2, $table->entries[0]->getWins());
+        $this->assertEquals('TB', $table->entries[1]->getTeamID());
+        $this->assertEquals(1, $table->entries[1]->getWins());
+        $this->assertEquals('TC', $table->entries[2]->getTeamID());
+        $this->assertEquals(0, $table->entries[2]->getWins());
+    }
+
+    public function testLeagueWithFriendliesCode() : void
+    {
+        $competition = new Competition('league with friendlies');
+        $teamA = new CompetitionTeam($competition, 'TA', 'Team A');
+        $teamB = new CompetitionTeam($competition, 'TB', 'Team B');
+        $teamC = new CompetitionTeam($competition, 'TC', 'Team C');
+        $teamD = new CompetitionTeam($competition, 'TD', 'Team D');
+        $competition->addTeam($teamA)->addTeam($teamB)->addTeam($teamC)->addTeam($teamD);
+        $stage = new Stage($competition, 'S');
+        $competition->addStage($stage);
+        $league = new League($stage, 'L', MatchType::CONTINUOUS, false);
+        $stage->addGroup($league);
+        $league_config = new LeagueConfig($league);
+        $league->setLeagueConfig($league_config);
+        $league_config->setOrdering(['PTS', 'H2H']);
+        $config_points = new LeagueConfigPoints($league_config);
+        $league_config->setPoints($config_points);
+        $match1 = new GroupMatch($league, 'M1');
+        $match1->setHomeTeam(new MatchTeam($match1, $teamA->getID()))->setAwayTeam(new MatchTeam($match1, $teamB->getID()))->setOfficials(new MatchOfficials($match1, $teamC->getID()))->setScores([23], [19], true);
+        $match2 = new GroupMatch($league, 'M2');
+        $match2->setHomeTeam(new MatchTeam($match2, $teamB->getID()))->setAwayTeam(new MatchTeam($match2, $teamC->getID()))->setOfficials(new MatchOfficials($match2, $teamD->getID()))->setScores([23], [19], true);
+        $match3 = new GroupMatch($league, 'M3');
+        $match3->setHomeTeam(new MatchTeam($match3, $teamC->getID()))->setAwayTeam(new MatchTeam($match3, $teamD->getID()))->setOfficials(new MatchOfficials($match3, $teamA->getID()))->setScores([23], [19], true)->setFriendly(true);
+        $match4 = new GroupMatch($league, 'M4');
+        $match4->setHomeTeam(new MatchTeam($match4, $teamD->getID()))->setAwayTeam(new MatchTeam($match4, $teamB->getID()))->setOfficials(new MatchOfficials($match4, $teamC->getID()))->setScores([19], [123], true)->setFriendly(true);
+        $match5 = new GroupMatch($league, 'M5');
+        $match5->setHomeTeam(new MatchTeam($match5, $teamA->getID()))->setAwayTeam(new MatchTeam($match5, $teamC->getID()))->setOfficials(new MatchOfficials($match5, $teamD->getID()))->setScores([23], [19], true);
+        $match6 = new GroupMatch($league, 'M6');
+        $match6->setHomeTeam(new MatchTeam($match6, $teamA->getID()))->setAwayTeam(new MatchTeam($match6, $teamD->getID()))->setOfficials(new MatchOfficials($match6, $teamC->getID()))->setScores([23], [19], true)->setFriendly(true);
+        $league->addMatch($match1)->addMatch($match2)->addMatch($match3)->addMatch($match4)->addMatch($match5)->addMatch($match6);
+
+        $table = $league->getLeagueTable();
+        $this->assertCount(3, $table->entries);
+        $this->assertEquals('TA', $table->entries[0]->getTeamID());
+        $this->assertEquals(2, $table->entries[0]->getWins());
+        $this->assertEquals('TB', $table->entries[1]->getTeamID());
+        $this->assertEquals(1, $table->entries[1]->getWins());
+        $this->assertEquals('TC', $table->entries[2]->getTeamID());
+        $this->assertEquals(0, $table->entries[2]->getWins());
     }
 }

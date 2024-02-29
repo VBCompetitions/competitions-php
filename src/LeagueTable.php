@@ -17,7 +17,7 @@ final class LeagueTable
 
     public array $entries = [];
 
-    public League $league;
+    private League $league;
 
     private bool $has_draws;
     private bool $has_sets;
@@ -30,6 +30,11 @@ final class LeagueTable
         $this->has_draws = $league->getDrawsAllowed();
         $this->has_sets = $league->getMatchType() === MatchType::SETS;
         $this->ordering = $league->getLeagueConfig()->getOrdering();
+    }
+
+    public function getLeague() : League
+    {
+        return $this->league;
     }
 
     public function getOrderingText() : string

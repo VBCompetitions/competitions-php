@@ -108,7 +108,7 @@ if (!array_key_exists('team', $_GET)) {
 }
 
 $team_id = $_GET['team'];
-if (!$competition->teamIDExists($team_id)) {
+if (!$competition->hasTeamID($team_id)) {
     echo '  </body>';
     echo '</html>';
     return;

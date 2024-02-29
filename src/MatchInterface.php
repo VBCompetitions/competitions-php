@@ -16,6 +16,8 @@ interface MatchInterface {
     public function getNotes() : ?string;
     public function getOfficials() : ?MatchOfficials;
     public function hasOfficials() : bool;
+
+    public function isFriendly() : bool;
     public function getID() : string;
     public function getWinnerTeamId() : string;
     public function getLoserTeamId() : string;
@@ -40,5 +42,5 @@ interface MatchInterface {
      * @param array<int> $away_team_scores The score array for the away team
      * @param bool $complete Whether the match is complete or not (required for continuous scoring matches)
      */
-    public function setScores(array $home_team_scores, array $away_team_scores, ?bool $complete = null) : void;
+    public function setScores(array $home_team_scores, array $away_team_scores, ?bool $complete = null) : MatchInterface;
 }

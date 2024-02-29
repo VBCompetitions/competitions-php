@@ -57,6 +57,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /** The court manager in charge of this match */
     private ?MatchManager $manager = null;
 
+    /** Whether the match is a friendly.  These matches do not contribute toward a league position.  If a team only participates in friendly matches then they are not included in the league table at all */
+    private bool $friendly = false;
+
     /** Free form string to add notes about a match */
     private ?string $notes = null;
 
@@ -144,6 +147,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
         }
         if (property_exists($match_data, 'notes')) {
             $this->setNotes($match_data->notes);
+        }
+        if (property_exists($match_data, 'friendly')) {
+            $this->setFriendly($match_data->friendly);
         }
 
         $this->calculateResult();
@@ -606,6 +612,17 @@ final class GroupMatch implements JsonSerializable, MatchInterface
         return $this->notes !== null;
     }
 
+    public function setFriendly(bool $friendly) : GroupMatch
+    {
+        $this->friendly = $friendly;;
+        return $this;
+    }
+
+    public function isFriendly() : bool
+    {
+        return $this->friendly;
+    }
+
     /**
      * Set the scores for this match
      *
@@ -613,7 +630,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      * @param array<int> $away_team_scores The score array for the away team
      * @param bool $complete Whether the match is complete or not (required for continuous scoring matches)
      */
-    public function setScores(array $home_team_scores,array $away_team_scores, ?bool $complete = null) : void
+    public function setScores(array $home_team_scores,array $away_team_scores, ?bool $complete = null) : GroupMatch
     {
         if ($this->group->getMatchType() === MatchType::CONTINUOUS) {
             if ($complete === null) {
@@ -632,6 +649,8 @@ final class GroupMatch implements JsonSerializable, MatchInterface
         }
         $this->home_team_scores = $home_team_scores;
         $this->away_team_scores = $away_team_scores;
+        $this->calculateResult();
+        return $this;
     }
 
     /**
@@ -678,25 +697,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
             if ($this->home_team->getScores()[0] > $this->away_team->getScores()[0]) {
                 $this->winner_team_id = $this->home_team->getID();
                 $this->loser_team_id = $this->away_team->getID();
-                // $this->group->getStage()->getCompetition()->addTeamReference(
-                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
-                //     $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
-                // );
-                // $this->group->getStage()->getCompetition()->addTeamReference(
-                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
-                //     $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
-                // );
             } elseif ($this->home_team->getScores()[0] < $this->away_team->getScores()[0]) {
                 $this->winner_team_id = $this->away_team->getID();
                 $this->loser_team_id = $this->home_team->getID();
-                // $this->group->getStage()->getCompetition()->addTeamReference(
-                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
-                //     $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
-                // );
-                // $this->group->getStage()->getCompetition()->addTeamReference(
-                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
-                //     $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
-                // );
             } elseif ($this->group->getDrawsAllowed()) {
                 $this->is_draw = true;
             } else {
@@ -768,25 +771,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
             if ($this->home_team_sets > $this->away_team_sets) {
                 $this->winner_team_id = $this->home_team->getID();
                 $this->loser_team_id = $this->away_team->getID();
-                // $this->group->getStage()->getCompetition()->addTeamReference(
-                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
-                //     $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
-                // );
-                // $this->group->getStage()->getCompetition()->addTeamReference(
-                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
-                //     $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
-                // );
             } elseif ($this->home_team_sets < $this->away_team_sets) {
                 $this->winner_team_id = $this->away_team->getID();
                 $this->loser_team_id = $this->home_team->getID();
-                // $this->group->getStage()->getCompetition()->addTeamReference(
-                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':winner',
-                //     $this->group->getStage()->getCompetition()->getTeamByID($this->winner_team_id)
-                // );
-                // $this->group->getStage()->getCompetition()->addTeamReference(
-                //     $this->group->getStage()->getID().':'.$this->group->getID().':'.$this->id.':loser',
-                //     $this->group->getStage()->getCompetition()->getTeamByID($this->loser_team_id)
-                // );
             } elseif ($this->group->getDrawsAllowed()) {
                 $this->is_draw = true;
             } else {

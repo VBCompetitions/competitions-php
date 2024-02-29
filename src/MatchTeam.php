@@ -16,13 +16,13 @@ final class MatchTeam implements JsonSerializable
     private ?string $mvp = null;
 
     /** Did this team forfeit the match */
-    private bool $forfeit;
+    private bool $forfeit = false;
 
     /** Does this team get any bonus points in the league. This is separate from any league points calculated from the match result, and is added to their league points */
-    private int $bonus_points;
+    private int $bonus_points = 0;
 
     /** Does this team receive any penalty points in the league. This is separate from any league points calculated from the match result, and is subtracted from their league points */
-    private int $penalty_points;
+    private int $penalty_points = 0;
 
     /** Free form string to add notes about the team relating to this match.  This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;

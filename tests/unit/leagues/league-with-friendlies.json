@@ -1,0 +1,33 @@
+{
+  "name": "Four Team League",
+  "teams": [
+    { "id": "TA", "name": "Team A" },
+    { "id": "TB", "name": "Team B" },
+    { "id": "TC", "name": "Team C" },
+    { "id": "TD", "name": "Team D" }
+  ],
+  "stages": [
+    {
+      "id": "S",
+      "groups": [
+        {
+          "id": "L",
+          "type": "league",
+          "matchType": "continuous",
+          "league": {
+            "ordering": [ "WINS", "H2H" ],
+            "points": {}
+          },
+          "matches": [
+            { "id": "M1", "type": "match", "complete": true, "homeTeam": { "id": "TA", "scores": [ 23 ] }, "awayTeam": { "id": "TB", "scores": [ 19 ] }, "officials": { "team": "TC" } },
+            { "id": "M2", "type": "match", "complete": true, "homeTeam": { "id": "TB", "scores": [ 23 ] }, "awayTeam": { "id": "TC", "scores": [ 19 ] }, "officials": { "team": "TD" } },
+            { "id": "M3", "type": "match", "friendly": true, "complete": true, "homeTeam": { "id": "TC", "scores": [ 23 ] }, "awayTeam": { "id": "TD", "scores": [ 19 ] }, "officials": { "team": "TA" } },
+            { "id": "M4", "type": "match", "friendly": true, "complete": true, "homeTeam": { "id": "TD", "scores": [ 23 ] }, "awayTeam": { "id": "TB", "scores": [ 19 ] }, "officials": { "team": "TC" } },
+            { "id": "M5", "type": "match", "complete": true, "homeTeam": { "id": "TA", "scores": [ 23 ] }, "awayTeam": { "id": "TC", "scores": [ 19 ] }, "officials": { "team": "TD" } },
+            { "id": "M6", "type": "match", "friendly": true, "complete": true, "homeTeam": { "id": "TA", "scores": [ 23 ] }, "awayTeam": { "id": "TD", "scores": [ 19 ] }, "officials": { "team": "TC" } }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -57,6 +57,9 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /** The court manager in charge of this match */
     private ?MatchManager $manager = null;
 
+    /** Whether the match is a friendly.  These matches do not contribute toward a league position.  If a team only participates in friendly matches then they are not included in the league table at all */
+    private bool $friendly;
+
     /** Free form string to add notes about a match */
     private ?string $notes = null;
 
@@ -337,6 +340,17 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
         return $this->notes;
     }
 
+    public function setFriendly(bool $friendly) : IfUnknownMatch
+    {
+        $this->friendly = $friendly;;
+        return $this;
+    }
+
+    public function isFriendly() : bool
+    {
+        return $this->friendly;
+    }
+
     public function setOfficials(MatchOfficials $officials) : IfUnknownMatch
     {
         $this->officials = $officials;
@@ -407,11 +421,13 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     }
 
     /**
-     * Set the scores for this match
+     * An IfUnknown match has no scores so this function has no effect
      *
      * @param array<int> $home_team_scores The score array for the home team
      * @param array<int> $away_team_scores The score array for the away team
-     * @param bool $complete Whether the match is complete or not (required for continuous scoring matches)
+     * @param bool $complete Whether the match is complete or not
      */
-    public function setScores(array $home_team_scores, array $away_team_scores, ?bool $complete = null) : void {}
+    public function setScores(array $home_team_scores, array $away_team_scores, ?bool $complete = null) : IfUnknownMatch {
+        return $this;
+    }
 }
