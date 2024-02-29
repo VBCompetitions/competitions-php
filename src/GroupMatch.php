@@ -614,7 +614,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
 
     public function setFriendly(bool $friendly) : GroupMatch
     {
-        $this->friendly = $friendly;;
+        $this->friendly = $friendly;
         return $this;
     }
 

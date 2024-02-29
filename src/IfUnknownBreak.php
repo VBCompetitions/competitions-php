@@ -15,31 +15,37 @@ final class IfUnknownBreak implements JsonSerializable
     /** The type of match, i.e. 'break' */
     // public string $type;
 
-    /** The start time for the break */
+    /** @var string|null The start time for the break */
     private ?string $start = null;
 
-    /** The date of the break */
+    /** @var string|null The date of the break */
     private ?string $date = null;
 
-    /** The duration of the break */
+    /** @var string|null The duration of the break */
     private ?string $duration = null;
 
-    /** The name for the break, e.g. 'Lunch break' */
+    /** @var string|null The name for the break, e.g. 'Lunch break' */
     private ?string $name = null;
 
+    /** @var IfUnknown The IfUnknown instance this break is associated with */
     private IfUnknown $if_unknown;
 
     /**
-     * Contains the match break data
+     * Initializes the IfUnknownBreak instance
      *
-     * @param IfUnknown $if_unknown The IfUnknown this break is in
-     * @param object $break_data The data defining this break
+     * @param IfUnknown $if_unknown The IfUnknown instance this break is in
      */
     function __construct($if_unknown)
     {
         $this->if_unknown = $if_unknown;
     }
 
+    /**
+     * Loads data from an object into the IfUnknownBreak instance
+     *
+     * @param object $if_unknown_break_data The data defining this break
+     * @return IfUnknownBreak The updated IfUnknownBreak instance
+     */
     public function loadFromData(object $if_unknown_break_data) : IfUnknownBreak
     {
         if (property_exists($if_unknown_break_data, 'start')) {
@@ -59,7 +65,7 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Return the match break data suitable for saving into a competition file
+     * Returns the match break data suitable for saving into a competition file
      *
      * @return mixed
      */
@@ -85,9 +91,9 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Get the IfUnknown this break is in
+     * Retrieves the IfUnknown instance this break is associated with
      *
-     * @return IfUnknown the IfUnknown this break is in
+     * @return IfUnknown The IfUnknown instance this break is associated with
      */
     public function getIfUnknown() : IfUnknown
     {
@@ -95,11 +101,11 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Set the start time for this break
+     * Sets the start time for this break
      *
-     * @param string $start the start time for this break
-     *
-     * @return IfUnknownBreak the updated break
+     * @param string $start The start time for this break
+     * @return IfUnknownBreak The updated IfUnknownBreak instance
+     * @throws Exception When an invalid start time format is provided
      */
     public function setStart($start) : IfUnknownBreak
     {
@@ -111,9 +117,9 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Get the start time for this break
+     * Retrieves the start time for this break
      *
-     * @return string the start time for this break
+     * @return string|null The start time for this break
      */
     public function getStart() : ?string
     {
@@ -121,11 +127,11 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Set the date for this break
+     * Sets the date for this break
      *
-     * @param string $date the date for this break
-     *
-     * @return IfUnknownBreak the updated break
+     * @param string $date The date for this break
+     * @return IfUnknownBreak The updated IfUnknownBreak instance
+     * @throws Exception When an invalid date format is provided or the date does not exist
      */
     public function setDate($date) : IfUnknownBreak
     {
@@ -143,9 +149,9 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Get the date for this break
+     * Retrieves the date for this break
      *
-     * @return string the date for this break
+     * @return string|null The date for this break
      */
     public function getDate() : ?string
     {
@@ -153,11 +159,11 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Set the duration for this break
+     * Sets the duration for this break
      *
-     * @param string the duration for this break
-     *
-     * @return IfUnknownBreak the updated break
+     * @param string $duration The duration for this break
+     * @return IfUnknownBreak The updated IfUnknownBreak instance
+     * @throws Exception When an invalid duration format is provided
      */
     public function setDuration($duration) : IfUnknownBreak
     {
@@ -169,9 +175,9 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Get the duration for this break
+     * Retrieves the duration for this break
      *
-     * @return string the duration for this break
+     * @return string|null The duration for this break
      */
     public function getDuration() : ?string
     {
@@ -179,11 +185,11 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Set the name for this break
+     * Sets the name for this break
      *
-     * @param string the name for this break
-     *
-     * @return IfUnknownBreak the updated break
+     * @param string $name The name for this break
+     * @return IfUnknownBreak The updated IfUnknownBreak instance
+     * @throws Exception When the provided name is invalid
      */
     public function setName($name) : IfUnknownBreak
     {
@@ -195,9 +201,9 @@ final class IfUnknownBreak implements JsonSerializable
     }
 
     /**
-     * Get the name for this break
+     * Retrieves the name for this break
      *
-     * @return string the name for this break
+     * @return string|null The name for this break
      */
     public function getName() : ?string
     {
