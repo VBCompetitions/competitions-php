@@ -9,15 +9,16 @@ use Exception;
  */
 final class League extends Group
 {
-    /** The table for this group, if the group type is league */
+    /** @var LeagueTable The table for this group, if the group type is league */
     private LeagueTable $table;
 
     /**
-     * Contains the group data of a stage, creating any metadata needed
+     * Constructs a new League instance.
      *
      * @param Stage $stage A link back to the Stage this Group is in
      * @param string $id The unique ID of this Group
      * @param MatchType $match_type Whether matches are continuous or played to sets
+     * @param bool $draws_allowed Indicates whether draws are allowed in matches
      */
     function __construct(Stage $stage, string $id, MatchType $match_type, bool $draws_allowed)
     {
@@ -27,7 +28,8 @@ final class League extends Group
     }
 
     /**
-     * Summary of calculateLeagueTable
+     * Processes matches to update the league table.
+     *
      * @return void
      */
     public function processMatches() : void
@@ -158,22 +160,14 @@ final class League extends Group
         }
 
         usort($this->table->entries, [League::class, 'sortLeagueTable']);
-
-        // if ($this->isComplete()) {
-        //     for ($i = 0; $i < count($this->table->entries); $i++) {
-        //         $this->competition->addTeamReference(
-        //             $this->stage->getID().':'.$this->id.':league:'.($i+1),
-        //             $this->competition->getTeamByID($this->table->entries[$i]->getTeamID())
-        //         );
-        //     }
-        // }
     }
 
     /**
-     * Summary of sortLeagueTable
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Sorts the league table entries based on the configured ordering.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the first argument is considered to be respectively less than, equal to, or greater than the second.
      */
     private function sortLeagueTable(LeagueTableEntry $a, LeagueTableEntry $b) : int
     {
@@ -220,10 +214,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of compareTeamName
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their team names.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function compareTeamName(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -231,10 +226,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of compareLeaguePoints
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their league points.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function compareLeaguePoints(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -242,10 +238,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of compareWins
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their wins.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function compareWins(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -253,10 +250,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of compareLosses
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their losses.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function compareLosses(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -264,10 +262,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of compareHeadToHead
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return float|int
+     * Compares two LeagueTableEntry objects based on their head to head record.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function compareHeadToHead(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -278,10 +277,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of comparePointsFor
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their points scored.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function comparePointsFor(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -289,10 +289,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of comparePointsAgainst
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their points conceded.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function comparePointsAgainst(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -300,10 +301,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of comparePointsDifference
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their points difference.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function comparePointsDifference(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -311,10 +313,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of compareSetsFor
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their sets won.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function compareSetsFor(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -322,10 +325,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of compareSetsAgainst
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their sets lost.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function compareSetsAgainst(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -333,10 +337,11 @@ final class League extends Group
     }
 
     /**
-     * Summary of compareSetsDifference
-     * @param LeagueTableEntry $a
-     * @param LeagueTableEntry $b
-     * @return int
+     * Compares two LeagueTableEntry objects based on their set difference.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
      */
     private static function compareSetsDifference(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -344,9 +349,10 @@ final class League extends Group
     }
 
     /**
-     * Summary of getLeagueTable
-     * @throws Exception
-     * @return LeagueTable
+     * Gets the league table for this group.
+     *
+     * @throws Exception If the league table cannot be retrieved
+     * @return LeagueTable The league table
      */
     public function getLeagueTable() : LeagueTable
     {
@@ -355,15 +361,23 @@ final class League extends Group
     }
 
     /**
-     * Return the config object for the league, containing the ordering config and the league pints config
+     * Returns the configuration object for the league.
      *
-     * @return LeagueConfig the league config
+     * @return LeagueConfig The league configuration object
      */
     public function getLeagueConfig() : LeagueConfig
     {
         return $this->league_config;
     }
 
+    /**
+     * Gets the team by ID based on the type of entity.
+     *
+     * @param string $type The type part of the team reference ('MATCH-ID' or 'league')
+     * @param string $entity The entity (e.g., 'winner' or 'loser')
+     * @return CompetitionTeam The CompetitionTeam instance
+     * @throws Exception If the entity is invalid
+     */
     public function getTeamByID(string $type, string $entity) : CompetitionTeam
     {
         if ($type === 'league') {

@@ -2,36 +2,39 @@
 
 namespace VBCompetitions\Competitions;
 
-use Exception;
 use JsonSerializable;
 use stdClass;
 
 /**
- * A team definition
+ * Configuration for a league within a competition.
  */
 final class LeagueConfig implements JsonSerializable
 {
-    /** An array of parameters that define how the league positions are worked out */
+    /** @var array An array of parameters that define how the league positions are determined */
     private array $ordering;
 
-    /** Properties defining how to calculate the league points based on match results */
+    /** @var LeagueConfigPoints Properties defining how to calculate the league points based on match results */
     private LeagueConfigPoints $points;
 
-    /** The league this config is for */
+    /** @var League The league this config is for */
     private League $league;
 
     /**
+     * Contains the configuration for the league.
      *
-     * Defined the match/court manager of a match, which may be an individual or a team
-     *
-     * @param MatchInterface $match The match this Manager is managing
-     * @param string|object $manager_data The data for the match manager
+     * @param League $league The league this configuration is associated with
      */
     function __construct(League $league)
     {
         $this->league = $league;
     }
 
+    /**
+     * Load league configuration data from a provided object.
+     *
+     * @param object $league_data The league configuration data to load
+     * @return LeagueConfig Returns the LeagueConfig instance after loading the data
+     */
     public function loadFromData(object $league_data) : LeagueConfig
     {
         $league_config_points = (new LeagueConfigPoints($this))->loadFromData($league_data->points);
@@ -40,9 +43,9 @@ final class LeagueConfig implements JsonSerializable
     }
 
     /**
-     * Return the match manager definition suitable for saving into a competition file
+     * Serialize the league configuration data for JSON representation.
      *
-     * @return mixed
+     * @return mixed The serialized league configuration data
      */
     public function jsonSerialize() : mixed
     {
@@ -53,25 +56,31 @@ final class LeagueConfig implements JsonSerializable
     }
 
     /**
-     * Get the league this config is for
+     * Get the league associated with this configuration.
      *
-     * @return League the league this config is for
+     * @return League The league associated with this configuration
      */
     public function getLeague() : League
     {
         return $this->league;
     }
 
-    public function setOrdering($ordering) : LeagueConfig
+    /**
+     * Set the ordering configuration for the league.
+     *
+     * @param array $ordering The ordering configuration for the league
+     * @return LeagueConfig Returns the LeagueConfig instance for method chaining
+     */
+    public function setOrdering(array $ordering) : LeagueConfig
     {
         $this->ordering = $ordering;
         return $this;
     }
 
     /**
-     * Get the ordering config for the league
+     * Get the ordering configuration for the league.
      *
-     * @return array the ordering config for the league
+     * @return array The ordering configuration for the league
      */
     public function getOrdering() : array
     {
@@ -79,15 +88,21 @@ final class LeagueConfig implements JsonSerializable
     }
 
     /**
-     * Get the points config for the league
+     * Get the points configuration for the league.
      *
-     * @return LeagueConfigPoints the points config for the league
+     * @return LeagueConfigPoints The points configuration for the league
      */
     public function getPoints() : LeagueConfigPoints
     {
         return $this->points;
     }
 
+    /**
+     * Set the points configuration for the league.
+     *
+     * @param LeagueConfigPoints $points The points configuration for the league
+     * @return LeagueConfig Returns the LeagueConfig instance for method chaining
+     */
     public function setPoints(LeagueConfigPoints $points) : LeagueConfig
     {
         $this->points = $points;

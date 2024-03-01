@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace VBCompetitions\Competitions\test;
 
+use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
@@ -99,6 +100,13 @@ final class LeagueTest extends TestCase {
         $this->assertEquals('LG', $table->getGroupID());
         $this->assertEquals('LG', $table->entries[0]->getGroupID());
         $this->assertFalse($table->hasDraws());
+
+        try {
+            $league->getTeamByID('league', '5');
+            $this->fail('League should not be able to return more teams than are in league');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid League position: position is bigger than the number of teams', $e->getMessage());
+        }
     }
 
     public function testLeagueByPD() : void
@@ -1206,5 +1214,9 @@ final class LeagueTest extends TestCase {
         $this->assertEquals(1, $table->entries[1]->getWins());
         $this->assertEquals('TC', $table->entries[2]->getTeamID());
         $this->assertEquals(0, $table->entries[2]->getWins());
+
+        $this->assertEquals($league, $league_config->getLeague());
+        $this->assertEquals($league_config, $config_points->getLeagueConfig());
+        $this->assertEquals($league, $table->getLeague());
     }
 }

@@ -712,13 +712,17 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Get the team by ID based on the type of entity.
      *
-     * @param string $type The type of entity ('winner' or 'loser')
+     * @param string $type The type part of the team reference ('MATCH-ID' or 'league')
      * @param string $entity The entity (e.g., 'winner' or 'loser')
      * @return CompetitionTeam The CompetitionTeam instance
      * @throws Exception If the entity is invalid
      */
     public function getTeamByID(string $type, string $entity) : CompetitionTeam
     {
+        if ($type === 'league') {
+            throw new Exception('Invalid type "league" in team reference.  Cannot get league position from a non-league group');
+        }
+
         $match = $this->getMatchById($type);
 
         return match ($entity) {
