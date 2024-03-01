@@ -18,7 +18,10 @@ use VBCompetitions\Competitions\IfUnknown;
 use VBCompetitions\Competitions\IfUnknownBreak;
 use VBCompetitions\Competitions\IfUnknownMatch;
 use VBCompetitions\Competitions\Knockout;
+use VBCompetitions\Competitions\KnockoutConfig;
 use VBCompetitions\Competitions\League;
+use VBCompetitions\Competitions\LeagueConfig;
+use VBCompetitions\Competitions\LeagueConfigPoints;
 use VBCompetitions\Competitions\LeagueTable;
 use VBCompetitions\Competitions\LeagueTableEntry;
 use VBCompetitions\Competitions\MatchManager;
@@ -40,7 +43,10 @@ use VBCompetitions\Competitions\Stage;
 #[CoversClass(IfUnknownBreak::class)]
 #[CoversClass(IfUnknownMatch::class)]
 #[CoversClass(Knockout::class)]
+#[CoversClass(KnockoutConfig::class)]
 #[CoversClass(League::class)]
+#[CoversClass(LeagueConfig::class)]
+#[CoversClass(LeagueConfigPoints::class)]
 #[CoversClass(LeagueTable::class)]
 #[CoversClass(LeagueTableEntry::class)]
 #[CoversClass(MatchManager::class)]

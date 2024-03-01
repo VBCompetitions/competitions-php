@@ -37,6 +37,11 @@ final class KnockoutTest extends TestCase {
         $this->assertEquals('TM3', $competition->getTeamByID('{KO:CUP:PO:winner}')->getID());
         $this->assertEquals('TM2', $competition->getTeamByID('{KO:CUP:PO:loser}')->getID());
 
+        if ($knockout instanceof Knockout) {
+            $knockout_config = $knockout->getKnockoutConfig();
+        }
+        $this->assertEquals($knockout, $knockout_config->getGroup());
+        $this->assertEquals('TM7', $competition->getTeamByID($knockout_config->getStanding()[0]->id)->getID());
     }
 
     public function testKnockoutWithSets() : void

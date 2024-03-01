@@ -2,8 +2,6 @@
 
 namespace VBCompetitions\Competitions;
 
-use stdClass;
-
 /**
  * A group within this stage of the competition.  A knockout expects to generate an order of teams based on team elimination
  */
@@ -23,7 +21,12 @@ final class Knockout extends Group
         $this->draws_allowed = false;
     }
 
-    public function getKnockoutConfig() : object|null
+    /**
+     * Get the knockout config for this group
+     *
+     * @return KnockoutConfig|null the knockout config for this group
+     */
+    public function getKnockoutConfig() : ?KnockoutConfig
     {
         return $this->knockout_config;
     }

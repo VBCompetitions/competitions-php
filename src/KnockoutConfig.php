@@ -2,33 +2,37 @@
 
 namespace VBCompetitions\Competitions;
 
-use Exception;
 use JsonSerializable;
 use stdClass;
 
 /**
- * A team definition
+ * Represents a knockout configuration for a competition.
  */
 final class KnockoutConfig implements JsonSerializable
 {
-    /** An ordered mapping from a position to a team ID */
+    /** @var array An ordered mapping from a position to a team ID */
     private array $standing = [];
 
-    /** The knockout group this config is for */
+    /** @var Group The knockout group this configuration is associated with */
     private Group $group;
 
     /**
+     * Constructs a new KnockoutConfig instance.
      *
-     * Defined the match/court manager of a match, which may be an individual or a team
-     *
-     * @param MatchInterface $match The match this Manager is managing
-     * @param string|object $manager_data The data for the match manager
+     * @param Group $group The group associated with this knockout configuration.
      */
     function __construct(Group $group)
     {
         $this->group = $group;
     }
 
+    /**
+     * Loads knockout configuration data from an object.
+     *
+     * @param object $knockout_data The data object containing knockout configuration information.
+     *
+     * @return KnockoutConfig The updated KnockoutConfig instance.
+     */
     public function loadFromData(object $knockout_data) : KnockoutConfig
     {
         $this->setStanding($knockout_data->standing);
@@ -36,9 +40,9 @@ final class KnockoutConfig implements JsonSerializable
     }
 
     /**
-     * Return the match manager definition suitable for saving into a competition file
+     * Serializes the knockout configuration data for storage.
      *
-     * @return mixed
+     * @return mixed The serialized knockout configuration data.
      */
     public function jsonSerialize() : mixed
     {
@@ -47,17 +51,22 @@ final class KnockoutConfig implements JsonSerializable
         return $knockout;
     }
 
+    /**
+     * Gets the group associated with this knockout configuration.
+     *
+     * @return Group The group associated with this knockout configuration.
+     */
     public function getGroup() : Group
     {
         return $this->group;
     }
 
     /**
-     * Set the array of standing maps for this config
+     * Sets the standing array for this knockout configuration.
      *
-     * @param array<object> $standing The array of standing maps
+     * @param array<object> $standing The array of standing maps.
      *
-     * @return KnockoutConfig the knockout config being managed
+     * @return KnockoutConfig The KnockoutConfig instance with the updated standing array.
      */
     public function setStanding(array $standing) : KnockoutConfig
     {
@@ -66,9 +75,9 @@ final class KnockoutConfig implements JsonSerializable
     }
 
     /**
-     * Get the array of standing maps for this config
+     * Gets the standing array for this knockout configuration.
      *
-     * @return array<object> the array of standing maps for this config
+     * @return array<object> The array of standing maps for this knockout configuration.
      */
     public function getStanding() : array
     {
