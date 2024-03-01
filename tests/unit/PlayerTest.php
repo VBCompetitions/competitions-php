@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace VBCompetitions\Competitions\test;
 
+use Exception;
 use OutOfBoundsException;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
@@ -15,7 +16,7 @@ use VBCompetitions\Competitions\Player;
 #[CoversClass(CompetitionTeam::class)]
 #[CoversClass(Player::class)]
 final class PlayerTest extends TestCase {
-    public function testPlayersNone() : void
+    public function testPlayerNone() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
 
@@ -24,13 +25,13 @@ final class PlayerTest extends TestCase {
         $this->assertFalse($team->hasPlayers(), 'Team 1 should have no players defined');
     }
 
-    public function testPlayersDuplicateID() : void
+    public function testPlayerDuplicateID() : void
     {
-        $this->expectExceptionMessage('team players with duplicate IDs within a team not allowed');
+        $this->expectExceptionMessage('Player with ID "P1" already exists in the team');
         Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players-duplicate-ids.json');
     }
 
-    public function testPlayersGetByID() : void
+    public function testPlayerGetByID() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
         $team = $competition->getTeamByID('TM3');
@@ -49,7 +50,7 @@ final class PlayerTest extends TestCase {
         $this->assertNull($team->getPlayerByID('P1')->getNotes());
     }
 
-    public function testPlayersGetByIDOutOfBounds() : void
+    public function testPlayerGetByIDOutOfBounds() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
 
@@ -58,7 +59,7 @@ final class PlayerTest extends TestCase {
         $competition->getTeamByID('TM1')->getPlayerByID('NO-SUCH-TEAM');
     }
 
-    public function testPlayersSetters() : void
+    public function testPlayerSetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
         $team = $competition->getTeamByID('TM3');
@@ -76,22 +77,106 @@ final class PlayerTest extends TestCase {
         $this->assertEquals('Alison Alison', $player1->getName());
         $this->assertEquals(10, $player1->getNumber());
         $this->assertEquals('no longer junior', $player1->getNotes());
+
+        $competition = new Competition('test');
+        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $player = new Player($team, 'P1', 'Alice Alison');
+
+        try {
+            $player->setName('');
+            $this->fail('Player should catch empty Name');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+
+        $name = 'a';
+        for ($i=0; $i < 100; $i++) {
+            $name .= '0123456789';
+        }
+        try {
+            $player->setName($name);
+            $this->fail('Player should not allow a long Name');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+
+        try {
+            $player->setNumber(-1);
+            $this->fail('Player should not allow a negative shirt number');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player number "-1": must be greater than 1', $e->getMessage());
+        }
     }
 
-    // public function testPlayersSameNumberThrowsOnLoad() : void
-    // {
-    //     $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
-    //     $team = $competition->getTeamByID('TM3');
+    public function testPlayerConstructor() : void
+    {
+        $competition = new Competition('test');
+        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
 
-    //     // TODO loading file with dupe numbers fails validation
-    // }
+        try {
+            new Player($team, '', 'Alice Alison');
+            $this->fail('Player should catch empty ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player ID: must be between 1 and 100 characters long', $e->getMessage());
+        }
 
-    // public function testPlayersSameNumberThrowsOnSet() : void
-    // {
-    //     $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'players'))), 'players.json');
-    //     $team = $competition->getTeamByID('TM3');
+        try {
+            new Player($team, '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891', 'Alice Alison');
+            $this->fail('Player should not allow a long ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player ID: must be between 1 and 100 characters long', $e->getMessage());
+        }
 
-    //     // TODO setting players to have dupe numbers fails on set
-    //     // PHPDoc should include @throws
-    // }
+        try {
+            new Player($team, '"id1"', 'Alice Alison');
+            $this->fail('Player should not allow " character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Player($team, 'id:1', 'Alice Alison');
+            $this->fail('Player should not allow : character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Player($team, 'id{1', 'Alice Alison');
+            $this->fail('Player should not allow { character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Player($team, 'id1}', 'Alice Alison');
+            $this->fail('Player should not allow } character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Player($team, 'id1?', 'Alice Alison');
+            $this->fail('Player should not allow ? character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Player($team, 'id=1', 'Alice Alison');
+            $this->fail('Player should not allow = character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid player ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        $player1 = new Player($team, 'P1', 'Alice Alison');
+        $team->addPlayer($player1);
+
+        try {
+            new Player($team, 'P1', 'Bobby Bobs');
+            $this->fail('Teams should not allow duplicate players');
+        } catch (Exception $e) {
+            $this->assertEquals('Player with ID "P1" already exists in the team', $e->getMessage());
+        }
+    }
 }

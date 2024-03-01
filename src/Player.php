@@ -4,32 +4,32 @@ namespace VBCompetitions\Competitions;
 
 use Exception;
 use JsonSerializable;
-use OutOfBoundsException;
 use stdClass;
 
 /**
- * A team definition
+ * Represents a player in a team.
  */
 final class Player implements JsonSerializable
 {
-    // TODO - private properties with getters and setters
-
-    /** A unique ID for this player. This may be the player's registration number.  This must be unique within the team */
+    /** @var string A unique ID for this player. This may be the player's registration number. This must be unique within the team */
     private string $id;
 
-    /** The name of this contact */
+    /** @var string The name of this player */
     private string $name;
 
-    /** The player's shirt number */
+    /** @var ?int The player's shirt number */
     private ?int $number = null;
 
-    /** Free form string to add notes about the player.  This can be used for arbitrary content that various implementations can use */
+    /** @var ?string Free form string to add notes about the player. This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
     /**
-     * Contains the data of a player in a team
+     * Contains the data of a player in a team.
      *
-     * @param object $player_data The data defining this Player
+     * @param CompetitionTeam $team The team to which this player belongs
+     * @param string $id The ID of the player
+     * @param string $name The name of the player
+     * @throws Exception
      */
     function __construct(CompetitionTeam $team, string $id, string $name)
     {
@@ -41,7 +41,7 @@ final class Player implements JsonSerializable
             throw new Exception('Invalid player ID: must contain only ASCII printable characters excluding " : { } ? =');
         }
 
-        if ($team->hasContactWithID($id)) {
+        if ($team->hasPlayerWithID($id)) {
             throw new Exception('Player with ID "'.$id.'" already exists in the team');
         }
 
@@ -49,6 +49,12 @@ final class Player implements JsonSerializable
         $this->setName($name);
     }
 
+    /**
+     * Load player data from an object.
+     *
+     * @param object $player_data The data defining this Player
+     * @return Player The updated Player object
+     */
     public function loadFromData(object $player_data) : Player
     {
         if (property_exists($player_data, 'number')) {
@@ -63,9 +69,9 @@ final class Player implements JsonSerializable
     }
 
     /**
-     * Get the ID for this player
+     * Get the ID for this player.
      *
-     * @return string the id for this player
+     * @return string The ID for this player
      */
     public function getID() : string
     {
@@ -73,9 +79,9 @@ final class Player implements JsonSerializable
     }
 
     /**
-     * Get the name for this player
+     * Get the name for this player.
      *
-     * @return string the name for this player
+     * @return string The name for this player
      */
     public function getName() : string
     {
@@ -83,11 +89,12 @@ final class Player implements JsonSerializable
     }
 
     /**
-     * Set the name for this player
+     * Set the name for this player.
      *
-     * @param string $name the name for this player
+     * @param string $name The name for this player
+     * @throws Exception
      */
-    public function setName($name) : void
+    public function setName(string $name) : void
     {
         if (strlen($name) > 1000 || strlen($name) < 1) {
             throw new Exception('Invalid player name: must be between 1 and 1000 characters long');
@@ -96,19 +103,20 @@ final class Player implements JsonSerializable
     }
 
     /**
-     * Get the shirt number for this player
+     * Get the shirt number for this player.
      *
-     * @return int|null the shirt number for this player
+     * @return int|null The shirt number for this player
      */
-    public function getNumber() : int|null
+    public function getNumber() : ?int
     {
         return $this->number;
     }
 
     /**
-     * Set the notes for this team
+     * Set the shirt number for this player.
      *
-     * @param int|null $notes the notes for this team
+     * @param ?int $number The shirt number for this player
+     * @throws Exception
      */
     public function setNumber(?int $number) : void
     {
@@ -119,26 +127,27 @@ final class Player implements JsonSerializable
     }
 
     /**
-     * Get the notes for this player
+     * Get the notes for this player.
      *
-     * @return string|null the notes for this player
+     * @return ?string The notes for this player
      */
-    public function getNotes() : string|null
+    public function getNotes() : ?string
     {
         return $this->notes;
     }
 
     /**
-     * Set the notes for this player
+     * Set the notes for this player.
      *
-     * @param string|null $notes the notes for this player
+     * @param ?string $notes The notes for this player
      */
     public function setNotes(?string $notes) : void
     {
         $this->notes = $notes;
     }
+
     /**
-     * Return the list of team definition suitable for saving into a competition file
+     * Return the list of player data suitable for serialization.
      *
      * @return mixed
      */
