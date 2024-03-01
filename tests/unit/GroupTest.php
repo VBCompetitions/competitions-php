@@ -4,13 +4,16 @@ declare(strict_types=1);
 
 namespace VBCompetitions\Competitions\test;
 
+use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\Group;
 use VBCompetitions\Competitions\GroupMatch;
+use VBCompetitions\Competitions\Knockout;
 use VBCompetitions\Competitions\League;
+use VBCompetitions\Competitions\MatchType;
 use VBCompetitions\Competitions\GroupType;
 use VBCompetitions\Competitions\Stage;
 
@@ -433,5 +436,19 @@ final class GroupTest extends TestCase {
         $this->assertTrue($group->getDrawsAllowed());
 
         $this->assertEquals(GroupType::LEAGUE, $group->getType());
+    }
+
+    public function testGroupGetTeamByIDBlocksBadType() : void
+    {
+        $competition = new Competition('test');
+        $stage = new Stage($competition, 'S');
+        $group = new Knockout($stage, 'Finals', MatchType::CONTINUOUS);
+
+        try {
+            $group->getTeamByID('league', '1');
+            $this->fail('Getting a team by league position in a non-league group should fail');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid type "league" in team reference.  Cannot get league position from a non-league group', $e->getMessage());
+        }
     }
 }
