@@ -7,51 +7,51 @@ use JsonSerializable;
 use stdClass;
 
 /**
- * A team definition
+ * Represents the officials for a match in a competition.
  */
 final class MatchOfficials implements JsonSerializable
 {
-
-    /** The first referee*/
+    /** @var ?string The first referee */
     private ?string $first = null;
 
-    /** The second referee*/
+    /** @var ?string The second referee */
     private ?string $second = null;
 
-    /** The challenge referee, responsible for resolving challenges from the teams*/
+    /** @var ?string The challenge referee, responsible for resolving challenges from the teams */
     private ?string $challenge = null;
 
-    /** The assistant challenge referee, who assists the challenge referee*/
+    /** @var ?string The assistant challenge referee, who assists the challenge referee */
     private ?string $assistant_challenge = null;
 
-    /** The reserve referee*/
+    /** @var ?string The reserve referee */
     private ?string $reserve = null;
 
-    /** The scorer*/
+    /** @var ?string The scorer */
     private ?string $scorer = null;
 
-    /** The assistant scorer*/
+    /** @var ?string The assistant scorer */
     private ?string $assistant_scorer = null;
 
-    /** The list of linespersons*/
+    /** @var array The list of linespersons */
     private array $linespersons = [];
 
-    /** The list of people in charge of managing the game balls*/
+    /** @var array The list of people in charge of managing the game balls */
     private array $ball_crew = [];
 
-    /** The team assigned to referee the match.  This can either be a team ID or a team reference */
+    /** @var ?string The team assigned to referee the match. This can either be a team ID or a team reference */
     private ?string $officials_team = null;
 
-    /** The match this Manager is managing */
+    /** @var MatchInterface The match these Officials are in */
     private MatchInterface $match;
 
     /**
-     * Contains the officials data
+     * Contains the officials data.
      *
      * @param MatchInterface $match The Match these Officials are in
-     * @param object $officials_data The data defining this match's Officials
-     *
-     * @throws Exception If the two teams have scores arrays of different lengths
+     * @param ?string $team_id The ID of the team officiating the match
+     * @param ?string $first The name of the first referee
+     * @param ?bool $is_unknown Whether the team ID is unknown
+     * @throws Exception If Match Officials must be either a team or a person
      */
     function __construct(MatchInterface $match, ?string $team_id, ?string $first = null, ?bool $is_unknown = false)
     {
@@ -65,6 +65,13 @@ final class MatchOfficials implements JsonSerializable
         }
     }
 
+    /**
+     * Load match officials data from a given object.
+     *
+     * @param MatchInterface $match The match these Officials are in
+     * @param object $officials_data The data defining this match's Officials
+     * @return MatchOfficials The match officials instance
+     */
     public static function loadFromData(MatchInterface $match, object $officials_data) : MatchOfficials
     {
         if (property_exists($officials_data, 'team')) {
@@ -101,9 +108,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Return the match officials definition suitable for saving into a competition file
+     * Return the match officials definition suitable for saving into a competition file.
      *
-     * @return mixed
+     * @return mixed The serialized match officials data
      */
     public function jsonSerialize() : mixed
     {
@@ -143,9 +150,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the match this manager is managing
+     * Get the match this manager is managing.
      *
-     * @return MatchInterface the match being managed
+     * @return MatchInterface The match being managed
      */
     public function getMatch() : MatchInterface
     {
@@ -153,9 +160,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match official is a team or not
+     * Get whether the match official is a team or not.
      *
-     * @return bool whether the official is a team or not
+     * @return bool Whether the official is a team or not
      */
     public function isTeam() : bool
     {
@@ -163,9 +170,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the ID of the team officiating the match
+     * Get the ID of the team officiating the match.
      *
-     * @return ?string the team ID
+     * @return ?string The team ID
      */
     public function getTeamID() : ?string
     {
@@ -173,9 +180,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the officiating team
+     * Set the officiating team.
      *
-     * @param ?string $officials_team the ID of the officiating team
+     * @param ?string $officials_team The ID of the officiating team
      */
     public function setTeamID(?string $officials_team, bool $is_unknown = false) : void
     {
@@ -205,9 +212,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the first referee
+     * Set the first referee.
      *
-     * @param ?string $first the name of the first referee
+     * @param ?string $first The name of the first referee
      */
     public function setFirstRef(?string $first) : void
     {
@@ -216,9 +223,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match has a second referee
+     * Get whether the match has a second referee.
      *
-     * @return bool whether the match has a second referee
+     * @return bool Whether the match has a second referee
      */
     public function hasSecondRef() : bool
     {
@@ -226,9 +233,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the second referee
+     * Get the second referee.
      *
-     * @return ?string the name of the second referee
+     * @return ?string The name of the second referee
      */
     public function getSecondRef() : ?string
     {
@@ -236,9 +243,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the second referee
+     * Set the second referee.
      *
-     * @param ?string $second the name of the second referee
+     * @param ?string $second The name of the second referee
      */
     public function setSecondRef(?string $second) : void
     {
@@ -247,9 +254,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match has a challenge referee
+     * Get whether the match has a challenge referee.
      *
-     * @return bool whether the match has a challenge referee
+     * @return bool Whether the match has a challenge referee
      */
     public function hasChallengeRef() : bool
     {
@@ -257,9 +264,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the challenge referee
+     * Get the challenge referee's name.
      *
-     * @return ?string the name of the challenge referee
+     * @return ?string The name of the challenge referee
      */
     public function getChallengeRef() : ?string
     {
@@ -267,9 +274,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the challenge referee
+     * Set the challenge referee's name.
      *
-     * @param ?string $challenge the name of the challenge referee
+     * @param ?string $challenge The name of the challenge referee
      */
     public function setChallengeRef(?string $challenge) : void
     {
@@ -278,9 +285,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match has an assistant challenge referee
+     * Check if the match has an assistant challenge referee.
      *
-     * @return bool whether the match has an assistant challenge referee
+     * @return bool Whether the match has an assistant challenge referee
      */
     public function hasAssistantChallengeRef() : bool
     {
@@ -288,9 +295,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the assistant challenge referee
+     * Get the name of the assistant challenge referee.
      *
-     * @return ?string the name of the assistant challenge referee
+     * @return ?string The name of the assistant challenge referee
      */
     public function getAssistantChallengeRef() : ?string
     {
@@ -298,9 +305,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the assistant challenge referee
+     * Set the name of the assistant challenge referee.
      *
-     * @param ?string $assistant_challenge the name of the assistant challenge referee
+     * @param ?string $assistantChallenge The name of the assistant challenge referee
      */
     public function setAssistantChallengeRef(?string $assistant_challenge) : void
     {
@@ -309,9 +316,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match has a reserve referee
+     * Check if the match has a reserve referee.
      *
-     * @return bool whether the match has a reserve referee
+     * @return bool Whether the match has a reserve referee
      */
     public function hasReserveRef() : bool
     {
@@ -319,9 +326,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the reserve referee
+     * Get the name of the reserve referee.
      *
-     * @return ?string the name of the reserve referee
+     * @return ?string The name of the reserve referee
      */
     public function getReserveRef() : ?string
     {
@@ -329,9 +336,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the reserve referee
+     * Set the name of the reserve referee.
      *
-     * @param ?string $reserve the name of the reserve referee
+     * @param ?string $reserve The name of the reserve referee
      */
     public function setReserveRef(?string $reserve) : void
     {
@@ -340,9 +347,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match has a scorer
+     * Check if the match has a scorer.
      *
-     * @return bool whether the match has a scorer
+     * @return bool Whether the match has a scorer
      */
     public function hasScorer() : bool
     {
@@ -350,9 +357,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the scorer
+     * Get the name of the scorer.
      *
-     * @return ?string the name of the scorer
+     * @return ?string The name of the scorer
      */
     public function getScorer() : ?string
     {
@@ -360,9 +367,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the scorer
+     * Set the name of the scorer.
      *
-     * @param ?string $scorer the name of the scorer
+     * @param ?string $scorer The name of the scorer
      */
     public function setScorer(?string $scorer) : void
     {
@@ -371,9 +378,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match has an assistant scorer
+     * Check if the match has an assistant scorer.
      *
-     * @return bool whether the match has an assistant scorer
+     * @return bool Whether the match has an assistant scorer
      */
     public function hasAssistantScorer() : bool
     {
@@ -381,9 +388,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the assistant scorer
+     * Get the name of the assistant scorer.
      *
-     * @return ?string the name of the assistant scorer
+     * @return ?string The name of the assistant scorer
      */
     public function getAssistantScorer() : ?string
     {
@@ -391,9 +398,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the assistant scorer
+     * Set the name of the assistant scorer.
      *
-     * @param ?string $assistant_scorer the name of the assistant scorer
+     * @param ?string $assistantScorer The name of the assistant scorer
      */
     public function setAssistantScorer(?string $assistant_scorer) : void
     {
@@ -402,9 +409,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match has any linespersons
+     * Check if the match has any linespersons.
      *
-     * @return bool whether the match has any linespersons
+     * @return bool Whether the match has any linespersons
      */
     public function hasLinespersons() : bool
     {
@@ -412,9 +419,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the list of linespersons
+     * Get the list of linespersons.
      *
-     * @return array<string> the list of linespersons
+     * @return array<string> The list of linespersons
      */
     public function getLinespersons() : array
     {
@@ -422,9 +429,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the linespersons
+     * Set the list of linespersons.
      *
-     * @param array<string> $linespersons the name of the linespersons
+     * @param array<string> $linespersons The list of linespersons
      */
     public function setLinespersons(array $linespersons) : void
     {
@@ -433,9 +440,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get whether the match has a ball crew
+     * Check if the match has a ball crew.
      *
-     * @return bool whether the match has a ball crew
+     * @return bool Whether the match has a ball crew
      */
     public function hasBallCrew() : bool
     {
@@ -443,9 +450,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Get the list of ball crew members
+     * Get the list of ball crew members.
      *
-     * @return array<string> the list of ball crew members
+     * @return array<string> The list of ball crew members
      */
     public function getBallCrew() : array
     {
@@ -453,9 +460,9 @@ final class MatchOfficials implements JsonSerializable
     }
 
     /**
-     * Set the ball crew
+     * Set the list of ball crew members.
      *
-     * @param array<string> $ball_crew the name of the linespersons
+     * @param array<string> $ballCrew The list of ball crew members
      */
     public function setBallCrew(array $ball_crew) : void
     {

@@ -7,25 +7,28 @@ use JsonSerializable;
 use stdClass;
 
 /**
- * A team definition
+ * Represents a manager for a match in a competition.
  */
 final class MatchManager implements JsonSerializable
 {
-    /** The court manager in charge of this match */
+    /** @var ?string The court manager in charge of this match */
     private ?string $manager_name = null;
 
-    /** The team assigned to manage the match. This can either be a team ID or a team reference */
+    /** @var ?string The team assigned to manage the match. This can either be a team ID or a team reference */
     private ?string $manager_team = null;
 
-    /** The match this Manager is managing */
+    /** @var MatchInterface The match this Manager is managing */
     private MatchInterface $match;
 
     /**
+     * Constructor.
      *
-     * Defined the match/court manager of a match, which may be an individual or a team
+     * Defines the match/court manager of a match, which may be an individual or a team.
      *
      * @param MatchInterface $match The match this Manager is managing
-     * @param string|object $manager_data The data for the match manager
+     * @param ?string $team_id The ID of the team managing the match
+     * @param ?string $manager The name of the manager managing the match
+     * @throws Exception If Match Managers must be either a team or a person
      */
     function __construct(MatchInterface $match, ?string $team_id, ?string $manager = null)
     {
@@ -39,6 +42,13 @@ final class MatchManager implements JsonSerializable
         }
     }
 
+    /**
+     * Load match manager data from a given object.
+     *
+     * @param MatchInterface $match The match this Manager is managing
+     * @param string|object $manager_data The data for the match manager
+     * @return MatchManager The match manager instance
+     */
     public static function loadFromData(MatchInterface $match, string|object $manager_data) : MatchManager
     {
         if (property_exists($manager_data, 'team')) {
@@ -50,9 +60,9 @@ final class MatchManager implements JsonSerializable
     }
 
     /**
-     * Return the match manager definition suitable for saving into a competition file
+     * Return the match manager definition suitable for saving into a competition file.
      *
-     * @return mixed
+     * @return mixed The serialized match manager data
      */
     public function jsonSerialize() : mixed
     {
@@ -65,9 +75,9 @@ final class MatchManager implements JsonSerializable
     }
 
     /**
-     * Get the match this manager is managing
+     * Get the match this manager is managing.
      *
-     * @return MatchInterface the match being managed
+     * @return MatchInterface The match being managed
      */
     public function getMatch() : MatchInterface
     {
@@ -75,9 +85,9 @@ final class MatchManager implements JsonSerializable
     }
 
     /**
-     * Get whether the match manager is a team or not
+     * Check whether the match manager is a team or not.
      *
-     * @return bool whether the manager is a team or not
+     * @return bool True if the manager is a team, false otherwise
      */
     public function isTeam() : bool
     {
@@ -85,9 +95,9 @@ final class MatchManager implements JsonSerializable
     }
 
     /**
-     * Get the ID of the team managing the match
+     * Get the ID of the team managing the match.
      *
-     * @return ?string the team ID
+     * @return ?string The team ID
      */
     public function getTeamID() : ?string
     {
@@ -95,9 +105,10 @@ final class MatchManager implements JsonSerializable
     }
 
     /**
-     * Set the ID for the team managing the match.  Note that this un-sets any manager name
+     * Set the ID for the team managing the match. Note that this unsets any manager name.
      *
-     * @param string $manager_team the ID for the team managing the match
+     * @param string $manager_team The ID for the team managing the match
+     * @throws Exception If the team ID is invalid
      */
     public function setTeamID($manager_team) : void
     {
@@ -107,9 +118,9 @@ final class MatchManager implements JsonSerializable
     }
 
     /**
-     * Get the name of the manager
+     * Get the name of the manager.
      *
-     * @return ?string the name of the manager
+     * @return ?string The name of the manager
      */
     public function getManagerName() : ?string
     {
@@ -117,9 +128,10 @@ final class MatchManager implements JsonSerializable
     }
 
     /**
-     * Set the name of the manager managing the match.  Note that this un-sets any team ID
+     * Set the name of the manager managing the match. Note that this unsets any team ID.
      *
-     * @param string $manager_name the name of the manager managing the match
+     * @param string $name The name of the manager managing the match
+     * @throws Exception If the manager name is invalid
      */
     public function setManagerName($name) : void
     {

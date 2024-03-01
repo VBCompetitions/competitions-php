@@ -4,12 +4,16 @@ declare(strict_types=1);
 
 namespace VBCompetitions\Competitions\test;
 
-use OutOfBoundsException;
+use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\CompetitionTeam;
+use VBCompetitions\Competitions\Crossover;
+use VBCompetitions\Competitions\GroupMatch;
 use VBCompetitions\Competitions\MatchOfficials;
+use VBCompetitions\Competitions\MatchType;
+use VBCompetitions\Competitions\Stage;
 
 #[CoversClass(Competition::class)]
 #[CoversClass(CompetitionTeam::class)]
@@ -118,7 +122,22 @@ final class MatchOfficialsTest extends TestCase {
         $this->assertEquals('{L:LG:LG2:winner}', $match_officials->getTeamID());
     }
 
-    public function testOfficialsExceptionSettingINvalidTeam() : void
+    public function testOfficialsConstructor() : void
+    {
+        $competition = new Competition('test');
+        $stage = new Stage($competition, 'S');
+        $group = new Crossover($stage, 'G', MatchType::CONTINUOUS);
+        $match = new GroupMatch($group, 'M1');
+
+        try {
+            new MatchOfficials($match, null, null);
+            $this->fail('MatchOfficial should require a team or a person');
+        } catch (Exception $e) {
+            $this->assertEquals('Match Officials must be either a team or a person', $e->getMessage());
+        }
+    }
+
+    public function testOfficialsExceptionSettingInvalidTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'officials'))), 'officials-team.json');
         $match_officials = $competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getOfficials();
