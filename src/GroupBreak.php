@@ -98,7 +98,7 @@ final class GroupBreak implements JsonSerializable, BreakInterface
      *
      * @return GroupBreak this break
      */
-    public function setStart(null|string $start) : GroupBreak
+    public function setStart(?string $start) : GroupBreak
     {
         $this->start = $start;
         return $this;
@@ -121,7 +121,7 @@ final class GroupBreak implements JsonSerializable, BreakInterface
      *
      * @return GroupBreak this break
      */
-    public function setDate(null|string $date) : GroupBreak
+    public function setDate(?string $date) : GroupBreak
     {
         $this->date = $date;
         return $this;
@@ -144,7 +144,7 @@ final class GroupBreak implements JsonSerializable, BreakInterface
      *
      * @return GroupBreak this break
      */
-    public function setDuration(null|string $duration) : GroupBreak
+    public function setDuration(?string $duration) : GroupBreak
     {
         $this->duration = $duration;
         return $this;
@@ -167,7 +167,7 @@ final class GroupBreak implements JsonSerializable, BreakInterface
      *
      * @return GroupBreak this break
      */
-    public function setName(null|string $name) : GroupBreak
+    public function setName(?string $name) : GroupBreak
     {
         $this->name = $name;
         return $this;

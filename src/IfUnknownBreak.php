@@ -15,16 +15,16 @@ final class IfUnknownBreak implements JsonSerializable
     /** The type of match, i.e. 'break' */
     // public string $type;
 
-    /** @var string|null The start time for the break */
+    /** @var ?string The start time for the break */
     private ?string $start = null;
 
-    /** @var string|null The date of the break */
+    /** @var ?string The date of the break */
     private ?string $date = null;
 
-    /** @var string|null The duration of the break */
+    /** @var ?string The duration of the break */
     private ?string $duration = null;
 
-    /** @var string|null The name for the break, e.g. 'Lunch break' */
+    /** @var ?string The name for the break, e.g. 'Lunch break' */
     private ?string $name = null;
 
     /** @var IfUnknown The IfUnknown instance this break is associated with */
@@ -119,7 +119,7 @@ final class IfUnknownBreak implements JsonSerializable
     /**
      * Retrieves the start time for this break
      *
-     * @return string|null The start time for this break
+     * @return ?string The start time for this break
      */
     public function getStart() : ?string
     {
@@ -151,7 +151,7 @@ final class IfUnknownBreak implements JsonSerializable
     /**
      * Retrieves the date for this break
      *
-     * @return string|null The date for this break
+     * @return ?string The date for this break
      */
     public function getDate() : ?string
     {
@@ -177,7 +177,7 @@ final class IfUnknownBreak implements JsonSerializable
     /**
      * Retrieves the duration for this break
      *
-     * @return string|null The duration for this break
+     * @return ?string The duration for this break
      */
     public function getDuration() : ?string
     {
@@ -203,7 +203,7 @@ final class IfUnknownBreak implements JsonSerializable
     /**
      * Retrieves the name for this break
      *
-     * @return string|null The name for this break
+     * @return ?string The name for this break
      */
     public function getName() : ?string
     {

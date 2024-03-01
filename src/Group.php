@@ -15,28 +15,28 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /** @var string A unique ID for this group, e.g. 'P1' */
     protected string $id;
 
-    /** @var string|null Descriptive title for the group, e.g. 'Pool 1' */
+    /** @var ?string Descriptive title for the group, e.g. 'Pool 1' */
     protected ?string $name = null;
 
-    /** @var string|null Free form string to add notes about this group. */
+    /** @var ?string Free form string to add notes about this group. */
     protected ?string $notes = null;
 
-    /** @var array|null An array of string values as a verbose description of the nature of the group */
+    /** @var ?array An array of string values as a verbose description of the nature of the group */
     protected ?array $description = null;
 
     /** @var GroupType The type of competition applying to this group */
     protected GroupType $type;
 
-    /** @var KnockoutConfig|null Configuration for the knockout matches */
+    /** @var ?KnockoutConfig Configuration for the knockout matches */
     protected ?KnockoutConfig $knockout_config = null;
 
-    /** @var LeagueConfig|null Configuration for the league */
+    /** @var ?LeagueConfig Configuration for the league */
     protected ?LeagueConfig $league_config;
 
     /** @var MatchType Are the matches played in sets or continuous points */
     protected MatchType $match_type;
 
-    /** @var SetConfig|null Configuration defining the nature of a set */
+    /** @var ?SetConfig Configuration defining the nature of a set */
     protected ?SetConfig $sets;
 
     /** @var bool Sets whether drawn matches are allowed */
@@ -263,9 +263,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Get the name for this group
      *
-     * @return string|null The name for this group
+     * @return ?string The name for this group
      */
-    public function getName() : string|null
+    public function getName() : ?string
     {
         return $this->name;
     }
@@ -285,9 +285,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Get the notes for this group
      *
-     * @return string|null The notes for this group
+     * @return ?string The notes for this group
      */
-    public function getNotes() : string|null
+    public function getNotes() : ?string
     {
         return $this->notes;
     }
@@ -295,7 +295,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Set the notes for this group
      *
-     * @param string|null $notes The notes for this group
+     * @param ?string $notes The notes for this group
      * @return Group The Group instance
      */
     public function setNotes(?string $notes) : Group
@@ -307,9 +307,9 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Get the description for this group
      *
-     * @return array|null the description for this group
+     * @return ?array the description for this group
      */
-    public function getDescription() : array|null
+    public function getDescription() : ?array
     {
         return $this->description;
     }
@@ -317,7 +317,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Set the description for this group
      *
-     * @param array<string>|null $description The description for this group
+     * @param ?array<string> $description The description for this group
      * @return Group The Group instance
      */
     public function setDescription($description) : Group

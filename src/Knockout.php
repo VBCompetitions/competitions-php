@@ -24,7 +24,7 @@ final class Knockout extends Group
     /**
      * Get the knockout config for this group
      *
-     * @return KnockoutConfig|null the knockout config for this group
+     * @return ?KnockoutConfig the knockout config for this group
      */
     public function getKnockoutConfig() : ?KnockoutConfig
     {

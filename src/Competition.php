@@ -252,9 +252,9 @@ final class Competition implements JsonSerializable
     /**
      * Get the notes for this competition
      *
-     * @return string|null the notes for this competition
+     * @return ?string the notes for this competition
      */
-    public function getNotes() : string|null
+    public function getNotes() : ?string
     {
         return $this->notes;
     }
@@ -262,7 +262,7 @@ final class Competition implements JsonSerializable
     /**
      * Set the notes for this competition
      *
-     * @param string|null $notes the notes for this competition
+     * @param ?string $notes the notes for this competition
      *
      * @return Competition the competition
      */
@@ -643,7 +643,7 @@ final class Competition implements JsonSerializable
      * @param string $match_id The ID of the match to update
      * @param int[] $home_team_scores The new home team scores
      * @param int[] $away_team_scores The new away team scores
-     * @param bool|null $complete Whether the match is complete
+     * @param ?bool $complete Whether the match is complete
      *
      * @throws Exception if the file starts as invalid or the new scores are invalid
      * @throws OutOfBoundsException if the stage, group, or match cannot be found

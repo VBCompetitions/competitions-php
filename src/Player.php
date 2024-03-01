@@ -105,7 +105,7 @@ final class Player implements JsonSerializable
     /**
      * Get the shirt number for this player.
      *
-     * @return int|null The shirt number for this player
+     * @return ?int The shirt number for this player
      */
     public function getNumber() : ?int
     {

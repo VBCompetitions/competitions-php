@@ -18,25 +18,25 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
      */
     private string $id;
 
-    /** @var string|null The court that a match takes place on */
+    /** @var ?string The court that a match takes place on */
     private ?string $court = null;
 
-    /** @var string|null The venue that a match takes place at */
+    /** @var ?string The venue that a match takes place at */
     private ?string $venue = null;
 
-    /** @var string|null The date of the match */
+    /** @var ?string The date of the match */
     private ?string $date = null;
 
-    /** @var string|null The start time for the warmup */
+    /** @var ?string The start time for the warmup */
     private ?string $warmup = null;
 
-    /** @var string|null The start time for the match */
+    /** @var ?string The start time for the match */
     private ?string $start = null;
 
-    /** @var string|null The maximum duration of the match */
+    /** @var ?string The maximum duration of the match */
     private ?string $duration = null;
 
-    /** @var bool|null Whether the match is complete. This is kinda meaningless for an "IfUnknownMatch" but it allows round-tripping the JSON */
+    /** @var ?bool Whether the match is complete. This is kinda meaningless for an "IfUnknownMatch" but it allows round-tripping the JSON */
     private ?bool $complete = null;
 
     /** @var MatchTeam The 'home' team for the match */
@@ -45,19 +45,19 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /** @var MatchTeam The 'away' team for the match */
     private MatchTeam $away_team;
 
-    /** @var MatchOfficials|null The officials for this match */
+    /** @var ?MatchOfficials The officials for this match */
     private ?MatchOfficials $officials = null;
 
-    /** @var string|null A most valuable player award for the match */
+    /** @var ?string A most valuable player award for the match */
     private ?string $mvp = null;
 
-    /** @var MatchManager|null The court manager in charge of this match */
+    /** @var ?MatchManager The court manager in charge of this match */
     private ?MatchManager $manager = null;
 
     /** @var bool Whether the match is a friendly.  These matches do not contribute toward a league position.  If a team only participates in friendly matches then they are not included in the league table at all */
     private bool $friendly;
 
-    /** @var string|null Free form string to add notes about a match */
+    /** @var ?string Free form string to add notes about a match */
     private ?string $notes = null;
 
     /** @var IfUnknown The Group or "IfUnknown" this match is in */
@@ -269,7 +269,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the court where the match takes place
      *
-     * @return string|null The court where the match takes place
+     * @return ?string The court where the match takes place
      */
     public function getCourt() : ?string
     {
@@ -295,7 +295,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the venue where the match takes place
      *
-     * @return string|null The venue where the match takes place
+     * @return ?string The venue where the match takes place
      */
     public function getVenue() : ?string
     {
@@ -327,7 +327,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the date of the match
      *
-     * @return string|null The date of the match (format: YYYY-MM-DD)
+     * @return ?string The date of the match (format: YYYY-MM-DD)
      */
     public function getDate() : ?string
     {
@@ -353,7 +353,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the warmup start time of the match
      *
-     * @return string|null The warmup start time of the match (format: HH:mm)
+     * @return ?string The warmup start time of the match (format: HH:mm)
      */
     public function getWarmup() : ?string
     {
@@ -379,7 +379,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the duration for the match
      *
-     * @return string|null The duration for the match in the format "HH:mm"
+     * @return ?string The duration for the match in the format "HH:mm"
      */
     public function getDuration() : ?string
     {
@@ -405,7 +405,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the start time of the match
      *
-     * @return string|null The start time of the match (format: HH:mm)
+     * @return ?string The start time of the match (format: HH:mm)
      */
     public function getStart() : ?string
     {
@@ -427,7 +427,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the manager for the match
      *
-     * @return MatchManager|null The manager for the match
+     * @return ?MatchManager The manager for the match
      */
     public function getManager() : ?MatchManager
     {
@@ -453,7 +453,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the Most Valuable Player (MVP) for the match
      *
-     * @return string|null The Most Valuable Player for the match
+     * @return ?string The Most Valuable Player for the match
      */
     public function getMVP() : ?string
     {
@@ -475,7 +475,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get notes for the match
      *
-     * @return string|null Notes about the match
+     * @return ?string Notes about the match
      */
     public function getNotes() : ?string
     {
@@ -519,7 +519,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the officials for the match
      *
-     * @return MatchOfficials|null The officials for the match
+     * @return ?MatchOfficials The officials for the match
      */
     public function getOfficials() : ?MatchOfficials
     {
@@ -645,7 +645,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
      *
      * @param array<int> $home_team_scores The score array for the home team
      * @param array<int> $away_team_scores The score array for the away team
-     * @param bool|null $complete Whether the match is complete or not
+     * @param ?bool $complete Whether the match is complete or not
      * @return IfUnknownMatch The updated IfUnknownMatch instance
      */
     public function setScores(array $home_team_scores, array $away_team_scores, ?bool $complete = null) : IfUnknownMatch {

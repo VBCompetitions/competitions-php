@@ -14,16 +14,16 @@ final class Contact implements JsonSerializable
     /** @var string A unique ID for this contact, e.g. 'TM1Contact1'. This must be unique within the team */
     private string $id;
 
-    /** @var string|null The name of this contact */
+    /** @var ?string The name of this contact */
     private ?string $name = null;
 
     /** @var array The roles of this contact within the team */
     private array $roles = [];
 
-    /** @var array|null The email addresses for this contact */
+    /** @var ?array The email addresses for this contact */
     private ?array $emails = [];
 
-    /** @var array|null A telephone number for this contact. If a contact has multiple phone numbers then add them as another contact */
+    /** @var ?array A telephone number for this contact. If a contact has multiple phone numbers then add them as another contact */
     private ?array $phones = [];
 
     /** @var CompetitionTeam The team this contact belongs to */
@@ -163,7 +163,7 @@ final class Contact implements JsonSerializable
     /**
      * Get the name for this contact
      *
-     * @return string|null The name for this contact
+     * @return ?string The name for this contact
      */
     public function getName() : ?string
     {

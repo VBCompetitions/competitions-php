@@ -24,10 +24,10 @@ final class CompetitionTeam implements JsonSerializable
     /** @var array A list of players for a team */
     private array $players = [];
 
-    /** @var Club|null The club this team is in */
+    /** @var ?Club The club this team is in */
     private ?Club $club = null;
 
-    /** @var string|null Free form string to add notes about a team.  This can be used for arbitrary content that various implementations can use */
+    /** @var ?string Free form string to add notes about a team.  This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
     /** @var Competition The Competition this team is in */
@@ -190,7 +190,7 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Set the club ID for this team
      *
-     * @param string|null $club_id The ID of the club this team is in
+     * @param ?string $club_id The ID of the club this team is in
      *
      * @return CompetitionTeam This competition team
      */
@@ -221,9 +221,9 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Get the club for this team
      *
-     * @return Club|null The club this team is in
+     * @return ?Club The club this team is in
      */
-    public function getClub() : Club|null
+    public function getClub() : ?Club
     {
         return $this->club;
     }
@@ -241,9 +241,9 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Get the notes for this team
      *
-     * @return string|null the notes for this team
+     * @return ?string the notes for this team
      */
-    public function getNotes() : string|null
+    public function getNotes() : ?string
     {
         return $this->notes;
     }
@@ -251,7 +251,7 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Set the notes for this team
      *
-     * @param string|null $notes the notes for this team
+     * @param ?string $notes the notes for this team
      *
      * @return CompetitionTeam This competition team
      */
@@ -293,9 +293,9 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Returns an array of Contacts for this team
      *
-     * @return array<Contact>|null The contacts for this team
+     * @return ?array<Contact> The contacts for this team
      */
-    public function getContacts() : array|null
+    public function getContacts() : ?array
     {
         return $this->contacts;
     }
@@ -380,9 +380,9 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Get the players for this team
      *
-     * @return array<Player>|null The players for this team
+     * @return ?array<Player> The players for this team
      */
-    public function getPlayers() : array|null
+    public function getPlayers() : ?array
     {
         return $this->players;
     }

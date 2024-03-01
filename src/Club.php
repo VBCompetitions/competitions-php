@@ -17,7 +17,7 @@ final class Club implements JsonSerializable
     /** @var string The name for the club */
     private string $name;
 
-    /** @var string|null Free form string to add notes about a club.  This can be used for arbitrary content that various implementations can use */
+    /** @var ?string Free form string to add notes about a club.  This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
     /** @var Competition The Competition this club is in */
@@ -140,7 +140,7 @@ final class Club implements JsonSerializable
     /**
      * Set the notes for this club
      *
-     * @param string|null $notes the notes for this club
+     * @param ?string $notes the notes for this club
      * @return Club this Club
      */
     public function setNotes(?string $notes) : Club
@@ -152,9 +152,9 @@ final class Club implements JsonSerializable
     /**
      * Get the notes for this club
      *
-     * @return string|null the notes for this club
+     * @return ?string the notes for this club
      */
-    public function getNotes() : string|null
+    public function getNotes() : ?string
     {
         return $this->notes;
     }

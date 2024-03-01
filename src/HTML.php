@@ -55,8 +55,8 @@ class HTML {
      *
      * @param string $column_id The identifier of the column
      * @param string $class The class name for styling
-     * @param string|null $text The text content of the cell
-     * @param array|null $metadata Additional metadata for the cell
+     * @param ?string $text The text content of the cell
+     * @param ?array $metadata Additional metadata for the cell
      * @param int $colspan The number of columns spanned by the cell (default: 1)
      * @return object The generated table cell object
      */
@@ -77,7 +77,7 @@ class HTML {
      * Enriches league table configuration.
      *
      * @param LeagueTable $table The league table object
-     * @param object|null $config The configuration object
+     * @param ?object $config The configuration object
      * @return object The modified configuration object
      */
     private static function enrichLeagueConfig(LeagueTable $table, object $config = null) : object
@@ -153,7 +153,7 @@ class HTML {
      * Enriches match configuration.
      *
      * @param MatchContainerInterface $match_container The match container object
-     * @param object|null $config The configuration object
+     * @param ?object $config The configuration object
      * @return object The modified configuration object
      */
     private static function enrichMatchConfig(MatchContainerInterface $match_container, object $config = null) : object
@@ -482,7 +482,7 @@ class HTML {
      * @param MatchContainerInterface $match_container The match container object
      * @param object $config The configuration object
      * @param MatchInterface $match The match object
-     * @param string|null $team_id The ID of the team (default: null)
+     * @param ?string $team_id The ID of the team (default: null)
      * @return array The generated match row
      */
     private static function generateMatchRow(MatchContainerInterface $match_container, object $config, MatchInterface $match, ?string $team_id) : array
@@ -801,8 +801,8 @@ class HTML {
      * </pre>
      *
      * @param MatchContainerInterface $match_container The container of the matches to present
-     * @param object|null $config The configuration for generating the league table data (default: null)
-     * @param string|null $team_id The ID for a team to decorate as "this" team (default: null)
+     * @param ?object $config The configuration for generating the league table data (default: null)
+     * @param ?string $team_id The ID for a team to decorate as "this" team (default: null)
      * @param int $flags Controls which matches to include (default: VBC_MATCH_ALL_IN_GROUP)
      *                   <ul>
      *                     <li><code>VBC_MATCH_ALL_IN_GROUP</code> if a team is in a group then this includes all matches in that group
@@ -934,8 +934,8 @@ class HTML {
      * </pre>
      *
      * @param MatchContainerInterface $match_container The container of the matches to present
-     * @param object|null $config The configuration for generating the league table data (default: null)
-     * @param string|null $team_id The ID for a team to decorate as "this" team (default: null)
+     * @param ?object $config The configuration for generating the league table data (default: null)
+     * @param ?string $team_id The ID for a team to decorate as "this" team (default: null)
      * @param int $flags Controls which matches to include (default: VBC_MATCH_ALL_IN_GROUP)
      *                   <ul>
      *                     <li><code>VBC_MATCH_ALL_IN_GROUP</code> if a team is in a group then this includes all matches in that group
@@ -1076,8 +1076,8 @@ class HTML {
      * </pre>
      *
      * @param League $league The Knockout group to present
-     * @param object|null $config The configuration for generating the league table data (default: null)
-     * @param string|null $team_id The ID for a team to decorate as "this" team (default: null)
+     * @param ?object $config The configuration for generating the league table data (default: null)
+     * @param ?string $team_id The ID for a team to decorate as "this" team (default: null)
      *
      * @return string string The generated HTML for league table
      */
@@ -1165,8 +1165,8 @@ class HTML {
      * </pre>
      *
      * @param League $league The League group to present
-     * @param object|null $config The configuration for generating the league table data (default: null)
-     * @param string|null $team_id The ID for a team to decorate as "this" team (default: null)
+     * @param ?object $config The configuration for generating the league table data (default: null)
+     * @param ?string $team_id The ID for a team to decorate as "this" team (default: null)
      *
      * @return object An object containing the league table information suitable for generating HTML from
      */
@@ -1193,7 +1193,7 @@ class HTML {
      * Generates a standard HTML table to represent the final standings in a Knockout group
      *
      * @param Knockout $knockout The Knockout group to present
-     * @param string|null $team_id The ID for a team to decorate as "this" team (default: null)
+     * @param ?string $team_id The ID for a team to decorate as "this" team (default: null)
      *
      * @return string the HTML table as a string
      */
@@ -1260,7 +1260,7 @@ class HTML {
      * </pre>
      *
      * @param Knockout $knockout The Knockout group to present
-     * @param string|null $team_id The ID for a team to decorate as "this" team (default: null)
+     * @param ?string $team_id The ID for a team to decorate as "this" team (default: null)
      *
      * @return object An object containing the final standing information suitable for generating HTML from
      */

@@ -121,7 +121,7 @@ final class MatchTeam implements JsonSerializable
         return $this;
     }
 
-    public function getMVP() : string|null
+    public function getMVP() : ?string
     {
         return $this->mvp;
     }

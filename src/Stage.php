@@ -194,9 +194,9 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Get the name for this group.
      *
-     * @return string|null The name for this group
+     * @return ?string The name for this group
      */
-    public function getName() : string|null
+    public function getName() : ?string
     {
         return $this->name;
     }
@@ -214,9 +214,9 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Get the notes for this group.
      *
-     * @return string|null The notes for this group
+     * @return ?string The notes for this group
      */
-    public function getNotes() : string|null
+    public function getNotes() : ?string
     {
         return $this->notes;
     }
@@ -224,7 +224,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Set the notes for this stage.
      *
-     * @param string|null $notes The notes for this stage
+     * @param ?string $notes The notes for this stage
      */
     public function setNotes(?string $notes) : void
     {
@@ -234,9 +234,9 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Get the description for this stage.
      *
-     * @return array<string>|null The description for this stage
+     * @return ?array<string> The description for this stage
      */
-    public function getDescription() : array|null
+    public function getDescription() : ?array
     {
         return $this->description;
     }
@@ -244,7 +244,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Set the description for this stage.
      *
-     * @param array<string>|null $description The description for this stage
+     * @param ?array<string> $description The description for this stage
      */
     public function setDescription($description) : void
     {
@@ -254,7 +254,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Get the IfUnknown object for this stage.
      *
-     * @return IfUnknown|null The IfUnknown object for this stage
+     * @return ?IfUnknown The IfUnknown object for this stage
      */
     public function getIfUnknown() : ?IfUnknown
     {
@@ -264,7 +264,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Set the IfUnknown object for this stage.
      *
-     * @param IfUnknown|null $if_unknown The IfUnknown object for this stage
+     * @param ?IfUnknown $if_unknown The IfUnknown object for this stage
      */
     public function setIfUnknown(?IfUnknown $if_unknown) : IfUnknown
     {
