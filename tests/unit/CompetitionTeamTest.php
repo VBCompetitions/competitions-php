@@ -195,7 +195,7 @@ final class CompetitionTeamTest extends TestCase {
 
         try {
             new CompetitionTeam($competition, '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891', 'my team');
-            $this->fail('CompetitionTeam should not allow a long empty ID');
+            $this->fail('CompetitionTeam should not allow a long ID');
         } catch (Exception $e) {
             $this->assertEquals('Invalid team ID: must be between 1 and 100 characters long', $e->getMessage());
         }
