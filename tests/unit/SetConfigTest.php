@@ -42,6 +42,7 @@ final class SetConfigTest extends TestCase {
         $config = new SetConfig($dummy_group);
         $config->loadFromData(new stdClass);
 
+        $this->assertEquals($dummy_group, $config->getGroup());
         $this->assertEquals(5, $config->getMaxSets());
         $this->assertEquals(3, $config->getSetsToWin());
         $this->assertEquals(2, $config->getClearPoints());
