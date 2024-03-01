@@ -8,7 +8,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Takes\u0020in\u0020the\u0020Competition\u0020JSON\u0020string\u0020and\u0020creates\u0020the\u0020Competition\u0020object\u0020representing\u0020that\u0020data",
+            "summary": "Takes\u0020in\u0020the\u0020Competition\u0020name\u0020creates\u0020an\u0020empty\u0020Competition\u0020object\u0020with\u0020that\u0020name",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AloadFromFile\u0028\u0029",
@@ -18,7 +18,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AloadFromCompetitionJSON\u0028\u0029",
             "name": "loadFromCompetitionJSON",
-            "summary": "",
+            "summary": "Loads\u0020a\u0020Competition\u0020object\u0020from\u0020competition\u0020JSON\u0020data",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_loadFromCompetitionJSON"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AsaveToFile\u0028\u0029",
@@ -26,9 +26,14 @@ Search.appendIndex(
             "summary": "Save\u0020the\u0020whole\u0020Competition\u0020as\u0020a\u0020competition\u0020JSON\u0020file",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_saveToFile"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Serialize\u0020the\u0020competition\u0020data\u0020into\u0020JSON\u0020format",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_jsonSerialize"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AprocessMatches\u0028\u0029",
             "name": "processMatches",
-            "summary": "",
+            "summary": "Process\u0020matches\u0020for\u0020all\u0020stages\u0020in\u0020the\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_processMatches"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetVersion\u0028\u0029",
@@ -78,17 +83,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasTeamWithID\u0028\u0029",
             "name": "hasTeamWithID",
-            "summary": "",
+            "summary": "Check\u0020if\u0020a\u0020team\u0020with\u0020the\u0020given\u0020ID\u0020exists\u0020in\u0020the\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_hasTeamWithID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AdeleteTeam\u0028\u0029",
             "name": "deleteTeam",
-            "summary": "",
+            "summary": "Delete\u0020a\u0020team\u0020from\u0020the\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_deleteTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AaddStage\u0028\u0029",
             "name": "addStage",
-            "summary": "",
+            "summary": "Add\u0020a\u0020new\u0020stage\u0020to\u0020the\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_addStage"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetStages\u0028\u0029",
@@ -103,12 +108,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasStageWithID\u0028\u0029",
             "name": "hasStageWithID",
-            "summary": "",
+            "summary": "Check\u0020if\u0020a\u0020stage\u0020with\u0020the\u0020given\u0020ID\u0020exists\u0020in\u0020the\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_hasStageWithID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AdeleteStage\u0028\u0029",
             "name": "deleteStage",
-            "summary": "",
+            "summary": "Delete\u0020a\u0020stage\u0020from\u0020the\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_deleteStage"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AaddClub\u0028\u0029",
@@ -128,18 +133,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasClubWithID\u0028\u0029",
             "name": "hasClubWithID",
-            "summary": "",
+            "summary": "Check\u0020if\u0020a\u0020club\u0020with\u0020the\u0020given\u0020ID\u0020exists\u0020in\u0020the\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_hasClubWithID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AdeleteClub\u0028\u0029",
             "name": "deleteClub",
-            "summary": "",
+            "summary": "Delete\u0020a\u0020club\u0020from\u0020the\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_deleteClub"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "Serialize\u0020the\u0020data\u0020in\u0020JSON\u0020format",
-            "url": "classes/VBCompetitions-Competitions-Competition.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AcompetitionList\u0028\u0029",
             "name": "competitionList",
@@ -153,7 +153,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AvalidateJSON\u0028\u0029",
             "name": "validateJSON",
-            "summary": "Performs\u0020schema\u0020validation\u0020on\u0020the\u0020JSON\u0020data",
+            "summary": "Perform\u0020schema\u0020validation\u0020on\u0020the\u0020JSON\u0020data",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_validateJSON"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AvalidateTeamID\u0028\u0029",
@@ -171,15 +171,15 @@ Search.appendIndex(
             "summary": "Takes\u0020in\u0020a\u0020team\u0020reference\u0020and\u0020validates\u0020that\u0020it\u0020is\u0020valid.\u0020\u0020This\u0020performs\u0020the\u0020following\u0020checks\n\u003Cul\u003E\n\u003Cli\u003EIs\u0020the\u0020reference\u0020syntax\u0020valid\u003C\/li\u003E\n\u003Cli\u003EDoes\u0020the\u0020referenced\u0020Stage\u0020exist\u003C\/li\u003E\n\u003Cli\u003EDoes\u0020the\u0020referenced\u0020Group\u0020exist\u003C\/li\u003E\n\u003Cli\u003EFor\u0020a\u0020League\u0020position\u0020reference,\u0020is\u0020the\u0020position\u0020a\u0020valid\u0020integer\u003C\/li\u003E\n\u003Cli\u003EFor\u0020a\u0020League\u0020position\u0020reference\u0020in\u0020a\u0020\u003Cem\u003Ecompleted\u003C\/em\u003E\u0020League,\u0020is\u0020the\u0020position\u0020in\u0020the\u0020bounds\u0020of\u0020the\u0020number\u0020of\u0020teams\u003C\/li\u003E\n\u003Cli\u003EDoes\u0020the\u0020referenced\u0020Match\u0020exist\u003C\/li\u003E\n\u003Cli\u003EFor\u0020a\u0020Match\u0020winner\/loser,\u0020is\u0020the\u0020result\u0020reference\u0020valid\u003C\/li\u003E\n\u003C\/ul\u003E",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_validateTeamReference"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AteamIdExists\u0028\u0029",
-            "name": "teamIdExists",
-            "summary": "Checks\u0020whether\u0020the\u0020given\u0020team\u0020ID\u0020is\u0020in\u0020the\u0020list\u0020of\u0020teams\u0020for\u0020this\u0020competition",
-            "url": "classes/VBCompetitions-Competitions-Competition.html#method_teamIdExists"
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AstripTeamReferences\u0028\u0029",
+            "name": "stripTeamReferences",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_stripTeamReferences"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AaddTeamReference\u0028\u0029",
-            "name": "addTeamReference",
-            "summary": "Add\u0020a\u0020team\u0020reference\u0020to\u0020the\u0020team\u0020lookup\u0020table,\u0020for\u0020later\u0020lookup\u0020in\u0020resolving\u0020team\u0020ids",
-            "url": "classes/VBCompetitions-Competitions-Competition.html#method_addTeamReference"
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasTeamID\u0028\u0029",
+            "name": "hasTeamID",
+            "summary": "Checks\u0020whether\u0020the\u0020given\u0020team\u0020ID\u0020is\u0020in\u0020the\u0020list\u0020of\u0020teams\u0020for\u0020this\u0020competition",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_hasTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AisComplete\u0028\u0029",
             "name": "isComplete",
@@ -188,213 +188,53 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024version",
             "name": "version",
-            "summary": "The\u0020version\u0020of\u0020schema\u0020that\u0020the\u0020document\u0020conforms\u0020to.\u0020Defaults\u0020to\u00201.0.0",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_version"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024name",
             "name": "name",
-            "summary": "A\u0020name\u0020for\u0020the\u0020competition",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_name"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024notes",
             "name": "notes",
-            "summary": "Free\u0020form\u0020string\u0020to\u0020add\u0020notes\u0020about\u0020the\u0020competition.\u0020\u0020This\u0020can\u0020be\u0020used\u0020for\u0020arbitrary\u0020content\u0020that\u0020various\u0020implementations\u0020can\u0020use",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_notes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024clubs",
             "name": "clubs",
-            "summary": "A\u0020list\u0020of\u0020clubs\u0020that\u0020the\u0020teams\u0020are\u0020in",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_clubs"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024teams",
             "name": "teams",
-            "summary": "The\u0020list\u0020of\u0020all\u0020teams\u0020in\u0020this\u0020competition",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_teams"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024stages",
             "name": "stages",
-            "summary": "The\u0020stages\u0020of\u0020the\u0020competition.\u0020Stages\u0020are\u0020phases\u0020of\u0020a\u0020competition\u0020that\u0020happen\u0020in\u0020order.\u0020\u0020There\u0020may\u0020be\u0020only\u0020one\u0020stage\u0020\u0028e.g.\u0020for\u0020a\u0020flat\u0020league\u0029\u0020or\u0020multiple\u0020in\u0020sequence\n\u0028e.g.\u0020for\u0020a\u0020tournament\u0020with\u0020pools,\u0020then\u0020crossovers,\u0020then\u0020finals\u0029",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_stages"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024team_lookup",
             "name": "team_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020team\u0020IDs\u0020\u0028including\u0020references\u0029\u0020to\u0020the\u0020team",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_team_lookup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024stage_lookup",
             "name": "stage_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020stage\u0020IDs\u0020to\u0020the\u0020stage",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_stage_lookup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024club_lookup",
             "name": "club_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020club\u0020IDs\u0020to\u0020the\u0020club",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_club_lookup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024unknown_team",
             "name": "unknown_team",
-            "summary": "The\u0020\u0022unknown\u0022\u0020team,\u0020typically\u0020for\u0020matching\u0020against",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_unknown_team"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam",
-            "name": "CompetitionTeam",
-            "summary": "A\u0020team\u0020definition",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Contains\u0020the\u0020team\u0020data\u0020of\u0020a\u0020competition,\u0020creating\u0020any\u0020metadata\u0020needed",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method___construct"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AloadFromData\u0028\u0029",
-            "name": "loadFromData",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_loadFromData"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetCompetition\u0028\u0029",
-            "name": "getCompetition",
-            "summary": "Get\u0020the\u0020competition\u0020this\u0020team\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getCompetition"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetID\u0028\u0029",
-            "name": "getID",
-            "summary": "Get\u0020the\u0020ID\u0020for\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetName\u0028\u0029",
-            "name": "getName",
-            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getName"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AsetName\u0028\u0029",
-            "name": "setName",
-            "summary": "Set\u0020the\u0020name\u0020for\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_setName"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetClub\u0028\u0029",
-            "name": "getClub",
-            "summary": "Get\u0020the\u0020club\u0020for\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getClub"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AsetClub\u0028\u0029",
-            "name": "setClub",
-            "summary": "Set\u0020the\u0020club\u0020ID\u0020for\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_setClub"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetNotes\u0028\u0029",
-            "name": "getNotes",
-            "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getNotes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AsetNotes\u0028\u0029",
-            "name": "setNotes",
-            "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_setNotes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetContacts\u0028\u0029",
-            "name": "getContacts",
-            "summary": "Returns\u0020an\u0020array\u0020of\u0020Contacts",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getContacts"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetContactByID\u0028\u0029",
-            "name": "getContactByID",
-            "summary": "Returns\u0020the\u0020Contact\u0020with\u0020the\u0020requested\u0020ID,\u0020or\u0020throws\u0020if\u0020the\u0020ID\u0020is\u0020not\u0020found",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getContactByID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AaddContact\u0028\u0029",
-            "name": "addContact",
-            "summary": "Add\u0020the\u0020contact\u0020to\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_addContact"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AhasContactWithID\u0028\u0029",
-            "name": "hasContactWithID",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_hasContactWithID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetPlayers\u0028\u0029",
-            "name": "getPlayers",
-            "summary": "Get\u0020the\u0020players\u0020for\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getPlayers"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AgetPlayerByID\u0028\u0029",
-            "name": "getPlayerByID",
-            "summary": "Returns\u0020the\u0020Player\u0020with\u0020the\u0020requested\u0020ID,\u0020or\u0020throws\u0020if\u0020the\u0020ID\u0020is\u0020not\u0020found",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_getPlayerByID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AaddPlayer\u0028\u0029",
-            "name": "addPlayer",
-            "summary": "Add\u0020the\u0020player\u0020to\u0020this\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_addPlayer"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AhasPlayerWithID\u0028\u0029",
-            "name": "hasPlayerWithID",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_hasPlayerWithID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AhasPlayers\u0028\u0029",
-            "name": "hasPlayers",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_hasPlayers"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020list\u0020of\u0020team\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#method_jsonSerialize"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AUNKNOWN_TEAM_ID",
-            "name": "UNKNOWN_TEAM_ID",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#constant_UNKNOWN_TEAM_ID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003AUNKNOWN_TEAM_NAME",
-            "name": "UNKNOWN_TEAM_NAME",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#constant_UNKNOWN_TEAM_NAME"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024id",
-            "name": "id",
-            "summary": "A\u0020unique\u0020ID\u0020for\u0020the\u0020team,\u0020e.g.\u0020\u0027TM1\u0027.\u0020This\u0020is\u0020used\u0020in\u0020the\u0020rest\u0020of\u0020the\u0020instance\u0020document\u0020to\u0020specify\u0020the\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_id"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024name",
-            "name": "name",
-            "summary": "The\u0020name\u0020for\u0020the\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_name"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024contacts",
-            "name": "contacts",
-            "summary": "The\u0020contacts\u0020for\u0020the\u0020Team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_contacts"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024players",
-            "name": "players",
-            "summary": "A\u0020list\u0020of\u0020players\u0020for\u0020a\u0020team",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_players"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024club",
-            "name": "club",
-            "summary": "The\u0020club\u0020this\u0020team\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_club"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024notes",
-            "name": "notes",
-            "summary": "Free\u0020form\u0020string\u0020to\u0020add\u0020notes\u0020about\u0020a\u0020team.\u0020\u0020This\u0020can\u0020be\u0020used\u0020for\u0020arbitrary\u0020content\u0020that\u0020various\u0020implementations\u0020can\u0020use",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_notes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024competition",
-            "name": "competition",
-            "summary": "The\u0020Competition\u0020this\u0020team\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_competition"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024contact_lookup",
-            "name": "contact_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020contact\u0020IDs\u0020to\u0020the\u0020contact",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_contact_lookup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionTeam\u003A\u003A\u0024player_lookup",
-            "name": "player_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020player\u0020IDs\u0020to\u0020the\u0020contact",
-            "url": "classes/VBCompetitions-Competitions-CompetitionTeam.html#property_player_lookup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact",
             "name": "Contact",
@@ -408,17 +248,17 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Loads\u0020contact\u0020data\u0020from\u0020an\u0020object",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020contact\u0020data\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Serializes\u0020the\u0020contact\u0020data\u0020into\u0020a\u0020format\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetTeam\u0028\u0029",
             "name": "getTeam",
-            "summary": "",
+            "summary": "Get\u0020the\u0020team\u0020this\u0020contact\u0020belongs\u0020to",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_getTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetID\u0028\u0029",
@@ -443,12 +283,12 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AaddRole\u0028\u0029",
             "name": "addRole",
-            "summary": "Add\u0020the\u0020role\u0020to\u0020this\u0020contact",
+            "summary": "Add\u0020a\u0020role\u0020to\u0020this\u0020contact",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_addRole"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AhasRole\u0028\u0029",
             "name": "hasRole",
-            "summary": "Return\u0020whether\u0020this\u0020contact\u0020has\u0020the\u0020specified\u0020role",
+            "summary": "Check\u0020if\u0020this\u0020contact\u0020has\u0020the\u0020specified\u0020role",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_hasRole"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetEmails\u0028\u0029",
@@ -458,7 +298,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AaddEmail\u0028\u0029",
             "name": "addEmail",
-            "summary": "Add\u0020the\u0020email\u0020addresses\u0020to\u0020this\u0020contact",
+            "summary": "Add\u0020an\u0020email\u0020address\u0020to\u0020this\u0020contact",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_addEmail"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetPhones\u0028\u0029",
@@ -468,78 +308,38 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AaddPhone\u0028\u0029",
             "name": "addPhone",
-            "summary": "",
+            "summary": "Add\u0020a\u0020phone\u0020number\u0020to\u0020this\u0020contact",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_addPhone"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024id",
             "name": "id",
-            "summary": "A\u0020unique\u0020ID\u0020for\u0020this\u0020contact,\u0020e.g.\u0020\u0027TM1Contact1\u0027.\u0020\u0020This\u0020must\u0020be\u0020unique\u0020within\u0020the\u0020team",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Contact.html#property_id"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024name",
             "name": "name",
-            "summary": "The\u0020name\u0020of\u0020this\u0020contact",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Contact.html#property_name"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024roles",
             "name": "roles",
-            "summary": "The\u0020roles\u0020of\u0020this\u0020contact\u0020within\u0020the\u0020team",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Contact.html#property_roles"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024emails",
             "name": "emails",
-            "summary": "The\u0020email\u0020addresses\u0020for\u0020this\u0020contact",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Contact.html#property_emails"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024phones",
             "name": "phones",
-            "summary": "A\u0020telephone\u0020number\u0020for\u0020this\u0020contact.\u0020\u0020If\u0020a\u0020contact\u0020has\u0020multiple\u0020phone\u0020numbers\u0020then\u0020add\u0020them\u0020as\u0020another\u0020contact",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Contact.html#property_phones"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024team",
             "name": "team",
-            "summary": "The\u0020team\u0020this\u0020contact\u0020belongs\u0020to",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Contact.html#property_team"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole",
-            "name": "ContactRole",
-            "summary": "The\u0020role\u0020of\u0020the\u0020contact\u0020within\u0020a\u0020team.\u0020\u0020There\u0020may\u0020me\u0020multiple\u0020contacts\u0020with\u0020the\u0020same\u0020role",
-            "url": "classes/VBCompetitions-Competitions-ContactRole.html"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ATREASURER",
-            "name": "TREASURER",
-            "summary": "A\u0020team\u0020treasurer",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ASECRETARY",
-            "name": "SECRETARY",
-            "summary": "A\u0020team\u0020secretary",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AMANAGER",
-            "name": "MANAGER",
-            "summary": "A\u0020team\u0020manager",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ACAPTAIN",
-            "name": "CAPTAIN",
-            "summary": "A\u0020team\u0020captain",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ACOACH",
-            "name": "COACH",
-            "summary": "A\u0020team\u0020coach",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AASSISTANT_COACH",
-            "name": "ASSISTANT_COACH",
-            "summary": "A\u0020team\u0020assistant\u0020coach",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AMEDIC",
-            "name": "MEDIC",
-            "summary": "A\u0020team\u0020medic",
-            "url": ""
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Crossover",
             "name": "Crossover",
@@ -550,446 +350,6 @@ Search.appendIndex(
             "name": "__construct",
             "summary": "Contains\u0020the\u0020group\u0020data\u0020of\u0020a\u0020stage,\u0020creating\u0020any\u0020metadata\u0020needed",
             "url": "classes/VBCompetitions-Competitions-Crossover.html#method___construct"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group",
-            "name": "Group",
-            "summary": "A\u0020group\u0020within\u0020a\u0020stage\u0020of\u0020the\u0020competition",
-            "url": "classes/VBCompetitions-Competitions-Group.html"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Contains\u0020the\u0020group\u0020data\u0020of\u0020a\u0020stage,\u0020creating\u0020any\u0020metadata\u0020needed",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method___construct"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AloadFromData\u0028\u0029",
-            "name": "loadFromData",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_loadFromData"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020group\u0020data\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_jsonSerialize"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetStage\u0028\u0029",
-            "name": "getStage",
-            "summary": "Get\u0020the\u0020stage\u0020this\u0020group\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getStage"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetID\u0028\u0029",
-            "name": "getID",
-            "summary": "Get\u0020the\u0020ID\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetName\u0028\u0029",
-            "name": "getName",
-            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getName"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AsetName\u0028\u0029",
-            "name": "setName",
-            "summary": "Set\u0020the\u0020group\u0020Name",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_setName"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetNotes\u0028\u0029",
-            "name": "getNotes",
-            "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getNotes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AsetNotes\u0028\u0029",
-            "name": "setNotes",
-            "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_setNotes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetDescription\u0028\u0029",
-            "name": "getDescription",
-            "summary": "Get\u0020the\u0020description\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getDescription"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AsetDescription\u0028\u0029",
-            "name": "setDescription",
-            "summary": "Set\u0020the\u0020description\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_setDescription"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AsetKnockoutConfig\u0028\u0029",
-            "name": "setKnockoutConfig",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_setKnockoutConfig"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AsetLeagueConfig\u0028\u0029",
-            "name": "setLeagueConfig",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_setLeagueConfig"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetType\u0028\u0029",
-            "name": "getType",
-            "summary": "Get\u0020the\u0020type\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getType"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetMatchType\u0028\u0029",
-            "name": "getMatchType",
-            "summary": "Get\u0020the\u0020match\u0020type\u0020for\u0020the\u0020matches\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getMatchType"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetSetConfig\u0028\u0029",
-            "name": "getSetConfig",
-            "summary": "Returns\u0020the\u0020set\u0020config\u0020that\u0020defines\u0020a\u0020set\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getSetConfig"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AsetSetConfig\u0028\u0029",
-            "name": "setSetConfig",
-            "summary": "Set\u0020the\u0020set\u0020config\u0020that\u0020defines\u0020a\u0020set\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_setSetConfig"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetDrawsAllowed\u0028\u0029",
-            "name": "getDrawsAllowed",
-            "summary": "Returns\u0020whether\u0020draws\u0020are\u0020allowed\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getDrawsAllowed"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AsetDrawsAllowed\u0028\u0029",
-            "name": "setDrawsAllowed",
-            "summary": "Sets\u0020whether\u0020draws\u0020are\u0020allowed\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_setDrawsAllowed"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetCompetition\u0028\u0029",
-            "name": "getCompetition",
-            "summary": "Get\u0020the\u0020competition\u0020this\u0020group\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getCompetition"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AaddMatch\u0028\u0029",
-            "name": "addMatch",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_addMatch"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AaddBreak\u0028\u0029",
-            "name": "addBreak",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_addBreak"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetMatches\u0028\u0029",
-            "name": "getMatches",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020matches\u0020from\u0020this\u0020Group,\u0020where\u0020the\u0020list\u0020depends\u0020on\u0020the\u0020input\u0020parameters\u0020and\u0020on\u0020the\u0020type\u0020of\u0020the\u0020MatchContainer",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getMatches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetTeamIDs\u0028\u0029",
-            "name": "getTeamIDs",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020teams\u0020from\u0020this\u0020match\u0020container.\u0020\u0020If\u0020all\u0020teams\u0020are\u0020known\u0020then\u0020the\u0020list\u0020is\u0020sorted\u0020by\u0020team\u0020name",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getTeamIDs"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetMaybeTeamIDs\u0028\u0029",
-            "name": "getMaybeTeamIDs",
-            "summary": "Go\u0020through\u0020the\u0020stages\u003Agroups\u0020referenced\u0020by\u0020this\u0020group\u0020and\u0020build\u0020a\u0020list\u0020of\u0020teams\u0020that\u0020could\u0020reach\u0020this\u0020group.",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getMaybeTeamIDs"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AbuildStageGroupLookup\u0028\u0029",
-            "name": "buildStageGroupLookup",
-            "summary": "Build\u0020the\u0020lookup\u0020table\u0020of\u0020references\u0020where\u0020the\u0020key\u0020is\u0020the\u0020string\u0020\u0022\u007Bstage\u0020ID\u007D\u003A\u007Bgroup\u0020ID\u007D\u0022\u0020and\u0020the\u0020value\u0020is\u0020an\u0020object\u0020linking\u0020to\nthe\u0020Stage\u0020and\u0020the\u0020Group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_buildStageGroupLookup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetMatchById\u0028\u0029",
-            "name": "getMatchById",
-            "summary": "Returns\u0020the\u0020match\u0020with\u0020the\u0020specified\u0020ID",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getMatchById"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AhasMatchWithID\u0028\u0029",
-            "name": "hasMatchWithID",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_hasMatchWithID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AisComplete\u0028\u0029",
-            "name": "isComplete",
-            "summary": "Returns\u0020whether\u0020the\u0020group\u0020is\u0020complete,\u0020i.e.\u0020all\u0020matches\u0020in\u0020the\u0020group\u0020are\u0020complete.",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_isComplete"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AinvalidateCompletenessCache\u0028\u0029",
-            "name": "invalidateCompletenessCache",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_invalidateCompletenessCache"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveCourts\u0028\u0029",
-            "name": "matchesHaveCourts",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020courts",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveCourts"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveDates\u0028\u0029",
-            "name": "matchesHaveDates",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020dates",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveDates"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveDurations\u0028\u0029",
-            "name": "matchesHaveDurations",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020a\u0020duration",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveDurations"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveMVPs\u0028\u0029",
-            "name": "matchesHaveMVPs",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020MVPs",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveMVPs"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveManagers\u0028\u0029",
-            "name": "matchesHaveManagers",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020court\u0020managers",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveManagers"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveNotes\u0028\u0029",
-            "name": "matchesHaveNotes",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020notes",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveNotes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveOfficials\u0028\u0029",
-            "name": "matchesHaveOfficials",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020officials",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveOfficials"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveStarts\u0028\u0029",
-            "name": "matchesHaveStarts",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020start\u0020times",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveStarts"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveVenues\u0028\u0029",
-            "name": "matchesHaveVenues",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020venues",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveVenues"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AmatchesHaveWarmups\u0028\u0029",
-            "name": "matchesHaveWarmups",
-            "summary": "Returns\u0020whether\u0020the\u0020matches\u0020in\u0020this\u0020group\u0020have\u0020warmup\u0020times",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_matchesHaveWarmups"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AallTeamsKnown\u0028\u0029",
-            "name": "allTeamsKnown",
-            "summary": "Returns\u0020whether\u0020all\u0020of\u0020the\u0020teams\u0020in\u0020this\u0020group\u0020are\u0020known\u0020yet\u0020or\u0020not",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_allTeamsKnown"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AteamHasMatches\u0028\u0029",
-            "name": "teamHasMatches",
-            "summary": "Returns\u0020whether\u0020the\u0020specified\u0020team\u0020is\u0020known\u0020to\u0020have\u0020matches\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_teamHasMatches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AteamHasOfficiating\u0028\u0029",
-            "name": "teamHasOfficiating",
-            "summary": "Returns\u0020whether\u0020the\u0020specified\u0020team\u0020is\u0020known\u0020to\u0020have\u0020officiating\u0020duties\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_teamHasOfficiating"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AteamMayHaveMatches\u0028\u0029",
-            "name": "teamMayHaveMatches",
-            "summary": "Returns\u0020whether\u0020the\u0020specified\u0020team\u0020may\u0020have\u0020matches\u0020or\u0020officiating\u0020duties\u0020in\u0020this\u0020group.\u0020\u0020If\u0020the\u0020group\u0020is\u0020complete\nthen\u0020this\u0020returns\u0020false\u0020\u0028as\u0020there\u0020is\u0020no\u0020doubt\u003B\u0020calls\u0020to\u0020teamHasMatches\u0028\u0029\u0020or\u0020teamHasOfficiating\u0028\u0029\u0020will\u0020give\u0020a\u0020definite\u0020answer\u0029",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_teamMayHaveMatches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetMatchDates\u0028\u0029",
-            "name": "getMatchDates",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020match\u0020dates\u0020in\u0020this\u0020Group.\u0020\u0020If\u0020a\u0020team\u0020ID\u0020is\u0020given\u0020then\u0020return\u0020dates\u0020for\u0020just\u0020that\u0020team.",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getMatchDates"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetMatchesOnDate\u0028\u0029",
-            "name": "getMatchesOnDate",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020matches\u0020on\u0020the\u0020specified\u0020date\u0020in\u0020this\u0020Group.\u0020\u0020If\u0020a\u0020team\u0020ID\u0020is\u0020given\u0020then\u0020return\u0020matches\u0020for\u0020just\u0020that\u0020team.",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getMatchesOnDate"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024id",
-            "name": "id",
-            "summary": "A\u0020unique\u0020ID\u0020for\u0020this\u0020group,\u0020e.g.\u0020\u0027P1\u0027",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_id"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024name",
-            "name": "name",
-            "summary": "Descriptive\u0020title\u0020for\u0020the\u0020group,\u0020e.g.\u0020\u0027Pool\u00201\u0027",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_name"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024notes",
-            "name": "notes",
-            "summary": "Free\u0020form\u0020string\u0020to\u0020add\u0020notes\u0020about\u0020this\u0020group.\u0020\u0020This\u0020can\u0020be\u0020used\u0020for\u0020arbitrary\u0020content\u0020that\u0020various\u0020implementations\u0020can\u0020use",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_notes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024description",
-            "name": "description",
-            "summary": "An\u0020array\u0020of\u0020string\u0020values\u0020as\u0020a\u0020verbose\u0020description\u0020of\u0020the\u0020nature\u0020of\u0020the\u0020group,\u0020e.g.\u0020\u0027For\u0020the\u0020pool\u0020stage,\u0020teams\u0020will\u0020play\u0020each\u0020other\u0020once,\u0020with\u0020the\u0020top\u00202\u0020teams\u0020going\u0020through\u0020to....\u0027",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_description"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024type",
-            "name": "type",
-            "summary": "The\u0020type\u0020of\u0020competition\u0020applying\u0020to\u0020this\u0020group,\u0020which\u0020may\u0020dictate\u0020how\u0020the\u0020results\u0020are\u0020processed.\u0020If\u0020this\u0020has\u0020the\u0020value\u0020\u0027league\u0027\u0020then\u0020the\u0020property\u0020\u0027league\u0027\u0020must\u0020be\u0020defined",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_type"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024knockout_config",
-            "name": "knockout_config",
-            "summary": "Configuration\u0020for\u0020the\u0020knockout\u0020matches",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_knockout_config"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024league_config",
-            "name": "league_config",
-            "summary": "Configuration\u0020for\u0020the\u0020league",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_league_config"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024match_type",
-            "name": "match_type",
-            "summary": "Are\u0020the\u0020matches\u0020played\u0020in\u0020sets\u0020or\u0020continuous\u0020points.\u0020If\u0020this\u0020has\u0020the\u0020value\u0020\u0027sets\u0027\u0020then\u0020the\u0020property\u0020\u0027sets\u0027\u0020must\u0020be\u0020defined",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_match_type"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024sets",
-            "name": "sets",
-            "summary": "Configuration\u0020defining\u0020the\u0020nature\u0020of\u0020a\u0020set",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_sets"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024draws_allowed",
-            "name": "draws_allowed",
-            "summary": "Sets\u0020whether\u0020drawn\u0020matches\u0020are\u0020allowed",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_draws_allowed"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches",
-            "name": "matches",
-            "summary": "An\u0020array\u0020of\u0020matches\u0020in\u0020this\u0020group\u0020\u0028or\u0020breaks\u0020in\u0020play\u0029",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024is_complete",
-            "name": "is_complete",
-            "summary": "Whether\u0020this\u0020group\u0020is\u0020complete,\u0020i.e.\u0020have\u0020all\u0020matches\u0020been\u0020played",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_is_complete"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024is_complete_known",
-            "name": "is_complete_known",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_is_complete_known"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024stage",
-            "name": "stage",
-            "summary": "The\u0020Stage\u0020this\u0020Group\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_stage"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024competition",
-            "name": "competition",
-            "summary": "The\u0020competition\u0020this\u0020Group\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_competition"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024team_has_matches_lookup",
-            "name": "team_has_matches_lookup",
-            "summary": "Lookup\u0020table\u0020for\u0020whether\u0020the\u0020team\u0020has\u0020matches\u0020they\u0027re\u0020playing\u0020in.\u0020\u0020The\u0020key\u0020is\u0020the\u0020team\u0020ID\u0020adn\u0020the\u0020value\u0020is\u0020a\u0020bool",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_team_has_matches_lookup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024team_has_officiating_lookup",
-            "name": "team_has_officiating_lookup",
-            "summary": "Lookup\u0020table\u0020for\u0020whether\u0020the\u0020team\u0020have\u0020matches\u0020to\u0020officiate.\u0020\u0020The\u0020key\u0020is\u0020the\u0020team\u0020ID\u0020adn\u0020the\u0020value\u0020is\u0020a\u0020bool",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_team_has_officiating_lookup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024team_references",
-            "name": "team_references",
-            "summary": "An\u0020array\u0020of\u0020team\u0020references\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_team_references"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024team_ids",
-            "name": "team_ids",
-            "summary": "An\u0020array\u0020of\u0020team\u0020IDs\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_team_ids"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024playing_team_ids",
-            "name": "playing_team_ids",
-            "summary": "An\u0020array\u0020of\u0020team\u0020IDs\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_playing_team_ids"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024officiating_team_ids",
-            "name": "officiating_team_ids",
-            "summary": "An\u0020array\u0020of\u0020team\u0020IDs\u0020in\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_officiating_team_ids"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024stg_grp_lookup",
-            "name": "stg_grp_lookup",
-            "summary": "A\u0020lookup\u0020table\u0020of\u0020references\u0020where\u0020the\u0020key\u0020is\u0020the\u0020string\u0020\u0022\u007Bstage\u0020ID\u007D\u003A\u007Bgroup\u0020ID\u007D\u0022\u0020and\u0020the\u0020value\u0020is\u0020an\u0020object\u0020linking\u0020to\u0020the\u0020Stage\u0020and\u0020Group",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_stg_grp_lookup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024maybe_teams",
-            "name": "maybe_teams",
-            "summary": "A\u0020cached\u0020list\u0020of\u0020the\u0020teams\u0020that\u0020might\u0020be\u0020in\u0020this\u0020group\u0020via\u0020a\u0020reference",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_maybe_teams"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_courts",
-            "name": "matches_have_courts",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_courts"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_dates",
-            "name": "matches_have_dates",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_dates"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_durations",
-            "name": "matches_have_durations",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_durations"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_mvps",
-            "name": "matches_have_mvps",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_mvps"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_managers",
-            "name": "matches_have_managers",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_managers"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_notes",
-            "name": "matches_have_notes",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_notes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_officials",
-            "name": "matches_have_officials",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_officials"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_starts",
-            "name": "matches_have_starts",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_starts"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_venues",
-            "name": "matches_have_venues",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_venues"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024matches_have_warmups",
-            "name": "matches_have_warmups",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_matches_have_warmups"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003A\u0024match_lookup",
-            "name": "match_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020match\u0020IDs\u0020to\u0020that\u0020match",
-            "url": "classes/VBCompetitions-Competitions-Group.html#property_match_lookup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\MatchType",
-            "name": "MatchType",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-MatchType.html"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\MatchType\u003A\u003ACONTINUOUS",
-            "name": "CONTINUOUS",
-            "summary": "",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\MatchType\u003A\u003ASETS",
-            "name": "SETS",
-            "summary": "",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\GroupType",
-            "name": "GroupType",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-GroupType.html"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\GroupType\u003A\u003ALEAGUE",
-            "name": "LEAGUE",
-            "summary": "",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\GroupType\u003A\u003ACROSSOVER",
-            "name": "CROSSOVER",
-            "summary": "",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\GroupType\u003A\u003AKNOCKOUT",
-            "name": "KNOCKOUT",
-            "summary": "",
-            "url": ""
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\GroupBreak",
             "name": "GroupBreak",
@@ -1321,6 +681,16 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-GroupMatch.html#method_hasNotes"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003AsetFriendly\u0028\u0029",
+            "name": "setFriendly",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-GroupMatch.html#method_setFriendly"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003AisFriendly\u0028\u0029",
+            "name": "isFriendly",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-GroupMatch.html#method_isFriendly"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003AsetScores\u0028\u0029",
             "name": "setScores",
             "summary": "Set\u0020the\u0020scores\u0020for\u0020this\u0020match",
@@ -1441,6 +811,11 @@ Search.appendIndex(
             "summary": "The\u0020court\u0020manager\u0020in\u0020charge\u0020of\u0020this\u0020match",
             "url": "classes/VBCompetitions-Competitions-GroupMatch.html#property_manager"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003A\u0024friendly",
+            "name": "friendly",
+            "summary": "Whether\u0020the\u0020match\u0020is\u0020a\u0020friendly.\u0020\u0020These\u0020matches\u0020do\u0020not\u0020contribute\u0020toward\u0020a\u0020league\u0020position.\u0020\u0020If\u0020a\u0020team\u0020only\u0020participates\u0020in\u0020friendly\u0020matches\u0020then\u0020they\u0020are\u0020not\u0020included\u0020in\u0020the\u0020league\u0020table\u0020at\u0020all",
+            "url": "classes/VBCompetitions-Competitions-GroupMatch.html#property_friendly"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003A\u0024notes",
             "name": "notes",
             "summary": "Free\u0020form\u0020string\u0020to\u0020add\u0020notes\u0020about\u0020a\u0020match",
@@ -1493,47 +868,47 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML",
             "name": "HTML",
-            "summary": "",
+            "summary": "Class\u0020HTML",
             "url": "classes/VBCompetitions-Competitions-HTML.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AgenTableCell\u0028\u0029",
             "name": "genTableCell",
-            "summary": "",
+            "summary": "Generates\u0020a\u0020table\u0020cell\u0020object.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#method_genTableCell"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AenrichLeagueConfig\u0028\u0029",
             "name": "enrichLeagueConfig",
-            "summary": "",
+            "summary": "Enriches\u0020league\u0020table\u0020configuration.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#method_enrichLeagueConfig"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AenrichMatchConfig\u0028\u0029",
             "name": "enrichMatchConfig",
-            "summary": "",
+            "summary": "Enriches\u0020match\u0020configuration.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#method_enrichMatchConfig"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AgenerateLeagueTableHeadings\u0028\u0029",
             "name": "generateLeagueTableHeadings",
-            "summary": "",
+            "summary": "Generates\u0020league\u0020table\u0020headings.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#method_generateLeagueTableHeadings"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AgenerateLeagueTableRow\u0028\u0029",
             "name": "generateLeagueTableRow",
-            "summary": "",
+            "summary": "Generates\u0020a\u0020league\u0020table\u0020row.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#method_generateLeagueTableRow"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AgenerateMatchListHeadings\u0028\u0029",
             "name": "generateMatchListHeadings",
-            "summary": "",
+            "summary": "Generates\u0020match\u0020list\u0020headings.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#method_generateMatchListHeadings"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AgenerateMatchRow\u0028\u0029",
             "name": "generateMatchRow",
-            "summary": "",
+            "summary": "Generates\u0020a\u0020match\u0020row.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#method_generateMatchRow"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AgenerateBreakRow\u0028\u0029",
             "name": "generateBreakRow",
-            "summary": "",
+            "summary": "Generates\u0020a\u0020break\u0020row.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#method_generateBreakRow"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AgetMatchesHTML\u0028\u0029",
@@ -1568,7 +943,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003ALEAGUE_COLUMN_POSITION",
             "name": "LEAGUE_COLUMN_POSITION",
-            "summary": "",
+            "summary": "League\u0020table\u0020column\u0020identifiers.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#constant_LEAGUE_COLUMN_POSITION"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003ALEAGUE_COLUMN_TEAM",
@@ -1633,7 +1008,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AMATCH_COLUMN_AWAY_SCORE",
             "name": "MATCH_COLUMN_AWAY_SCORE",
-            "summary": "",
+            "summary": "Match\u0020list\u0020column\u0020identifiers.",
             "url": "classes/VBCompetitions-Competitions-HTML.html#constant_MATCH_COLUMN_AWAY_SCORE"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\HTML\u003A\u003AMATCH_COLUMN_AWAY_TEAM",
@@ -1738,7 +1113,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Load\u0020data\u0020from\u0020an\u0020object\u0020into\u0020the\u0020IfUnknown\u0020instance",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AjsonSerialize\u0028\u0029",
@@ -1746,119 +1121,124 @@ Search.appendIndex(
             "summary": "Return\u0020the\u0020\u0022ifUnknown\u0022\u0020data\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_jsonSerialize"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetStage\u0028\u0029",
+            "name": "getStage",
+            "summary": "Get\u0020the\u0020stage\u0020this\u0020IfUnknown\u0020belongs\u0020to",
+            "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getStage"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetCompetition\u0028\u0029",
             "name": "getCompetition",
-            "summary": "",
+            "summary": "Get\u0020the\u0020competition\u0020this\u0020IfUnknown\u0020belongs\u0020to",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getCompetition"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetDescription\u0028\u0029",
             "name": "getDescription",
-            "summary": "",
+            "summary": "Get\u0020the\u0020description\u0020of\u0020this\u0020IfUnknown",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getDescription"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AaddMatch\u0028\u0029",
             "name": "addMatch",
-            "summary": "",
+            "summary": "Add\u0020a\u0020match\u0020to\u0020this\u0020IfUnknown",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_addMatch"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AaddBreak\u0028\u0029",
             "name": "addBreak",
-            "summary": "",
+            "summary": "Add\u0020a\u0020break\u0020to\u0020this\u0020IfUnknown",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_addBreak"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetMatches\u0028\u0029",
             "name": "getMatches",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020matches\u0020from\u0020this\u0020match\u0020container,\u0020where\u0020the\u0020list\u0020depends\u0020on\u0020the\u0020input\u0020parameters\u0020and\u0020on\u0020the\u0020type\u0020of\u0020the\u0020MatchContainer",
+            "summary": "Get\u0020the\u0020matches\u0020in\u0020this\u0020IfUnknown",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatches"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AhasMatchWithID\u0028\u0029",
             "name": "hasMatchWithID",
-            "summary": "",
+            "summary": "Check\u0020if\u0020a\u0020match\u0020with\u0020the\u0020given\u0020ID\u0020exists\u0020in\u0020this\u0020IfUnknown",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_hasMatchWithID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetTeamIDs\u0028\u0029",
             "name": "getTeamIDs",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020teams\u0020from\u0020this\u0020match\u0020container",
+            "summary": "Get\u0020the\u0020IDs\u0020of\u0020the\u0020teams\u0020in\u0020this\u0020IfUnknown",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getTeamIDs"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetMatchType\u0028\u0029",
             "name": "getMatchType",
-            "summary": "",
+            "summary": "Get\u0020the\u0020match\u0020type\u0020of\u0020this\u0020IfUnknown",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatchType"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetMatchById\u0028\u0029",
             "name": "getMatchById",
-            "summary": "Returns\u0020the\u0020match\u0020with\u0020the\u0020specified\u0020ID",
+            "summary": "Get\u0020the\u0020match\u0020with\u0020the\u0020specified\u0020ID",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatchById"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveCourts\u0028\u0029",
             "name": "matchesHaveCourts",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020courts",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveCourts"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveDates\u0028\u0029",
             "name": "matchesHaveDates",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020dates",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveDates"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveDurations\u0028\u0029",
             "name": "matchesHaveDurations",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020durations",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveDurations"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveManagers\u0028\u0029",
             "name": "matchesHaveManagers",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020managers",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveManagers"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveMVPs\u0028\u0029",
             "name": "matchesHaveMVPs",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020MVPs",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveMVPs"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveNotes\u0028\u0029",
             "name": "matchesHaveNotes",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020notes",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveNotes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveOfficials\u0028\u0029",
             "name": "matchesHaveOfficials",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020officials",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveOfficials"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveStarts\u0028\u0029",
             "name": "matchesHaveStarts",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020starts",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveStarts"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveVenues\u0028\u0029",
             "name": "matchesHaveVenues",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020venues",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveVenues"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveWarmups\u0028\u0029",
             "name": "matchesHaveWarmups",
-            "summary": "",
+            "summary": "Check\u0020if\u0020matches\u0020have\u0020warmups",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveWarmups"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetID\u0028\u0029",
             "name": "getID",
-            "summary": "",
+            "summary": "Get\u0020the\u0020ID\u0020of\u0020this\u0020IfUnknown.\u0020Since\u0020IfUnknown\u0020blocks\u0020don\u0027t\u0020have\u0020a\u0020unique\u0020id,\nthis\u0020is\u0020always\u0020the\u0020string\u0020\u0022unknown\u0022",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003A\u0024description",
             "name": "description",
-            "summary": "An\u0020array\u0020of\u0020string\u0020values\u0020to\u0020be\u0020presented\u0020in\u0020the\u0020case\u0020that\u0020the\u0020teams\u0020in\u0020this\u0020stage\u0020are\u0020not\u0020yet\u0020known,\u0020typically\u0020as\u0020an\u0020explanation\u0020of\u0020what\u0020this\u0020stage\u0020will\u0020contain\u0020\u0028e.g.\u0020\u0027The\u0020crossover\u0020games\u0020will\u0020be\u0020between\u0020the\u0020top\u0020two\u0020teams\u0020in\u0020each\u0020pool\u0027\u0029",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#property_description"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003A\u0024matches",
             "name": "matches",
-            "summary": "An\u0020array\u0020of\u0020matches\u0020in\u0020this\u0020group\u0020\u0028or\u0020breaks\u0020in\u0020play\u0029",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#property_matches"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003A\u0024stage",
             "name": "stage",
-            "summary": "The\u0020Stage\u0020this\u0020IfUnknown\u0020is\u0020in",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#property_stage"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003A\u0024matches_have_courts",
@@ -1913,7 +1293,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003A\u0024match_lookup",
             "name": "match_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020match\u0020IDs\u0020to\u0020that\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#property_match_lookup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak",
@@ -1923,82 +1303,82 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Contains\u0020the\u0020match\u0020break\u0020data",
+            "summary": "Initializes\u0020the\u0020IfUnknownBreak\u0020instance",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Loads\u0020data\u0020from\u0020an\u0020object\u0020into\u0020the\u0020IfUnknownBreak\u0020instance",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020match\u0020break\u0020data\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Returns\u0020the\u0020match\u0020break\u0020data\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AgetIfUnknown\u0028\u0029",
             "name": "getIfUnknown",
-            "summary": "Get\u0020the\u0020IfUnknown\u0020this\u0020break\u0020is\u0020in",
+            "summary": "Retrieves\u0020the\u0020IfUnknown\u0020instance\u0020this\u0020break\u0020is\u0020associated\u0020with",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_getIfUnknown"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AsetStart\u0028\u0029",
             "name": "setStart",
-            "summary": "Set\u0020the\u0020start\u0020time\u0020for\u0020this\u0020break",
+            "summary": "Sets\u0020the\u0020start\u0020time\u0020for\u0020this\u0020break",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_setStart"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AgetStart\u0028\u0029",
             "name": "getStart",
-            "summary": "Get\u0020the\u0020start\u0020time\u0020for\u0020this\u0020break",
+            "summary": "Retrieves\u0020the\u0020start\u0020time\u0020for\u0020this\u0020break",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_getStart"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AsetDate\u0028\u0029",
             "name": "setDate",
-            "summary": "Set\u0020the\u0020date\u0020for\u0020this\u0020break",
+            "summary": "Sets\u0020the\u0020date\u0020for\u0020this\u0020break",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_setDate"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AgetDate\u0028\u0029",
             "name": "getDate",
-            "summary": "Get\u0020the\u0020date\u0020for\u0020this\u0020break",
+            "summary": "Retrieves\u0020the\u0020date\u0020for\u0020this\u0020break",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_getDate"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AsetDuration\u0028\u0029",
             "name": "setDuration",
-            "summary": "Set\u0020the\u0020duration\u0020for\u0020this\u0020break",
+            "summary": "Sets\u0020the\u0020duration\u0020for\u0020this\u0020break",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_setDuration"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AgetDuration\u0028\u0029",
             "name": "getDuration",
-            "summary": "Get\u0020the\u0020duration\u0020for\u0020this\u0020break",
+            "summary": "Retrieves\u0020the\u0020duration\u0020for\u0020this\u0020break",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_getDuration"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AsetName\u0028\u0029",
             "name": "setName",
-            "summary": "Set\u0020the\u0020name\u0020for\u0020this\u0020break",
+            "summary": "Sets\u0020the\u0020name\u0020for\u0020this\u0020break",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_setName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003AgetName\u0028\u0029",
             "name": "getName",
-            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020break",
+            "summary": "Retrieves\u0020the\u0020name\u0020for\u0020this\u0020break",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#method_getName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003A\u0024start",
             "name": "start",
-            "summary": "The\u0020start\u0020time\u0020for\u0020the\u0020break",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#property_start"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003A\u0024date",
             "name": "date",
-            "summary": "The\u0020date\u0020of\u0020the\u0020break",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#property_date"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003A\u0024duration",
             "name": "duration",
-            "summary": "The\u0020duration\u0020of\u0020the\u0020break",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#property_duration"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003A\u0024name",
             "name": "name",
-            "summary": "The\u0020name\u0020for\u0020the\u0020break,\u0020e.g.\u0020\u0027Lunch\u0020break\u0027",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownBreak.html#property_name"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownBreak\u003A\u003A\u0024if_unknown",
@@ -2018,7 +1398,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Loads\u0020data\u0020from\u0020an\u0020object\u0020into\u0020the\u0020IfUnknownMatch\u0020instance",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AjsonSerialize\u0028\u0029",
@@ -2033,187 +1413,197 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetGroup\u0028\u0029",
             "name": "getGroup",
-            "summary": "",
+            "summary": "Get\u0020the\u0020\u0022IfUnknown\u0022\u0020this\u0020match\u0020is\u0020in",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getGroup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetComplete\u0028\u0029",
             "name": "setComplete",
-            "summary": "",
+            "summary": "Set\u0020the\u0020completion\u0020status\u0020of\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setComplete"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AisComplete\u0028\u0029",
             "name": "isComplete",
-            "summary": "",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020is\u0020complete",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_isComplete"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AisDraw\u0028\u0029",
             "name": "isDraw",
-            "summary": "",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020is\u0020a\u0020draw",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_isDraw"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetID\u0028\u0029",
             "name": "getID",
-            "summary": "",
+            "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetCourt\u0028\u0029",
             "name": "setCourt",
-            "summary": "",
+            "summary": "Set\u0020the\u0020court\u0020where\u0020the\u0020match\u0020takes\u0020place",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setCourt"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetCourt\u0028\u0029",
             "name": "getCourt",
-            "summary": "",
+            "summary": "Get\u0020the\u0020court\u0020where\u0020the\u0020match\u0020takes\u0020place",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getCourt"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetVenue\u0028\u0029",
             "name": "setVenue",
-            "summary": "",
+            "summary": "Set\u0020the\u0020venue\u0020where\u0020the\u0020match\u0020takes\u0020place",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setVenue"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetVenue\u0028\u0029",
             "name": "getVenue",
-            "summary": "",
+            "summary": "Get\u0020the\u0020venue\u0020where\u0020the\u0020match\u0020takes\u0020place",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getVenue"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetDate\u0028\u0029",
             "name": "setDate",
-            "summary": "",
+            "summary": "Set\u0020the\u0020date\u0020of\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setDate"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetDate\u0028\u0029",
             "name": "getDate",
-            "summary": "",
+            "summary": "Get\u0020the\u0020date\u0020of\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getDate"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetWarmup\u0028\u0029",
             "name": "setWarmup",
-            "summary": "",
+            "summary": "Set\u0020the\u0020warmup\u0020start\u0020time\u0020of\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setWarmup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetWarmup\u0028\u0029",
             "name": "getWarmup",
-            "summary": "",
+            "summary": "Get\u0020the\u0020warmup\u0020start\u0020time\u0020of\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getWarmup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetDuration\u0028\u0029",
             "name": "setDuration",
-            "summary": "",
+            "summary": "Set\u0020the\u0020duration\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setDuration"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetDuration\u0028\u0029",
             "name": "getDuration",
-            "summary": "",
+            "summary": "Get\u0020the\u0020duration\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getDuration"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetStart\u0028\u0029",
             "name": "setStart",
-            "summary": "",
+            "summary": "Set\u0020the\u0020start\u0020time\u0020of\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setStart"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetStart\u0028\u0029",
             "name": "getStart",
-            "summary": "",
+            "summary": "Get\u0020the\u0020start\u0020time\u0020of\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getStart"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetManager\u0028\u0029",
             "name": "setManager",
-            "summary": "",
+            "summary": "Set\u0020the\u0020manager\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setManager"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetManager\u0028\u0029",
             "name": "getManager",
-            "summary": "",
+            "summary": "Get\u0020the\u0020manager\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getManager"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetMVP\u0028\u0029",
             "name": "setMVP",
-            "summary": "",
+            "summary": "Set\u0020the\u0020Most\u0020Valuable\u0020Player\u0020\u0028MVP\u0029\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setMVP"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetMVP\u0028\u0029",
             "name": "getMVP",
-            "summary": "",
+            "summary": "Get\u0020the\u0020Most\u0020Valuable\u0020Player\u0020\u0028MVP\u0029\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getMVP"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetNotes\u0028\u0029",
             "name": "setNotes",
-            "summary": "",
+            "summary": "Set\u0020notes\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setNotes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetNotes\u0028\u0029",
             "name": "getNotes",
-            "summary": "",
+            "summary": "Get\u0020notes\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getNotes"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetFriendly\u0028\u0029",
+            "name": "setFriendly",
+            "summary": "Set\u0020whether\u0020the\u0020match\u0020is\u0020a\u0020friendly\u0020match",
+            "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setFriendly"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AisFriendly\u0028\u0029",
+            "name": "isFriendly",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020is\u0020a\u0020friendly\u0020match",
+            "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_isFriendly"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetOfficials\u0028\u0029",
             "name": "setOfficials",
-            "summary": "",
+            "summary": "Set\u0020the\u0020officials\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setOfficials"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetOfficials\u0028\u0029",
             "name": "getOfficials",
-            "summary": "",
+            "summary": "Get\u0020the\u0020officials\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getOfficials"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AhasOfficials\u0028\u0029",
             "name": "hasOfficials",
-            "summary": "",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020has\u0020officials\u0020assigned",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_hasOfficials"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetWinnerTeamId\u0028\u0029",
             "name": "getWinnerTeamId",
-            "summary": "",
+            "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020winning\u0020team",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getWinnerTeamId"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetLoserTeamId\u0028\u0029",
             "name": "getLoserTeamId",
-            "summary": "",
+            "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020losing\u0020team",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getLoserTeamId"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetHomeTeamScores\u0028\u0029",
             "name": "getHomeTeamScores",
-            "summary": "",
+            "summary": "Get\u0020the\u0020scores\u0020of\u0020the\u0020home\u0020team",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getHomeTeamScores"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetAwayTeamScores\u0028\u0029",
             "name": "getAwayTeamScores",
-            "summary": "",
+            "summary": "Get\u0020the\u0020scores\u0020of\u0020the\u0020away\u0020team",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getAwayTeamScores"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetHomeTeamSets\u0028\u0029",
             "name": "getHomeTeamSets",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020sets\u0020won\u0020by\u0020the\u0020home\u0020team",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getHomeTeamSets"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetAwayTeamSets\u0028\u0029",
             "name": "getAwayTeamSets",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020sets\u0020won\u0020by\u0020the\u0020away\u0020team",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getAwayTeamSets"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetAwayTeam\u0028\u0029",
             "name": "setAwayTeam",
-            "summary": "",
+            "summary": "Set\u0020the\u0020away\u0020team\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setAwayTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetAwayTeam\u0028\u0029",
             "name": "getAwayTeam",
-            "summary": "",
+            "summary": "Get\u0020the\u0020away\u0020team\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getAwayTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetHomeTeam\u0028\u0029",
             "name": "setHomeTeam",
-            "summary": "",
+            "summary": "Set\u0020the\u0020home\u0020team\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setHomeTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetHomeTeam\u0028\u0029",
             "name": "getHomeTeam",
-            "summary": "",
+            "summary": "Get\u0020the\u0020home\u0020team\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getHomeTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AsetScores\u0028\u0029",
             "name": "setScores",
-            "summary": "Set\u0020the\u0020scores\u0020for\u0020this\u0020match",
+            "summary": "An\u0020IfUnknown\u0020match\u0020has\u0020no\u0020scores\u0020so\u0020this\u0020function\u0020has\u0020no\u0020effect",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_setScores"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024id",
@@ -2223,67 +1613,72 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024court",
             "name": "court",
-            "summary": "The\u0020court\u0020that\u0020a\u0020match\u0020takes\u0020place\u0020on",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_court"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024venue",
             "name": "venue",
-            "summary": "The\u0020venue\u0020that\u0020a\u0020match\u0020takes\u0020place\u0020at",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_venue"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024date",
             "name": "date",
-            "summary": "The\u0020date\u0020of\u0020the\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_date"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024warmup",
             "name": "warmup",
-            "summary": "The\u0020start\u0020time\u0020for\u0020the\u0020warmup",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_warmup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024start",
             "name": "start",
-            "summary": "The\u0020start\u0020time\u0020for\u0020the\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_start"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024duration",
             "name": "duration",
-            "summary": "The\u0020maximum\u0020duration\u0020of\u0020the\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_duration"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024complete",
             "name": "complete",
-            "summary": "Whether\u0020the\u0020match\u0020is\u0020complete.\u0020This\u0020is\u0020kinda\u0020meaningless\u0020for\u0020an\u0020\u0022IfUnknownMatch\u0022\u0020but\u0020it\u0020allows\u0020round\u002Dtripping\u0020the\u0020JSON",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_complete"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024home_team",
             "name": "home_team",
-            "summary": "The\u0020\u0027home\u0027\u0020team\u0020for\u0020the\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_home_team"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024away_team",
             "name": "away_team",
-            "summary": "The\u0020\u0027away\u0027\u0020team\u0020for\u0020the\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_away_team"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024officials",
             "name": "officials",
-            "summary": "The\u0020officials\u0020for\u0020this\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_officials"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024mvp",
             "name": "mvp",
-            "summary": "A\u0020most\u0020valuable\u0020player\u0020award\u0020for\u0020the\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_mvp"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024manager",
             "name": "manager",
-            "summary": "The\u0020court\u0020manager\u0020in\u0020charge\u0020of\u0020this\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_manager"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024friendly",
+            "name": "friendly",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_friendly"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024notes",
             "name": "notes",
-            "summary": "Free\u0020form\u0020string\u0020to\u0020add\u0020notes\u0020about\u0020a\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#property_notes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003A\u0024if_unknown",
@@ -2303,7 +1698,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Knockout\u003A\u003AgetKnockoutConfig\u0028\u0029",
             "name": "getKnockoutConfig",
-            "summary": "",
+            "summary": "Get\u0020the\u0020knockout\u0020config\u0020for\u0020this\u0020group",
             "url": "classes/VBCompetitions-Competitions-Knockout.html#method_getKnockoutConfig"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League",
@@ -2313,127 +1708,137 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Contains\u0020the\u0020group\u0020data\u0020of\u0020a\u0020stage,\u0020creating\u0020any\u0020metadata\u0020needed",
+            "summary": "Constructs\u0020a\u0020new\u0020League\u0020instance.",
             "url": "classes/VBCompetitions-Competitions-League.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AprocessMatches\u0028\u0029",
             "name": "processMatches",
-            "summary": "Summary\u0020of\u0020calculateLeagueTable",
+            "summary": "Processes\u0020matches\u0020to\u0020update\u0020the\u0020league\u0020table.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_processMatches"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AsortLeagueTable\u0028\u0029",
             "name": "sortLeagueTable",
-            "summary": "Summary\u0020of\u0020sortLeagueTable",
+            "summary": "Sorts\u0020the\u0020league\u0020table\u0020entries\u0020based\u0020on\u0020the\u0020configured\u0020ordering.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_sortLeagueTable"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcompareTeamName\u0028\u0029",
             "name": "compareTeamName",
-            "summary": "Summary\u0020of\u0020compareTeamName",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020team\u0020names.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_compareTeamName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcompareLeaguePoints\u0028\u0029",
             "name": "compareLeaguePoints",
-            "summary": "Summary\u0020of\u0020compareLeaguePoints",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020league\u0020points.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_compareLeaguePoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcompareWins\u0028\u0029",
             "name": "compareWins",
-            "summary": "Summary\u0020of\u0020compareWins",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020wins.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_compareWins"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcompareLosses\u0028\u0029",
             "name": "compareLosses",
-            "summary": "Summary\u0020of\u0020compareLosses",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020losses.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_compareLosses"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcompareHeadToHead\u0028\u0029",
             "name": "compareHeadToHead",
-            "summary": "Summary\u0020of\u0020compareHeadToHead",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020head\u0020to\u0020head\u0020record.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_compareHeadToHead"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcomparePointsFor\u0028\u0029",
             "name": "comparePointsFor",
-            "summary": "Summary\u0020of\u0020comparePointsFor",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020points\u0020scored.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_comparePointsFor"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcomparePointsAgainst\u0028\u0029",
             "name": "comparePointsAgainst",
-            "summary": "Summary\u0020of\u0020comparePointsAgainst",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020points\u0020conceded.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_comparePointsAgainst"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcomparePointsDifference\u0028\u0029",
             "name": "comparePointsDifference",
-            "summary": "Summary\u0020of\u0020comparePointsDifference",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020points\u0020difference.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_comparePointsDifference"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcompareSetsFor\u0028\u0029",
             "name": "compareSetsFor",
-            "summary": "Summary\u0020of\u0020compareSetsFor",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020sets\u0020won.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_compareSetsFor"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcompareSetsAgainst\u0028\u0029",
             "name": "compareSetsAgainst",
-            "summary": "Summary\u0020of\u0020compareSetsAgainst",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020sets\u0020lost.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_compareSetsAgainst"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AcompareSetsDifference\u0028\u0029",
             "name": "compareSetsDifference",
-            "summary": "Summary\u0020of\u0020compareSetsDifference",
+            "summary": "Compares\u0020two\u0020LeagueTableEntry\u0020objects\u0020based\u0020on\u0020their\u0020set\u0020difference.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_compareSetsDifference"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AgetLeagueTable\u0028\u0029",
             "name": "getLeagueTable",
-            "summary": "Summary\u0020of\u0020getLeagueTable",
+            "summary": "Gets\u0020the\u0020league\u0020table\u0020for\u0020this\u0020group.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_getLeagueTable"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AgetLeagueConfig\u0028\u0029",
             "name": "getLeagueConfig",
-            "summary": "Return\u0020the\u0020config\u0020object\u0020for\u0020the\u0020league,\u0020containing\u0020the\u0020ordering\u0020config\u0020and\u0020the\u0020league\u0020pints\u0020config",
+            "summary": "Returns\u0020the\u0020configuration\u0020object\u0020for\u0020the\u0020league.",
             "url": "classes/VBCompetitions-Competitions-League.html#method_getLeagueConfig"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003AgetTeamByID\u0028\u0029",
+            "name": "getTeamByID",
+            "summary": "Gets\u0020the\u0020team\u0020by\u0020ID\u0020based\u0020on\u0020the\u0020type\u0020of\u0020entity.",
+            "url": "classes/VBCompetitions-Competitions-League.html#method_getTeamByID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\League\u003A\u003A\u0024table",
             "name": "table",
-            "summary": "The\u0020table\u0020for\u0020this\u0020group,\u0020if\u0020the\u0020group\u0020type\u0020is\u0020league",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-League.html#property_table"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable",
             "name": "LeagueTable",
-            "summary": "",
+            "summary": "Represents\u0020a\u0020league\u0020table\u0020for\u0020a\u0020competition.",
             "url": "classes/VBCompetitions-Competitions-LeagueTable.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "",
+            "summary": "Contains\u0020the\u0020league\u0020table\u0020and\u0020some\u0020configuration\u0020for\u0020the\u0020table\u0020such\u0020as\u0020the\u0020ordering\u0020rules.",
             "url": "classes/VBCompetitions-Competitions-LeagueTable.html#method___construct"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003AgetLeague\u0028\u0029",
+            "name": "getLeague",
+            "summary": "Get\u0020the\u0020league\u0020associated\u0020with\u0020this\u0020table.",
+            "url": "classes/VBCompetitions-Competitions-LeagueTable.html#method_getLeague"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003AgetOrderingText\u0028\u0029",
             "name": "getOrderingText",
-            "summary": "",
+            "summary": "Get\u0020the\u0020text\u0020representation\u0020of\u0020the\u0020ordering\u0020criteria\u0020for\u0020the\u0020league\u0020table.",
             "url": "classes/VBCompetitions-Competitions-LeagueTable.html#method_getOrderingText"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003AmapOrderingToString\u0028\u0029",
             "name": "mapOrderingToString",
-            "summary": "",
+            "summary": "Maps\u0020ordering\u0020string\u0020to\u0020human\u002Dreadable\u0020format.",
             "url": "classes/VBCompetitions-Competitions-LeagueTable.html#method_mapOrderingToString"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003AgetScoringText\u0028\u0029",
             "name": "getScoringText",
-            "summary": "",
+            "summary": "Get\u0020the\u0020text\u0020representation\u0020of\u0020the\u0020scoring\u0020system\u0020used\u0020in\u0020the\u0020league.",
             "url": "classes/VBCompetitions-Competitions-LeagueTable.html#method_getScoringText"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003AhasDraws\u0028\u0029",
             "name": "hasDraws",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020draws\u0020are\u0020allowed\u0020in\u0020the\u0020league.",
             "url": "classes/VBCompetitions-Competitions-LeagueTable.html#method_hasDraws"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003AhasSets\u0028\u0029",
             "name": "hasSets",
-            "summary": "",
+            "summary": "Checks\u0020if\u0020the\u0020league\u0020uses\u0020sets.",
             "url": "classes/VBCompetitions-Competitions-LeagueTable.html#method_hasSets"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003AgetGroupID\u0028\u0029",
             "name": "getGroupID",
-            "summary": "",
+            "summary": "Get\u0020the\u0020group\u0020ID\u0020associated\u0020with\u0020this\u0020league\u0020table.",
             "url": "classes/VBCompetitions-Competitions-LeagueTable.html#method_getGroupID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueTable\u003A\u003AORDERING_LEAGUE_POINTS",
@@ -2921,6 +2326,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchInterface.html#method_hasOfficials"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchInterface\u003A\u003AisFriendly\u0028\u0029",
+            "name": "isFriendly",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-MatchInterface.html#method_isFriendly"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchInterface\u003A\u003AgetID\u0028\u0029",
             "name": "getID",
             "summary": "",
@@ -2996,6 +2406,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getID"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AsetForfeit\u0028\u0029",
+            "name": "setForfeit",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_setForfeit"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetForfeit\u0028\u0029",
             "name": "getForfeit",
             "summary": "",
@@ -3006,25 +2421,50 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020array\u0020of\u0020scores\u0020for\u0020this\u0020team\u0020in\u0020this\u0020match",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getScores"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AsetBonusPoints\u0028\u0029",
+            "name": "setBonusPoints",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_setBonusPoints"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetBonusPoints\u0028\u0029",
             "name": "getBonusPoints",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getBonusPoints"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AsetPenaltyPoints\u0028\u0029",
+            "name": "setPenaltyPoints",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_setPenaltyPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetPenaltyPoints\u0028\u0029",
             "name": "getPenaltyPoints",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getPenaltyPoints"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AsetMVP\u0028\u0029",
+            "name": "setMVP",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_setMVP"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetMVP\u0028\u0029",
             "name": "getMVP",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getMVP"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AsetNotes\u0028\u0029",
+            "name": "setNotes",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_setNotes"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetNotes\u0028\u0029",
             "name": "getNotes",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getNotes"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AsetPlayers\u0028\u0029",
+            "name": "setPlayers",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_setPlayers"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetPlayers\u0028\u0029",
             "name": "getPlayers",
@@ -3081,256 +2521,6 @@ Search.appendIndex(
             "summary": "The\u0020match\u0020this\u0020team\u0020is\u0020playing\u0020in",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#property_match"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage",
-            "name": "Stage",
-            "summary": "A\u0020single\u0020competition\u0020stage",
-            "url": "classes/VBCompetitions-Competitions-Stage.html"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A__construct\u0028\u0029",
-            "name": "__construct",
-            "summary": "Contains\u0020the\u0020stage\u0020data\u0020of\u0020a\u0020competition,\u0020creating\u0020any\u0020metadata\u0020needed",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method___construct"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AloadFromData\u0028\u0029",
-            "name": "loadFromData",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_loadFromData"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AprocessMatches\u0028\u0029",
-            "name": "processMatches",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_processMatches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AappendGroup\u0028\u0029",
-            "name": "appendGroup",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_appendGroup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetID\u0028\u0029",
-            "name": "getID",
-            "summary": "Get\u0020the\u0020ID\u0020for\u0020this\u0020stage",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getID"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AaddGroup\u0028\u0029",
-            "name": "addGroup",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_addGroup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetGroups\u0028\u0029",
-            "name": "getGroups",
-            "summary": "Get\u0020the\u0020groups\u0020as\u0020an\u0020array",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getGroups"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetName\u0028\u0029",
-            "name": "getName",
-            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getName"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AsetName\u0028\u0029",
-            "name": "setName",
-            "summary": "Set\u0020the\u0020stage\u0020Name",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_setName"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetNotes\u0028\u0029",
-            "name": "getNotes",
-            "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getNotes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AsetNotes\u0028\u0029",
-            "name": "setNotes",
-            "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020stage",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_setNotes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetDescription\u0028\u0029",
-            "name": "getDescription",
-            "summary": "Get\u0020the\u0020description\u0020for\u0020this\u0020stage",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getDescription"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AsetDescription\u0028\u0029",
-            "name": "setDescription",
-            "summary": "Set\u0020the\u0020description\u0020for\u0020this\u0020stage",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_setDescription"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetIfUnknown\u0028\u0029",
-            "name": "getIfUnknown",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getIfUnknown"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AsetIfUnknown\u0028\u0029",
-            "name": "setIfUnknown",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_setIfUnknown"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020list\u0020of\u0020stages\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_jsonSerialize"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AcheckMatches\u0028\u0029",
-            "name": "checkMatches",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_checkMatches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetCompetition\u0028\u0029",
-            "name": "getCompetition",
-            "summary": "Get\u0020the\u0020competition\u0020this\u0020stage\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getCompetition"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetMatches\u0028\u0029",
-            "name": "getMatches",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020matches\u0020from\u0020this\u0020Stage,\u0020where\u0020the\u0020list\u0020depends\u0020on\u0020the\u0020input\u0020parameters\u0020and\u0020on\u0020the\u0020type\u0020of\u0020the\u0020MatchContainer",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getMatches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetTeamIDs\u0028\u0029",
-            "name": "getTeamIDs",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020teams\u0020from\u0020this\u0020match\u0020container",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getTeamIDs"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetAllMatchesInStage\u0028\u0029",
-            "name": "getAllMatchesInStage",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getAllMatchesInStage"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetGroupById\u0028\u0029",
-            "name": "getGroupById",
-            "summary": "Return\u0020the\u0020group\u0020in\u0020this\u0020stage\u0020with\u0020the\u0020given\u0020ID",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getGroupById"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AisComplete\u0028\u0029",
-            "name": "isComplete",
-            "summary": "Summary\u0020of\u0020isComplete",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_isComplete"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetMatchesForTeam\u0028\u0029",
-            "name": "getMatchesForTeam",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getMatchesForTeam"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveCourts\u0028\u0029",
-            "name": "matchesHaveCourts",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveCourts"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveDates\u0028\u0029",
-            "name": "matchesHaveDates",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveDates"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveDurations\u0028\u0029",
-            "name": "matchesHaveDurations",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveDurations"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveMVPs\u0028\u0029",
-            "name": "matchesHaveMVPs",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveMVPs"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveManagers\u0028\u0029",
-            "name": "matchesHaveManagers",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveManagers"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveNotes\u0028\u0029",
-            "name": "matchesHaveNotes",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveNotes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveOfficials\u0028\u0029",
-            "name": "matchesHaveOfficials",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveOfficials"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveStarts\u0028\u0029",
-            "name": "matchesHaveStarts",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveStarts"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveVenues\u0028\u0029",
-            "name": "matchesHaveVenues",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveVenues"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AmatchesHaveWarmups\u0028\u0029",
-            "name": "matchesHaveWarmups",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_matchesHaveWarmups"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AteamHasMatches\u0028\u0029",
-            "name": "teamHasMatches",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_teamHasMatches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AteamHasOfficiating\u0028\u0029",
-            "name": "teamHasOfficiating",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_teamHasOfficiating"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AteamMayHaveMatches\u0028\u0029",
-            "name": "teamMayHaveMatches",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_teamMayHaveMatches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetMatchDates\u0028\u0029",
-            "name": "getMatchDates",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020match\u0020dates\u0020in\u0020this\u0020Stage.\u0020\u0020If\u0020a\u0020team\u0020ID\u0020is\u0020given\u0020then\u0020return\u0020dates\u0020for\u0020just\u0020that\u0020team.",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getMatchDates"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetMatchesOnDate\u0028\u0029",
-            "name": "getMatchesOnDate",
-            "summary": "Returns\u0020a\u0020list\u0020of\u0020matches\u0020on\u0020the\u0020specified\u0020date\u0020in\u0020this\u0020Stage.\u0020\u0020If\u0020a\u0020team\u0020ID\u0020is\u0020given\u0020then\u0020return\u0020matches\u0020for\u0020just\u0020that\u0020team.",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getMatchesOnDate"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024id",
-            "name": "id",
-            "summary": "A\u0020unique\u0020ID\u0020for\u0020this\u0020stage,\u0020e.g.\u0020\u0027LG\u0027",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_id"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024name",
-            "name": "name",
-            "summary": "Descriptive\u0020title\u0020for\u0020the\u0020stage,\u0020e.g.\u0020\u0027Pools\u0027",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_name"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024notes",
-            "name": "notes",
-            "summary": "Free\u0020form\u0020string\u0020to\u0020add\u0020notes\u0020about\u0020this\u0020stage.\u0020\u0020This\u0020can\u0020be\u0020used\u0020for\u0020arbitrary\u0020content\u0020that\u0020various\u0020implementations\u0020can\u0020use",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_notes"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024description",
-            "name": "description",
-            "summary": "Verbose\u0020text\u0020describing\u0020the\u0020nature\u0020of\u0020the\u0020stage,\u0020e.g.\u0020\u0027The\u0020first\u0020stage\u0020of\u0020the\u0020competition\u0020will\u0020consist\u0020of\u0020separate\u0020pools,\u0020where....\u0027",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_description"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024groups",
-            "name": "groups",
-            "summary": "The\u0020groups\u0020within\u0020a\u0020stage\u0020of\u0020the\u0020competition.\u0020There\u0020may\u0020be\u0020only\u0020one\u0020group\u0020\u0028e.g.\u0020for\u0020a\u0020flat\u0020league\u0029\u0020or\u0020multiple\u0020in\u0020parallel\u0020\u0028e.g.\u0020pool\u00201,\u0020pool\u00202\u0029",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_groups"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024if_unknown",
-            "name": "if_unknown",
-            "summary": "It\u0020can\u0020be\u0020useful\u0020to\u0020still\u0020present\u0020something\u0020to\u0020the\u0020user\u0020about\u0020the\u0020later\u0020stages\u0020of\u0020a\u0020competition,\u0020even\u0020if\u0020the\u0020teams\u0020playing\u0020in\u0020that\u0020stage\u0020is\u0020not\u0020yet\u0020known.\u0020This\u0020defines\u0020what\u0020should\u0020be\u0020presented\u0020in\u0020any\u0020application\u0020handling\u0020this\u0020competition\u0027s\u0020data\u0020in\u0020such\u0020cases",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_if_unknown"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024competition",
-            "name": "competition",
-            "summary": "The\u0020Competition\u0020this\u0020Stage\u0020is\u0020in",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_competition"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024all_matches",
-            "name": "all_matches",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_all_matches"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024group_lookup",
-            "name": "group_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020group\u0020IDs\u0020to\u0020the\u0020group",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_group_lookup"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024team_stg_grp_lookup",
-            "name": "team_stg_grp_lookup",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#property_team_stg_grp_lookup"
-        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\ICS",
             "name": "ICS",
             "summary": "",
@@ -3366,234 +2556,234 @@ Search.appendIndex(
             "summary": "Function\u0020to\u0020generate\u0020the\u0020event\u0020description\u0020for\u0020the\u0020match",
             "url": "classes/VBCompetitions-Competitions-ICS.html#method_getMatchDescription"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ICS\u003A\u003A\u0024c",
-            "name": "c",
+            "fqsen": "\\VBCompetitions\\Competitions\\ICS\u003A\u003A\u0024competition",
+            "name": "competition",
             "summary": "",
-            "url": "classes/VBCompetitions-Competitions-ICS.html#property_c"
+            "url": "classes/VBCompetitions-Competitions-ICS.html#property_competition"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player",
             "name": "Player",
-            "summary": "A\u0020team\u0020definition",
+            "summary": "Represents\u0020a\u0020player\u0020in\u0020a\u0020team.",
             "url": "classes/VBCompetitions-Competitions-Player.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Contains\u0020the\u0020data\u0020of\u0020a\u0020player\u0020in\u0020a\u0020team",
+            "summary": "Contains\u0020the\u0020data\u0020of\u0020a\u0020player\u0020in\u0020a\u0020team.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Load\u0020player\u0020data\u0020from\u0020an\u0020object.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AgetID\u0028\u0029",
             "name": "getID",
-            "summary": "Get\u0020the\u0020ID\u0020for\u0020this\u0020player",
+            "summary": "Get\u0020the\u0020ID\u0020for\u0020this\u0020player.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_getID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AgetName\u0028\u0029",
             "name": "getName",
-            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020player",
+            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020player.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_getName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AsetName\u0028\u0029",
             "name": "setName",
-            "summary": "Set\u0020the\u0020name\u0020for\u0020this\u0020player",
+            "summary": "Set\u0020the\u0020name\u0020for\u0020this\u0020player.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_setName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AgetNumber\u0028\u0029",
             "name": "getNumber",
-            "summary": "Get\u0020the\u0020shirt\u0020number\u0020for\u0020this\u0020player",
+            "summary": "Get\u0020the\u0020shirt\u0020number\u0020for\u0020this\u0020player.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_getNumber"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AsetNumber\u0028\u0029",
             "name": "setNumber",
-            "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020team",
+            "summary": "Set\u0020the\u0020shirt\u0020number\u0020for\u0020this\u0020player.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_setNumber"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AgetNotes\u0028\u0029",
             "name": "getNotes",
-            "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020player",
+            "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020player.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_getNotes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AsetNotes\u0028\u0029",
             "name": "setNotes",
-            "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020player",
+            "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020player.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_setNotes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020list\u0020of\u0020team\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Return\u0020the\u0020list\u0020of\u0020player\u0020data\u0020suitable\u0020for\u0020serialization.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003A\u0024id",
             "name": "id",
-            "summary": "A\u0020unique\u0020ID\u0020for\u0020this\u0020player.\u0020This\u0020may\u0020be\u0020the\u0020player\u0027s\u0020registration\u0020number.\u0020\u0020This\u0020must\u0020be\u0020unique\u0020within\u0020the\u0020team",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Player.html#property_id"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003A\u0024name",
             "name": "name",
-            "summary": "The\u0020name\u0020of\u0020this\u0020contact",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Player.html#property_name"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003A\u0024number",
             "name": "number",
-            "summary": "The\u0020player\u0027s\u0020shirt\u0020number",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Player.html#property_number"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003A\u0024notes",
             "name": "notes",
-            "summary": "Free\u0020form\u0020string\u0020to\u0020add\u0020notes\u0020about\u0020the\u0020player.\u0020\u0020This\u0020can\u0020be\u0020used\u0020for\u0020arbitrary\u0020content\u0020that\u0020various\u0020implementations\u0020can\u0020use",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Player.html#property_notes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig",
             "name": "SetConfig",
-            "summary": "Configuration\u0020defining\u0020the\u0020nature\u0020of\u0020a\u0020set",
+            "summary": "Configuration\u0020defining\u0020the\u0020nature\u0020of\u0020a\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Contains\u0020the\u0020configuration\u0020data\u0020that\u0020define\u0020the\u0020sets\u0020in\u0020a\u0020match.\u0020\u0020Uses\u0020the\u0020defaults\u0020if\u0020the\u0020config\u0020is\u0020null",
+            "summary": "Contains\u0020the\u0020configuration\u0020data\u0020that\u0020define\u0020the\u0020sets\u0020in\u0020a\u0020match.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Load\u0020set\u0020configuration\u0020data\u0020from\u0020an\u0020object.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetGroup\u0028\u0029",
             "name": "getGroup",
-            "summary": "",
+            "summary": "Get\u0020the\u0020group\u0020that\u0020this\u0020SetConfig\u0020belongs\u0020to.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getGroup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020list\u0020of\u0020team\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Serialize\u0020the\u0020set\u0020configuration\u0020data.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AsetMaxSets\u0028\u0029",
             "name": "setMaxSets",
-            "summary": "",
+            "summary": "Set\u0020the\u0020maximum\u0020number\u0020of\u0020sets\u0020that\u0020could\u0020be\u0020played.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_setMaxSets"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetMaxSets\u0028\u0029",
             "name": "getMaxSets",
-            "summary": "",
+            "summary": "Get\u0020the\u0020maximum\u0020number\u0020of\u0020sets\u0020that\u0020could\u0020be\u0020played.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getMaxSets"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AsetSetsToWin\u0028\u0029",
             "name": "setSetsToWin",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020sets\u0020that\u0020must\u0020be\u0020won\u0020to\u0020win\u0020the\u0020match.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_setSetsToWin"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetSetsToWin\u0028\u0029",
             "name": "getSetsToWin",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020sets\u0020that\u0020must\u0020be\u0020won\u0020to\u0020win\u0020the\u0020match.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getSetsToWin"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AsetClearPoints\u0028\u0029",
             "name": "setClearPoints",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020points\u0020lead\u0020that\u0020the\u0020winning\u0020team\u0020must\u0020have.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_setClearPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetClearPoints\u0028\u0029",
             "name": "getClearPoints",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020points\u0020lead\u0020that\u0020the\u0020winning\u0020team\u0020must\u0020have.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getClearPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AsetMinPoints\u0028\u0029",
             "name": "setMinPoints",
-            "summary": "",
+            "summary": "Set\u0020the\u0020minimum\u0020number\u0020of\u0020points\u0020that\u0020either\u0020team\u0020must\u0020score\u0020for\u0020a\u0020set\u0020to\u0020count\u0020as\u0020valid.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_setMinPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetMinPoints\u0028\u0029",
             "name": "getMinPoints",
-            "summary": "",
+            "summary": "Get\u0020the\u0020minimum\u0020number\u0020of\u0020points\u0020that\u0020either\u0020team\u0020must\u0020score\u0020for\u0020a\u0020set\u0020to\u0020count\u0020as\u0020valid.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getMinPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AsetPointsToWin\u0028\u0029",
             "name": "setPointsToWin",
-            "summary": "",
+            "summary": "Set\u0020the\u0020minimum\u0020number\u0020of\u0020points\u0020required\u0020to\u0020win\u0020all\u0020but\u0020the\u0020last\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_setPointsToWin"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetPointsToWin\u0028\u0029",
             "name": "getPointsToWin",
-            "summary": "",
+            "summary": "Get\u0020the\u0020minimum\u0020number\u0020of\u0020points\u0020required\u0020to\u0020win\u0020all\u0020but\u0020the\u0020last\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getPointsToWin"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AsetLastSetPointsToWin\u0028\u0029",
             "name": "setLastSetPointsToWin",
-            "summary": "",
+            "summary": "Set\u0020the\u0020minimum\u0020number\u0020of\u0020points\u0020required\u0020to\u0020win\u0020the\u0020last\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_setLastSetPointsToWin"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetLastSetPointsToWin\u0028\u0029",
             "name": "getLastSetPointsToWin",
-            "summary": "",
+            "summary": "Get\u0020the\u0020minimum\u0020number\u0020of\u0020points\u0020required\u0020to\u0020win\u0020the\u0020last\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getLastSetPointsToWin"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AsetMaxPoints\u0028\u0029",
             "name": "setMaxPoints",
-            "summary": "",
+            "summary": "Set\u0020the\u0020upper\u0020limit\u0020of\u0020points\u0020that\u0020can\u0020be\u0020scored\u0020in\u0020a\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_setMaxPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetMaxPoints\u0028\u0029",
             "name": "getMaxPoints",
-            "summary": "",
+            "summary": "Get\u0020the\u0020upper\u0020limit\u0020of\u0020points\u0020that\u0020can\u0020be\u0020scored\u0020in\u0020a\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getMaxPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AsetLastSetMaxPoints\u0028\u0029",
             "name": "setLastSetMaxPoints",
-            "summary": "",
+            "summary": "Set\u0020the\u0020upper\u0020limit\u0020of\u0020points\u0020that\u0020can\u0020be\u0020scored\u0020in\u0020the\u0020last\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_setLastSetMaxPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003AgetLastSetMaxPoints\u0028\u0029",
             "name": "getLastSetMaxPoints",
-            "summary": "",
+            "summary": "Get\u0020the\u0020upper\u0020limit\u0020of\u0020points\u0020that\u0020can\u0020be\u0020scored\u0020in\u0020the\u0020last\u0020set.",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#method_getLastSetMaxPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024max_sets",
             "name": "max_sets",
-            "summary": "The\u0020maximum\u0020number\u0020of\u0020sets\u0020that\u0020could\u0020be\u0020played,\u0020often\u0020known\u0020as\u0020\u0027best\u0020of\u0027,\u0020e.g.\u0020if\u0020this\u0020has\u0020the\u0020value\u0020\u00275\u0027\u0020then\u0020the\u0020match\u0020is\u0020played\u0020as\u0020\u0027best\u0020of\u00205\u0020sets\u0027\u0020\u002A",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_max_sets"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024sets_to_win",
             "name": "sets_to_win",
-            "summary": "The\u0020number\u0020of\u0020sets\u0020that\u0020must\u0020be\u0020won\u0020to\u0020win\u0020the\u0020match.\u0020\u0020This\u0020is\u0020usually\u0020one\u0020more\u0020than\u0020half\u0020the\u0020\u0027maxSets\u0027,\u0020but\u0020may\u0020be\u0020needed\u0020if\u0020draws\u0020are\u0020allowed,\u0020e.g.\u0020if\u0020a\u0020competition\u0020dictates\u0020that\u0020exactly\u00202\u0020sets\u0020must\u0020be\u0020played\u0020\u0028by\u0020setting\u0020\u0027maxSets\u0027\u0020to\u0020\u00272\u0027\u0029\u0020and\u0020that\u0020draws\u0020are\u0020allowed,\u0020then\u0020\u0027setsToWin\u0027\u0020should\u0020still\u0020be\u0020set\u0020to\u0020\u00272\u0027\u0020to\u0020indicate\u0020that\u00202\u0020sets\u0020are\u0020needed\u0020to\u0020win\u0020the\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_sets_to_win"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024clear_points",
             "name": "clear_points",
-            "summary": "The\u0020number\u0020of\u0020points\u0020lead\u0020that\u0020the\u0020winning\u0020team\u0020must\u0020have,\u0020e.g.\u0020if\u0020this\u0020has\u0020the\u0020value\u0020\u00272\u0027\u0020then\u0020teams\u0020must\u0020\u0027win\u0020by\u00202\u0020clear\u0020points\u0027.\u0020\u0020Note\u0020that\u0020if\u0020\u0027maxPoints\u0027\u0020has\u0020a\u0020value\u0020then\u0020that\u0020takes\u0020precedence,\u0020i.e.\u0020if\u0020\u0027maxPoints\u0027\u0020is\u0020set\u0020to\u0020\u002735\u0027\u0020then\u0020a\u0020team\u0020can\u0020win\u0020\u002735\u002D34\u0027\u0020irrespective\u0020of\u0020the\u0020value\u0020of\u0020\u0027clearPoints\u0027",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_clear_points"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024min_points",
             "name": "min_points",
-            "summary": "The\u0020minimum\u0020number\u0020of\u0020points\u0020that\u0020either\u0020team\u0020must\u0020score\u0020for\u0020a\u0020set\u0020to\u0020count\u0020as\u0020valid.\u0020\u0020Usually\u0020only\u0020used\u0020for\u0020time\u002Dlimited\u0020matches",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_min_points"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024points_to_win",
             "name": "points_to_win",
-            "summary": "The\u0020minimum\u0020number\u0020of\u0020points\u0020required\u0020to\u0020win\u0020all\u0020but\u0020the\u0020last\u0020set",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_points_to_win"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024last_set_points_to_win",
             "name": "last_set_points_to_win",
-            "summary": "The\u0020minimum\u0020number\u0020of\u0020points\u0020required\u0020to\u0020win\u0020the\u0020last\u0020set",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_last_set_points_to_win"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024max_points",
             "name": "max_points",
-            "summary": "The\u0020upper\u0020limit\u0020of\u0020points\u0020that\u0020can\u0020be\u0020scored\u0020in\u0020a\u0020set",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_max_points"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024last_set_max_points",
             "name": "last_set_max_points",
-            "summary": "The\u0020upper\u0020limit\u0020of\u0020points\u0020that\u0020can\u0020be\u0020scored\u0020in\u0020the\u0020last\u0020set",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_last_set_max_points"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig\u003A\u003A\u0024group",
             "name": "group",
-            "summary": "The\u0020group\u0020that\u0020this\u0020SetConfig\u0020belongs\u0020to",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-SetConfig.html#property_group"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\BreakInterface",
@@ -3633,8 +2823,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Assumes\u0020this\u0020is\u0020a\u0020freshly\u0020made\u0020Club\u0020object\u0020and\u0020loads\u0020it\u0020with\u0020the\u0020data\u0020extracted\nfrom\u0020the\u0020Competitions\u0020JSON\u0020file\u0020for\u0020this\u0020club",
             "url": "classes/VBCompetitions-Competitions-Club.html#method_loadFromData"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Return\u0020the\u0020list\u0020of\u0020team\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AgetCompetition\u0028\u0029",
             "name": "getCompetition",
@@ -3646,35 +2841,35 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020ID\u0020for\u0020this\u0020club",
             "url": "classes/VBCompetitions-Competitions-Club.html#method_getID"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AgetName\u0028\u0029",
-            "name": "getName",
-            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020club",
-            "url": "classes/VBCompetitions-Competitions-Club.html#method_getName"
-        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AsetName\u0028\u0029",
             "name": "setName",
             "summary": "Set\u0020the\u0020name\u0020for\u0020this\u0020club",
             "url": "classes/VBCompetitions-Competitions-Club.html#method_setName"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AgetNotes\u0028\u0029",
-            "name": "getNotes",
-            "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020club",
-            "url": "classes/VBCompetitions-Competitions-Club.html#method_getNotes"
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AgetName\u0028\u0029",
+            "name": "getName",
+            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020club",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_getName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AsetNotes\u0028\u0029",
             "name": "setNotes",
             "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020club",
             "url": "classes/VBCompetitions-Competitions-Club.html#method_setNotes"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AgetNotes\u0028\u0029",
+            "name": "getNotes",
+            "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020club",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_getNotes"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AhasNotes\u0028\u0029",
+            "name": "hasNotes",
+            "summary": "Does\u0020this\u0020club\u0020have\u0020any\u0020notes\u0020attached",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_hasNotes"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AaddTeam\u0028\u0029",
             "name": "addTeam",
             "summary": "Add\u0020a\u0020team\u0020to\u0020this\u0020club",
             "url": "classes/VBCompetitions-Competitions-Club.html#method_addTeam"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AdeleteTeam\u0028\u0029",
-            "name": "deleteTeam",
-            "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Club.html#method_deleteTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AgetTeams\u0028\u0029",
             "name": "getTeams",
@@ -3683,13 +2878,13 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AhasTeamWithID\u0028\u0029",
             "name": "hasTeamWithID",
-            "summary": "",
+            "summary": "Check\u0020if\u0020the\u0020club\u0020has\u0020a\u0020team\u0020with\u0020the\u0020specified\u0020ID",
             "url": "classes/VBCompetitions-Competitions-Club.html#method_hasTeamWithID"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020list\u0020of\u0020team\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
-            "url": "classes/VBCompetitions-Competitions-Club.html#method_jsonSerialize"
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AdeleteTeam\u0028\u0029",
+            "name": "deleteTeam",
+            "summary": "Delete\u0020a\u0020team\u0020from\u0020this\u0020club",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_deleteTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AUNKNOWN_CLUB_ID",
             "name": "UNKNOWN_CLUB_ID",
@@ -3703,257 +2898,262 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A\u0024id",
             "name": "id",
-            "summary": "A\u0020unique\u0020ID\u0020for\u0020the\u0020club,\u0020e.g.\u0020\u0027CLUB1\u0027.\u0020\u0020This\u0020must\u0020be\u0020unique\u0020within\u0020the\u0020competition.\u0020\u0020It\u0020must\u0020only\u0020contain\u0020letters\u0020\u0028upper\u0020or\u0020lowercase\u0029,\u0020and\u0020numbers\u0022",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Club.html#property_id"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A\u0024name",
             "name": "name",
-            "summary": "The\u0020name\u0020for\u0020the\u0020club",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Club.html#property_name"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A\u0024notes",
             "name": "notes",
-            "summary": "Free\u0020form\u0020string\u0020to\u0020add\u0020notes\u0020about\u0020a\u0020club.\u0020\u0020This\u0020can\u0020be\u0020used\u0020for\u0020arbitrary\u0020content\u0020that\u0020various\u0020implementations\u0020can\u0020use",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Club.html#property_notes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A\u0024competition",
             "name": "competition",
-            "summary": "The\u0020Competition\u0020this\u0020club\u0020is\u0020in",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Club.html#property_competition"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A\u0024team_lookup",
             "name": "team_lookup",
-            "summary": "A\u0020Lookup\u0020table\u0020from\u0020team\u0020IDs\u0020\u0028including\u0020references\u0029\u0020to\u0020the\u0020team",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-Club.html#property_team_lookup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig",
             "name": "KnockoutConfig",
-            "summary": "A\u0020team\u0020definition",
+            "summary": "Represents\u0020a\u0020knockout\u0020configuration\u0020for\u0020a\u0020competition.",
             "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Defined\u0020the\u0020match\/court\u0020manager\u0020of\u0020a\u0020match,\u0020which\u0020may\u0020be\u0020an\u0020individual\u0020or\u0020a\u0020team",
+            "summary": "Constructs\u0020a\u0020new\u0020KnockoutConfig\u0020instance.",
             "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Loads\u0020knockout\u0020configuration\u0020data\u0020from\u0020an\u0020object.",
             "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020match\u0020manager\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Serializes\u0020the\u0020knockout\u0020configuration\u0020data\u0020for\u0020storage.",
             "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003AgetGroup\u0028\u0029",
+            "name": "getGroup",
+            "summary": "Gets\u0020the\u0020group\u0020associated\u0020with\u0020this\u0020knockout\u0020configuration.",
+            "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#method_getGroup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003AsetStanding\u0028\u0029",
             "name": "setStanding",
-            "summary": "Set\u0020the\u0020array\u0020of\u0020standing\u0020maps\u0020for\u0020this\u0020config",
+            "summary": "Sets\u0020the\u0020standing\u0020array\u0020for\u0020this\u0020knockout\u0020configuration.",
             "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#method_setStanding"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003AgetStanding\u0028\u0029",
             "name": "getStanding",
-            "summary": "Get\u0020the\u0020array\u0020of\u0020standing\u0020maps\u0020for\u0020this\u0020config",
+            "summary": "Gets\u0020the\u0020standing\u0020array\u0020for\u0020this\u0020knockout\u0020configuration.",
             "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#method_getStanding"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003A\u0024standing",
             "name": "standing",
-            "summary": "An\u0020ordered\u0020mapping\u0020from\u0020a\u0020position\u0020to\u0020a\u0020team\u0020ID",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#property_standing"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003A\u0024knockout",
-            "name": "knockout",
-            "summary": "The\u0020knockout\u0020group\u0020this\u0020config\u0020is\u0020for",
-            "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#property_knockout"
+            "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig\u003A\u003A\u0024group",
+            "name": "group",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-KnockoutConfig.html#property_group"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig",
             "name": "LeagueConfig",
-            "summary": "A\u0020team\u0020definition",
+            "summary": "Configuration\u0020for\u0020a\u0020league\u0020within\u0020a\u0020competition.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Defined\u0020the\u0020match\/court\u0020manager\u0020of\u0020a\u0020match,\u0020which\u0020may\u0020be\u0020an\u0020individual\u0020or\u0020a\u0020team",
+            "summary": "Contains\u0020the\u0020configuration\u0020for\u0020the\u0020league.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Load\u0020league\u0020configuration\u0020data\u0020from\u0020a\u0020provided\u0020object.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020match\u0020manager\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Serialize\u0020the\u0020league\u0020configuration\u0020data\u0020for\u0020JSON\u0020representation.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003AgetLeague\u0028\u0029",
             "name": "getLeague",
-            "summary": "Get\u0020the\u0020league\u0020this\u0020config\u0020is\u0020for",
+            "summary": "Get\u0020the\u0020league\u0020associated\u0020with\u0020this\u0020configuration.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#method_getLeague"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003AsetOrdering\u0028\u0029",
             "name": "setOrdering",
-            "summary": "",
+            "summary": "Set\u0020the\u0020ordering\u0020configuration\u0020for\u0020the\u0020league.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#method_setOrdering"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003AgetOrdering\u0028\u0029",
             "name": "getOrdering",
-            "summary": "Get\u0020the\u0020ordering\u0020config\u0020for\u0020the\u0020league",
+            "summary": "Get\u0020the\u0020ordering\u0020configuration\u0020for\u0020the\u0020league.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#method_getOrdering"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003AgetPoints\u0028\u0029",
             "name": "getPoints",
-            "summary": "Get\u0020the\u0020points\u0020config\u0020for\u0020the\u0020league",
+            "summary": "Get\u0020the\u0020points\u0020configuration\u0020for\u0020the\u0020league.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#method_getPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003AsetPoints\u0028\u0029",
             "name": "setPoints",
-            "summary": "",
+            "summary": "Set\u0020the\u0020points\u0020configuration\u0020for\u0020the\u0020league.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#method_setPoints"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003A\u0024ordering",
             "name": "ordering",
-            "summary": "An\u0020array\u0020of\u0020parameters\u0020that\u0020define\u0020how\u0020the\u0020league\u0020positions\u0020are\u0020worked\u0020out",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#property_ordering"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003A\u0024points",
             "name": "points",
-            "summary": "Properties\u0020defining\u0020how\u0020to\u0020calculate\u0020the\u0020league\u0020points\u0020based\u0020on\u0020match\u0020results",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#property_points"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfig\u003A\u003A\u0024league",
             "name": "league",
-            "summary": "The\u0020league\u0020this\u0020config\u0020is\u0020for",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfig.html#property_league"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints",
             "name": "LeagueConfigPoints",
-            "summary": "A\u0020team\u0020definition",
+            "summary": "Configuration\u0020for\u0020league\u0020points\u0020in\u0020a\u0020competition.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Defined\u0020the\u0020match\/court\u0020manager\u0020of\u0020a\u0020match,\u0020which\u0020may\u0020be\u0020an\u0020individual\u0020or\u0020a\u0020team",
+            "summary": "Contains\u0020configuration\u0020for\u0020the\u0020league\u0020points.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Load\u0020league\u0020points\u0020configuration\u0020data\u0020from\u0020a\u0020provided\u0020object.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020match\u0020manager\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Serialize\u0020the\u0020league\u0020points\u0020configuration\u0020data\u0020for\u0020JSON\u0020representation.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AgetLeagueConfig\u0028\u0029",
             "name": "getLeagueConfig",
-            "summary": "",
+            "summary": "Get\u0020the\u0020league\u0020configuration\u0020associated\u0020with\u0020these\u0020points.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_getLeagueConfig"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AsetPlayed\u0028\u0029",
             "name": "setPlayed",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020playing\u0020the\u0020match.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_setPlayed"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AgetPlayed\u0028\u0029",
             "name": "getPlayed",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020playing\u0020the\u0020match.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_getPlayed"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AsetPerSet\u0028\u0029",
             "name": "setPerSet",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020each\u0020set\u0020won.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_setPerSet"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AgetPerSet\u0028\u0029",
             "name": "getPerSet",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020each\u0020set\u0020won.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_getPerSet"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AsetWin\u0028\u0029",
             "name": "setWin",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020winning.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_setWin"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AgetWin\u0028\u0029",
             "name": "getWin",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020winning.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_getWin"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AsetWinByOne\u0028\u0029",
             "name": "setWinByOne",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020winning\u0020by\u0020one\u0020set.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_setWinByOne"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AgetWinByOne\u0028\u0029",
             "name": "getWinByOne",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020winning\u0020by\u0020one\u0020set.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_getWinByOne"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AsetLose\u0028\u0029",
             "name": "setLose",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020losing.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_setLose"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AgetLose\u0028\u0029",
             "name": "getLose",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020losing.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_getLose"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AsetLoseByOne\u0028\u0029",
             "name": "setLoseByOne",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020losing\u0020by\u0020one\u0020set.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_setLoseByOne"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AgetLoseByOne\u0028\u0029",
             "name": "getLoseByOne",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020league\u0020points\u0020for\u0020losing\u0020by\u0020one\u0020set.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_getLoseByOne"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AsetForfeit\u0028\u0029",
             "name": "setForfeit",
-            "summary": "",
+            "summary": "Set\u0020the\u0020number\u0020of\u0020league\u0020penalty\u0020points\u0020for\u0020forfeiting\u0020a\u0020match.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_setForfeit"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003AgetForfeit\u0028\u0029",
             "name": "getForfeit",
-            "summary": "",
+            "summary": "Get\u0020the\u0020number\u0020of\u0020league\u0020penalty\u0020points\u0020for\u0020forfeiting\u0020a\u0020match.",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#method_getForfeit"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A\u0024played",
             "name": "played",
-            "summary": "Number\u0020of\u0020league\u0020points\u0020for\u0020playing\u0020the\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#property_played"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A\u0024per_set",
             "name": "per_set",
-            "summary": "Number\u0020of\u0020league\u0020points\u0020for\u0020each\u0020set\u0020won",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#property_per_set"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A\u0024win",
             "name": "win",
-            "summary": "Number\u0020of\u0020league\u0020points\u0020for\u0020winning\u0020\u0028by\u00202\u0020sets\u0020or\u0020more\u0020if\u0020playing\u0020sets\u0029",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#property_win"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A\u0024win_by_one",
             "name": "win_by_one",
-            "summary": "Number\u0020of\u0020league\u0020points\u0020for\u0020winning\u0020by\u00201\u0020set",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#property_win_by_one"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A\u0024lose",
             "name": "lose",
-            "summary": "Number\u0020of\u0020league\u0020points\u0020for\u0020losing\u0020\u0028by\u00202\u0020sets\u0020or\u0020more\u0020if\u0020playing\u0020sets\u0029",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#property_lose"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A\u0024lose_by_one",
             "name": "lose_by_one",
-            "summary": "Number\u0020of\u0020league\u0020points\u0020for\u0020losing\u0020by\u00201\u0020set",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#property_lose_by_one"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A\u0024forfeit",
             "name": "forfeit",
-            "summary": "Number\u0020of\u0020league\u0020penalty\u0020points\u0020for\u0020forfeiting\u0020a\u0020match.\u0020This\u0020should\u0020be\u0020a\u0020positive\u0020number\u0020and\u0020will\u0020be\u0020subtracted\u0020from\u0020a\u0020team\u0027s\u0020league\u0020points\u0020for\u0020each\u0020forfeited\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-LeagueConfigPoints.html#property_forfeit"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\LeagueConfigPoints\u003A\u003A\u0024league_config",
@@ -3963,107 +3163,107 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager",
             "name": "MatchManager",
-            "summary": "A\u0020team\u0020definition",
+            "summary": "Represents\u0020a\u0020manager\u0020for\u0020a\u0020match\u0020in\u0020a\u0020competition.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Defined\u0020the\u0020match\/court\u0020manager\u0020of\u0020a\u0020match,\u0020which\u0020may\u0020be\u0020an\u0020individual\u0020or\u0020a\u0020team",
+            "summary": "Constructor.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Load\u0020match\u0020manager\u0020data\u0020from\u0020a\u0020given\u0020object.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020match\u0020manager\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Return\u0020the\u0020match\u0020manager\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003AgetMatch\u0028\u0029",
             "name": "getMatch",
-            "summary": "Get\u0020the\u0020match\u0020this\u0020manager\u0020is\u0020managing",
+            "summary": "Get\u0020the\u0020match\u0020this\u0020manager\u0020is\u0020managing.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method_getMatch"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003AisTeam\u0028\u0029",
             "name": "isTeam",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020manager\u0020is\u0020a\u0020team\u0020or\u0020not",
+            "summary": "Check\u0020whether\u0020the\u0020match\u0020manager\u0020is\u0020a\u0020team\u0020or\u0020not.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method_isTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003AgetTeamID\u0028\u0029",
             "name": "getTeamID",
-            "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020team\u0020managing\u0020the\u0020match",
+            "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020team\u0020managing\u0020the\u0020match.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method_getTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003AsetTeamID\u0028\u0029",
             "name": "setTeamID",
-            "summary": "Set\u0020the\u0020ID\u0020for\u0020the\u0020team\u0020managing\u0020the\u0020match.\u0020\u0020Note\u0020that\u0020this\u0020un\u002Dsets\u0020any\u0020manager\u0020name",
+            "summary": "Set\u0020the\u0020ID\u0020for\u0020the\u0020team\u0020managing\u0020the\u0020match.\u0020Note\u0020that\u0020this\u0020unsets\u0020any\u0020manager\u0020name.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method_setTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003AgetManagerName\u0028\u0029",
             "name": "getManagerName",
-            "summary": "Get\u0020the\u0020name\u0020of\u0020the\u0020manager",
+            "summary": "Get\u0020the\u0020name\u0020of\u0020the\u0020manager.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method_getManagerName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003AsetManagerName\u0028\u0029",
             "name": "setManagerName",
-            "summary": "Set\u0020the\u0020name\u0020of\u0020the\u0020manager\u0020managing\u0020the\u0020match.\u0020\u0020Note\u0020that\u0020this\u0020un\u002Dsets\u0020any\u0020team\u0020ID",
+            "summary": "Set\u0020the\u0020name\u0020of\u0020the\u0020manager\u0020managing\u0020the\u0020match.\u0020Note\u0020that\u0020this\u0020unsets\u0020any\u0020team\u0020ID.",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#method_setManagerName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003A\u0024manager_name",
             "name": "manager_name",
-            "summary": "The\u0020court\u0020manager\u0020in\u0020charge\u0020of\u0020this\u0020match",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#property_manager_name"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003A\u0024manager_team",
             "name": "manager_team",
-            "summary": "The\u0020team\u0020assigned\u0020to\u0020manage\u0020the\u0020match.\u0020This\u0020can\u0020either\u0020be\u0020a\u0020team\u0020ID\u0020or\u0020a\u0020team\u0020reference",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#property_manager_team"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchManager\u003A\u003A\u0024match",
             "name": "match",
-            "summary": "The\u0020match\u0020this\u0020Manager\u0020is\u0020managing",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchManager.html#property_match"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials",
             "name": "MatchOfficials",
-            "summary": "A\u0020team\u0020definition",
+            "summary": "Represents\u0020the\u0020officials\u0020for\u0020a\u0020match\u0020in\u0020a\u0020competition.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A__construct\u0028\u0029",
             "name": "__construct",
-            "summary": "Contains\u0020the\u0020officials\u0020data",
+            "summary": "Contains\u0020the\u0020officials\u0020data.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method___construct"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AloadFromData\u0028\u0029",
             "name": "loadFromData",
-            "summary": "",
+            "summary": "Load\u0020match\u0020officials\u0020data\u0020from\u0020a\u0020given\u0020object.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_loadFromData"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AjsonSerialize\u0028\u0029",
             "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020match\u0020officials\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "summary": "Return\u0020the\u0020match\u0020officials\u0020definition\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetMatch\u0028\u0029",
             "name": "getMatch",
-            "summary": "Get\u0020the\u0020match\u0020this\u0020manager\u0020is\u0020managing",
+            "summary": "Get\u0020the\u0020match\u0020this\u0020manager\u0020is\u0020managing.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getMatch"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AisTeam\u0028\u0029",
             "name": "isTeam",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020official\u0020is\u0020a\u0020team\u0020or\u0020not",
+            "summary": "Get\u0020whether\u0020the\u0020match\u0020official\u0020is\u0020a\u0020team\u0020or\u0020not.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_isTeam"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetTeamID\u0028\u0029",
             "name": "getTeamID",
-            "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020team\u0020officiating\u0020the\u0020match",
+            "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020team\u0020officiating\u0020the\u0020match.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetTeamID\u0028\u0029",
             "name": "setTeamID",
-            "summary": "Set\u0020the\u0020officiating\u0020team",
+            "summary": "Set\u0020the\u0020officiating\u0020team.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetFirstRef\u0028\u0029",
@@ -4073,183 +3273,258 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetFirstRef\u0028\u0029",
             "name": "setFirstRef",
-            "summary": "Set\u0020the\u0020first\u0020referee",
+            "summary": "Set\u0020the\u0020first\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setFirstRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AhasSecondRef\u0028\u0029",
             "name": "hasSecondRef",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020a\u0020second\u0020referee",
+            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020a\u0020second\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_hasSecondRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetSecondRef\u0028\u0029",
             "name": "getSecondRef",
-            "summary": "Get\u0020the\u0020second\u0020referee",
+            "summary": "Get\u0020the\u0020second\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getSecondRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetSecondRef\u0028\u0029",
             "name": "setSecondRef",
-            "summary": "Set\u0020the\u0020second\u0020referee",
+            "summary": "Set\u0020the\u0020second\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setSecondRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AhasChallengeRef\u0028\u0029",
             "name": "hasChallengeRef",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020a\u0020challenge\u0020referee",
+            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020a\u0020challenge\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_hasChallengeRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetChallengeRef\u0028\u0029",
             "name": "getChallengeRef",
-            "summary": "Get\u0020the\u0020challenge\u0020referee",
+            "summary": "Get\u0020the\u0020challenge\u0020referee\u0027s\u0020name.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getChallengeRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetChallengeRef\u0028\u0029",
             "name": "setChallengeRef",
-            "summary": "Set\u0020the\u0020challenge\u0020referee",
+            "summary": "Set\u0020the\u0020challenge\u0020referee\u0027s\u0020name.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setChallengeRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AhasAssistantChallengeRef\u0028\u0029",
             "name": "hasAssistantChallengeRef",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020an\u0020assistant\u0020challenge\u0020referee",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020has\u0020an\u0020assistant\u0020challenge\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_hasAssistantChallengeRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetAssistantChallengeRef\u0028\u0029",
             "name": "getAssistantChallengeRef",
-            "summary": "Get\u0020the\u0020assistant\u0020challenge\u0020referee",
+            "summary": "Get\u0020the\u0020name\u0020of\u0020the\u0020assistant\u0020challenge\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getAssistantChallengeRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetAssistantChallengeRef\u0028\u0029",
             "name": "setAssistantChallengeRef",
-            "summary": "Set\u0020the\u0020assistant\u0020challenge\u0020referee",
+            "summary": "Set\u0020the\u0020name\u0020of\u0020the\u0020assistant\u0020challenge\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setAssistantChallengeRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AhasReserveRef\u0028\u0029",
             "name": "hasReserveRef",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020a\u0020reserve\u0020referee",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020has\u0020a\u0020reserve\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_hasReserveRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetReserveRef\u0028\u0029",
             "name": "getReserveRef",
-            "summary": "Get\u0020the\u0020reserve\u0020referee",
+            "summary": "Get\u0020the\u0020name\u0020of\u0020the\u0020reserve\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getReserveRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetReserveRef\u0028\u0029",
             "name": "setReserveRef",
-            "summary": "Set\u0020the\u0020reserve\u0020referee",
+            "summary": "Set\u0020the\u0020name\u0020of\u0020the\u0020reserve\u0020referee.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setReserveRef"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AhasScorer\u0028\u0029",
             "name": "hasScorer",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020a\u0020scorer",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020has\u0020a\u0020scorer.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_hasScorer"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetScorer\u0028\u0029",
             "name": "getScorer",
-            "summary": "Get\u0020the\u0020scorer",
+            "summary": "Get\u0020the\u0020name\u0020of\u0020the\u0020scorer.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getScorer"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetScorer\u0028\u0029",
             "name": "setScorer",
-            "summary": "Set\u0020the\u0020scorer",
+            "summary": "Set\u0020the\u0020name\u0020of\u0020the\u0020scorer.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setScorer"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AhasAssistantScorer\u0028\u0029",
             "name": "hasAssistantScorer",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020an\u0020assistant\u0020scorer",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020has\u0020an\u0020assistant\u0020scorer.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_hasAssistantScorer"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetAssistantScorer\u0028\u0029",
             "name": "getAssistantScorer",
-            "summary": "Get\u0020the\u0020assistant\u0020scorer",
+            "summary": "Get\u0020the\u0020name\u0020of\u0020the\u0020assistant\u0020scorer.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getAssistantScorer"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetAssistantScorer\u0028\u0029",
             "name": "setAssistantScorer",
-            "summary": "Set\u0020the\u0020assistant\u0020scorer",
+            "summary": "Set\u0020the\u0020name\u0020of\u0020the\u0020assistant\u0020scorer.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setAssistantScorer"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AhasLinespersons\u0028\u0029",
             "name": "hasLinespersons",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020any\u0020linespersons",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020has\u0020any\u0020linespersons.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_hasLinespersons"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetLinespersons\u0028\u0029",
             "name": "getLinespersons",
-            "summary": "Get\u0020the\u0020list\u0020of\u0020linespersons",
+            "summary": "Get\u0020the\u0020list\u0020of\u0020linespersons.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getLinespersons"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetLinespersons\u0028\u0029",
             "name": "setLinespersons",
-            "summary": "Set\u0020the\u0020linespersons",
+            "summary": "Set\u0020the\u0020list\u0020of\u0020linespersons.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setLinespersons"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AhasBallCrew\u0028\u0029",
             "name": "hasBallCrew",
-            "summary": "Get\u0020whether\u0020the\u0020match\u0020has\u0020a\u0020ball\u0020crew",
+            "summary": "Check\u0020if\u0020the\u0020match\u0020has\u0020a\u0020ball\u0020crew.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_hasBallCrew"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AgetBallCrew\u0028\u0029",
             "name": "getBallCrew",
-            "summary": "Get\u0020the\u0020list\u0020of\u0020ball\u0020crew\u0020members",
+            "summary": "Get\u0020the\u0020list\u0020of\u0020ball\u0020crew\u0020members.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_getBallCrew"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003AsetBallCrew\u0028\u0029",
             "name": "setBallCrew",
-            "summary": "Set\u0020the\u0020ball\u0020crew",
+            "summary": "Set\u0020the\u0020list\u0020of\u0020ball\u0020crew\u0020members.",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#method_setBallCrew"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024first",
             "name": "first",
-            "summary": "The\u0020first\u0020referee",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_first"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024second",
             "name": "second",
-            "summary": "The\u0020second\u0020referee",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_second"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024challenge",
             "name": "challenge",
-            "summary": "The\u0020challenge\u0020referee,\u0020responsible\u0020for\u0020resolving\u0020challenges\u0020from\u0020the\u0020teams",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_challenge"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024assistant_challenge",
             "name": "assistant_challenge",
-            "summary": "The\u0020assistant\u0020challenge\u0020referee,\u0020who\u0020assists\u0020the\u0020challenge\u0020referee",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_assistant_challenge"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024reserve",
             "name": "reserve",
-            "summary": "The\u0020reserve\u0020referee",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_reserve"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024scorer",
             "name": "scorer",
-            "summary": "The\u0020scorer",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_scorer"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024assistant_scorer",
             "name": "assistant_scorer",
-            "summary": "The\u0020assistant\u0020scorer",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_assistant_scorer"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024linespersons",
             "name": "linespersons",
-            "summary": "The\u0020list\u0020of\u0020linespersons",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_linespersons"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024ball_crew",
             "name": "ball_crew",
-            "summary": "The\u0020list\u0020of\u0020people\u0020in\u0020charge\u0020of\u0020managing\u0020the\u0020game\u0020balls",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_ball_crew"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024officials_team",
             "name": "officials_team",
-            "summary": "The\u0020team\u0020assigned\u0020to\u0020referee\u0020the\u0020match.\u0020\u0020This\u0020can\u0020either\u0020be\u0020a\u0020team\u0020ID\u0020or\u0020a\u0020team\u0020reference",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_officials_team"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchOfficials\u003A\u003A\u0024match",
             "name": "match",
-            "summary": "The\u0020match\u0020this\u0020Manager\u0020is\u0020managing",
+            "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_match"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole",
+            "name": "ContactRole",
+            "summary": "The\u0020role\u0020of\u0020the\u0020contact\u0020within\u0020a\u0020team.\u0020\u0020There\u0020may\u0020me\u0020multiple\u0020contacts\u0020with\u0020the\u0020same\u0020role",
+            "url": "classes/VBCompetitions-Competitions-ContactRole.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ATREASURER",
+            "name": "TREASURER",
+            "summary": "A\u0020team\u0020treasurer",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ASECRETARY",
+            "name": "SECRETARY",
+            "summary": "A\u0020team\u0020secretary",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AMANAGER",
+            "name": "MANAGER",
+            "summary": "A\u0020team\u0020manager",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ACAPTAIN",
+            "name": "CAPTAIN",
+            "summary": "A\u0020team\u0020captain",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ACOACH",
+            "name": "COACH",
+            "summary": "A\u0020team\u0020coach",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AASSISTANT_COACH",
+            "name": "ASSISTANT_COACH",
+            "summary": "A\u0020team\u0020assistant\u0020coach",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AMEDIC",
+            "name": "MEDIC",
+            "summary": "A\u0020team\u0020medic",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupType",
+            "name": "GroupType",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-GroupType.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupType\u003A\u003ALEAGUE",
+            "name": "LEAGUE",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupType\u003A\u003ACROSSOVER",
+            "name": "CROSSOVER",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupType\u003A\u003AKNOCKOUT",
+            "name": "KNOCKOUT",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchType",
+            "name": "MatchType",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-MatchType.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchType\u003A\u003ACONTINUOUS",
+            "name": "CONTINUOUS",
+            "summary": "",
+            "url": ""
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchType\u003A\u003ASETS",
+            "name": "SETS",
+            "summary": "",
+            "url": ""
         },                {
             "fqsen": "\\",
             "name": "\\",

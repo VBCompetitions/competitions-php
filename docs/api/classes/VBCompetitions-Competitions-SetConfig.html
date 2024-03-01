@@ -118,7 +118,7 @@
 
     </aside>
 
-            <p class="phpdocumentor-summary">Configuration defining the nature of a set</p>
+            <p class="phpdocumentor-summary">Configuration defining the nature of a set.</p>
 
 
 
@@ -151,203 +151,203 @@
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>The number of points lead that the winning team must have, e.g. if this has the value &#039;2&#039; then teams must &#039;win by 2 clear points&#039;.  Note that if &#039;maxPoints&#039; has a value then that takes precedence, i.e. if &#039;maxPoints&#039; is set to &#039;35&#039; then a team can win &#039;35-34&#039; irrespective of the value of &#039;clearPoints&#039;</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#property_group">$group</a>
     <span>
-                        &nbsp;: <a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a>            </span>
+                        &nbsp;: <abbr title="\VBCompetitions\Competitions\Group">Group</abbr>            </span>
 </dt>
-<dd>The group that this SetConfig belongs to</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#property_last_set_max_points">$last_set_max_points</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>The upper limit of points that can be scored in the last set</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#property_last_set_points_to_win">$last_set_points_to_win</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>The minimum number of points required to win the last set</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#property_max_points">$max_points</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>The upper limit of points that can be scored in a set</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#property_max_sets">$max_sets</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>The maximum number of sets that could be played, often known as &#039;best of&#039;, e.g. if this has the value &#039;5&#039; then the match is played as &#039;best of 5 sets&#039; *</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#property_min_points">$min_points</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>The minimum number of points that either team must score for a set to count as valid.  Usually only used for time-limited matches</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#property_points_to_win">$points_to_win</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>The minimum number of points required to win all but the last set</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#property_sets_to_win">$sets_to_win</a>
     <span>
                         &nbsp;: int            </span>
 </dt>
-<dd>The number of sets that must be won to win the match.  This is usually one more than half the &#039;maxSets&#039;, but may be needed if draws are allowed, e.g. if a competition dictates that exactly 2 sets must be played (by setting &#039;maxSets&#039; to &#039;2&#039;) and that draws are allowed, then &#039;setsToWin&#039; should still be set to &#039;2&#039; to indicate that 2 sets are needed to win the match</dd>
+<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Contains the configuration data that define the sets in a match.  Uses the defaults if the config is null</dd>
+<dd>Contains the configuration data that define the sets in a match.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getClearPoints">getClearPoints()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd></dd>
+<dd>Get the number of points lead that the winning team must have.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getGroup">getGroup()</a>
     <span>
-                                &nbsp;: <a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a>    </span>
+                                &nbsp;: <abbr title="\VBCompetitions\Competitions\Group">Group</abbr>    </span>
 </dt>
-<dd></dd>
+<dd>Get the group that this SetConfig belongs to.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getLastSetMaxPoints">getLastSetMaxPoints()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd></dd>
+<dd>Get the upper limit of points that can be scored in the last set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getLastSetPointsToWin">getLastSetPointsToWin()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd></dd>
+<dd>Get the minimum number of points required to win the last set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getMaxPoints">getMaxPoints()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd></dd>
+<dd>Get the upper limit of points that can be scored in a set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getMaxSets">getMaxSets()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd></dd>
+<dd>Get the maximum number of sets that could be played.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getMinPoints">getMinPoints()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd></dd>
+<dd>Get the minimum number of points that either team must score for a set to count as valid.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getPointsToWin">getPointsToWin()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd></dd>
+<dd>Get the minimum number of points required to win all but the last set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_getSetsToWin">getSetsToWin()</a>
     <span>
                                 &nbsp;: int    </span>
 </dt>
-<dd></dd>
+<dd>Get the number of sets that must be won to win the match.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Return the list of team definition suitable for saving into a competition file</dd>
+<dd>Serialize the set configuration data.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_loadFromData">loadFromData()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-SetConfig.html"><abbr title="\VBCompetitions\Competitions\SetConfig">SetConfig</abbr></a>    </span>
 </dt>
-<dd></dd>
+<dd>Load set configuration data from an object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_setClearPoints">setClearPoints()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Set the number of points lead that the winning team must have.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_setLastSetMaxPoints">setLastSetMaxPoints()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Set the upper limit of points that can be scored in the last set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_setLastSetPointsToWin">setLastSetPointsToWin()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Set the minimum number of points required to win the last set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_setMaxPoints">setMaxPoints()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Set the upper limit of points that can be scored in a set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_setMaxSets">setMaxSets()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Set the maximum number of sets that could be played.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_setMinPoints">setMinPoints()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Set the minimum number of points that either team must score for a set to count as valid.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_setPointsToWin">setPointsToWin()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Set the minimum number of points required to win all but the last set.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-SetConfig.html#method_setSetsToWin">setSetsToWin()</a>
     <span>
                                 &nbsp;: void    </span>
 </dt>
-<dd></dd>
+<dd>Set the number of sets that must be won to win the match.</dd>
 
         </dl>
 
@@ -377,12 +377,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The number of points lead that the winning team must have, e.g. if this has the value &#039;2&#039; then teams must &#039;win by 2 clear points&#039;.  Note that if &#039;maxPoints&#039; has a value then that takes precedence, i.e. if &#039;maxPoints&#039; is set to &#039;35&#039; then a team can win &#039;35-34&#039; irrespective of the value of &#039;clearPoints&#039;</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">int</span>
@@ -390,7 +389,8 @@
      = <span class="phpdocumentor-signature__default-value">2</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The number of points lead that the winning team must have.</p>
+</section>
 
     
 
@@ -411,20 +411,20 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">39</span>
+    <span class="phpdocumentor-element-found-in__line">38</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The group that this SetConfig belongs to</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></span>
     <span class="phpdocumentor-signature__name">$group</span>
     </code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The group that this SetConfig belongs to</p>
+</section>
 
     
 
@@ -445,12 +445,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">35</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The upper limit of points that can be scored in the last set</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">int</span>
@@ -458,7 +457,8 @@
      = <span class="phpdocumentor-signature__default-value">1000</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The upper limit of points that can be scored in the last set.</p>
+</section>
 
     
 
@@ -479,12 +479,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">29</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The minimum number of points required to win the last set</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">int</span>
@@ -492,7 +491,8 @@
      = <span class="phpdocumentor-signature__default-value">15</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The minimum number of points required to win the last set.</p>
+</section>
 
     
 
@@ -513,12 +513,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">32</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The upper limit of points that can be scored in a set</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">int</span>
@@ -526,7 +525,8 @@
      = <span class="phpdocumentor-signature__default-value">1000</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The upper limit of points that can be scored in a set.</p>
+</section>
 
     
 
@@ -547,12 +547,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The maximum number of sets that could be played, often known as &#039;best of&#039;, e.g. if this has the value &#039;5&#039; then the match is played as &#039;best of 5 sets&#039; *</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">int</span>
@@ -560,7 +559,8 @@
      = <span class="phpdocumentor-signature__default-value">5</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The maximum number of sets that could be played, often known as 'best of', e.g., if this has the value '5' then the match is played as 'best of 5 sets'</p>
+</section>
 
     
 
@@ -581,12 +581,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The minimum number of points that either team must score for a set to count as valid.  Usually only used for time-limited matches</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">int</span>
@@ -594,7 +593,8 @@
      = <span class="phpdocumentor-signature__default-value">1</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The minimum number of points that either team must score for a set to count as valid.</p>
+</section>
 
     
 
@@ -615,12 +615,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">26</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The minimum number of points required to win all but the last set</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">int</span>
@@ -628,7 +627,8 @@
      = <span class="phpdocumentor-signature__default-value">25</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The minimum number of points required to win all but the last set.</p>
+</section>
 
     
 
@@ -649,12 +649,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The number of sets that must be won to win the match.  This is usually one more than half the &#039;maxSets&#039;, but may be needed if draws are allowed, e.g. if a competition dictates that exactly 2 sets must be played (by setting &#039;maxSets&#039; to &#039;2&#039;) and that draws are allowed, then &#039;setsToWin&#039; should still be set to &#039;2&#039; to indicate that 2 sets are needed to win the match</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">int</span>
@@ -662,7 +661,8 @@
      = <span class="phpdocumentor-signature__default-value">3</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The number of sets that must be won to win the match.</p>
+</section>
 
     
 
@@ -687,25 +687,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">46</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Contains the configuration data that define the sets in a match.  Uses the defaults if the config is null</p>
+        <p class="phpdocumentor-summary">Contains the configuration data that define the sets in a match.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$group</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$group</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$group</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The group that this SetConfig belongs to</p>
+</section>
 
             </dd>
             </dl>
@@ -731,24 +732,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">145</span>
+    <span class="phpdocumentor-element-found-in__line">179</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the number of points lead that the winning team must have.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getClearPoints</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The number of clear points</p>
+</section>
+
     
 </article>
                     <article
@@ -764,24 +767,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">94</span>
+    <span class="phpdocumentor-element-found-in__line">98</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the group that this SetConfig belongs to.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getGroup</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">getGroup</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The group that this SetConfig belongs to</p>
+</section>
+
     
 </article>
                     <article
@@ -797,24 +802,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">195</span>
+    <span class="phpdocumentor-element-found-in__line">279</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the upper limit of points that can be scored in the last set.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getLastSetMaxPoints</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The upper limit of points in the last set</p>
+</section>
+
     
 </article>
                     <article
@@ -830,24 +837,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">175</span>
+    <span class="phpdocumentor-element-found-in__line">239</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the minimum number of points required to win the last set.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getLastSetPointsToWin</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The minimum number of points to win the last set</p>
+</section>
+
     
 </article>
                     <article
@@ -863,24 +872,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">259</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the upper limit of points that can be scored in a set.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getMaxPoints</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The upper limit of points in a set</p>
+</section>
+
     
 </article>
                     <article
@@ -896,24 +907,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">125</span>
+    <span class="phpdocumentor-element-found-in__line">139</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the maximum number of sets that could be played.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getMaxSets</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The maximum number of sets</p>
+</section>
+
     
 </article>
                     <article
@@ -929,24 +942,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">155</span>
+    <span class="phpdocumentor-element-found-in__line">199</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the minimum number of points that either team must score for a set to count as valid.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getMinPoints</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The minimum number of points</p>
+</section>
+
     
 </article>
                     <article
@@ -962,24 +977,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">165</span>
+    <span class="phpdocumentor-element-found-in__line">219</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the minimum number of points required to win all but the last set.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getPointsToWin</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The minimum number of points to win</p>
+</section>
+
     
 </article>
                     <article
@@ -995,24 +1012,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">159</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the number of sets that must be won to win the match.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getSetsToWin</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">int</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The number of sets to win</p>
+</section>
+
     
 </article>
                     <article
@@ -1028,11 +1047,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">104</span>
+    <span class="phpdocumentor-element-found-in__line">108</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Return the list of team definition suitable for saving into a competition file</p>
+        <p class="phpdocumentor-summary">Serialize the set configuration data.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1045,14 +1064,16 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The serialized set configuration data</p>
+</section>
+
     
 </article>
                     <article
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
     <h4 class="phpdocumentor-element__name" id="method_loadFromData">
         loadFromData()
@@ -1061,33 +1082,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">56</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Load set configuration data from an object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$group</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$set_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-SetConfig.html"><abbr title="\VBCompetitions\Competitions\SetConfig">SetConfig</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$set_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-SetConfig.html"><abbr title="\VBCompetitions\Competitions\SetConfig">SetConfig</abbr></a></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$group</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$set_data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The set configuration data</p>
+</section>
 
             </dd>
             </dl>
@@ -1097,7 +1111,9 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-SetConfig.html"><abbr title="\VBCompetitions\Competitions\SetConfig">SetConfig</abbr></a></span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The updated SetConfig object</p>
+</section>
+
     
 </article>
                     <article
@@ -1113,17 +1129,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+    <span class="phpdocumentor-element-found-in__line">169</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set the number of points lead that the winning team must have.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setClearPoints</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$clear_points</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1131,7 +1147,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The number of clear points</p>
+</section>
 
             </dd>
             </dl>
@@ -1157,17 +1174,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">190</span>
+    <span class="phpdocumentor-element-found-in__line">269</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set the upper limit of points that can be scored in the last set.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setLastSetMaxPoints</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$last_set_max_points</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1175,7 +1192,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The upper limit of points in the last set</p>
+</section>
 
             </dd>
             </dl>
@@ -1201,17 +1219,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">229</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set the minimum number of points required to win the last set.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setLastSetPointsToWin</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$last_set_points_to_win</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1219,7 +1237,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The minimum number of points to win the last set</p>
+</section>
 
             </dd>
             </dl>
@@ -1245,17 +1264,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">249</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set the upper limit of points that can be scored in a set.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setMaxPoints</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$max_points</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1263,7 +1282,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The upper limit of points in a set</p>
+</section>
 
             </dd>
             </dl>
@@ -1289,17 +1309,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">120</span>
+    <span class="phpdocumentor-element-found-in__line">129</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set the maximum number of sets that could be played.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setMaxSets</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$max_sets</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1307,7 +1327,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The maximum number of sets</p>
+</section>
 
             </dd>
             </dl>
@@ -1333,17 +1354,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">189</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set the minimum number of points that either team must score for a set to count as valid.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setMinPoints</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$min_points</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1351,7 +1372,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The minimum number of points</p>
+</section>
 
             </dd>
             </dl>
@@ -1377,17 +1399,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">160</span>
+    <span class="phpdocumentor-element-found-in__line">209</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set the minimum number of points required to win all but the last set.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setPointsToWin</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$points_to_win</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1395,7 +1417,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The minimum number of points to win</p>
+</section>
 
             </dd>
             </dl>
@@ -1421,17 +1444,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/SetConfig.php"><a href="files/src-setconfig.html"><abbr title="src/SetConfig.php">SetConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">130</span>
+    <span class="phpdocumentor-element-found-in__line">149</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Set the number of sets that must be won to win the match.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">setSetsToWin</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$sets_to_win</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">void</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1439,7 +1462,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The number of sets to win</p>
+</section>
 
             </dd>
             </dl>

@@ -132,7 +132,7 @@
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/VBCompetitions-Competitions-ICS.html#property_c">$c</a>
+    <a href="classes/VBCompetitions-Competitions-ICS.html#property_competition">$competition</a>
     <span>
                         &nbsp;: <a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a>            </span>
 </dt>
@@ -201,9 +201,9 @@ playing teams are not yet known</dd>
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_c">
-        $c
-        <a href="classes/VBCompetitions-Competitions-ICS.html#property_c" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_competition">
+        $competition
+        <a href="classes/VBCompetitions-Competitions-ICS.html#property_competition" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
@@ -218,7 +218,7 @@ playing teams are not yet known</dd>
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$c</span>
+    <span class="phpdocumentor-signature__name">$competition</span>
     </code>
 
         <section class="phpdocumentor-description"></section>
@@ -293,7 +293,7 @@ playing teams are not yet known</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ICS.php"><a href="files/src-ics.html"><abbr title="src/ICS.php">ICS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">69</span>
+    <span class="phpdocumentor-element-found-in__line">68</span>
 
     </aside>
 
@@ -303,7 +303,7 @@ playing teams are not yet known</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getCalendar</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$unique_id</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getCalendar</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$unique_id</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -313,7 +313,7 @@ playing teams are not yet known</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>some unique string such as the domain name of the page generating the calendars.  This is used
+                    <section class="phpdocumentor-description"><p>Some unique string such as the domain name of the page generating the calendars.  This is used
 in the UID field such that the UID will contain the date and time of the calendar entry, plus this
 string</p>
 </section>
@@ -321,10 +321,10 @@ string</p>
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$team_id</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>the ID for the team taht the calendar is for.  When not specified the calendar will contain all matches</p>
+                    <section class="phpdocumentor-description"><p>The ID for the team that the calendar is for.  When not specified the calendar will contain all matches (default: null)</p>
 </section>
 
             </dd>
@@ -335,7 +335,7 @@ string</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>the body of the calendar</p>
+            <section class="phpdocumentor-description"><p>The body of the calendar</p>
 </section>
 
     
@@ -361,7 +361,7 @@ string</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getContentDisposition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
+                    <span class="phpdocumentor-signature__name">getContentDisposition</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$filename</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
         <section class="phpdocumentor-description"><p>If $filename is defined then use that, otherwise use the team name</p>
 </section>
@@ -373,16 +373,16 @@ string</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>the team ID of the team the calendar is for</p>
+                    <section class="phpdocumentor-description"><p>The team ID of the team the calendar is for</p>
 </section>
 
             </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$filename</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>the filename for the calendar</p>
+                    <section class="phpdocumentor-description"><p>A filename override for the calendar (default: null)</p>
 </section>
 
             </dd>
@@ -393,7 +393,7 @@ string</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>the ICS file's content disposition, i.e. &quot;attachment; filename={filename}&quot;</p>
+            <section class="phpdocumentor-description"><p>The ICS file's content disposition, i.e. &quot;attachment; filename={filename}&quot;</p>
 </section>
 
     
@@ -428,7 +428,7 @@ string</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>the standard ICS content type text/calendar</p>
+            <section class="phpdocumentor-description"><p>The standard ICS content type text/calendar</p>
 </section>
 
     
@@ -446,7 +446,7 @@ string</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ICS.php"><a href="files/src-ics.html"><abbr title="src/ICS.php">ICS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">199</span>
+    <span class="phpdocumentor-element-found-in__line">198</span>
 
     </aside>
 
@@ -464,7 +464,7 @@ string</p>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-BreakInterface.html"><abbr title="\VBCompetitions\Competitions\BreakInterface">BreakInterface</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>the break to generate the description for</p>
+                    <section class="phpdocumentor-description"><p>The break to generate the description for</p>
 </section>
 
             </dd>
@@ -475,7 +475,7 @@ string</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>the description of the break</p>
+            <section class="phpdocumentor-description"><p>The description of the break</p>
 </section>
 
     
@@ -493,7 +493,7 @@ string</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/ICS.php"><a href="files/src-ics.html"><abbr title="src/ICS.php">ICS.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">218</span>
+    <span class="phpdocumentor-element-found-in__line">217</span>
 
     </aside>
 
@@ -511,7 +511,7 @@ string</p>
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-MatchInterface.html"><abbr title="\VBCompetitions\Competitions\MatchInterface">MatchInterface</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>the match to generate the description for</p>
+                    <section class="phpdocumentor-description"><p>The match to generate the description for</p>
 </section>
 
             </dd>
@@ -522,7 +522,7 @@ string</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>the description of the match</p>
+            <section class="phpdocumentor-description"><p>The description of the match</p>
 </section>
 
     

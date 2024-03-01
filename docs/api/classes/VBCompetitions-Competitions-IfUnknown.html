@@ -114,7 +114,7 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">13</span>
+    <span class="phpdocumentor-element-found-in__line">12</span>
 
     </aside>
 
@@ -153,21 +153,21 @@
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>An array of string values to be presented in the case that the teams in this stage are not yet known, typically as an explanation of what this stage will contain (e.g. &#039;The crossover games will be between the top two teams in each pool&#039;)</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#property_match_lookup">$match_lookup</a>
     <span>
                         &nbsp;: object            </span>
 </dt>
-<dd>A Lookup table from match IDs to that match</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#property_matches">$matches</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>An array of matches in this group (or breaks in play)</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#property_matches_have_courts">$matches_have_courts</a>
@@ -242,9 +242,9 @@
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#property_stage">$stage</a>
     <span>
-                        &nbsp;: <a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a>            </span>
+                        &nbsp;: <abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr>            </span>
 </dt>
-<dd>The Stage this IfUnknown is in</dd>
+<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method___construct">__construct()</a>
@@ -256,72 +256,80 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_addBreak">addBreak()</a>
     <span>
-                                &nbsp;: int    </span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a>    </span>
 </dt>
-<dd></dd>
+<dd>Add a break to this IfUnknown</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_addMatch">addMatch()</a>
     <span>
-                                &nbsp;: int    </span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a>    </span>
 </dt>
-<dd></dd>
+<dd>Add a match to this IfUnknown</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getCompetition">getCompetition()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a>    </span>
 </dt>
-<dd></dd>
+<dd>Get the competition this IfUnknown belongs to</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getDescription">getDescription()</a>
     <span>
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd></dd>
+<dd>Get the description of this IfUnknown</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getID">getID()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
-<dd></dd>
+<dd>Get the ID of this IfUnknown. Since IfUnknown blocks don&#039;t have a unique id,
+this is always the string &quot;unknown&quot;</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatchById">getMatchById()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-IfUnknownMatch.html"><abbr title="\VBCompetitions\Competitions\IfUnknownMatch">IfUnknownMatch</abbr></a>    </span>
 </dt>
-<dd>Returns the match with the specified ID</dd>
+<dd>Get the match with the specified ID</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatches">getMatches()</a>
     <span>
-                                &nbsp;: array&lt;string|int, <a href="classes/VBCompetitions-Competitions-MatchInterface.html"><abbr title="\VBCompetitions\Competitions\MatchInterface">MatchInterface</abbr></a>&gt;    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Returns a list of matches from this match container, where the list depends on the input parameters and on the type of the MatchContainer</dd>
+<dd>Get the matches in this IfUnknown</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatchType">getMatchType()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-MatchType.html"><abbr title="\VBCompetitions\Competitions\MatchType">MatchType</abbr></a>    </span>
 </dt>
-<dd></dd>
+<dd>Get the match type of this IfUnknown</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getStage">getStage()</a>
+    <span>
+                                &nbsp;: <abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr>    </span>
+</dt>
+<dd>Get the stage this IfUnknown belongs to</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getTeamIDs">getTeamIDs()</a>
     <span>
-                                &nbsp;: array&lt;string|int, string&gt;    </span>
+                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
-<dd>Returns a list of teams from this match container</dd>
+<dd>Get the IDs of the teams in this IfUnknown</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_hasMatchWithID">hasMatchWithID()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if a match with the given ID exists in this IfUnknown</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_jsonSerialize">jsonSerialize()</a>
@@ -335,77 +343,77 @@
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a>    </span>
 </dt>
-<dd></dd>
+<dd>Load data from an object into the IfUnknown instance</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveCourts">matchesHaveCourts()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have courts</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveDates">matchesHaveDates()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have dates</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveDurations">matchesHaveDurations()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have durations</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveManagers">matchesHaveManagers()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have managers</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveMVPs">matchesHaveMVPs()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have MVPs</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveNotes">matchesHaveNotes()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have notes</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveOfficials">matchesHaveOfficials()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have officials</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveStarts">matchesHaveStarts()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have starts</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveVenues">matchesHaveVenues()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have venues</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_matchesHaveWarmups">matchesHaveWarmups()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
-<dd></dd>
+<dd>Check if matches have warmups</dd>
 
         </dl>
 
@@ -435,12 +443,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">16</span>
+    <span class="phpdocumentor-element-found-in__line">15</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">An array of string values to be presented in the case that the teams in this stage are not yet known, typically as an explanation of what this stage will contain (e.g. &#039;The crossover games will be between the top two teams in each pool&#039;)</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
@@ -448,7 +455,8 @@
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>An array of string values to be presented in the case that the teams in this stage are not yet known, typically as an explanation of what this stage will contain (e.g. 'The crossover games will be between the top two teams in each pool')</p>
+</section>
 
     
 
@@ -469,12 +477,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">36</span>
+    <span class="phpdocumentor-element-found-in__line">54</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">A Lookup table from match IDs to that match</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">object</span>
@@ -482,7 +489,8 @@
     </code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>A Lookup table from match IDs to that match</p>
+</section>
 
     
 
@@ -503,12 +511,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">19</span>
+    <span class="phpdocumentor-element-found-in__line">18</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">An array of matches in this group (or breaks in play)</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
@@ -516,7 +523,8 @@
      = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>An array of matches in this group (or breaks in play)</p>
+</section>
 
     
 
@@ -548,9 +556,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_courts</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have courts</p>
+</section>
 
     
 
@@ -571,7 +579,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">25</span>
+    <span class="phpdocumentor-element-found-in__line">27</span>
 
     </aside>
 
@@ -582,9 +590,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_dates</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have dates</p>
+</section>
 
     
 
@@ -605,7 +613,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">26</span>
+    <span class="phpdocumentor-element-found-in__line">30</span>
 
     </aside>
 
@@ -616,9 +624,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_durations</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have durations</p>
+</section>
 
     
 
@@ -639,7 +647,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">28</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
@@ -650,9 +658,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_managers</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have managers</p>
+</section>
 
     
 
@@ -673,7 +681,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">33</span>
 
     </aside>
 
@@ -684,9 +692,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_mvps</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have MVPs</p>
+</section>
 
     
 
@@ -707,7 +715,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">29</span>
+    <span class="phpdocumentor-element-found-in__line">39</span>
 
     </aside>
 
@@ -718,9 +726,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_notes</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have notes</p>
+</section>
 
     
 
@@ -741,7 +749,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">30</span>
+    <span class="phpdocumentor-element-found-in__line">42</span>
 
     </aside>
 
@@ -752,9 +760,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_officials</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have officials</p>
+</section>
 
     
 
@@ -775,7 +783,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">31</span>
+    <span class="phpdocumentor-element-found-in__line">45</span>
 
     </aside>
 
@@ -786,9 +794,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_starts</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have starts</p>
+</section>
 
     
 
@@ -809,7 +817,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">48</span>
 
     </aside>
 
@@ -820,9 +828,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_venues</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have venues</p>
+</section>
 
     
 
@@ -843,7 +851,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">33</span>
+    <span class="phpdocumentor-element-found-in__line">51</span>
 
     </aside>
 
@@ -854,9 +862,9 @@
     <span class="phpdocumentor-signature__name">$matches_have_warmups</span>
      = <span class="phpdocumentor-signature__default-value">false</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
-        <section class="phpdocumentor-description"></section>
+    
+        <section class="phpdocumentor-description"><p>Whether matches have warmups</p>
+</section>
 
     
 
@@ -877,20 +885,20 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">22</span>
+    <span class="phpdocumentor-element-found-in__line">21</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The Stage this IfUnknown is in</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a></span>
+        <span class="phpdocumentor-signature__type"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></span>
     <span class="phpdocumentor-signature__name">$stage</span>
     </code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The Stage this IfUnknown is in</p>
+</section>
 
     
 
@@ -915,7 +923,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">62</span>
 
     </aside>
 
@@ -923,14 +931,14 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stage</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$description</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stage</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$description</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$stage</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a></span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>A link back to the Stage this IfUnknown is in</p>
@@ -942,7 +950,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>An array of string values to be presented in the case that the teams in this stage are not yet known</p>
+</section>
 
             </dd>
             </dl>
@@ -968,17 +977,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">129</span>
+    <span class="phpdocumentor-element-found-in__line">185</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Add a break to this IfUnknown</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addBreak</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-IfUnknownBreak.html"><abbr title="\VBCompetitions\Competitions\IfUnknownBreak">IfUnknownBreak</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$break</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">addBreak</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-IfUnknownBreak.html"><abbr title="\VBCompetitions\Competitions\IfUnknownBreak">IfUnknownBreak</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$break</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -986,7 +995,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-IfUnknownBreak.html"><abbr title="\VBCompetitions\Competitions\IfUnknownBreak">IfUnknownBreak</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The break to add</p>
+</section>
 
             </dd>
             </dl>
@@ -994,7 +1004,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a></span>
             &mdash;
         
     
@@ -1012,17 +1022,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">92</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Add a match to this IfUnknown</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">addMatch</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-IfUnknownMatch.html"><abbr title="\VBCompetitions\Competitions\IfUnknownMatch">IfUnknownMatch</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+                    <span class="phpdocumentor-signature__name">addMatch</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-IfUnknownMatch.html"><abbr title="\VBCompetitions\Competitions\IfUnknownMatch">IfUnknownMatch</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1030,7 +1040,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-IfUnknownMatch.html"><abbr title="\VBCompetitions\Competitions\IfUnknownMatch">IfUnknownMatch</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The match to add</p>
+</section>
 
             </dd>
             </dl>
@@ -1038,7 +1049,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">int</span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a></span>
             &mdash;
         
     
@@ -1056,17 +1067,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">82</span>
+    <span class="phpdocumentor-element-found-in__line">121</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the competition this IfUnknown belongs to</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getCompetition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
@@ -1089,17 +1100,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">87</span>
+    <span class="phpdocumentor-element-found-in__line">131</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the description of this IfUnknown</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getDescription</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
@@ -1122,17 +1133,18 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">220</span>
+    <span class="phpdocumentor-element-found-in__line">356</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the ID of this IfUnknown. Since IfUnknown blocks don&#039;t have a unique id,
+this is always the string &quot;unknown&quot;</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getID</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">string</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
@@ -1155,11 +1167,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">162</span>
+    <span class="phpdocumentor-element-found-in__line">242</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Returns the match with the specified ID</p>
+        <p class="phpdocumentor-summary">Get the match with the specified ID</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -1180,6 +1192,22 @@
             </dl>
 
     
+    <h5 class="phpdocumentor-tag-list__heading" id="tags">
+        Tags
+        <a href="#tags" class="headerlink"><i class="fas fa-link"></i></a>
+    </h5>
+    <dl class="phpdocumentor-tag-list">
+                                    <dt class="phpdocumentor-tag-list__entry">
+                    <span class="phpdocumentor-tag__name">throws</span>
+                </dt>
+                <dd class="phpdocumentor-tag-list__definition">
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\OutOfBoundsException">OutOfBoundsException</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>When the match with the specified ID is not found</p>
+</section>
+
+                                    </dd>
+                        </dl>
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-IfUnknownMatch.html"><abbr title="\VBCompetitions\Competitions\IfUnknownMatch">IfUnknownMatch</abbr></a></span>
@@ -1202,25 +1230,25 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">135</span>
+    <span class="phpdocumentor-element-found-in__line">198</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Returns a list of matches from this match container, where the list depends on the input parameters and on the type of the MatchContainer</p>
+        <p class="phpdocumentor-summary">Get the matches in this IfUnknown</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getMatches</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/VBCompetitions-Competitions-MatchInterface.html"><abbr title="\VBCompetitions\Competitions\MatchInterface">MatchInterface</abbr></a>&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getMatches</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$team_id</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>When provided, return the matches where this team is playing</p>
+                    <section class="phpdocumentor-description"><p>The ID of the team</p>
 </section>
 
             </dd>
@@ -1229,12 +1257,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Controls what gets returned</p>
-<ul>
-  <li><code class="prettyprint">VBC_MATCH_ALL_IN_GROUP</code> if a team is in a group then this returns all matches in that group (e.g. a pool in a competition may want to show all matches)</li>
-  <li><code class="prettyprint">VBC_MATCH_PLAYING</code> returns only matches that a team is playing in</li>
-  <li><code class="prettyprint">VBC_MATCH_OFFICIATING</code> returns only matches that a team is officiating</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>Flags to filter matches</p>
 </section>
 
             </dd>
@@ -1243,7 +1266,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/VBCompetitions-Competitions-MatchInterface.html"><abbr title="\VBCompetitions\Competitions\MatchInterface">MatchInterface</abbr></a>&gt;</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
         
     
@@ -1261,22 +1284,55 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">150</span>
+    <span class="phpdocumentor-element-found-in__line">230</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Get the match type of this IfUnknown</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">getMatchType</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-MatchType.html"><abbr title="\VBCompetitions\Competitions\MatchType">MatchType</abbr></a></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-MatchType.html"><abbr title="\VBCompetitions\Competitions\MatchType">MatchType</abbr></a></span>
+            &mdash;
+        
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getStage">
+        getStage()
+        <a href="classes/VBCompetitions-Competitions-IfUnknown.html#method_getStage" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">111</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the stage this IfUnknown belongs to</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getStage</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></span>
             &mdash;
         
     
@@ -1294,15 +1350,15 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">145</span>
+    <span class="phpdocumentor-element-found-in__line">220</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Returns a list of teams from this match container</p>
+        <p class="phpdocumentor-summary">Get the IDs of the teams in this IfUnknown</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getTeamIDs</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getTeamIDs</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1312,13 +1368,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">int</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>Controls what gets returned (MAYBE overrides KNOWN overrides FIXED_ID)</p>
-<ul>
-  <li><code class="prettyprint">VBC_TEAMS_FIXED_ID</code> returns teams with a defined team ID (no references)</li>
-  <li><code class="prettyprint">VBC_TEAMS_KNOWN</code> returns teams that are known (references that are resolved</li>
-  <li><code class="prettyprint">VBC_TEAMS_MAYBE</code> returns teams that might be in this container (references that may resolve to a team)</li>
-  <li><code class="prettyprint">VBC_TEAMS_ALL</code> returns all team IDs, including unresolved references</li>
-</ul>
+                    <section class="phpdocumentor-description"><p>Flags to filter teams</p>
 </section>
 
             </dd>
@@ -1327,7 +1377,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
         
     
@@ -1345,17 +1395,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">140</span>
+    <span class="phpdocumentor-element-found-in__line">209</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if a match with the given ID exists in this IfUnknown</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">hasMatchWithID</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -1363,7 +1413,8 @@
                 : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The ID of the match</p>
+</section>
 
             </dd>
             </dl>
@@ -1389,7 +1440,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">71</span>
+    <span class="phpdocumentor-element-found-in__line">95</span>
 
     </aside>
 
@@ -1413,7 +1464,7 @@
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
     <h4 class="phpdocumentor-element__name" id="method_loadFromData">
         loadFromData()
@@ -1422,33 +1473,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">51</span>
+    <span class="phpdocumentor-element-found-in__line">75</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Load data from an object into the IfUnknown instance</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$stage</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$if_unknown_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$if_unknown_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-IfUnknown.html"><abbr title="\VBCompetitions\Competitions\IfUnknown">IfUnknown</abbr></a></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$stage</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$if_unknown_data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The data defining this IfUnknown</p>
+</section>
 
             </dd>
             </dl>
@@ -1474,17 +1518,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">255</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have courts</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveCourts</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
@@ -1507,17 +1551,17 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">175</span>
+    <span class="phpdocumentor-element-found-in__line">265</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have dates</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveDates</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
@@ -1540,24 +1584,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">275</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have durations</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveDurations</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>True if any match has a duration, false otherwise</p>
+</section>
+
     
 </article>
                     <article
@@ -1573,24 +1619,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">185</span>
+    <span class="phpdocumentor-element-found-in__line">285</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have managers</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveManagers</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>True if any match has a manager, false otherwise</p>
+</section>
+
     
 </article>
                     <article
@@ -1606,24 +1654,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">190</span>
+    <span class="phpdocumentor-element-found-in__line">295</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have MVPs</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveMVPs</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>True if any match has an MVP, false otherwise</p>
+</section>
+
     
 </article>
                     <article
@@ -1639,24 +1689,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">195</span>
+    <span class="phpdocumentor-element-found-in__line">305</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have notes</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveNotes</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>True if any match has notes, false otherwise</p>
+</section>
+
     
 </article>
                     <article
@@ -1672,24 +1724,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">200</span>
+    <span class="phpdocumentor-element-found-in__line">315</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have officials</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveOfficials</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>True if any match has officials, false otherwise</p>
+</section>
+
     
 </article>
                     <article
@@ -1705,24 +1759,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">205</span>
+    <span class="phpdocumentor-element-found-in__line">325</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have starts</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveStarts</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>True if any match has a start time, false otherwise</p>
+</section>
+
     
 </article>
                     <article
@@ -1738,24 +1794,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">210</span>
+    <span class="phpdocumentor-element-found-in__line">335</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have venues</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveVenues</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>True if any match has a venue, false otherwise</p>
+</section>
+
     
 </article>
                     <article
@@ -1771,24 +1829,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/IfUnknown.php"><a href="files/src-ifunknown.html"><abbr title="src/IfUnknown.php">IfUnknown.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">215</span>
+    <span class="phpdocumentor-element-found-in__line">345</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Check if matches have warmups</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
                     <span class="phpdocumentor-signature__name">matchesHaveWarmups</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">bool</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>True if any match has a warmup time, false otherwise</p>
+</section>
+
     
 </article>
             </section>

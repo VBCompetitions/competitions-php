@@ -114,11 +114,11 @@
         <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">11</span>
 
     </aside>
 
-            <p class="phpdocumentor-summary">A team definition</p>
+            <p class="phpdocumentor-summary">Represents a knockout configuration for a competition.</p>
 
 
 
@@ -147,53 +147,60 @@
 
 <dl class="phpdocumentor-table-of-contents">
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#property_knockout">$knockout</a>
+    <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#property_group">$group</a>
     <span>
-                        &nbsp;: <a href="classes/VBCompetitions-Competitions-Knockout.html"><abbr title="\VBCompetitions\Competitions\Knockout">Knockout</abbr></a>            </span>
+                        &nbsp;: <abbr title="\VBCompetitions\Competitions\Group">Group</abbr>            </span>
 </dt>
-<dd>The knockout group this config is for</dd>
+<dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#property_standing">$standing</a>
     <span>
                         &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
-<dd>An ordered mapping from a position to a team ID</dd>
+<dd></dd>
 
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Defined the match/court manager of a match, which may be an individual or a team</dd>
+<dd>Constructs a new KnockoutConfig instance.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#method_getGroup">getGroup()</a>
+    <span>
+                                &nbsp;: <abbr title="\VBCompetitions\Competitions\Group">Group</abbr>    </span>
+</dt>
+<dd>Gets the group associated with this knockout configuration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#method_getStanding">getStanding()</a>
     <span>
                                 &nbsp;: array&lt;string|int, object&gt;    </span>
 </dt>
-<dd>Get the array of standing maps for this config</dd>
+<dd>Gets the standing array for this knockout configuration.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#method_jsonSerialize">jsonSerialize()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
-<dd>Return the match manager definition suitable for saving into a competition file</dd>
+<dd>Serializes the knockout configuration data for storage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#method_loadFromData">loadFromData()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html"><abbr title="\VBCompetitions\Competitions\KnockoutConfig">KnockoutConfig</abbr></a>    </span>
 </dt>
-<dd></dd>
+<dd>Loads knockout configuration data from an object.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#method_setStanding">setStanding()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html"><abbr title="\VBCompetitions\Competitions\KnockoutConfig">KnockoutConfig</abbr></a>    </span>
 </dt>
-<dd>Set the array of standing maps for this config</dd>
+<dd>Sets the standing array for this knockout configuration.</dd>
 
         </dl>
 
@@ -214,29 +221,29 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_knockout">
-        $knockout
-        <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#property_knockout" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_group">
+        $group
+        <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#property_group" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">The knockout group this config is for</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-Knockout.html"><abbr title="\VBCompetitions\Competitions\Knockout">Knockout</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$knockout</span>
+        <span class="phpdocumentor-signature__type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></span>
+    <span class="phpdocumentor-signature__name">$group</span>
     </code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>The knockout group this configuration is associated with</p>
+</section>
 
     
 
@@ -257,20 +264,20 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">14</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">An ordered mapping from a position to a team ID</p>
-
+    
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
         <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
     <span class="phpdocumentor-signature__name">$standing</span>
-    </code>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
     
-        <section class="phpdocumentor-description"></section>
+        <section class="phpdocumentor-description"><p>An ordered mapping from a position to a team ID</p>
+</section>
 
     
 
@@ -295,25 +302,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">24</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Defined the match/court manager of a match, which may be an individual or a team</p>
+        <p class="phpdocumentor-summary">Constructs a new KnockoutConfig instance.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Knockout.html"><abbr title="\VBCompetitions\Competitions\Knockout">Knockout</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$knockout</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$group</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$knockout</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Knockout.html"><abbr title="\VBCompetitions\Competitions\Knockout">Knockout</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__name">$group</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The group associated with this knockout configuration.</p>
+</section>
 
             </dd>
             </dl>
@@ -332,6 +340,41 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getGroup">
+        getGroup()
+        <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#method_getGroup" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">59</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Gets the group associated with this knockout configuration.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getGroup</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The group associated with this knockout configuration.</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getStanding">
         getStanding()
         <a href="classes/VBCompetitions-Competitions-KnockoutConfig.html#method_getStanding" class="headerlink"><i class="fas fa-link"></i></a>
@@ -339,11 +382,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">67</span>
+    <span class="phpdocumentor-element-found-in__line">82</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Get the array of standing maps for this config</p>
+        <p class="phpdocumentor-summary">Gets the standing array for this knockout configuration.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -356,7 +399,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, object&gt;</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>the array of standing maps for this config</p>
+            <section class="phpdocumentor-description"><p>The array of standing maps for this knockout configuration.</p>
 </section>
 
     
@@ -374,11 +417,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">44</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Return the match manager definition suitable for saving into a competition file</p>
+        <p class="phpdocumentor-summary">Serializes the knockout configuration data for storage.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -391,14 +434,16 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">mixed</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The serialized knockout configuration data.</p>
+</section>
+
     
 </article>
                     <article
         class="phpdocumentor-element
             -method
             -public
-                                    -static                    "
+                                                        "
 >
     <h4 class="phpdocumentor-element__name" id="method_loadFromData">
         loadFromData()
@@ -407,33 +452,26 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">32</span>
+    <span class="phpdocumentor-element-found-in__line">36</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">Loads knockout configuration data from an object.</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Knockout.html"><abbr title="\VBCompetitions\Competitions\Knockout">Knockout</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$knockout</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$knockout_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-KnockoutConfig.html"><abbr title="\VBCompetitions\Competitions\KnockoutConfig">KnockoutConfig</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$knockout_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-KnockoutConfig.html"><abbr title="\VBCompetitions\Competitions\KnockoutConfig">KnockoutConfig</abbr></a></span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
-                    <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$knockout</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Knockout.html"><abbr title="\VBCompetitions\Competitions\Knockout">Knockout</abbr></a></span>
-                            </dt>
-            <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
-
-            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$knockout_data</span>
                 : <span class="phpdocumentor-signature__argument__return-type">object</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The data object containing knockout configuration information.</p>
+</section>
 
             </dd>
             </dl>
@@ -443,7 +481,9 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-KnockoutConfig.html"><abbr title="\VBCompetitions\Competitions\KnockoutConfig">KnockoutConfig</abbr></a></span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The updated KnockoutConfig instance.</p>
+</section>
+
     
 </article>
                     <article
@@ -459,11 +499,11 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/KnockoutConfig.php"><a href="files/src-knockoutconfig.html"><abbr title="src/KnockoutConfig.php">KnockoutConfig.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">56</span>
+    <span class="phpdocumentor-element-found-in__line">71</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Set the array of standing maps for this config</p>
+        <p class="phpdocumentor-summary">Sets the standing array for this knockout configuration.</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
@@ -477,7 +517,7 @@
                 : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, object&gt;</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The array of standing maps</p>
+                    <section class="phpdocumentor-description"><p>The array of standing maps.</p>
 </section>
 
             </dd>
@@ -488,7 +528,7 @@
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-KnockoutConfig.html"><abbr title="\VBCompetitions\Competitions\KnockoutConfig">KnockoutConfig</abbr></a></span>
             &mdash;
-            <section class="phpdocumentor-description"><p>the knockout config being managed</p>
+            <section class="phpdocumentor-description"><p>The KnockoutConfig instance with the updated standing array.</p>
 </section>
 
     
