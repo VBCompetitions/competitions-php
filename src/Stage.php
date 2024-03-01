@@ -234,7 +234,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Get the description for this stage.
      *
-     * @return ?array<string> The description for this stage
+     * @return null|array<string> The description for this stage
      */
     public function getDescription() : ?array
     {
@@ -244,7 +244,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Set the description for this stage.
      *
-     * @param ?array<string> $description The description for this stage
+     * @param null|array<string> $description The description for this stage
      */
     public function setDescription($description) : void
     {
