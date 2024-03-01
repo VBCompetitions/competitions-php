@@ -9,43 +9,46 @@ use stdClass;
 use VBCompetitions\Competitions\MatchType;
 
 /**
- * A single competition stage
+ * A single competition stage.
  */
 final class Stage implements JsonSerializable, MatchContainerInterface
 {
-    /** A unique ID for this stage, e.g. 'LG' */
+    /** @var string A unique ID for this stage, e.g., 'LG' */
     private string $id;
 
-    /** Descriptive title for the stage, e.g. 'Pools' */
+    /** @var ?string Descriptive title for the stage, e.g., 'Pools' */
     private ?string $name = null;
 
-    /** Free form string to add notes about this stage.  This can be used for arbitrary content that various implementations can use */
+    /** @var ?string Free form string to add notes about this stage. */
     private ?string $notes = null;
 
-    /** Verbose text describing the nature of the stage, e.g. 'The first stage of the competition will consist of separate pools, where....' */
+    /** @var ?array Verbose text describing the nature of the stage. */
     private ?array $description = null;
 
-    /** The groups within a stage of the competition. There may be only one group (e.g. for a flat league) or multiple in parallel (e.g. pool 1, pool 2) */
+    /** @var array<Group> The groups within a stage of the competition. */
     private array $groups = [];
 
-    /** It can be useful to still present something to the user about the later stages of a competition, even if the teams playing in that stage is not yet known. This defines what should be presented in any application handling this competition's data in such cases */
+    /** @var ?object It can be useful to still present something to the user about the later stages of a competition, even if the teams playing in that stage are not yet known. */
     private ?object $if_unknown = null;
 
-    /** The Competition this Stage is in */
+    /** @var Competition The Competition this Stage is in */
     private Competition $competition;
 
-    /** @param array<MatchInterface|BreakInterface> $all_matches all of the matches in all of the group in this stage */
+    /** @var array<MatchInterface|BreakInterface> $all_matches All of the matches in all of the group in this stage */
     private array $all_matches;
 
-    /** A Lookup table from group IDs to the group */
+    /** @var object A Lookup table from group IDs to the group */
     private object $group_lookup;
+
+    /** @var array $team_stg_grp_lookup */
     private array $team_stg_grp_lookup;
 
     /**
-     * Contains the stage data of a competition, creating any metadata needed
+     * Contains the stage data of a competition, creating any metadata needed.
      *
      * @param Competition $competition A link back to the Competition this Stage is in
      * @param string $stage_id The unique ID of this Stage
+     * @throws Exception If the stage ID is invalid or already exists in the competition
      */
     function __construct(Competition $competition, string $stage_id)
     {
@@ -67,6 +70,12 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         $this->group_lookup = new stdClass();
     }
 
+    /**
+     * Load stage data from an object.
+     *
+     * @param object $stage_data The stage data
+     * @return Stage The updated Stage object
+     */
     public function loadFromData(object $stage_data) : Stage
     {
         if (property_exists($stage_data, 'name')) {
@@ -102,111 +111,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Get the ID for this stage
-     *
-     * @return string the id for this stage
-     */
-    public function getID() : string
-    {
-        return $this->id;
-    }
-
-    public function addGroup(Group $group) : Stage
-    {
-        if ($group->getStage() !== $this) {
-            throw new Exception('Group was initialised with a different Stage');
-        }
-        if ($this->hasGroupWithID($group->getID())) {
-            throw new Exception('Groups in a Stage with duplicate IDs not allowed: {'.$this->id.':'.$group->getID().'}');
-        }
-        array_push($this->groups, $group);
-        $this->group_lookup->{$group->getID()} = $group;
-        return $this;
-    }
-
-    /**
-     * Get the groups as an array
-     *
-     * @return array<Group> the array of Groups
-     */
-    public function getGroups() : array
-    {
-        return $this->groups;
-    }
-
-    /**
-     * Get the name for this group
-     *
-     * @return string|null the name for this group
-     */
-    public function getName() : string|null
-    {
-        return $this->name;
-    }
-
-    /**
-     * Set the stage Name
-     *
-     * @param string $name the new name for the stage
-     */
-    public function setName(string $name) : void
-    {
-        $this->name = $name;
-    }
-
-    /**
-     * Get the notes for this group
-     *
-     * @return string|null the notes for this group
-     */
-    public function getNotes() : string|null
-    {
-        return $this->notes;
-    }
-
-    /**
-     * Set the notes for this stage
-     *
-     * @param string|null $notes the notes for this stage
-     */
-    public function setNotes(?string $notes) : void
-    {
-        $this->notes = $notes;
-    }
-
-    /**
-     * Get the description for this stage
-     *
-     * @return array<string>|null the description for this stage
-     */
-    public function getDescription() : array|null
-    {
-        return $this->description;
-    }
-
-    /**
-     * Set the description for this stage
-     *
-     * @param array<string>|null $description the description for this stage
-     */
-    public function setDescription($description) : void
-    {
-        $this->description = $description;
-    }
-
-    public function getIfUnknown() : ?IfUnknown
-    {
-        return $this->if_unknown;
-    }
-
-    public function setIfUnknown(?IfUnknown $if_unknown) : IfUnknown
-    {
-        $this->if_unknown = $if_unknown;
-        return $if_unknown;
-    }
-
-    /**
-     * Return the list of stages suitable for saving into a competition file
+     * Return the list of stages suitable for saving into a competition file.
      *
      * @return mixed
      */
@@ -236,6 +141,142 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return $stage;
     }
 
+    /**
+     * Get the competition this stage is in.
+     *
+     * @return Competition The competition this stage is in
+     */
+    public function getCompetition() : Competition
+    {
+        return $this->competition;
+    }
+
+    /**
+     * Get the ID for this stage.
+     *
+     * @return string The ID for this stage
+     */
+    public function getID() : string
+    {
+        return $this->id;
+    }
+
+    /**
+     * Add a group to the stage.
+     *
+     * @param Group $group The group to add
+     * @return Stage The updated Stage object
+     * @throws Exception If the group ID already exists in the stage or the group was initialized with a different Stage
+     */
+    public function addGroup(Group $group) : Stage
+    {
+        if ($group->getStage() !== $this) {
+            throw new Exception('Group was initialised with a different Stage');
+        }
+        if ($this->hasGroupWithID($group->getID())) {
+            throw new Exception('Groups in a Stage with duplicate IDs not allowed: {'.$this->id.':'.$group->getID().'}');
+        }
+        array_push($this->groups, $group);
+        $this->group_lookup->{$group->getID()} = $group;
+        return $this;
+    }
+
+    /**
+     * Get the groups as an array.
+     *
+     * @return array<Group> The array of Groups
+     */
+    public function getGroups() : array
+    {
+        return $this->groups;
+    }
+
+    /**
+     * Get the name for this group.
+     *
+     * @return string|null The name for this group
+     */
+    public function getName() : string|null
+    {
+        return $this->name;
+    }
+
+    /**
+     * Set the stage name.
+     *
+     * @param string $name The new name for the stage
+     */
+    public function setName(string $name) : void
+    {
+        $this->name = $name;
+    }
+
+    /**
+     * Get the notes for this group.
+     *
+     * @return string|null The notes for this group
+     */
+    public function getNotes() : string|null
+    {
+        return $this->notes;
+    }
+
+    /**
+     * Set the notes for this stage.
+     *
+     * @param string|null $notes The notes for this stage
+     */
+    public function setNotes(?string $notes) : void
+    {
+        $this->notes = $notes;
+    }
+
+    /**
+     * Get the description for this stage.
+     *
+     * @return array<string>|null The description for this stage
+     */
+    public function getDescription() : array|null
+    {
+        return $this->description;
+    }
+
+    /**
+     * Set the description for this stage.
+     *
+     * @param array<string>|null $description The description for this stage
+     */
+    public function setDescription($description) : void
+    {
+        $this->description = $description;
+    }
+
+    /**
+     * Get the IfUnknown object for this stage.
+     *
+     * @return IfUnknown|null The IfUnknown object for this stage
+     */
+    public function getIfUnknown() : ?IfUnknown
+    {
+        return $this->if_unknown;
+    }
+
+    /**
+     * Set the IfUnknown object for this stage.
+     *
+     * @param IfUnknown|null $if_unknown The IfUnknown object for this stage
+     */
+    public function setIfUnknown(?IfUnknown $if_unknown) : IfUnknown
+    {
+        $this->if_unknown = $if_unknown;
+        return $if_unknown;
+    }
+
+    /**
+     * Check if matches in groups of the same stage contain duplicate teams.
+     *
+     * @throws Exception If duplicate teams are found in groups of the same stage
+     */
     private function checkMatches() : void
     {
         for ($i = 0 ; $i < count($this->groups) - 1; $i++) {
@@ -253,18 +294,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Get the competition this stage is in
-     *
-     * @return Competition
-     */
-    public function getCompetition() : Competition
-    {
-        return $this->competition;
-    }
-
-    /**
-     * Returns a list of matches from this Stage, where the list depends on the input parameters and on the type of the MatchContainer
-     *
+     * Returns a list of matches from this Stage, where the list depends on the input parameters and on the type of the MatchContainer.
      *
      * @param string $team_id When provided, return the matches where this team is playing, otherwise all matches are returned
      *                        (and $flags is ignored).  This must be a resolved team ID and not a reference.
@@ -316,7 +346,9 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * @return array<MatchInterface|BreakInterface>
+     * Get all matches in this stage.
+     *
+     * @return array<MatchInterface|BreakInterface> All matches in this stage
      */
     private function getAllMatchesInStage() : array
     {
@@ -342,11 +374,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     }
 
     /**
-     * Return the group in this stage with the given ID
+     * Return the group in this stage with the given ID.
      *
-     * @param string $group_id the ID of the group
-     *
-     * @return Group
+     * @param string $group_id The ID of the group
+     * @return Group The group with the given ID
+     * @throws OutOfBoundsException If the group with the given ID is not found
      */
     public function getGroupById(string $group_id) : Group
     {
@@ -356,14 +388,21 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return $this->group_lookup->$group_id;
     }
 
+    /**
+     * Check if the stage contains a group with the given ID.
+     *
+     * @param string $group_id The ID of the group
+     * @return bool True if the stage contains a group with the given ID, false otherwise
+     */
     public function hasGroupWithID(string $group_id) : bool
     {
         return property_exists($this->group_lookup, $group_id);
     }
 
     /**
-     * Summary of isComplete
-     * @return bool
+     * Check if all matches in the stage are complete.
+     *
+     * @return bool True if all matches in the stage are complete, false otherwise
      */
     public function isComplete() : bool
     {
@@ -377,7 +416,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     }
 
     /**
+     * Get matches for a specific team in this stage.
      *
+     * @param string $team_id The ID of the team
+     * @param int $flags Flags to filter the matches
+     * @return array An array of matches for the specified team
      */
     private function getMatchesForTeam(string $team_id, int $flags) : array
     {
@@ -406,6 +449,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return $matches;
     }
 
+    /**
+     * Check if matches in any group within this stage have courts assigned.
+     *
+     * @return bool True if matches have courts assigned, false otherwise
+     */
     public function matchesHaveCourts() : bool
     {
         foreach ($this->groups as $group) {
@@ -416,6 +464,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if matches in any group within this stage have dates assigned.
+     *
+     * @return bool True if matches have dates assigned, false otherwise
+     */
     public function matchesHaveDates() : bool
     {
         foreach ($this->groups as $group) {
@@ -426,6 +479,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if matches in any group within this stage have durations assigned.
+     *
+     * @return bool True if matches have durations assigned, false otherwise
+     */
     public function matchesHaveDurations() : bool
     {
         foreach ($this->groups as $group) {
@@ -436,6 +494,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if matches in any group within this stage have MVPs assigned.
+     *
+     * @return bool True if matches have MVPs assigned, false otherwise
+     */
     public function matchesHaveMVPs() : bool
     {
         foreach ($this->groups as $group) {
@@ -446,6 +509,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if matches in any group within this stage have managers assigned.
+     *
+     * @return bool True if matches have managers assigned, false otherwise
+     */
     public function matchesHaveManagers() : bool
     {
         foreach ($this->groups as $group) {
@@ -456,6 +524,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if matches in any group within this stage have notes assigned.
+     *
+     * @return bool True if matches have notes assigned, false otherwise
+     */
     public function matchesHaveNotes() : bool
     {
         foreach ($this->groups as $group) {
@@ -466,6 +539,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if matches in any group within this stage have officials assigned.
+     *
+     * @return bool True if matches have officials assigned, false otherwise
+     */
     public function matchesHaveOfficials() : bool
     {
         foreach ($this->groups as $group) {
@@ -476,6 +554,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if matches in any group within this stage have start times assigned.
+     *
+     * @return bool True if matches have start times assigned, false otherwise
+     */
     public function matchesHaveStarts() : bool
     {
         foreach ($this->groups as $group) {
@@ -486,7 +569,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
-
+    /**
+     * Check if matches in any group within this stage have venues assigned.
+     *
+     * @return bool True if matches have venues assigned, false otherwise
+     */
     public function matchesHaveVenues() : bool
     {
         foreach ($this->groups as $group) {
@@ -497,6 +584,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if matches in any group within this stage have warmup information assigned.
+     *
+     * @return bool True if matches have warmup information assigned, false otherwise
+     */
     public function matchesHaveWarmups() : bool
     {
         foreach ($this->groups as $group) {
@@ -507,6 +599,12 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if a team has matches scheduled in any group within this stage.
+     *
+     * @param string $team_id The ID of the team
+     * @return bool True if the team has matches scheduled, false otherwise
+     */
     public function teamHasMatches(string $team_id) : bool
     {
         foreach ($this->groups as $group) {
@@ -517,6 +615,12 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if a team has officiating duties assigned in any group within this stage.
+     *
+     * @param string $team_id The ID of the team
+     * @return bool True if the team has officiating duties assigned, false otherwise
+     */
     public function teamHasOfficiating(string $team_id) : bool
     {
         foreach ($this->groups as $group) {
@@ -527,21 +631,26 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         return false;
     }
 
+    /**
+     * Check if a team may have matches scheduled in any group within this stage. Note that this has undefined behaviour if a team definitely has matches,
+     * i.e. if you want to know if a team definitely has matches in this stage then call teamHasMatches(), but if you want to know if there are any
+     * references that might point to this team (e.g. a reference to a team in a league position in an incomplete league) then call this function.  This
+     * is essentially so we know whether we still need to consider displaying a stage to the competitors as they <i>might</i> still be able to reach that stage.
+     *
+     * @param string $team_id The ID of the team to check
+     * @return bool True if the team may have matches scheduled, false otherwise
+     */
     public function teamMayHaveMatches(string $team_id) : bool
     {
-        // Need to rewrite this
+        /* TODO Do we need to rewrite this?
 
-        /*
         assert - we only call this after calling "teamHasMatches()".  In other words, this has ?undefined return? if you definitely have matches?
         maybe consider when we know they _don't_ have matches?
 
         Need to be able to say STG1:GRP1:league:#
-         - if STG1:GRP1 complete then we know all league posn and all references to STG1:GRP1:* so result is defined and "hasMatches()" should catch it
+         - if STG1:GRP1 complete then we know all league positions and all references to STG1:GRP1:* so result is defined and "teamHasMatches()" should catch it
          - else then league:# is not defined, so we're down to "does team_id have any matches in STG1:GRP1?"  Or even "could the have any" (remember STG1:GRP1 might also have references to earlier stages)
-
         */
-
-        //     (*) may have matches in stage:
 
         if ($this->isComplete()) {
             // If the stage is complete then there are no "maybes"; everything is known so you should call teamHasMatches()

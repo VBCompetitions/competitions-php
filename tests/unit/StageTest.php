@@ -4,11 +4,13 @@ declare(strict_types=1);
 
 namespace VBCompetitions\Competitions\test;
 
+use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
-
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
+use VBCompetitions\Competitions\Crossover;
 use VBCompetitions\Competitions\Group;
+use VBCompetitions\Competitions\MatchType;
 use VBCompetitions\Competitions\Stage;
 
 #[CoversClass(Competition::class)]
@@ -408,5 +410,81 @@ final class StageTest extends TestCase {
         $matchesTMM = $stageB->getMatchesOnDate('2024-02-25', 'TMM', VBC_MATCH_OFFICIATING);
         $this->assertCount(1, $matchesTMM);
         $this->assertEquals('GP2CM9', $matchesTMM[0]->getID());
+    }
+
+    public function testStageConstructor() : void
+    {
+        $competition = new Competition('test');
+
+        try {
+            new Stage($competition, '');
+            $this->fail('Stage should catch empty ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid stage ID: must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        try {
+            new Stage($competition, '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891');
+            $this->fail('Stage should not allow a long ID');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid stage ID: must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        try {
+            new Stage($competition, '"id1"');
+            $this->fail('Stage should not allow " character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Stage($competition, 'id:1');
+            $this->fail('Stage should not allow : character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Stage($competition, 'id{1');
+            $this->fail('Stage should not allow { character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Stage($competition, 'id1}');
+            $this->fail('Stage should not allow } character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Stage($competition, 'id1?');
+            $this->fail('Stage should not allow ? character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+
+        try {
+            new Stage($competition, 'id=1');
+            $this->fail('Stage should not allow = character');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
+        }
+    }
+
+    public function testStageAddGroup() : void
+    {
+        $competition = new Competition('test');
+        $stage1 = new Stage($competition, 'S1');
+        $stage2 = new Stage($competition, 'S2');
+        $stage1->addGroup(new Crossover($stage1, 'G1', MatchType::CONTINUOUS));
+
+        try {
+            $stage1->addGroup(new Crossover($stage2, 'G2', MatchType::CONTINUOUS));
+            $this->fail('Stage should catch adding a group initialised for a different stage');
+        } catch (Exception $e) {
+            $this->assertEquals('Group was initialised with a different Stage', $e->getMessage());
+        }
     }
 }
