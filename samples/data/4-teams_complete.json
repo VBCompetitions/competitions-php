@@ -6,13 +6,14 @@
         {
           "id": "C1",
           "name": "Alice Alison",
-          "role": "secretary",
-          "email": "alice@example.com",
-          "phone": "01234 567890"
+          "roles": ["secretary"],
+          "emails": ["alice@example.com"],
+          "phones": ["01234 567890"]
         },
         {
           "id": "C2",
-          "email": "bobby@example.com"
+          "roles": ["treasurer"],
+          "emails": ["bobby@example.com"]
         }
       ],
       "notes": "Some notes about team 1"

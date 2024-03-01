@@ -2,6 +2,10 @@
   <head>
     <title>VBCompetitions-php example competition view</title>
     <style>
+        * {
+        font-family: Arial, Helvetica, sans-serif;
+        }
+
         th {
             border: 1px solid #444444;
             border-radius: 3px;
@@ -26,6 +30,7 @@
         td.vbc-this-team {
             border: 2px solid #7777dd;
             background-color: #ccccdd;
+            font-weight: bold;
         }
 
         td.vbc-match-score {
