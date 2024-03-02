@@ -805,4 +805,152 @@ final class CompetitionTest extends TestCase {
 
         $competition->deleteClub('non-existent-team-id');
     }
+
+    public function testCompetitionMetadataList() : void
+    {
+        $all = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))));
+        $this->assertCount(5, $all);
+        $good_files = array_values(array_filter($all, fn($el): bool => $el->is_valid));
+        $this->assertCount(4, $good_files);
+
+        $season_matcher = new stdClass();
+        $season_matcher->season = '2023-2024';
+        $season_23_24 = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), $season_matcher);
+        $this->assertCount(2, $season_23_24);
+        $season_23_24 = array_values(array_filter($season_23_24, fn($el): bool => $el->name === 'metadata-season'));
+        $this->assertEquals('competition-metadata-season-2324.json', $season_23_24[0]->file);
+
+        $mixed_matcher = new stdClass();
+        $mixed_matcher->season = '2023-2024';
+        $mixed_matcher->league = 'mixed';
+        $mixed_season = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), $mixed_matcher);
+        $this->assertCount(1, $mixed_season);
+        $this->assertEquals('competition-metadata-season-2324-mixed.json', $mixed_season[0]->file);
+
+        try {
+            $short_key = '';
+            $bad_match = new stdClass();
+            $bad_match->$short_key = 'x';
+            Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), $bad_match);
+            $this->fail('listing should fail on an empty key');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid metadata search key "": must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        $long_key = 'a';
+        for ($i=0; $i < 100; $i++) {
+            $long_key .= '0123456789';
+        }
+        try {
+            $bad_match = new stdClass();
+            $bad_match->$long_key = 'x';
+            Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), $bad_match);
+            $this->fail('listing should fail on a long key');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid metadata search key "'.$long_key.'": must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        try {
+            $bad_match = new stdClass();
+            $bad_match->foo = '';
+            Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), $bad_match);
+            $this->fail('listing should fail on an empty value');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid metadata search value "": must be between 1 and 1000 characters long', $e->getMessage());
+        }
+
+        $long_val = 'a';
+        for ($i=0; $i < 100; $i++) {
+            $long_val .= '0123456789012345678901234567890123456789012345678901234567890123456789012345678901234567890123456789';
+        }
+        try {
+            $bad_match = new stdClass();
+            $bad_match->foo = $long_val;
+            Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), $bad_match);
+            $this->fail('listing should fail on a long value');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid metadata search value "'.$long_val.'": must be between 1 and 1000 characters long', $e->getMessage());
+        }
+    }
+
+    public function testCompetitionMetadataFunctions() : void
+    {
+        $competition = new Competition('test');
+        $this->assertFalse($competition->hasMetadataByKey('foo'));
+        $this->assertNull($competition->getMetadataByKey('foo'));
+        $this->assertFalse($competition->hasMetadataByKey('bar'));
+        $this->assertNull($competition->getMetadataByKey('bar'));
+
+        $competition->addMetadata('foo', 'bar');
+        $this->assertTrue($competition->hasMetadataByKey('foo'));
+        $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
+        $this->assertFalse($competition->hasMetadataByKey('bar'));
+        $this->assertNull($competition->getMetadataByKey('bar'));
+
+        $competition->addMetadata('bar', 'baz');
+        $this->assertTrue($competition->hasMetadataByKey('foo'));
+        $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
+        $this->assertTrue($competition->hasMetadataByKey('bar'));
+        $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
+
+        $competition->addMetadata('foo', 'bar');
+        $this->assertTrue($competition->hasMetadataByKey('foo'));
+        $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
+        $this->assertTrue($competition->hasMetadataByKey('bar'));
+        $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
+
+        $competition->deleteMetadataByKey('foo');
+        $this->assertFalse($competition->hasMetadataByKey('foo'));
+        $this->assertNull($competition->getMetadataByKey('foo'));
+        $this->assertTrue($competition->hasMetadataByKey('bar'));
+        $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
+
+        $competition->deleteMetadataByKey('bar');
+        $this->assertFalse($competition->hasMetadataByKey('foo'));
+        $this->assertNull($competition->getMetadataByKey('foo'));
+        $this->assertFalse($competition->hasMetadataByKey('bar'));
+        $this->assertNull($competition->getMetadataByKey('bar'));
+
+        $competition->deleteMetadataByKey('foo');
+        $this->assertFalse($competition->hasMetadataByKey('foo'));
+        $this->assertNull($competition->getMetadataByKey('foo'));
+        $this->assertFalse($competition->hasMetadataByKey('bar'));
+        $this->assertNull($competition->getMetadataByKey('bar'));
+
+        try {
+            $competition->addMetadata('', 'bar');
+            $this->fail('adding metadata should fail on an empty key');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid metadata key: must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        try {
+            $long_key = 'a';
+            for ($i=0; $i < 100; $i++) {
+                $long_key .= '0123456789';
+            }
+            $competition->addMetadata($long_key, 'bar');
+            $this->fail('adding metadata should fail on a long key');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid metadata key: must be between 1 and 100 characters long', $e->getMessage());
+        }
+
+        try {
+            $competition->addMetadata('foo', '');
+            $this->fail('adding metadata should fail on an empty value');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid metadata value: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+
+        try {
+            $long_value = 'a';
+            for ($i=0; $i < 1000; $i++) {
+                $long_value .= '0123456789';
+            }
+            $competition->addMetadata('foo', $long_value);
+            $this->fail('adding metadata should fail on a long value');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid metadata value: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+    }
 }

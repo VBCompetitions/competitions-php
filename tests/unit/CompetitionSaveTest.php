@@ -219,4 +219,13 @@ final class CompetitionSaveTest extends TestCase {
 
         $this->assertEquals('A First', $saved_competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getOfficials()->getFirstRef());
     }
+
+    public function testCompetitionSaveCompetitionWithMetadata() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), 'competition-metadata-season-2324.json');
+        $competition->setName('Saved Competition');
+        $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-metadata-season-2324.json');
+        $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-metadata-season-2324.json');
+        $this->assertEquals('2023-2024', $saved_competition->getMetadataByKey('season'));
+    }
 }

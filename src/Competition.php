@@ -20,10 +20,13 @@ final class Competition implements JsonSerializable
     /** @var string The version of schema that the document conforms to. Defaults to 1.0.0 */
     private string $version = '1.0.0';
 
+    /** @var object A list of key-value pairs representing metadata about the competition, where each key must be unique. This can be used for functionality such as associating a competition with a season, and searching for competitions with matching metadata */
+    private object $metadata;
+
     /** @var string A name for the competition */
     private string $name;
 
-    /** @var string Free form string to add notes about the competition.  This can be used for arbitrary content that various implementations can use */
+    /** @var ?string Free form string to add notes about the competition.  This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
     /** @var array  A list of clubs that the teams are in */
@@ -63,6 +66,7 @@ final class Competition implements JsonSerializable
         if (strlen($name) > 1000 || strlen($name) < 1) {
             throw new Exception('Invalid team name: must be between 1 and 1000 characters long');
         }
+        $this->metadata = new stdClass();
         $this->name = $name;
 
         $this->team_lookup = new stdClass();
@@ -120,6 +124,12 @@ final class Competition implements JsonSerializable
         $competition = new Competition($competition_data->name);
         $competition->setVersion($competition_data->version);
 
+        if (property_exists($competition_data, 'metadata')) {
+            foreach ($competition_data->metadata as $kv) {
+                $competition->addMetadata($kv->key, $kv->value);
+            }
+        }
+
         if (property_exists($competition_data, 'notes')) {
             $competition->setNotes($competition_data->notes);
         }
@@ -171,6 +181,17 @@ final class Competition implements JsonSerializable
         $competition = new stdClass();
 
         $competition->version = $this->version;
+
+        $metadata = [];
+        foreach ($this->metadata as $key => $value) {
+            $kv = new stdClass();
+            $kv->key = $key;
+            $kv->value = $value;
+            array_push($metadata, $kv);
+        }
+        if (count($metadata) > 0) {
+            $competition->metadata = $metadata;
+        }
 
         $competition->name = $this->name;
 
@@ -246,6 +267,75 @@ final class Competition implements JsonSerializable
     public function setName(string $name) : Competition
     {
         $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * Add metadata to the competition.
+     *
+     * This function adds metadata to the competition using the provided key-value pair.
+     *
+     * @param string $key The key of the metadata
+     * @param string $value The value of the metadata
+     * @return Competition Returns the current Competition instance for method chaining
+     * @throws Exception If the key or value is invalid
+     */
+    public function addMetadata(string $key, string $value) : Competition
+    {
+        if (strlen($key) > 100 || strlen($key) < 1) {
+            throw new Exception('Invalid metadata key: must be between 1 and 100 characters long');
+        }
+
+        if (strlen($value) > 1000 || strlen($value) < 1) {
+            throw new Exception('Invalid metadata value: must be between 1 and 1000 characters long');
+        }
+
+        $this->metadata->$key = $value;
+        return $this;
+    }
+
+    /**
+     * Check if the competition has metadata with the given key.
+     *
+     * This function checks if the competition has metadata with the specified key.
+     *
+     * @param string $key The key to check
+     * @return bool Returns true if the metadata exists, false otherwise
+     */
+    public function hasMetadataByKey(string $key) : bool
+    {
+        return property_exists($this->metadata, $key);
+    }
+
+    /**
+     * Get the value of metadata with the specified key.
+     *
+     * This function retrieves the value of the metadata associated with the provided key.
+     *
+     * @param string $key The key of the metadata
+     * @return string|null Returns the value of the metadata if found, otherwise null
+     */
+    public function getMetadataByKey(string $key) : ?string
+    {
+        foreach ($this->metadata as $m_key => $m_value) {
+            if ($key === $m_key) {
+                return $m_value;
+            }
+        }
+        return null;
+    }
+
+    /**
+     * Delete metadata with the specified key from the competition.
+     *
+     * This function deletes the metadata with the provided key from the competition.
+     *
+     * @param string $key The key of the metadata to delete
+     * @return Competition Returns the current Competition instance for method chaining
+     */
+    public function deleteMetadataByKey(string $key) : Competition
+    {
+        unset($this->metadata->$key);
         return $this;
     }
 
@@ -500,7 +590,7 @@ final class Competition implements JsonSerializable
         }
 
         unset($this->stage_lookup->$stage_id);
-        $this->stages = array_filter($this->stages, fn(Stage $el): bool => $el->getID() === $stage_id);
+        $this->stages = array_values(array_filter($this->stages, fn(Stage $el): bool => $el->getID() === $stage_id));
 
         return $this;
     }
@@ -596,12 +686,28 @@ final class Competition implements JsonSerializable
      *   is_complete: (bool) whether the competition has completed (all matches are complete)
      * }
      *
+     * When a metadata matching object is given then each competition file is checked and only those with matching metadata fields are included
+     * in the returned list
+     *
      * @param string $competition_data_dir The directory to scan for competition files
+     * @param ?object $metadata_matches A set of key-value pairs that must all match in the competition's metadata to be included in the list
      *
      * @return array The list of competitions found in the given directory
      */
-    public static function competitionList(string $competition_data_dir) : array
+    public static function competitionList(string $competition_data_dir, ?object $metadata_matches = null) : array
     {
+        if ($metadata_matches !== null) {
+            foreach ($metadata_matches as $m_key => $m_value) {
+                if (strlen($m_key) > 100 || strlen($m_key) < 1) {
+                    throw new Exception('Invalid metadata search key "'.$m_key.'": must be between 1 and 100 characters long');
+                }
+
+                if (strlen($m_value) > 1000 || strlen($m_value) < 1) {
+                    throw new Exception('Invalid metadata search value "'.$m_value.'": must be between 1 and 1000 characters long');
+                }
+            }
+        }
+
         $list = [];
         $competition_file_list = scandir($competition_data_dir);
         foreach($competition_file_list as $competition_file) {
@@ -612,6 +718,35 @@ final class Competition implements JsonSerializable
             $path_parts = pathinfo($real_path);
             if ($path_parts['extension'] != 'json' || strlen($path_parts['filename']) < 1) {
                 continue;
+            }
+
+            /* check for metadata matches */
+            if ($metadata_matches !== null) {
+                $competition_json = file_get_contents(realpath($competition_data_dir.DIRECTORY_SEPARATOR.$competition_file));
+                $competition_data = json_decode($competition_json);
+
+                if ($competition_data === null) {
+                    continue;
+                }
+
+                $competition_metadata = new stdClass();
+                if (property_exists($competition_data, 'metadata')) {
+                    foreach ($competition_data->metadata as $el) {
+                        $competition_metadata->{$el->key} = $el->value;
+                    }
+                }
+
+                $found = true;
+                foreach ($metadata_matches as $m_key => $m_value) {
+                    if (!property_exists($competition_metadata, $m_key) || $competition_metadata->$m_key !== $metadata_matches->$m_key) {
+                        $found = false;
+                        break;
+                    }
+                }
+
+                if (!$found) {
+                    continue;
+                }
             }
 
             $competition_item = new stdClass();
