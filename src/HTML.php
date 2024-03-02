@@ -1055,9 +1055,7 @@ class HTML {
         // go cell by cell looking for cells to delete
         // $cells_column_count = count($table->row[0]);
         for ($row_index = 0; $row_index < count($table->rows); $row_index++) {
-            $table->rows[$row_index] = array_filter($table->rows[$row_index], function($r) {
-                return !(property_exists($r, 'delete') && $r->delete);
-            });
+            $table->rows[$row_index] = array_values(array_filter($table->rows[$row_index], fn($r): bool => !(property_exists($r, 'delete') && $r->delete)));
         }
 
         return $table;

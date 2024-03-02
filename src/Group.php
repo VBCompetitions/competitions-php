@@ -579,16 +579,12 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         } else if ($flags & VBC_TEAMS_MAYBE) {
             return $this->getMaybeTeamIDs();
         } else if ($flags & VBC_TEAMS_KNOWN) {
-            $team_ids = array_unique(array_filter(array_keys($this->team_ids), function($k) {
-                return $this->competition->getTeamByID($k)->getID() !== CompetitionTeam::UNKNOWN_TEAM_ID;
-            }));
+            $team_ids = array_values(array_unique(array_filter(array_keys($this->team_ids), fn($k): bool => $this->competition->getTeamByID($k)->getID() !== CompetitionTeam::UNKNOWN_TEAM_ID)));
             usort($team_ids, function($a, $b) {
                 return strcmp($this->competition->getTeamByID($a)->getName(), $this->competition->getTeamByID($b)->getName());
             });
         } else if ($flags & VBC_TEAMS_FIXED_ID) {
-            $team_ids = array_filter(array_keys($this->team_ids), function($k) {
-                return strncmp($k, '{', 1) !== 0;
-            });
+            $team_ids = array_values(array_filter(array_keys($this->team_ids), fn($k): bool => strncmp($k, '{', 1) !== 0));
             usort($team_ids, function($a, $b) {
                 return strcmp($this->competition->getTeamByID($a)->getName(), $this->competition->getTeamByID($b)->getName());
             });

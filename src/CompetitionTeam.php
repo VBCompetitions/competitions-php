@@ -353,7 +353,7 @@ final class CompetitionTeam implements JsonSerializable
         }
 
         unset($this->contact_lookup->$contact_id);
-        $this->contacts = array_filter($this->contacts, fn(Contact $el): bool => $el->getID() !== $contact_id);
+        $this->contacts = array_values(array_filter($this->contacts, fn(Contact $el): bool => $el->getID() !== $contact_id));
         return $this;
     }
 
@@ -440,7 +440,7 @@ final class CompetitionTeam implements JsonSerializable
         }
 
         unset($this->player_lookup->$player_id);
-        $this->players = array_filter($this->players, fn(Player $el): bool => $el->getID() !== $player_id);
+        $this->players = array_values(array_filter($this->players, fn(Player $el): bool => $el->getID() !== $player_id));
         return $this;
     }
 }
