@@ -56,20 +56,30 @@ Search.appendIndex(
             "summary": "Set\u0020the\u0020competition\u0020Name",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_setName"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AaddMetadata\u0028\u0029",
-            "name": "addMetadata",
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AsetMetadataByID\u0028\u0029",
+            "name": "setMetadataByID",
             "summary": "Add\u0020metadata\u0020to\u0020the\u0020competition.",
-            "url": "classes/VBCompetitions-Competitions-Competition.html#method_addMetadata"
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_setMetadataByID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasMetadataByKey\u0028\u0029",
             "name": "hasMetadataByKey",
             "summary": "Check\u0020if\u0020the\u0020competition\u0020has\u0020metadata\u0020with\u0020the\u0020given\u0020key.",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_hasMetadataByKey"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasMetadata\u0028\u0029",
+            "name": "hasMetadata",
+            "summary": "Check\u0020if\u0020the\u0020competition\u0020has\u0020any\u0020metadata\u0020defined.",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_hasMetadata"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetMetadataByKey\u0028\u0029",
             "name": "getMetadataByKey",
             "summary": "Get\u0020the\u0020value\u0020of\u0020metadata\u0020with\u0020the\u0020specified\u0020key.",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_getMetadataByKey"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetMetadata\u0028\u0029",
+            "name": "getMetadata",
+            "summary": "Get\u0020the\u0020whole\u0020metadata\u0020array.",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_getMetadata"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AdeleteMetadataByKey\u0028\u0029",
             "name": "deleteMetadataByKey",

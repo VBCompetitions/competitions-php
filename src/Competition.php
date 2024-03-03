@@ -302,7 +302,7 @@ final class Competition implements JsonSerializable
      * This function checks if the competition has metadata with the specified key.
      *
      * @param string $key The key to check
-     * @return bool Returns true if the metadata exists, false otherwise
+     * @return bool Returns true if the metadata value exists, false otherwise
      */
     public function hasMetadataByKey(string $key) : bool
     {
@@ -312,6 +312,16 @@ final class Competition implements JsonSerializable
             }
         }
         return false;
+    }
+
+    /**
+     * Check if the competition has any metadata defined.
+     *
+     * @return bool Returns true if the metadata exists, false otherwise
+     */
+    public function hasMetadata() : bool
+    {
+        return count($this->metadata) > 0;
     }
 
     /**
@@ -337,11 +347,14 @@ final class Competition implements JsonSerializable
      *
      * This function retrieves the value of the metadata associated with the provided key.
      *
-     * @return array Returns the metadata array
+     * @return ?array Returns the metadata array or null if no metadata is defined
      */
-    public function getMetadata() : array
+    public function getMetadata() : ?array
     {
-        return $this->metadata;
+        if ($this->hasMetadata()) {
+            return $this->metadata;
+        }
+        return null;
     }
 
     /**
@@ -775,7 +788,9 @@ final class Competition implements JsonSerializable
                 $competition_item->is_valid = true;
                 $competition_item->is_complete = $competition->isComplete();
                 $competition_item->name = $competition->name;
-                $competition_item->metadata = $competition->getMetadata();
+                if ($competition->hasMetadata()) {
+                    $competition_item->metadata = $competition->getMetadata();
+                }
             } catch (Throwable $th) {
                 $competition_item->is_valid = false;
                 $competition_item->file = $competition_file;

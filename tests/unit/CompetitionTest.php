@@ -36,7 +36,6 @@ final class CompetitionTest extends TestCase {
         $four_team->is_valid = true;
         $four_team->is_complete = false;
         $four_team->name = 'Four Team Tournament';
-        $four_team->metadata = [];
         array_push($expectedList, $four_team);
 
         $four_team_complete = new stdClass();
@@ -44,7 +43,6 @@ final class CompetitionTest extends TestCase {
         $four_team_complete->is_valid = true;
         $four_team_complete->is_complete = true;
         $four_team_complete->name = 'Four Team Tournament';
-        $four_team_complete->metadata = [];
         array_push($expectedList, $four_team_complete);
 
         $other = new stdClass();
@@ -882,13 +880,15 @@ final class CompetitionTest extends TestCase {
     public function testCompetitionMetadataFunctions() : void
     {
         $competition = new Competition('test');
-        $this->assertCount(0, $competition->getMetadata());
+        $this->assertFalse($competition->hasMetadata());
+        $this->assertNull($competition->getMetadata());
         $this->assertFalse($competition->hasMetadataByKey('foo'));
         $this->assertNull($competition->getMetadataByKey('foo'));
         $this->assertFalse($competition->hasMetadataByKey('bar'));
         $this->assertNull($competition->getMetadataByKey('bar'));
 
         $competition->setMetadataByID('foo', 'bar');
+        $this->assertTrue($competition->hasMetadata());
         $this->assertCount(1, $competition->getMetadata());
         $this->assertTrue($competition->hasMetadataByKey('foo'));
         $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
@@ -896,6 +896,7 @@ final class CompetitionTest extends TestCase {
         $this->assertNull($competition->getMetadataByKey('bar'));
 
         $competition->setMetadataByID('bar', 'baz');
+        $this->assertTrue($competition->hasMetadata());
         $this->assertCount(2, $competition->getMetadata());
         $this->assertTrue($competition->hasMetadataByKey('foo'));
         $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
@@ -903,6 +904,7 @@ final class CompetitionTest extends TestCase {
         $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
 
         $competition->setMetadataByID('foo', 'bar');
+        $this->assertTrue($competition->hasMetadata());
         $this->assertCount(2, $competition->getMetadata());
         $this->assertTrue($competition->hasMetadataByKey('foo'));
         $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
@@ -910,6 +912,7 @@ final class CompetitionTest extends TestCase {
         $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
 
         $competition->deleteMetadataByKey('foo');
+        $this->assertTrue($competition->hasMetadata());
         $this->assertCount(1, $competition->getMetadata());
         $this->assertFalse($competition->hasMetadataByKey('foo'));
         $this->assertNull($competition->getMetadataByKey('foo'));
@@ -917,14 +920,16 @@ final class CompetitionTest extends TestCase {
         $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
 
         $competition->deleteMetadataByKey('bar');
-        $this->assertCount(0, $competition->getMetadata());
+        $this->assertFalse($competition->hasMetadata());
+        $this->assertNull($competition->getMetadata());
         $this->assertFalse($competition->hasMetadataByKey('foo'));
         $this->assertNull($competition->getMetadataByKey('foo'));
         $this->assertFalse($competition->hasMetadataByKey('bar'));
         $this->assertNull($competition->getMetadataByKey('bar'));
 
         $competition->deleteMetadataByKey('foo');
-        $this->assertCount(0, $competition->getMetadata());
+        $this->assertFalse($competition->hasMetadata());
+        $this->assertNull($competition->getMetadata());
         $this->assertFalse($competition->hasMetadataByKey('foo'));
         $this->assertNull($competition->getMetadataByKey('foo'));
         $this->assertFalse($competition->hasMetadataByKey('bar'));
