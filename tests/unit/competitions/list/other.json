@@ -1,4 +1,7 @@
 {
+  "metadata": [
+    { "key": "someKey", "value": "someValue" }
+  ],
   "name": "other",
   "teams": [
     { "id": "TM1", "name": "Alice VC" },

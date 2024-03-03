@@ -36,6 +36,7 @@ final class CompetitionTest extends TestCase {
         $four_team->is_valid = true;
         $four_team->is_complete = false;
         $four_team->name = 'Four Team Tournament';
+        $four_team->metadata = [];
         array_push($expectedList, $four_team);
 
         $four_team_complete = new stdClass();
@@ -43,6 +44,7 @@ final class CompetitionTest extends TestCase {
         $four_team_complete->is_valid = true;
         $four_team_complete->is_complete = true;
         $four_team_complete->name = 'Four Team Tournament';
+        $four_team_complete->metadata = [];
         array_push($expectedList, $four_team_complete);
 
         $other = new stdClass();
@@ -50,6 +52,10 @@ final class CompetitionTest extends TestCase {
         $other->is_valid = true;
         $other->is_complete = false;
         $other->name = 'other';
+        $kv = new stdClass();
+        $kv->key = 'someKey';
+        $kv->value = 'someValue';
+        $other->metadata = [$kv];
         array_push($expectedList, $other);
 
         $invalid_competition = new stdClass();
@@ -876,49 +882,56 @@ final class CompetitionTest extends TestCase {
     public function testCompetitionMetadataFunctions() : void
     {
         $competition = new Competition('test');
+        $this->assertCount(0, $competition->getMetadata());
         $this->assertFalse($competition->hasMetadataByKey('foo'));
         $this->assertNull($competition->getMetadataByKey('foo'));
         $this->assertFalse($competition->hasMetadataByKey('bar'));
         $this->assertNull($competition->getMetadataByKey('bar'));
 
-        $competition->addMetadata('foo', 'bar');
+        $competition->setMetadataByID('foo', 'bar');
+        $this->assertCount(1, $competition->getMetadata());
         $this->assertTrue($competition->hasMetadataByKey('foo'));
         $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
         $this->assertFalse($competition->hasMetadataByKey('bar'));
         $this->assertNull($competition->getMetadataByKey('bar'));
 
-        $competition->addMetadata('bar', 'baz');
+        $competition->setMetadataByID('bar', 'baz');
+        $this->assertCount(2, $competition->getMetadata());
         $this->assertTrue($competition->hasMetadataByKey('foo'));
         $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
         $this->assertTrue($competition->hasMetadataByKey('bar'));
         $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
 
-        $competition->addMetadata('foo', 'bar');
+        $competition->setMetadataByID('foo', 'bar');
+        $this->assertCount(2, $competition->getMetadata());
         $this->assertTrue($competition->hasMetadataByKey('foo'));
         $this->assertEquals('bar', $competition->getMetadataByKey('foo'));
         $this->assertTrue($competition->hasMetadataByKey('bar'));
         $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
 
         $competition->deleteMetadataByKey('foo');
+        $this->assertCount(1, $competition->getMetadata());
         $this->assertFalse($competition->hasMetadataByKey('foo'));
         $this->assertNull($competition->getMetadataByKey('foo'));
         $this->assertTrue($competition->hasMetadataByKey('bar'));
         $this->assertEquals('baz', $competition->getMetadataByKey('bar'));
 
         $competition->deleteMetadataByKey('bar');
+        $this->assertCount(0, $competition->getMetadata());
         $this->assertFalse($competition->hasMetadataByKey('foo'));
         $this->assertNull($competition->getMetadataByKey('foo'));
         $this->assertFalse($competition->hasMetadataByKey('bar'));
         $this->assertNull($competition->getMetadataByKey('bar'));
 
         $competition->deleteMetadataByKey('foo');
+        $this->assertCount(0, $competition->getMetadata());
         $this->assertFalse($competition->hasMetadataByKey('foo'));
         $this->assertNull($competition->getMetadataByKey('foo'));
         $this->assertFalse($competition->hasMetadataByKey('bar'));
         $this->assertNull($competition->getMetadataByKey('bar'));
 
         try {
-            $competition->addMetadata('', 'bar');
+            $competition->setMetadataByID('', 'bar');
             $this->fail('adding metadata should fail on an empty key');
         } catch (Exception $e) {
             $this->assertEquals('Invalid metadata key: must be between 1 and 100 characters long', $e->getMessage());
@@ -929,14 +942,14 @@ final class CompetitionTest extends TestCase {
             for ($i=0; $i < 100; $i++) {
                 $long_key .= '0123456789';
             }
-            $competition->addMetadata($long_key, 'bar');
+            $competition->setMetadataByID($long_key, 'bar');
             $this->fail('adding metadata should fail on a long key');
         } catch (Exception $e) {
             $this->assertEquals('Invalid metadata key: must be between 1 and 100 characters long', $e->getMessage());
         }
 
         try {
-            $competition->addMetadata('foo', '');
+            $competition->setMetadataByID('foo', '');
             $this->fail('adding metadata should fail on an empty value');
         } catch (Exception $e) {
             $this->assertEquals('Invalid metadata value: must be between 1 and 1000 characters long', $e->getMessage());
@@ -947,7 +960,7 @@ final class CompetitionTest extends TestCase {
             for ($i=0; $i < 1000; $i++) {
                 $long_value .= '0123456789';
             }
-            $competition->addMetadata('foo', $long_value);
+            $competition->setMetadataByID('foo', $long_value);
             $this->fail('adding metadata should fail on a long value');
         } catch (Exception $e) {
             $this->assertEquals('Invalid metadata value: must be between 1 and 1000 characters long', $e->getMessage());

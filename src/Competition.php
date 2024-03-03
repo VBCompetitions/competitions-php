@@ -20,8 +20,8 @@ final class Competition implements JsonSerializable
     /** @var string The version of schema that the document conforms to. Defaults to 1.0.0 */
     private string $version = '1.0.0';
 
-    /** @var object A list of key-value pairs representing metadata about the competition, where each key must be unique. This can be used for functionality such as associating a competition with a season, and searching for competitions with matching metadata */
-    private object $metadata;
+    /** @var array A list of key-value pairs representing metadata about the competition, where each key must be unique. This can be used for functionality such as associating a competition with a season, and searching for competitions with matching metadata */
+    private array $metadata = [];
 
     /** @var string A name for the competition */
     private string $name;
@@ -66,7 +66,6 @@ final class Competition implements JsonSerializable
         if (strlen($name) > 1000 || strlen($name) < 1) {
             throw new Exception('Invalid team name: must be between 1 and 1000 characters long');
         }
-        $this->metadata = new stdClass();
         $this->name = $name;
 
         $this->team_lookup = new stdClass();
@@ -126,7 +125,7 @@ final class Competition implements JsonSerializable
 
         if (property_exists($competition_data, 'metadata')) {
             foreach ($competition_data->metadata as $kv) {
-                $competition->addMetadata($kv->key, $kv->value);
+                $competition->setMetadataByID($kv->key, $kv->value);
             }
         }
 
@@ -182,15 +181,8 @@ final class Competition implements JsonSerializable
 
         $competition->version = $this->version;
 
-        $metadata = [];
-        foreach ($this->metadata as $key => $value) {
-            $kv = new stdClass();
-            $kv->key = $key;
-            $kv->value = $value;
-            array_push($metadata, $kv);
-        }
-        if (count($metadata) > 0) {
-            $competition->metadata = $metadata;
+        if (count($this->metadata) > 0) {
+            $competition->metadata = $this->metadata;
         }
 
         $competition->name = $this->name;
@@ -280,7 +272,7 @@ final class Competition implements JsonSerializable
      * @return Competition Returns the current Competition instance for method chaining
      * @throws Exception If the key or value is invalid
      */
-    public function addMetadata(string $key, string $value) : Competition
+    public function setMetadataByID(string $key, string $value) : Competition
     {
         if (strlen($key) > 100 || strlen($key) < 1) {
             throw new Exception('Invalid metadata key: must be between 1 and 100 characters long');
@@ -290,7 +282,17 @@ final class Competition implements JsonSerializable
             throw new Exception('Invalid metadata value: must be between 1 and 1000 characters long');
         }
 
-        $this->metadata->$key = $value;
+        foreach ($this->metadata as $kv) {
+            if ($kv->key === $key) {
+                $kv->value = $value;
+                return $this;
+            }
+        }
+
+        $kv = new stdClass();
+        $kv->key = $key;
+        $kv->value = $value;
+        array_push($this->metadata, $kv);
         return $this;
     }
 
@@ -304,7 +306,12 @@ final class Competition implements JsonSerializable
      */
     public function hasMetadataByKey(string $key) : bool
     {
-        return property_exists($this->metadata, $key);
+        foreach ($this->metadata as $kv) {
+            if ($kv->key === $key) {
+                return true;
+            }
+        }
+        return false;
     }
 
     /**
@@ -317,12 +324,24 @@ final class Competition implements JsonSerializable
      */
     public function getMetadataByKey(string $key) : ?string
     {
-        foreach ($this->metadata as $m_key => $m_value) {
-            if ($key === $m_key) {
-                return $m_value;
+        foreach ($this->metadata as $kv) {
+            if ($kv->key === $key) {
+                return $kv->value;
             }
         }
         return null;
+    }
+
+    /**
+     * Get the whole metadata array.
+     *
+     * This function retrieves the value of the metadata associated with the provided key.
+     *
+     * @return array Returns the metadata array
+     */
+    public function getMetadata() : array
+    {
+        return $this->metadata;
     }
 
     /**
@@ -335,7 +354,7 @@ final class Competition implements JsonSerializable
      */
     public function deleteMetadataByKey(string $key) : Competition
     {
-        unset($this->metadata->$key);
+        $this->metadata = array_values(array_filter($this->metadata, fn($el): bool => $el->key !== $key));
         return $this;
     }
 
@@ -756,6 +775,7 @@ final class Competition implements JsonSerializable
                 $competition_item->is_valid = true;
                 $competition_item->is_complete = $competition->isComplete();
                 $competition_item->name = $competition->name;
+                $competition_item->metadata = $competition->getMetadata();
             } catch (Throwable $th) {
                 $competition_item->is_valid = false;
                 $competition_item->file = $competition_file;
