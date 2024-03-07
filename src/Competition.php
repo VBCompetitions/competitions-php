@@ -64,7 +64,7 @@ final class Competition implements JsonSerializable
     function __construct(string $name)
     {
         if (strlen($name) > 1000 || strlen($name) < 1) {
-            throw new Exception('Invalid team name: must be between 1 and 1000 characters long');
+            throw new Exception('Invalid competition name: must be between 1 and 1000 characters long');
         }
         $this->name = $name;
 
@@ -258,6 +258,9 @@ final class Competition implements JsonSerializable
      */
     public function setName(string $name) : Competition
     {
+        if (strlen($name) > 1000 || strlen($name) < 1) {
+            throw new Exception('Invalid competition name: must be between 1 and 1000 characters long');
+        }
         $this->name = $name;
         return $this;
     }
@@ -390,6 +393,9 @@ final class Competition implements JsonSerializable
      */
     public function setNotes(?string $notes) : Competition
     {
+        if (strlen($notes) < 1) {
+            throw new Exception('Invalid competition notes: must be at least 1 character long');
+        }
         $this->notes = $notes;
         return $this;
     }

@@ -607,7 +607,7 @@ final class CompetitionTest extends TestCase {
             new Competition('');
             $this->fail('Test should have caught a zero-length competition name');
         } catch (Exception $e) {
-            $this->assertEquals('Invalid team name: must be between 1 and 1000 characters long', $e->getMessage());
+            $this->assertEquals('Invalid competition name: must be between 1 and 1000 characters long', $e->getMessage());
         }
 
         try {
@@ -618,7 +618,7 @@ final class CompetitionTest extends TestCase {
             new Competition($name);
             $this->fail('Test should have caught a long competition name');
         } catch (Exception $e) {
-            $this->assertEquals('Invalid team name: must be between 1 and 1000 characters long', $e->getMessage());
+            $this->assertEquals('Invalid competition name: must be between 1 and 1000 characters long', $e->getMessage());
         }
     }
 
@@ -695,6 +695,36 @@ final class CompetitionTest extends TestCase {
 
         $competition->deleteTeam($team_4->getID());
         $competition->deleteTeam('undefined-team-id');
+    }
+
+    public function testCompetitionSetters() : void
+    {
+        $competition = new Competition('test competition');
+
+        try {
+            $competition->setName('');
+            $this->fail('Test should have caught setting an empty competition name');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid competition name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+
+        $name = 'a';
+        for ($i=0; $i < 100; $i++) {
+            $name .= '0123456789';
+        }
+        try {
+            $competition->setName($name);
+            $this->fail('Test should have caught setting a long competition name');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid competition name: must be between 1 and 1000 characters long', $e->getMessage());
+        }
+
+        try {
+            $competition->setNotes('');
+            $this->fail('Test should have caught setting a empty competition notes');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid competition notes: must be at least 1 character long', $e->getMessage());
+        }
     }
 
     public function testCompetitionAddStage() : void
