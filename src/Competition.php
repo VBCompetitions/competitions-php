@@ -722,6 +722,7 @@ final class Competition implements JsonSerializable
      *   name: (string) name of the competition,
      *   is_valid: (bool) whether the file passes validation,
      *   is_complete: (bool) whether the competition has completed (all matches are complete)
+     *   metadata: (array) an array of objects containing a key field and a value field, representing the competition's metadata
      * }
      *
      * When a metadata matching object is given then each competition file is checked and only those that match all metadata search entries are included
