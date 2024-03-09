@@ -843,23 +843,47 @@ final class CompetitionTest extends TestCase {
     public function testCompetitionMetadataList() : void
     {
         $all = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))));
-        $this->assertCount(5, $all);
+        $this->assertCount(6, $all);
         $good_files = array_values(array_filter($all, fn($el): bool => $el->is_valid));
-        $this->assertCount(4, $good_files);
+        $this->assertCount(5, $good_files);
 
         $season_matcher = new stdClass();
         $season_matcher->season = '2023-2024';
         $season_23_24 = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), $season_matcher);
         $this->assertCount(2, $season_23_24);
-        $season_23_24 = array_values(array_filter($season_23_24, fn($el): bool => $el->name === 'metadata-season'));
-        $this->assertEquals('competition-metadata-season-2324.json', $season_23_24[0]->file);
+        $this->assertContains('competition-metadata-season-2324.json', array_map(fn($el): string => $el->file, $season_23_24));
+        $this->assertContains('competition-metadata-season-2324-mixed.json', array_map(fn($el): string => $el->file, $season_23_24));
 
         $mixed_matcher = new stdClass();
         $mixed_matcher->season = '2023-2024';
         $mixed_matcher->league = 'mixed';
         $mixed_season = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata'))), $mixed_matcher);
         $this->assertCount(1, $mixed_season);
-        $this->assertEquals('competition-metadata-season-2324-mixed.json', $mixed_season[0]->file);
+        $this->assertContains('competition-metadata-season-2324-mixed.json', array_map(fn($el): string => $el->file, $mixed_season));
+
+        $example_matcherA = new stdClass();
+        $example_matcherA->season = '23/24';
+        $matcherA_list = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata', 'docs-example'))), $example_matcherA);
+        $this->assertCount(3, $matcherA_list);
+        $this->assertContains('competition-season.json', array_map(fn($el): string => $el->file, $matcherA_list));
+        $this->assertContains('competition-season-archived.json', array_map(fn($el): string => $el->file, $matcherA_list));
+        $this->assertContains('competition-season-not-archived.json', array_map(fn($el): string => $el->file, $matcherA_list));
+
+        $example_matcherB = new stdClass();
+        $example_matcherB->{'!archived'} = 'true';
+        $matcherB_list = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata', 'docs-example'))), $example_matcherB);
+        $this->assertCount(3, $matcherB_list);
+        $this->assertContains('competition-season.json', array_map(fn($el): string => $el->file, $matcherB_list));
+        $this->assertContains('competition-season-not-archived.json', array_map(fn($el): string => $el->file, $matcherB_list));
+        $this->assertContains('competition-no-metadata.json', array_map(fn($el): string => $el->file, $matcherB_list));
+
+        $example_matcherC = new stdClass();
+        $example_matcherC->season = '23/24';
+        $example_matcherC->{'!archived'} = 'true';
+        $matcherC_list = Competition::competitionList(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'metadata', 'docs-example'))), $example_matcherC);
+        $this->assertCount(2, $matcherC_list);
+        $this->assertContains('competition-season.json', array_map(fn($el): string => $el->file, $matcherC_list));
+        $this->assertContains('competition-season-not-archived.json', array_map(fn($el): string => $el->file, $matcherC_list));
 
         try {
             $short_key = '';

@@ -1002,7 +1002,7 @@ updates the score and then saves the file back to the same location</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">639</span>
+    <span class="phpdocumentor-element-found-in__line">645</span>
 
     </aside>
 
@@ -1065,7 +1065,7 @@ updates the score and then saves the file back to the same location</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">534</span>
+    <span class="phpdocumentor-element-found-in__line">540</span>
 
     </aside>
 
@@ -1128,7 +1128,7 @@ updates the score and then saves the file back to the same location</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">406</span>
+    <span class="phpdocumentor-element-found-in__line">412</span>
 
     </aside>
 
@@ -1191,7 +1191,7 @@ updates the score and then saves the file back to the same location</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">729</span>
+    <span class="phpdocumentor-element-found-in__line">779</span>
 
     </aside>
 
@@ -1207,8 +1207,61 @@ updates the score and then saves the file back to the same location</dd>
     <span class="phpdocumentor-signature__visibility">public</span>
             <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">competitionList</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$competition_data_dir</span></span><span class="phpdocumentor-signature__argument"><span>[</span><span>, </span><span class="phpdocumentor-signature__argument__return-type">object|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$metadata_matches</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
 
-        <section class="phpdocumentor-description"><p>When a metadata matching object is given then each competition file is checked and only those with matching metadata fields are included
-in the returned list</p>
+        <section class="phpdocumentor-description"><p>When a metadata matching object is given then each competition file is checked and only those that match all metadata search entries are included
+in the returned list.  Each metadata search entry can be one of the following:</p>
+<ul>
+<li>
+<code class="prettyprint">{ some-key: &quot;some-value&quot; }</code>
+<ul>
+<li>matching requires the key to be defined by the competition and the value must match exactly</li>
+</ul>
+</li>
+<li>
+<code class="prettyprint">{ !some-key: &quot;true&quot; }</code> (note the &quot;!&quot; at the start of the key)
+<ul>
+<li>matching requires that either the key is not present in the competition metadata, or
+the key is present but the value does not match.</li>
+</ul>
+</li>
+</ul>
+<p>For example, consider 3 requests:</p>
+<ul>
+<li>Request A: list with metadata_matches={ &quot;season&quot;: &quot;23/24&quot; }</li>
+<li>Request B: list with metadata_matches={ &quot;!archived&quot;: &quot;true&quot; }</li>
+<li>Request C: list with metadata_matches={ &quot;season&quot;: &quot;23/24&quot;, &quot;!archived&quot;: &quot;true&quot; }</li>
+</ul>
+<pre class="prettyprint">
+Competition1 = {
+  "name": "This will be included in list A, B and C",
+  "metadata": [
+    { "key": "season", "value": "23/24" }
+  ],
+  ...
+}
+
+Competition2 = {
+  "name": "This will be included in lists A, B and C",
+  "metadata": [
+    { "key": "season", "value": "23/24" },
+    { "key": "archived", "value": "false" }
+  ],
+  ...
+}
+
+Competition3 = {
+  "name": "This will be included in list A",
+  "metadata": [
+    { "key": "season", "value": "23/24" },
+    { "key": "archived", "value": "true" }
+  ],
+  ...
+}
+
+Competititon4 = {
+  "name": "This has no metadata, it will be included in list B",
+  ...
+}
+</pre>
 </section>
 
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1256,7 +1309,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">695</span>
+    <span class="phpdocumentor-element-found-in__line">701</span>
 
     </aside>
 
@@ -1303,7 +1356,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">368</span>
+    <span class="phpdocumentor-element-found-in__line">371</span>
 
     </aside>
 
@@ -1352,7 +1405,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">590</span>
+    <span class="phpdocumentor-element-found-in__line">596</span>
 
     </aside>
 
@@ -1399,7 +1452,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">503</span>
+    <span class="phpdocumentor-element-found-in__line">509</span>
 
     </aside>
 
@@ -1446,7 +1499,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">668</span>
+    <span class="phpdocumentor-element-found-in__line">674</span>
 
     </aside>
 
@@ -1509,7 +1562,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">654</span>
+    <span class="phpdocumentor-element-found-in__line">660</span>
 
     </aside>
 
@@ -1544,7 +1597,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">352</span>
+    <span class="phpdocumentor-element-found-in__line">355</span>
 
     </aside>
 
@@ -1581,7 +1634,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">335</span>
+    <span class="phpdocumentor-element-found-in__line">338</span>
 
     </aside>
 
@@ -1665,7 +1718,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">379</span>
+    <span class="phpdocumentor-element-found-in__line">382</span>
 
     </aside>
 
@@ -1700,7 +1753,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">563</span>
+    <span class="phpdocumentor-element-found-in__line">569</span>
 
     </aside>
 
@@ -1763,7 +1816,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">549</span>
+    <span class="phpdocumentor-element-found-in__line">555</span>
 
     </aside>
 
@@ -1798,7 +1851,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">436</span>
+    <span class="phpdocumentor-element-found-in__line">442</span>
 
     </aside>
 
@@ -1845,7 +1898,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">424</span>
+    <span class="phpdocumentor-element-found-in__line">430</span>
 
     </aside>
 
@@ -1915,7 +1968,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">683</span>
+    <span class="phpdocumentor-element-found-in__line">689</span>
 
     </aside>
 
@@ -1962,7 +2015,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">322</span>
+    <span class="phpdocumentor-element-found-in__line">325</span>
 
     </aside>
 
@@ -1997,7 +2050,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">307</span>
+    <span class="phpdocumentor-element-found-in__line">310</span>
 
     </aside>
 
@@ -2046,7 +2099,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">578</span>
+    <span class="phpdocumentor-element-found-in__line">584</span>
 
     </aside>
 
@@ -2093,7 +2146,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1118</span>
+    <span class="phpdocumentor-element-found-in__line">1175</span>
 
     </aside>
 
@@ -2140,7 +2193,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">491</span>
+    <span class="phpdocumentor-element-found-in__line">497</span>
 
     </aside>
 
@@ -2187,7 +2240,7 @@ in the returned list</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1134</span>
+    <span class="phpdocumentor-element-found-in__line">1191</span>
 
     </aside>
 
@@ -2461,7 +2514,7 @@ and the competition results can be fully calculated</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">275</span>
+    <span class="phpdocumentor-element-found-in__line">278</span>
 
     </aside>
 
@@ -2582,7 +2635,7 @@ and the competition results can be fully calculated</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">391</span>
+    <span class="phpdocumentor-element-found-in__line">394</span>
 
     </aside>
 
@@ -2676,7 +2729,7 @@ and the competition results can be fully calculated</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">824</span>
+    <span class="phpdocumentor-element-found-in__line">881</span>
 
     </aside>
 
@@ -2813,7 +2866,7 @@ updates the score and then saves the file back to the same location</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">918</span>
+    <span class="phpdocumentor-element-found-in__line">975</span>
 
     </aside>
 
@@ -2874,7 +2927,7 @@ updates the score and then saves the file back to the same location</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">950</span>
+    <span class="phpdocumentor-element-found-in__line">1007</span>
 
     </aside>
 
@@ -2986,7 +3039,7 @@ updates the score and then saves the file back to the same location</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1092</span>
+    <span class="phpdocumentor-element-found-in__line">1149</span>
 
     </aside>
 
@@ -3030,7 +3083,7 @@ updates the score and then saves the file back to the same location</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1025</span>
+    <span class="phpdocumentor-element-found-in__line">1082</span>
 
     </aside>
 
@@ -3091,7 +3144,7 @@ updates the score and then saves the file back to the same location</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1048</span>
+    <span class="phpdocumentor-element-found-in__line">1105</span>
 
     </aside>
 

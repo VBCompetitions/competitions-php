@@ -724,8 +724,52 @@ final class Competition implements JsonSerializable
      *   is_complete: (bool) whether the competition has completed (all matches are complete)
      * }
      *
-     * When a metadata matching object is given then each competition file is checked and only those with matching metadata fields are included
-     * in the returned list
+     * When a metadata matching object is given then each competition file is checked and only those that match all metadata search entries are included
+     * in the returned list.  Each metadata search entry can be one of the following:
+     *
+     * - <code>{ some-key: "some-value" }</code>
+     *   - matching requires the key to be defined by the competition and the value must match exactly
+     * - <code>{ !some-key: "true" }</code> (note the "!" at the start of the key)
+     *   - matching requires that either the key is not present in the competition metadata, or
+     *     the key is present but the value does not match.
+     *
+     * For example, consider 3 requests:
+     * - Request A: list with metadata_matches={ "season": "23/24" }
+     * - Request B: list with metadata_matches={ "!archived": "true" }
+     * - Request C: list with metadata_matches={ "season": "23/24", "!archived": "true" }
+     *
+     * <pre>
+     * Competition1 = {
+     *   "name": "This will be included in list A, B and C",
+     *   "metadata": [
+     *     { "key": "season", "value": "23/24" }
+     *   ],
+     *   ...
+     * }
+     *
+     * Competition2 = {
+     *   "name": "This will be included in lists A, B and C",
+     *   "metadata": [
+     *     { "key": "season", "value": "23/24" },
+     *     { "key": "archived", "value": "false" }
+     *   ],
+     *   ...
+     * }
+     *
+     * Competition3 = {
+     *   "name": "This will be included in list A",
+     *   "metadata": [
+     *     { "key": "season", "value": "23/24" },
+     *     { "key": "archived", "value": "true" }
+     *   ],
+     *   ...
+     * }
+     *
+     * Competititon4 = {
+     *   "name": "This has no metadata, it will be included in list B",
+     *   ...
+     * }
+     * </pre>
      *
      * @param string $competition_data_dir The directory to scan for competition files
      * @param ?object $metadata_matches A set of key-value pairs that must all match in the competition's metadata to be included in the list
@@ -776,9 +820,17 @@ final class Competition implements JsonSerializable
 
                 $found = true;
                 foreach ($metadata_matches as $m_key => $m_value) {
-                    if (!property_exists($competition_metadata, $m_key) || $competition_metadata->$m_key !== $metadata_matches->$m_key) {
-                        $found = false;
-                        break;
+                    if (str_starts_with($m_key, '!')) {
+                        $n_key = substr($m_key, 1);
+                        if (property_exists($competition_metadata, $n_key) && $competition_metadata->$n_key === $metadata_matches->$m_key) {
+                            $found = false;
+                            break;
+                        }
+                    } else {
+                        if (!property_exists($competition_metadata, $m_key) || $competition_metadata->$m_key !== $metadata_matches->$m_key) {
+                            $found = false;
+                            break;
+                        }
                     }
                 }
 

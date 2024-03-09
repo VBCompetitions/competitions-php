@@ -1,0 +1,8 @@
+{
+  "metadata": [
+    { "key": "some-key", "value": "some-value" }
+  ],
+  "name": "empty-metadata",
+  "teams": [],
+  "stages": []
+}
