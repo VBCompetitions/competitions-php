@@ -239,7 +239,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
      * @return IfUnknownMatch The requested match
      * @throws OutOfBoundsException When the match with the specified ID is not found
      */
-    public function getMatchById(string $match_id) : IfUnknownMatch
+    public function getMatchByID(string $match_id) : IfUnknownMatch
     {
         if (property_exists($this->match_lookup, $match_id)) {
             return $this->match_lookup->{$match_id};

@@ -888,7 +888,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      *
      * @throws Exception the match does not have a winner
      */
-    public function getWinnerTeamId() : string
+    public function getWinnerTeamID() : string
     {
         if (!$this->is_complete) {
             throw new Exception('Match incomplete, there is no winner');
@@ -906,7 +906,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      *
      * @throws Exception the match does not have a loser
      */
-    public function getLoserTeamId() : string
+    public function getLoserTeamID() : string
     {
         if (!$this->is_complete) {
             throw new Exception('Match incomplete, there is no loser');

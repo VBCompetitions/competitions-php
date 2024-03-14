@@ -131,10 +131,10 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020stages\u0020in\u0020this\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_getStages"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetStageById\u0028\u0029",
-            "name": "getStageById",
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetStageByID\u0028\u0029",
+            "name": "getStageByID",
             "summary": "Returns\u0020the\u0020Stage\u0020with\u0020the\u0020requested\u0020ID,\u0020or\u0020throws\u0020if\u0020the\u0020ID\u0020is\u0020not\u0020found",
-            "url": "classes/VBCompetitions-Competitions-Competition.html#method_getStageById"
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_getStageByID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasStageWithID\u0028\u0029",
             "name": "hasStageWithID",
@@ -156,10 +156,10 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020clubs\u0020in\u0020this\u0020competition",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_getClubs"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetClubById\u0028\u0029",
-            "name": "getClubById",
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetClubByID\u0028\u0029",
+            "name": "getClubByID",
             "summary": "Returns\u0020the\u0020Club\u0020with\u0020the\u0020requested\u0020ID,\u0020or\u0020throws\u0020if\u0020the\u0020ID\u0020is\u0020not\u0020found",
-            "url": "classes/VBCompetitions-Competitions-Competition.html#method_getClubById"
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_getClubByID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasClubWithID\u0028\u0029",
             "name": "hasClubWithID",
@@ -173,7 +173,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AcompetitionList\u0028\u0029",
             "name": "competitionList",
-            "summary": "Returns\u0020an\u0020array\u0020of\u0020competitions\u0020in\u0020the\u0020form\u0020below\n\u007B\n\u0020\u0020file\u003A\u0020\u0028string\u0029\u0020name\u0020of\u0020the\u0020competition\u0020file,\n\u0020\u0020name\u003A\u0020\u0028string\u0029\u0020name\u0020of\u0020the\u0020competition,\n\u0020\u0020is_valid\u003A\u0020\u0028bool\u0029\u0020whether\u0020the\u0020file\u0020passes\u0020validation,\n\u0020\u0020is_complete\u003A\u0020\u0028bool\u0029\u0020whether\u0020the\u0020competition\u0020has\u0020completed\u0020\u0028all\u0020matches\u0020are\u0020complete\u0029\n\u007D",
+            "summary": "Returns\u0020an\u0020array\u0020of\u0020competitions\u0020in\u0020the\u0020form\u0020below\n\u007B\n\u0020\u0020file\u003A\u0020\u0028string\u0029\u0020name\u0020of\u0020the\u0020competition\u0020file,\n\u0020\u0020name\u003A\u0020\u0028string\u0029\u0020name\u0020of\u0020the\u0020competition,\n\u0020\u0020is_valid\u003A\u0020\u0028bool\u0029\u0020whether\u0020the\u0020file\u0020passes\u0020validation,\n\u0020\u0020is_complete\u003A\u0020\u0028bool\u0029\u0020whether\u0020the\u0020competition\u0020has\u0020completed\u0020\u0028all\u0020matches\u0020are\u0020complete\u0029\n\u0020\u0020metadata\u003A\u0020\u0028array\u0029\u0020an\u0020array\u0020of\u0020objects\u0020containing\u0020a\u0020key\u0020field\u0020and\u0020a\u0020value\u0020field,\u0020representing\u0020the\u0020competition\u0027s\u0020metadata\n\u007D",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_competitionList"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AupdateMatchResults\u0028\u0029",
@@ -188,7 +188,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AvalidateTeamID\u0028\u0029",
             "name": "validateTeamID",
-            "summary": "Validates\u0020a\u0020team\u0020ID,\u0020throwing\u0020an\u0020exception\u0020if\u0020it\u0020isn\u0027t\u0020and\u0020returning\u0020if\u0020the\u0020team\u0020Id\u0020is\u0020valid",
+            "summary": "Validates\u0020a\u0020team\u0020ID,\u0020throwing\u0020an\u0020exception\u0020if\u0020it\u0020isn\u0027t\u0020and\u0020returning\u0020if\u0020the\u0020team\u0020ID\u0020is\u0020valid",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_validateTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AvalidateTeamExists\u0028\u0029",
@@ -706,10 +706,10 @@ Search.appendIndex(
             "summary": "Build\u0020the\u0020lookup\u0020table\u0020of\u0020references\u0020where\u0020the\u0020key\u0020is\u0020the\u0020string\u0020\u0022\u007Bstage\u0020ID\u007D\u003A\u007Bgroup\u0020ID\u007D\u0022\u0020and\u0020the\u0020value\u0020is\u0020an\u0020object\u0020linking\u0020to\nthe\u0020Stage\u0020and\u0020the\u0020Group",
             "url": "classes/VBCompetitions-Competitions-Group.html#method_buildStageGroupLookup"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetMatchById\u0028\u0029",
-            "name": "getMatchById",
+            "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AgetMatchByID\u0028\u0029",
+            "name": "getMatchByID",
             "summary": "Returns\u0020the\u0020match\u0020with\u0020the\u0020specified\u0020ID",
-            "url": "classes/VBCompetitions-Competitions-Group.html#method_getMatchById"
+            "url": "classes/VBCompetitions-Competitions-Group.html#method_getMatchByID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Group\u003A\u003AhasMatchWithID\u0028\u0029",
             "name": "hasMatchWithID",
@@ -1376,15 +1376,15 @@ Search.appendIndex(
             "summary": "Work\u0020out\u0020whether\u0020the\u0020set\u0020is\u0020complete\u0020or\u0020not,\u0020when\u0020this\u0020is\u0020the\u0020deciding\u0020set",
             "url": "classes/VBCompetitions-Competitions-GroupMatch.html#method_isDeciderSetComplete"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003AgetWinnerTeamId\u0028\u0029",
-            "name": "getWinnerTeamId",
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003AgetWinnerTeamID\u0028\u0029",
+            "name": "getWinnerTeamID",
             "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020winning\u0020team",
-            "url": "classes/VBCompetitions-Competitions-GroupMatch.html#method_getWinnerTeamId"
+            "url": "classes/VBCompetitions-Competitions-GroupMatch.html#method_getWinnerTeamID"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003AgetLoserTeamId\u0028\u0029",
-            "name": "getLoserTeamId",
+            "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003AgetLoserTeamID\u0028\u0029",
+            "name": "getLoserTeamID",
             "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020losing\u0020team",
-            "url": "classes/VBCompetitions-Competitions-GroupMatch.html#method_getLoserTeamId"
+            "url": "classes/VBCompetitions-Competitions-GroupMatch.html#method_getLoserTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\GroupMatch\u003A\u003A\u0024id",
             "name": "id",
@@ -1806,10 +1806,10 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020match\u0020type\u0020of\u0020this\u0020IfUnknown",
             "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatchType"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetMatchById\u0028\u0029",
-            "name": "getMatchById",
+            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AgetMatchByID\u0028\u0029",
+            "name": "getMatchByID",
             "summary": "Get\u0020the\u0020match\u0020with\u0020the\u0020specified\u0020ID",
-            "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatchById"
+            "url": "classes/VBCompetitions-Competitions-IfUnknown.html#method_getMatchByID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknown\u003A\u003AmatchesHaveCourts\u0028\u0029",
             "name": "matchesHaveCourts",
@@ -2191,15 +2191,15 @@ Search.appendIndex(
             "summary": "Check\u0020if\u0020the\u0020match\u0020has\u0020officials\u0020assigned",
             "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_hasOfficials"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetWinnerTeamId\u0028\u0029",
-            "name": "getWinnerTeamId",
+            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetWinnerTeamID\u0028\u0029",
+            "name": "getWinnerTeamID",
             "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020winning\u0020team",
-            "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getWinnerTeamId"
+            "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getWinnerTeamID"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetLoserTeamId\u0028\u0029",
-            "name": "getLoserTeamId",
+            "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetLoserTeamID\u0028\u0029",
+            "name": "getLoserTeamID",
             "summary": "Get\u0020the\u0020ID\u0020of\u0020the\u0020losing\u0020team",
-            "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getLoserTeamId"
+            "url": "classes/VBCompetitions-Competitions-IfUnknownMatch.html#method_getLoserTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\IfUnknownMatch\u003A\u003AgetHomeTeamScores\u0028\u0029",
             "name": "getHomeTeamScores",
@@ -2976,15 +2976,15 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchInterface.html#method_getID"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\MatchInterface\u003A\u003AgetWinnerTeamId\u0028\u0029",
-            "name": "getWinnerTeamId",
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchInterface\u003A\u003AgetWinnerTeamID\u0028\u0029",
+            "name": "getWinnerTeamID",
             "summary": "",
-            "url": "classes/VBCompetitions-Competitions-MatchInterface.html#method_getWinnerTeamId"
+            "url": "classes/VBCompetitions-Competitions-MatchInterface.html#method_getWinnerTeamID"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\MatchInterface\u003A\u003AgetLoserTeamId\u0028\u0029",
-            "name": "getLoserTeamId",
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchInterface\u003A\u003AgetLoserTeamID\u0028\u0029",
+            "name": "getLoserTeamID",
             "summary": "",
-            "url": "classes/VBCompetitions-Competitions-MatchInterface.html#method_getLoserTeamId"
+            "url": "classes/VBCompetitions-Competitions-MatchInterface.html#method_getLoserTeamID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchInterface\u003A\u003AgetHomeTeamScores\u0028\u0029",
             "name": "getHomeTeamScores",
@@ -3040,6 +3040,16 @@ Search.appendIndex(
             "name": "loadFromData",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_loadFromData"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Return\u0020the\u0020team\u0020data\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
+            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetMatch\u0028\u0029",
+            "name": "getMatch",
+            "summary": "Get\u0020the\u0020match\u0020the\u0020team\u0020is\u0020playing\u0020in",
+            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getMatch"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetID\u0028\u0029",
             "name": "getID",
@@ -3110,16 +3120,6 @@ Search.appendIndex(
             "name": "getPlayers",
             "summary": "The\u0020IDs\u0020of\u0020the\u0020players\u0020in\u0020this\u0020match",
             "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getPlayers"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AgetMatch\u0028\u0029",
-            "name": "getMatch",
-            "summary": "Get\u0020the\u0020match\u0020the\u0020team\u0020is\u0020playing\u0020in",
-            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_getMatch"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020team\u0020data\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
-            "url": "classes/VBCompetitions-Competitions-MatchTeam.html#method_jsonSerialize"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\MatchTeam\u003A\u003A\u0024id",
             "name": "id",
@@ -3261,10 +3261,10 @@ Search.appendIndex(
             "summary": "Get\u0020all\u0020matches\u0020in\u0020this\u0020stage.",
             "url": "classes/VBCompetitions-Competitions-Stage.html#method_getAllMatchesInStage"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetGroupById\u0028\u0029",
-            "name": "getGroupById",
+            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AgetGroupByID\u0028\u0029",
+            "name": "getGroupByID",
             "summary": "Return\u0020the\u0020group\u0020in\u0020this\u0020stage\u0020with\u0020the\u0020given\u0020ID.",
-            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getGroupById"
+            "url": "classes/VBCompetitions-Competitions-Stage.html#method_getGroupByID"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AhasGroupWithID\u0028\u0029",
             "name": "hasGroupWithID",
@@ -3461,6 +3461,16 @@ Search.appendIndex(
             "summary": "Load\u0020player\u0020data\u0020from\u0020an\u0020object.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_loadFromData"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AjsonSerialize\u0028\u0029",
+            "name": "jsonSerialize",
+            "summary": "Return\u0020the\u0020list\u0020of\u0020player\u0020data\u0020suitable\u0020for\u0020serialization.",
+            "url": "classes/VBCompetitions-Competitions-Player.html#method_jsonSerialize"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AgetTeam\u0028\u0029",
+            "name": "getTeam",
+            "summary": "Get\u0020the\u0020team\u0020this\u0020contact\u0020belongs\u0020to",
+            "url": "classes/VBCompetitions-Competitions-Player.html#method_getTeam"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AgetID\u0028\u0029",
             "name": "getID",
             "summary": "Get\u0020the\u0020ID\u0020for\u0020this\u0020player.",
@@ -3496,11 +3506,6 @@ Search.appendIndex(
             "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020player.",
             "url": "classes/VBCompetitions-Competitions-Player.html#method_setNotes"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003AjsonSerialize\u0028\u0029",
-            "name": "jsonSerialize",
-            "summary": "Return\u0020the\u0020list\u0020of\u0020player\u0020data\u0020suitable\u0020for\u0020serialization.",
-            "url": "classes/VBCompetitions-Competitions-Player.html#method_jsonSerialize"
-        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003A\u0024id",
             "name": "id",
             "summary": "",
@@ -3520,6 +3525,11 @@ Search.appendIndex(
             "name": "notes",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-Player.html#property_notes"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Player\u003A\u003A\u0024team",
+            "name": "team",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-Player.html#property_team"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\SetConfig",
             "name": "SetConfig",
@@ -3698,7 +3708,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club",
             "name": "Club",
-            "summary": "A\u0020team\u0020definition",
+            "summary": "A\u0020club\u0020definition",
             "url": "classes/VBCompetitions-Competitions-Club.html"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A__construct\u0028\u0029",

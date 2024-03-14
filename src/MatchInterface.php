@@ -19,8 +19,8 @@ interface MatchInterface {
 
     public function isFriendly() : bool;
     public function getID() : string;
-    public function getWinnerTeamId() : string;
-    public function getLoserTeamId() : string;
+    public function getWinnerTeamID() : string;
+    public function getLoserTeamID() : string;
     /**
      * @return array<int>
      */

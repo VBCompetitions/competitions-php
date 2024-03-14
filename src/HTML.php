@@ -582,9 +582,9 @@ class HTML {
                                 array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_SETS_SCORE, $global_class.'vbc-match-score-sets vbc-match-group-'.$match->getGroup()->getID(), $sets_table, null, 2));
                             } else {
                                 $sets_table = '<table class="vbc-score"><tr><td></td><td class="vbc-match-score vbc-match-group-'.$match->getGroup()->getID().' ';
-                                $sets_table .= ($match->getWinnerTeamId() === $match->getHomeTeam()->getID() ? 'vbc-match-winner' : ' vbc-match-loser');
+                                $sets_table .= ($match->getWinnerTeamID() === $match->getHomeTeam()->getID() ? 'vbc-match-winner' : ' vbc-match-loser');
                                 $sets_table .= '">'.$match->getHomeTeamSets().'</td><td class="vbc-match-score vbc-match-group-'.$match->getGroup()->getID().' ';
-                                $sets_table .= ($match->getWinnerTeamId() === $match->getAwayTeam()->getID() ? 'vbc-match-winner' : ' vbc-match-loser');
+                                $sets_table .= ($match->getWinnerTeamID() === $match->getAwayTeam()->getID() ? 'vbc-match-winner' : ' vbc-match-loser');
                                 $sets_table .= '">'.$match->getAwayTeamSets().'</td><td></td></tr><tr><td class="vbc-match-score-sets vbc-match-group-'.$match->getGroup()->getID().'" colspan="4">';
                                 $set_scores = [];
                                 for ($set_count=0; $set_count < count($match->getHomeTeam()->getScores()); $set_count++) {
@@ -633,8 +633,8 @@ class HTML {
                         $away_team_class = 'vbc-match-score vbc-match-group-'.$match->getGroup()->getID();
 
                         if ($match->isComplete() && !$match->isDraw()) {
-                            $home_team_class = 'vbc-match-score vbc-match-group-'.$match->getGroup()->getID().($match->getWinnerTeamId() === $match->getHomeTeam()->getID() ? ' vbc-match-winner' : ' vbc-match-loser');
-                            $away_team_class = 'vbc-match-score vbc-match-group-'.$match->getGroup()->getID().($match->getWinnerTeamId() === $match->getAwayTeam()->getID() ? ' vbc-match-winner' : ' vbc-match-loser');
+                            $home_team_class = 'vbc-match-score vbc-match-group-'.$match->getGroup()->getID().($match->getWinnerTeamID() === $match->getHomeTeam()->getID() ? ' vbc-match-winner' : ' vbc-match-loser');
+                            $away_team_class = 'vbc-match-score vbc-match-group-'.$match->getGroup()->getID().($match->getWinnerTeamID() === $match->getAwayTeam()->getID() ? ' vbc-match-winner' : ' vbc-match-loser');
                         }
 
                         array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_HOME_SCORE, $global_class.$home_team_class, $home_team_score));

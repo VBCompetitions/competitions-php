@@ -541,7 +541,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
      *
      * @return string The ID of the winning team
      */
-    public function getWinnerTeamId() : string
+    public function getWinnerTeamID() : string
     {
         return CompetitionTeam::UNKNOWN_TEAM_ID;
     }
@@ -551,7 +551,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
      *
      * @return string The ID of the losing team
      */
-    public function getLoserTeamId() : string
+    public function getLoserTeamID() : string
     {
         return CompetitionTeam::UNKNOWN_TEAM_ID;
     }

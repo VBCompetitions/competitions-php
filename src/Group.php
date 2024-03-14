@@ -613,7 +613,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
             $this->buildStageGroupLookup();
 
             foreach ($this->stg_grp_lookup as $stage_and_group) {
-                $group = $this->competition->getStageById($stage_and_group->stage)->getGroupById($stage_and_group->group);
+                $group = $this->competition->getStageByID($stage_and_group->stage)->getGroupByID($stage_and_group->group);
                 if (!$group->isComplete()) {
                     $this->maybe_teams = array_unique(array_merge($this->maybe_teams, $group->getTeamIDs(VBC_TEAMS_KNOWN), $group->getTeamIDs(VBC_TEAMS_MAYBE)));
                 }
@@ -678,7 +678,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
      *
      * @return GroupMatch The requested match
      */
-    public function getMatchById(string $match_id) : GroupMatch
+    public function getMatchByID(string $match_id) : GroupMatch
     {
         if (property_exists($this->match_lookup, $match_id)) {
             return $this->match_lookup->{$match_id};
@@ -719,11 +719,11 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
             throw new Exception('Invalid type "league" in team reference.  Cannot get league position from a non-league group');
         }
 
-        $match = $this->getMatchById($type);
+        $match = $this->getMatchByID($type);
 
         return match ($entity) {
-            'winner' => $this->competition->getTeamByID($match->getWinnerTeamId()),
-            'loser' => $this->competition->getTeamByID($match->getLoserTeamId()),
+            'winner' => $this->competition->getTeamByID($match->getWinnerTeamID()),
+            'loser' => $this->competition->getTeamByID($match->getLoserTeamID()),
             default => throw new Exception('Invalid entity "'.$entity.'" in team reference'),
         };
     }
@@ -878,7 +878,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         $all_groups_complete = true;
         foreach ($this->team_references as $team_reference) {
             $parts = explode(':', trim($team_reference, '{}'), 4);
-            if (!$this->competition->getStageById($parts[0])->getGroupById($parts[1])->isComplete()) {
+            if (!$this->competition->getStageByID($parts[0])->getGroupByID($parts[1])->isComplete()) {
                 $all_groups_complete = false;
             }
         }
@@ -975,7 +975,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
 
         // Look up each reference to see if it leads back to this team
         foreach ($this->stg_grp_lookup as $stage_and_group) {
-            $group = $this->competition->getStageById($stage_and_group->stage)->getGroupById($stage_and_group->group);
+            $group = $this->competition->getStageByID($stage_and_group->stage)->getGroupByID($stage_and_group->group);
             if ((!$group->isComplete() && $group->teamHasMatches($team_id)) || $group->teamMayHaveMatches($team_id)) {
                 return true;
             }

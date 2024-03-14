@@ -6,7 +6,6 @@ use Exception;
 use JsonSerializable;
 use OutOfBoundsException;
 use stdClass;
-use VBCompetitions\Competitions\MatchType;
 
 /**
  * A single competition stage.
@@ -363,9 +362,9 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         usort($this->all_matches, function ($a, $b) {
             // Both GroupBreak and GroupMatch may have "start" and may have "date", or may have neither
             $a_date = $a->getDate() === '' ? '2023-02-12' : $a->getDate();
-            $b_date = $a->getDate() === '' ? '2023-02-12' : $b->getDate();
+            $b_date = $b->getDate() === '' ? '2023-02-12' : $b->getDate();
             $a_start = $a->getStart() === '' ? '10:00' : $a->getStart();
-            $b_start = $a->getStart() === '' ? '10:00' : $b->getStart();
+            $b_start = $b->getStart() === '' ? '10:00' : $b->getStart();
 
             return strcmp($a_date.$a_start, $b_date.$b_start);
         });
@@ -380,7 +379,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      * @return Group The group with the given ID
      * @throws OutOfBoundsException If the group with the given ID is not found
      */
-    public function getGroupById(string $group_id) : Group
+    public function getGroupByID(string $group_id) : Group
     {
         if (!property_exists($this->group_lookup, $group_id)) {
             throw new OutOfBoundsException('Group with ID '.$group_id.' not found in stage with ID '.$this->id);
@@ -439,9 +438,9 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             // Both GroupBreak and GroupMatch may have "start" and may have "date", or may have neither
             // so give them some defaults to make them sortable
             $a_date = $a->getDate() === null ? '2023-01-01' : $a->getDate();
-            $b_date = $a->getDate() === null ? '2023-01-01' : $b->getDate();
+            $b_date = $b->getDate() === null ? '2023-01-01' : $b->getDate();
             $a_start = $a->getStart() === null ? '10:00' : $a->getStart();
-            $b_start = $a->getStart() === null ? '10:00' : $b->getStart();
+            $b_start = $b->getStart() === null ? '10:00' : $b->getStart();
 
             return strcmp($a_date.$a_start, $b_date.$b_start);
         });
@@ -502,7 +501,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     public function matchesHaveMVPs() : bool
     {
         foreach ($this->groups as $group) {
-            if ($group->matchesHaveMvps()) {
+            if ($group->matchesHaveMVPs()) {
                 return true;
             }
         }
@@ -702,7 +701,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
 
         // Look up each reference to see if it leads back to this team
         foreach ($this->team_stg_grp_lookup as $key => $stage_and_group) {
-            $group = $this->competition->getStageById($stage_and_group->stage)->getGroupById($stage_and_group->group);
+            $group = $this->competition->getStageByID($stage_and_group->stage)->getGroupByID($stage_and_group->group);
             if ((!$group->isComplete() && $group->teamHasMatches($team_id)) || $group->teamMayHaveMatches($team_id)) {
                 return true;
             }

@@ -23,6 +23,9 @@ final class Player implements JsonSerializable
     /** @var ?string Free form string to add notes about the player. This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
+    /** @var CompetitionTeam The team this player belongs to */
+    private CompetitionTeam $team;
+
     /**
      * Contains the data of a player in a team.
      *
@@ -45,6 +48,7 @@ final class Player implements JsonSerializable
             throw new Exception('Player with ID "'.$id.'" already exists in the team');
         }
 
+        $this->team = $team;
         $this->id = $id;
         $this->setName($name);
     }
@@ -66,6 +70,38 @@ final class Player implements JsonSerializable
         }
 
         return $this;
+    }
+
+    /**
+     * Return the list of player data suitable for serialization.
+     *
+     * @return mixed
+     */
+    public function jsonSerialize() : mixed
+    {
+        $player = new stdClass();
+        $player->id = $this->id;
+        $player->name = $this->name;
+
+        if ($this->number !== null) {
+            $player->number = $this->number;
+        }
+
+        if ($this->notes !== null) {
+            $player->notes = $this->notes;
+        }
+
+        return $player;
+    }
+
+    /**
+     * Get the team this contact belongs to
+     *
+     * @return CompetitionTeam The team this contact belongs to
+     */
+    public function getTeam() : CompetitionTeam
+    {
+        return $this->team;
     }
 
     /**
@@ -144,27 +180,5 @@ final class Player implements JsonSerializable
     public function setNotes(?string $notes) : void
     {
         $this->notes = $notes;
-    }
-
-    /**
-     * Return the list of player data suitable for serialization.
-     *
-     * @return mixed
-     */
-    public function jsonSerialize() : mixed
-    {
-        $player = new stdClass();
-        $player->id = $this->id;
-        $player->name = $this->name;
-
-        if ($this->number !== null) {
-            $player->number = $this->number;
-        }
-
-        if ($this->notes !== null) {
-            $player->notes = $this->notes;
-        }
-
-        return $player;
     }
 }

@@ -212,7 +212,7 @@ final class CompetitionTeam implements JsonSerializable
             throw new Exception('No club with ID "'.$club_id.'" exists');
         }
 
-        $this->club = $this->competition->getClubById($club_id);
+        $this->club = $this->competition->getClubByID($club_id);
         $this->club->addTeam($this);
 
         return $this;

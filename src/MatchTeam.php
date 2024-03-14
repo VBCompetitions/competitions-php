@@ -64,6 +64,41 @@ final class MatchTeam implements JsonSerializable
         return $team;
     }
 
+    /**
+     * Return the team data suitable for saving into a competition file
+     *
+     * @return mixed
+     */
+    public function jsonSerialize() : mixed
+    {
+        $match_team = new stdClass();
+
+        $match_team->id = $this->id;
+        $match_team->scores = $this->getScores();
+        if ($this->mvp !== null) {
+            $match_team->mvp = $this->mvp;
+        }
+        $match_team->forfeit = $this->forfeit;
+        $match_team->bonusPoints = $this->bonus_points;
+        $match_team->penaltyPoints = $this->penalty_points;
+        if ($this->notes !== null) {
+            $match_team->notes = $this->notes;
+        }
+        $match_team->players = $this->players;
+
+        return $match_team;
+    }
+
+    /**
+     * Get the match the team is playing in
+     *
+     * @return MatchInterface the match this team plays in
+     */
+    public function getMatch() : MatchInterface
+    {
+        return $this->match;
+    }
+
     public function getID() : string
     {
         return $this->id;
@@ -151,40 +186,5 @@ final class MatchTeam implements JsonSerializable
     public function getPlayers() : array
     {
         return $this->players;
-    }
-
-    /**
-     * Get the match the team is playing in
-     *
-     * @return MatchInterface the match this team plays in
-     */
-    public function getMatch() : MatchInterface
-    {
-        return $this->match;
-    }
-
-    /**
-     * Return the team data suitable for saving into a competition file
-     *
-     * @return mixed
-     */
-    public function jsonSerialize() : mixed
-    {
-        $match_team = new stdClass();
-
-        $match_team->id = $this->id;
-        $match_team->scores = $this->getScores();
-        if ($this->mvp !== null) {
-            $match_team->mvp = $this->mvp;
-        }
-        $match_team->forfeit = $this->forfeit;
-        $match_team->bonusPoints = $this->bonus_points;
-        $match_team->penaltyPoints = $this->penalty_points;
-        if ($this->notes !== null) {
-            $match_team->notes = $this->notes;
-        }
-        $match_team->players = $this->players;
-
-        return $match_team;
     }
 }

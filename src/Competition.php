@@ -333,7 +333,7 @@ final class Competition implements JsonSerializable
      * This function retrieves the value of the metadata associated with the provided key.
      *
      * @param string $key The key of the metadata
-     * @return string|null Returns the value of the metadata if found, otherwise null
+     * @return ?string Returns the value of the metadata if found, otherwise null
      */
     public function getMetadataByKey(string $key) : ?string
     {
@@ -472,16 +472,10 @@ final class Competition implements JsonSerializable
 
         if (preg_match('/^{([^:]*):([^:]*):([^:]*):([^:]*)}$/', $team_id, $team_ref_parts)) {
             try {
-                return $this->getStageById($team_ref_parts[1])->getGroupByID($team_ref_parts[2])->getTeamByID($team_ref_parts[3], $team_ref_parts[4]);
+                return $this->getStageByID($team_ref_parts[1])->getGroupByID($team_ref_parts[2])->getTeamByID($team_ref_parts[3], $team_ref_parts[4]);
             } catch (Throwable $th) {
                 return $this->unknown_team;
             }
-            // // As we go through the results, we populate the lookup table
-            // // e.g. when a league group is complete, we can populate {Stage1:Group1:league:1} with the team in position 1 in Group 1 in Stage 1
-            // // If we look up a key and get a hit then the team is known, if not then we don't know so return "unknown"
-            // if (property_exists($this->team_lookup, $team_id)) {
-            //     return $this->team_lookup->{$team_id};
-            // }
         }
 
         return $this->unknown_team;
@@ -566,7 +560,7 @@ final class Competition implements JsonSerializable
      *
      * @return Stage The requested stage
      */
-    public function getStageById(string $id) : Stage
+    public function getStageByID(string $id) : Stage
     {
         if (!property_exists($this->stage_lookup, $id)) {
             throw new OutOfBoundsException('Stage with ID '.$id.' not found');
@@ -671,7 +665,7 @@ final class Competition implements JsonSerializable
      *
      * @return Club The requested club
      */
-    public function getClubById(string $club_id) : Club
+    public function getClubByID(string $club_id) : Club
     {
         if (!property_exists($this->club_lookup, $club_id)) {
             throw new OutOfBoundsException('Club with ID "'.$club_id.'" not found');
@@ -704,7 +698,7 @@ final class Competition implements JsonSerializable
             return $this;
         }
 
-        $club = $this->getClubById($club_id);
+        $club = $this->getClubByID($club_id);
         $teams_in_club = $club->getTeams();
         if (count($teams_in_club) > 0) {
             throw new Exception('Club still contains teams with IDs: '.join(', ', array_map(fn(CompetitionTeam $t): string => '{'.$t->getID().'}', $teams_in_club)));
@@ -997,7 +991,7 @@ final class Competition implements JsonSerializable
     }
 
     /**
-     * Validates a team ID, throwing an exception if it isn't and returning if the team Id is valid
+     * Validates a team ID, throwing an exception if it isn't and returning if the team ID is valid
      *
      * @param string $team_id The team ID to check. This may be a team ID, a team reference, or a ternary
      * @param string $match_id The match that the team is a part of (for the exception message)
@@ -1108,13 +1102,13 @@ final class Competition implements JsonSerializable
         if (preg_match('/^{([^:]*):([^:]*):([^:]*):(.*)}$/', $team_ref, $parts)) {
             $group = null;
             try {
-                $stage = $this->getStageById($parts[1]);
+                $stage = $this->getStageByID($parts[1]);
             } catch (Throwable $_) {
                 throw new Exception('Invalid Stage part: Stage with ID "'.$parts[1].'" does not exist');
             }
 
             try {
-                $group = $stage->getGroupById($parts[2]);
+                $group = $stage->getGroupByID($parts[2]);
             } catch (Throwable $_) {
                 throw new Exception('Invalid Group part: Group with ID "'.$parts[2].'" does not exist in stage with ID "'.$parts[1].'"');
             }
@@ -1134,7 +1128,7 @@ final class Competition implements JsonSerializable
                 }
             } else {
                 try {
-                    $group->getMatchById($parts[3]);
+                    $group->getMatchByID($parts[3]);
                 } catch (Throwable $_) {
                     throw new Exception('Invalid Match part in reference '.$team_ref.' : Match with ID "'.$parts[3].'" does not exist in stage:group with IDs "'.$parts[1].':'.$parts[2].'"');
                 }

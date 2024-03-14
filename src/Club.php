@@ -7,7 +7,7 @@ use JsonSerializable;
 use stdClass;
 
 /**
- * A team definition
+ * A club definition
  */
 final class Club implements JsonSerializable
 {
@@ -166,7 +166,7 @@ final class Club implements JsonSerializable
      */
     public function hasNotes() : bool
     {
-        return !is_null($this->notes);
+        return $this->notes !== null;
     }
 
     /**

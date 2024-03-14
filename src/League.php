@@ -61,18 +61,18 @@ final class League extends Group
             if ($match->isComplete()) {
                 // Handle draws
                 if (!$match->isDraw()) {
-                    $team_results[$match->getWinnerTeamId()]->setWins($team_results[$match->getWinnerTeamId()]->getWins() + 1);
-                    $team_results[$match->getLoserTeamId()]->setLosses($team_results[$match->getLoserTeamId()]->getLosses() + 1);
+                    $team_results[$match->getWinnerTeamID()]->setWins($team_results[$match->getWinnerTeamID()]->getWins() + 1);
+                    $team_results[$match->getLoserTeamID()]->setLosses($team_results[$match->getLoserTeamID()]->getLosses() + 1);
 
-                    if (!property_exists($team_results[$match->getWinnerTeamId()]->getH2H(), $match->getLoserTeamId())) {
-                        $team_results[$match->getWinnerTeamId()]->getH2H()->{$match->getLoserTeamId()} = 1;
+                    if (!property_exists($team_results[$match->getWinnerTeamID()]->getH2H(), $match->getLoserTeamID())) {
+                        $team_results[$match->getWinnerTeamID()]->getH2H()->{$match->getLoserTeamID()} = 1;
                     } else {
-                        $team_results[$match->getWinnerTeamId()]->getH2H()->{$match->getLoserTeamId()}++;
+                        $team_results[$match->getWinnerTeamID()]->getH2H()->{$match->getLoserTeamID()}++;
                     }
-                    if (!property_exists($team_results[$match->getLoserTeamId()]->getH2H(), $match->getWinnerTeamId())) {
-                        $team_results[$match->getLoserTeamId()]->getH2H()->{$match->getWinnerTeamId()} = 0;
+                    if (!property_exists($team_results[$match->getLoserTeamID()]->getH2H(), $match->getWinnerTeamID())) {
+                        $team_results[$match->getLoserTeamID()]->getH2H()->{$match->getWinnerTeamID()} = 0;
                     } else {
-                        $team_results[$match->getLoserTeamId()]->getH2H()->{$match->getWinnerTeamId()}--;
+                        $team_results[$match->getLoserTeamID()]->getH2H()->{$match->getWinnerTeamID()}--;
                     }
                 } else {
                     if (!property_exists($team_results[$match->getHomeTeam()->getID()]->getH2H(), $match->getAwayTeam()->getID())) {
@@ -117,11 +117,11 @@ final class League extends Group
                         $team_results[$away_team_id]->setDraws($team_results[$away_team_id]->getDraws() + 1);
                     } else {
                         if (abs($home_team_sets - $away_team_sets) === 1) {
-                            $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league_config->getPoints()->getWinByOne());
-                            $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league_config->getPoints()->getLoseByOne());
+                            $team_results[$match->getWinnerTeamID()]->setPTS($team_results[$match->getWinnerTeamID()]->getPTS() + $this->league_config->getPoints()->getWinByOne());
+                            $team_results[$match->getLoserTeamID()]->setPTS($team_results[$match->getLoserTeamID()]->getPTS() + $this->league_config->getPoints()->getLoseByOne());
                         } else {
-                            $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league_config->getPoints()->getWin());
-                            $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league_config->getPoints()->getLose());
+                            $team_results[$match->getWinnerTeamID()]->setPTS($team_results[$match->getWinnerTeamID()]->getPTS() + $this->league_config->getPoints()->getWin());
+                            $team_results[$match->getLoserTeamID()]->setPTS($team_results[$match->getLoserTeamID()]->getPTS() + $this->league_config->getPoints()->getLose());
                         }
                     }
                 } else {
@@ -134,8 +134,8 @@ final class League extends Group
                         $team_results[$home_team_id]->setDraws($team_results[$home_team_id]->getDraws() + 1);
                         $team_results[$away_team_id]->setDraws($team_results[$away_team_id]->getDraws() + 1);
                     } else {
-                        $team_results[$match->getWinnerTeamId()]->setPTS($team_results[$match->getWinnerTeamId()]->getPTS() + $this->league_config->getPoints()->getWin());
-                        $team_results[$match->getLoserTeamId()]->setPTS($team_results[$match->getLoserTeamId()]->getPTS() + $this->league_config->getPoints()->getLose());
+                        $team_results[$match->getWinnerTeamID()]->setPTS($team_results[$match->getWinnerTeamID()]->getPTS() + $this->league_config->getPoints()->getWin());
+                        $team_results[$match->getLoserTeamID()]->setPTS($team_results[$match->getLoserTeamID()]->getPTS() + $this->league_config->getPoints()->getLose());
                     }
                 }
 
@@ -218,7 +218,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function compareTeamName(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -230,7 +230,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function compareLeaguePoints(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -242,7 +242,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function compareWins(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -254,7 +254,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function compareLosses(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -266,7 +266,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function compareHeadToHead(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -281,7 +281,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function comparePointsFor(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -293,7 +293,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function comparePointsAgainst(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -305,7 +305,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function comparePointsDifference(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -317,7 +317,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function compareSetsFor(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -329,7 +329,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function compareSetsAgainst(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -341,7 +341,7 @@ final class League extends Group
      *
      * @param LeagueTableEntry $a The first league table entry to compare
      * @param LeagueTableEntry $b The second league table entry to compare
-     * @return int Returns an integer less than, equal to, or greater than zero if the team name of the first entry is considered to be respectively less than, equal to, or greater than the team name of the second entry.
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
      */
     private static function compareSetsDifference(LeagueTableEntry $a, LeagueTableEntry $b)
     {
@@ -391,11 +391,11 @@ final class League extends Group
             return $this->competition->getTeamByID($this->table->entries[$entity-1]->getTeamID());
         }
 
-        $match = $this->getMatchById($type);
+        $match = $this->getMatchByID($type);
 
         return match ($entity) {
-            'winner' => $this->competition->getTeamByID($match->getWinnerTeamId()),
-            'loser' => $this->competition->getTeamByID($match->getLoserTeamId()),
+            'winner' => $this->competition->getTeamByID($match->getWinnerTeamID()),
+            'loser' => $this->competition->getTeamByID($match->getLoserTeamID()),
             default => throw new Exception('Invalid entity "'.$entity.'" in team reference'),
         };
     }
