@@ -302,15 +302,11 @@ final class GroupMatchTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'continuous-home-win.json');
         $match = $competition->getStageById('S')->getGroupById('SG')->getMatchById('SG1');
-        $complete = $match->getComplete();
-        $complete = false;
         $this->assertTrue($match->getComplete());
         $this->assertTrue($match->isComplete());
-        $complete = true;
         $match->setComplete(false);
         $this->assertFalse($match->getComplete());
         $this->assertFalse($match->isComplete());
-        $this->assertTrue($complete);
     }
 
     public function testGroupMatchHomeTeamCannotOfficiateSelf() : void

@@ -17,7 +17,6 @@ use VBCompetitions\Competitions\Stage;
 #[CoversClass(Stage::class)]
 #[CoversClass(Group::class)]
 final class StageTest extends TestCase {
-    const EMPTY_STAGE = '{"name":"Test Competition", "teams": [], "stages": []}';
     public function testStageGetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'competition.json');

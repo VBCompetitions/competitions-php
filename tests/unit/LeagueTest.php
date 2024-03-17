@@ -1159,7 +1159,7 @@ final class LeagueTest extends TestCase {
 
     public function testLeagueWithFriendliesJSON() : void
     {
-        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'league-with-friendlies.json');new Competition('league with friendlies');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'league-with-friendlies.json');
 
         $league = $competition->getStageByID('S')->getGroupByID('L');
         if ($league instanceof League) {

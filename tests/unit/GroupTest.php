@@ -177,7 +177,7 @@ final class GroupTest extends TestCase {
         $this->assertEquals('TM2', $matchThree->getHomeTeam()->getID());
         $this->assertEquals('TM3', $matchThree->getAwayTeam()->getID());
         if ($matchThree instanceof GroupMatch) {
-            $this->assertEquals(1, $matchThree->getCourt());
+            $this->assertEquals('1', $matchThree->getCourt());
         }
     }
 
@@ -193,7 +193,7 @@ final class GroupTest extends TestCase {
         $this->assertEquals('TM2', $matchThree->getHomeTeam()->getID());
         $this->assertEquals('TM3', $matchThree->getAwayTeam()->getID());
         if ($matchThree instanceof GroupMatch) {
-            $this->assertEquals(1, $matchThree->getCourt());
+            $this->assertEquals('1', $matchThree->getCourt());
         }
     }
 

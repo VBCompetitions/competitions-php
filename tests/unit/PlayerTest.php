@@ -44,6 +44,7 @@ final class PlayerTest extends TestCase {
         $this->assertEquals('Dave Davidson', $team->getPlayerByID('P4')->getName());
         $this->assertEquals('Emma Emerson', $team->getPlayerByID('P5')->getName());
         $this->assertEquals('Frankie Frank', $team->getPlayerByID('P6')->getName());
+        $this->assertEquals($team->getID(), $team->getPlayerByID('P6')->getTeam()->getID());
 
         $team = $competition->getTeamByID('TM2');
         $this->assertNull($team->getPlayerByID('P1')->getNumber());
