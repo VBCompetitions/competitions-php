@@ -1162,6 +1162,7 @@ final class LeagueTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'league-with-friendlies.json');
 
         $league = $competition->getStageByID('S')->getGroupByID('L');
+        $table = null;
         if ($league instanceof League) {
             // We do this so IDEs don't complain about (Group) $league not having a getLeagueTable method
             $table = $league->getLeagueTable();
@@ -1218,5 +1219,13 @@ final class LeagueTest extends TestCase {
         $this->assertEquals($league, $league_config->getLeague());
         $this->assertEquals($league_config, $config_points->getLeagueConfig());
         $this->assertEquals($league, $table->getLeague());
+    }
+
+
+
+    public function testLeagueGetTeamLookupsInvalid() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league.json');
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:LG:LG1:foo}')->getID());
     }
 }

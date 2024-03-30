@@ -4,9 +4,11 @@ declare(strict_types=1);
 
 namespace VBCompetitions\Competitions\test;
 
+use stdClass;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
+use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\Crossover;
 use VBCompetitions\Competitions\Group;
 use VBCompetitions\Competitions\GroupMatch;
@@ -377,7 +379,6 @@ final class GroupMatchTest extends TestCase {
         $this->assertTrue($match->isComplete());
         $this->assertEquals(25, $match->getHomeTeamScores()[0]);
         $this->assertEquals(17, $match->getAwayTeamScores()[0]);
-        // $this->assertEquals($match->getHomeTeam()->getID(), $match->getWinnerTeamId());
     }
 
     public function testGroupMatchSaveScoresSetsCatchBannedDraws() : void
@@ -399,6 +400,77 @@ final class GroupMatchTest extends TestCase {
         $match->setScores([25, 25, 25], [20, 22, 19]);
     }
 
-    // TODO - team cannot play itself
+    public function testGroupMatchContinuousScoresLengthMismatch() : void
+    {
+        $competition = new Competition('test competition');
+        $stage = new Stage($competition, 'S');
+        $competition->addStage($stage);
+        $group = new Crossover($stage, 'C', MatchType::CONTINUOUS);
+        $config = new SetConfig($group);
 
+        $this->expectExceptionMessage('Invalid results: match type is continuous, but score length is greater than one');
+        GroupMatch::assertContinuousScoresValid([10, 10], [20], $config);
+    }
+
+    public function testGroupMatchContinuousScoresDrawAndConfigObject() : void
+    {
+        $groupConfig = new stdClass();
+        $groupConfig->drawsAllowed = true;
+        GroupMatch::assertContinuousScoresValid([10], [20], $groupConfig);
+
+        $groupConfig->drawsAllowed = false;
+        $this->expectExceptionMessage('Invalid score: draws not allowed in this group');
+        GroupMatch::assertContinuousScoresValid([10], [10], $groupConfig);
+    }
+
+    public function testGroupMatchSetsScoresLengthMismatch() : void
+    {
+        $competition = new Competition('test competition');
+        $stage = new Stage($competition, 'S');
+        $competition->addStage($stage);
+        $group = new Crossover($stage, 'C', MatchType::SETS);
+        $config = new SetConfig($group);
+
+        $this->expectExceptionMessage('Invalid set scores: score arrays are different lengths');
+        GroupMatch::assertSetScoresValid([10, 10], [20], $config);
+    }
+
+    public function testGroupMatchSetsScoresAwayHasExtraInfo() : void
+    {
+        $competition = new Competition('test competition');
+        $stage = new Stage($competition, 'S');
+        $competition->addStage($stage);
+        $group = new Crossover($stage, 'C', MatchType::SETS);
+        $config = new SetConfig($group);
+
+        $this->expectExceptionMessage('Invalid set scores: data contains non-zero scores for a set after an incomplete set');
+        GroupMatch::assertSetScoresValid([10, 10, 0], [25, 15, 1], $config);
+    }
+
+    public function testGroupMatchSetsScoresDeciderMaxedOut() : void
+    {
+        $competition = new Competition('test competition');
+        $stage = new Stage($competition, 'S');
+        $competition->addStage($stage);
+        $group = new Crossover($stage, 'C', MatchType::SETS);
+        $stage->addGroup($group);
+        $config = new SetConfig($group);
+        $group->setSetConfig($config);
+
+        $team1 = new CompetitionTeam($competition, 'TM1', 'Team 1');
+        $competition->addTeam($team1);
+        $team2 = new CompetitionTeam($competition, 'TM2', 'Team 2');
+        $competition->addTeam($team2);
+
+        $match = new GroupMatch($group, 'M1');
+        $homeTeam = new MatchTeam($match, 'TM1');
+        $awayTeam = new MatchTeam($match, 'TM2');
+        $match->setHomeTeam($homeTeam);
+        $match->setAwayTeam($awayTeam);
+        $group->addMatch($match);
+
+        $config->setLastSetMaxPoints(20);
+        $this->expectNotToPerformAssertions();
+        $match->setScores([10, 10, 25, 25, 19], [25, 25, 10, 10, 20]);
+    }
 }

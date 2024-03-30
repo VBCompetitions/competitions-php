@@ -177,6 +177,7 @@ final class CompetitionTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
 
+        $this->assertFalse($competition->isComplete());
         $this->assertTrue($competition->hasTeamID('TM1'));
         $this->assertTrue($competition->hasTeamID('TM8'));
 
@@ -199,11 +200,19 @@ final class CompetitionTest extends TestCase {
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{NO:SUCH:TEAM:REF}')->getID());
     }
 
+    public function testCompetitionGetTeamLookupsInvalid() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:RLM1:foo}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{KO:CUP:QF1:foo}')->getID());
+    }
+
     public function testCompetitionGetTeamLookupsComplete() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-complete.json');
         $this->assertEquals('1.0.0', $competition->getVersion());
 
+        $this->assertTrue($competition->isComplete());
         $this->assertTrue($competition->hasTeamID('TM1'));
         $this->assertTrue($competition->hasTeamID('TM8'));
 

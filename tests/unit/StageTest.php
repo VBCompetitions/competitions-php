@@ -10,6 +10,7 @@ use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\Crossover;
 use VBCompetitions\Competitions\Group;
+use VBCompetitions\Competitions\GroupMatch;
 use VBCompetitions\Competitions\MatchType;
 use VBCompetitions\Competitions\Stage;
 
@@ -485,5 +486,60 @@ final class StageTest extends TestCase {
         } catch (Exception $e) {
             $this->assertEquals('Group was initialised with a different Stage', $e->getMessage());
         }
+    }
+
+    public function testStageGetMatchesNoTimeNoDate() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'stage-matches-with-nothing.json');
+        $stage = $competition->getStageByID('L');
+        $matches = $stage->getMatches();
+        $matches = array_filter($matches, fn($match): bool => $match instanceof GroupMatch);
+        $matches = array_map(fn($match): string => $match->getID(), $matches);
+
+        $this->assertEquals(['LG1', 'LG2', 'LG3', 'LG4', 'LG5', 'LG6', 'LG1', 'LG2', 'LG3', 'LG4', 'LG5', 'LG6'], array_values($matches));
+    }
+
+    public function testStageGetMatchesTimeDate() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'stage-matches-with-everything.json');
+        $stage = $competition->getStageByID('L');
+        $matches = $stage->getMatches();
+        $matches = array_filter($matches, fn($match): bool => $match instanceof GroupMatch);
+        $matches = array_map(fn($match): string => $match->getID(), $matches);
+
+        $this->assertEquals(['LG1', 'LG2', 'LG3', 'LG4', 'LG5', 'LG6', 'LG1', 'LG2', 'LG3', 'LG4', 'LG5', 'LG6'], array_values($matches));
+    }
+
+    public function testStageGetMatchesForTeamNoTimeNoDate() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'stage-matches-with-nothing.json');
+        $stage = $competition->getStageByID('L');
+        $matches = $stage->getMatches('TM1', VBC_MATCH_PLAYING);
+        $matches = array_filter($matches, fn($match): bool => $match instanceof GroupMatch);
+        $matches = array_map(fn($match): string => $match->getID(), $matches);
+
+        $this->assertEquals(['LG2', 'LG4', 'LG6'], $matches);
+    }
+
+    public function testStageGetMatchesForTeamTimeDate() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'stage-matches-with-everything.json');
+        $stage = $competition->getStageByID('L');
+        $matches = $stage->getMatches('TM5', VBC_MATCH_PLAYING);
+        $matches = array_filter($matches, fn($match): bool => $match instanceof GroupMatch);
+        $matches = array_map(fn($match): string => $match->getID(), $matches);
+
+        $this->assertEquals(['LG2', 'LG4', 'LG6'], $matches);
+    }
+
+    public function testStageGetMatchesForTeamOnDate() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'stage'))), 'stage-matches-with-everything.json');
+        $stage = $competition->getStageByID('L');
+        $matches = $stage->getMatchesOnDate('2023-11-05', 'TM5', VBC_MATCH_PLAYING);
+
+        $matches = array_filter($matches, fn($match): bool => $match instanceof GroupMatch);
+        $matches = array_map(fn($match): string => $match->getID(), $matches);
+        $this->assertEquals(['LG2', 'LG4', 'LG6'], $matches);
     }
 }
