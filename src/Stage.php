@@ -361,10 +361,10 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         }
         usort($this->all_matches, function ($a, $b) {
             // Both GroupBreak and GroupMatch may have "start" and may have "date", or may have neither
-            $a_date = $a->getDate() === '' ? '2023-02-12' : $a->getDate();
-            $b_date = $b->getDate() === '' ? '2023-02-12' : $b->getDate();
-            $a_start = $a->getStart() === '' ? '10:00' : $a->getStart();
-            $b_start = $b->getStart() === '' ? '10:00' : $b->getStart();
+            $a_date = $a->getDate() === null ? '2023-02-12' : $a->getDate();
+            $b_date = $b->getDate() === null ? '2023-02-12' : $b->getDate();
+            $a_start = $a->getStart() === null ? '10:00' : $a->getStart();
+            $b_start = $b->getStart() === null ? '10:00' : $b->getStart();
 
             return strcmp($a_date.$a_start, $b_date.$b_start);
         });
@@ -736,6 +736,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      * Returns a list of matches on the specified date in this Stage.  If a team ID is given then return matches for just that team.
      * The returned list includes breaks when that break has a date value
      *
+     * @param string $date The requested date in the format YYYY-MM-DD
      * @param string $team_id This must be a resolved team ID and not a reference
      * @param int $flags Controls what gets returned
      *                   <ul>
@@ -753,13 +754,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             $matches = array_merge($matches, $group_matches);
         }
         usort($matches, function ($a, $b) {
-            // matches may have "start" and may have "date", or may have neither
-            $a_date = $a->getDate() === '' ? '2023-02-12' : $a->getDate();
-            $b_date = $a->getDate() === '' ? '2023-02-12' : $b->getDate();
-            $a_start = $a->getStart() === '' ? '10:00' : $a->getStart();
-            $b_start = $a->getStart() === '' ? '10:00' : $b->getStart();
+            // matches may have "start" or may not
+            $a_start = $a->getStart() === null ? '10:00' : $a->getStart();
+            $b_start = $b->getStart() === null ? '10:00' : $b->getStart();
 
-            return strcmp($a_date.$a_start, $b_date.$b_start);
+            return strcmp($a_start, $b_start);
         });
         return $matches;
     }
