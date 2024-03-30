@@ -31,7 +31,6 @@ final class GroupBreak implements JsonSerializable, BreakInterface
      * Contains the match break data
      *
      * @param Group $group The Group this break is in
-     * @param object $break_data The data defining this Break
      */
     function __construct($group)
     {

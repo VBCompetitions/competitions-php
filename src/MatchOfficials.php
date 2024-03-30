@@ -307,7 +307,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the name of the assistant challenge referee.
      *
-     * @param ?string $assistantChallenge The name of the assistant challenge referee
+     * @param ?string $assistant_challenge The name of the assistant challenge referee
      */
     public function setAssistantChallengeRef(?string $assistant_challenge) : void
     {
@@ -400,7 +400,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the name of the assistant scorer.
      *
-     * @param ?string $assistantScorer The name of the assistant scorer
+     * @param ?string $assistant_scorer The name of the assistant scorer
      */
     public function setAssistantScorer(?string $assistant_scorer) : void
     {
@@ -462,7 +462,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the list of ball crew members.
      *
-     * @param array<string> $ballCrew The list of ball crew members
+     * @param array<string> $ball_crew The list of ball crew members
      */
     public function setBallCrew(array $ball_crew) : void
     {

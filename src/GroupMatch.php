@@ -80,7 +80,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      * Contains the match data, creating any metadata needed
      *
      * @param Group $group The Group this match is in
-     * @param object $match_data The data defining this Match
+     * @param string $id The identifier for this match
      *
      * @throws Exception If the two teams have scores arrays of different lengths
      */

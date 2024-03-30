@@ -107,7 +107,8 @@ final class Contact implements JsonSerializable
                 ContactRole::CAPTAIN => 'captain',
                 ContactRole::COACH => 'coach',
                 ContactRole::ASSISTANT_COACH => 'assistantCoach',
-                ContactRole::MEDIC => 'medic'
+                ContactRole::MEDIC => 'medic',
+                default => 'secretary'
             });
         }
 

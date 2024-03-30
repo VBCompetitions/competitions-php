@@ -38,7 +38,7 @@ final class MatchTeam implements JsonSerializable
      * Contains the team data of a match, creating any metadata needed
      *
      * @param MatchInterface $match the match this team is playing in
-     * @param object $team_data The data defining this Team
+     * @param string $id The identifier for this team
      */
     function __construct(MatchInterface $match, string $id)
     {

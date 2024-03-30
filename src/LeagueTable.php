@@ -2,6 +2,8 @@
 
 namespace VBCompetitions\Competitions;
 
+use Exception;
+
 /**
  * Represents a league table for a competition.
  */
@@ -88,7 +90,8 @@ final class LeagueTable
             LeagueTable::ORDERING_POINTS_DIFFERENCE => 'points difference',
             LeagueTable::ORDERING_SETS_FOR => 'sets for',
             LeagueTable::ORDERING_SETS_AGAINST => 'sets against',
-            LeagueTable::ORDERING_SETS_DIFFERENCE => 'sets difference'
+            LeagueTable::ORDERING_SETS_DIFFERENCE => 'sets difference',
+            default => throw new Exception('Unknown ordering string')
         };
     }
 

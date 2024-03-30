@@ -388,7 +388,7 @@ final class League extends Group
             if ((int)$entity > count($this->table->entries)) {
                 throw new Exception('Invalid League position: position is bigger than the number of teams');
             }
-            return $this->competition->getTeamByID($this->table->entries[$entity-1]->getTeamID());
+            return $this->competition->getTeamByID($this->table->entries[(int)$entity-1]->getTeamID());
         }
 
         $match = $this->getMatchByID($type);

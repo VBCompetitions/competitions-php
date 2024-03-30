@@ -51,7 +51,7 @@ final class MatchManager implements JsonSerializable
      */
     public static function loadFromData(MatchInterface $match, string|object $manager_data) : MatchManager
     {
-        if (property_exists($manager_data, 'team')) {
+        if (is_object($manager_data) && property_exists($manager_data, 'team')) {
             $manager = new MatchManager($match, $manager_data->team, null);
         } else {
             $manager = new MatchManager($match, null, $manager_data);

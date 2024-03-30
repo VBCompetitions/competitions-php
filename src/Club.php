@@ -214,7 +214,7 @@ final class Club implements JsonSerializable
      * Delete a team from this club
      *
      * @param string $team_id The ID of the team to delete
-     * @return void
+     * @return Club this Club
      */
     public function deleteTeam(string $team_id) : Club
     {

@@ -91,6 +91,7 @@ final class CompetitionTeam implements JsonSerializable
                         'coach' => ContactRole::COACH,
                         'assistantCoach' => ContactRole::ASSISTANT_COACH,
                         'medic' => ContactRole::MEDIC,
+                        default => ContactRole::SECRETARY,
                     };
                     array_push($roles, $role);
                 }
