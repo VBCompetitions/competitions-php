@@ -3,6 +3,7 @@
   "description": "A PHP library for interacting with VBCompetition files, including updating the results, parsing the state of the competition and generating style-able HTML representations of the competition",
   "license": "MIT",
   "type": "library",
+  "bin": ["bin/vbc-validate.php"],
   "autoload": {
     "psr-4": {"VBCompetitions\\Competitions\\": "src/"}
   },

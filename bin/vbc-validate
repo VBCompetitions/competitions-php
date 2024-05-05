@@ -3,13 +3,7 @@
 
 namespace VBCompetitions\Competitions;
 
-$root = dirname(__DIR__);
-
-if (!is_file(join(DIRECTORY_SEPARATOR, array($root, 'vendor')).DIRECTORY_SEPARATOR.'autoload.php')) {
-    $root = dirname(__DIR__, 4);
-}
-
-require_once(join(DIRECTORY_SEPARATOR, array($root, 'vendor')).DIRECTORY_SEPARATOR.'autoload.php');
+include $_composer_autoload_path ?? __DIR__ . '/../vendor/autoload.php';
 
 use Throwable;
 
@@ -29,7 +23,3 @@ try {
         echo $th->getPrevious()->getMessage().PHP_EOL;
     }
 }
-
-// TODO, use https://tech.osteel.me/posts/how-to-build-and-distribute-beautiful-command-line-applications-with-php-and-composer
-// -w warnings
-//   Warnings as an array in the Competition?  So Website can optionally show them too?
