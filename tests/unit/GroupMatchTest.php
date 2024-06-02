@@ -400,6 +400,33 @@ final class GroupMatchTest extends TestCase {
         $match->setScores([25, 25, 25], [20, 22, 19]);
     }
 
+    public function testGroupMatchSavesFriendlyInfo() : void
+    {
+        $competition = new Competition('test competition');
+        $stage = new Stage($competition, 'S');
+        $competition->addStage($stage);
+        $group = new Crossover($stage, 'C', MatchType::SETS);
+        $stage->addGroup($group);
+        $config = new SetConfig($group);
+        $group->setSetConfig($config);
+
+        $team1 = new CompetitionTeam($competition, 'TM1', 'Team 1');
+        $competition->addTeam($team1);
+        $team2 = new CompetitionTeam($competition, 'TM2', 'Team 2');
+        $competition->addTeam($team2);
+
+        $match = new GroupMatch($group, 'M1');
+        $home_team = new MatchTeam($match, 'TM1');
+        $away_team = new MatchTeam($match, 'TM2');
+        $match->setHomeTeam($home_team);
+        $match->setAwayTeam($away_team);
+        $match->setFriendly(true);
+        $group->addMatch($match);
+
+        $competition = Competition::loadFromCompetitionJSON(json_encode($competition));
+        $this->assertTrue($competition->getStageByID('S')->getGroupByID('C')->getMatchByID('M1')->isFriendly());
+    }
+
     public function testGroupMatchContinuousScoresLengthMismatch() : void
     {
         $competition = new Competition('test competition');
@@ -463,10 +490,10 @@ final class GroupMatchTest extends TestCase {
         $competition->addTeam($team2);
 
         $match = new GroupMatch($group, 'M1');
-        $homeTeam = new MatchTeam($match, 'TM1');
-        $awayTeam = new MatchTeam($match, 'TM2');
-        $match->setHomeTeam($homeTeam);
-        $match->setAwayTeam($awayTeam);
+        $home_team = new MatchTeam($match, 'TM1');
+        $away_team = new MatchTeam($match, 'TM2');
+        $match->setHomeTeam($home_team);
+        $match->setAwayTeam($away_team);
         $group->addMatch($match);
 
         $config->setLastSetMaxPoints(20);

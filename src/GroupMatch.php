@@ -72,8 +72,8 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     private int $home_team_sets = 0;
     private int $away_team_sets = 0;
 
-    private ?array $home_team_scores;
-    private ?array $away_team_scores;
+    private array $home_team_scores = [];
+    private array $away_team_scores = [];
     private Group $group;
 
     /**
@@ -204,6 +204,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
         if ($this->manager !== null) {
             $match->manager = $this->manager;
         }
+        $match->friendly = $this->friendly;
         if ($this->notes !== null) {
             $match->notes = $this->notes;
         }
