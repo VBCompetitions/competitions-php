@@ -19,6 +19,8 @@ final class LeagueTable
     public const ORDERING_SETS_FOR = 'SF';
     public const ORDERING_SETS_AGAINST = 'SA';
     public const ORDERING_SETS_DIFFERENCE = 'SD';
+    public const ORDERING_BONUS_POINTS = 'BP';
+    public const ORDERING_PENALTY_POINTS = 'PP';
 
     /** @var array An array of entries in the league table */
     public array $entries = [];
@@ -91,6 +93,8 @@ final class LeagueTable
             LeagueTable::ORDERING_SETS_FOR => 'sets for',
             LeagueTable::ORDERING_SETS_AGAINST => 'sets against',
             LeagueTable::ORDERING_SETS_DIFFERENCE => 'sets difference',
+            LeagueTable::ORDERING_BONUS_POINTS => 'bonus points',
+            LeagueTable::ORDERING_PENALTY_POINTS => 'penalty points',
             default => throw new Exception('Unknown ordering string')
         };
     }

@@ -17,7 +17,7 @@
           "type": "league",
           "matchType": "continuous",
           "league": {
-            "ordering": ["PTS", "WINS", "LOSSES", "H2H", "PF", "PA", "PD", "SF", "SA", "SD"],
+            "ordering": ["PTS", "WINS", "LOSSES", "H2H", "PF", "PA", "PD", "SF", "SA", "SD", "BP", "PP"],
             "points": {
               "played": 1,
               "win": 2,
@@ -29,13 +29,13 @@
             }
           },
           "matches": [
-            { "id": "LG1", "court": "1", "type": "match", "start": "09:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 21 ] }, "awayTeam": { "id": "TM4", "scores": [ 22 ] }, "officials": { "team": "TM1" } },
-            { "id": "LG2", "court": "1", "type": "match", "start": "10:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 22 ] }, "awayTeam": { "id": "TM3", "scores": [ 24 ] }, "officials": { "team": "TM2" } },
-            { "id": "LG3", "court": "1", "type": "match", "start": "11:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 23 ] }, "awayTeam": { "id": "TM3", "scores": [ 26 ] }, "officials": { "team": "TM4" } },
+            { "id": "LG1", "court": "1", "type": "match", "start": "09:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 21 ], "bonusPoints": 0, "penaltyPoints": 0 }, "awayTeam": { "id": "TM4", "scores": [ 22 ], "bonusPoints": 0, "penaltyPoints": 0 }, "officials": { "team": "TM1" } },
+            { "id": "LG2", "court": "1", "type": "match", "start": "10:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 22 ], "bonusPoints": 0, "penaltyPoints": 0 }, "awayTeam": { "id": "TM3", "scores": [ 24 ], "bonusPoints": 0, "penaltyPoints": 0 }, "officials": { "team": "TM2" } },
+            { "id": "LG3", "court": "1", "type": "match", "start": "11:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM2", "scores": [ 23 ], "bonusPoints": 0, "penaltyPoints": 0 }, "awayTeam": { "id": "TM3", "scores": [ 26 ], "bonusPoints": 0, "penaltyPoints": 0 }, "officials": { "team": "TM4" } },
             { "type": "break", "start": "12:20", "name": "Lunch break", "duration": "1:00" },
-            { "id": "LG4", "court": "1", "type": "match", "start": "13:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 24 ] }, "awayTeam": { "id": "TM4", "scores": [ 28 ] }, "officials": { "team": "TM3" } },
-            { "id": "LG5", "court": "1", "type": "match", "start": "14:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM3", "scores": [ 25 ] }, "awayTeam": { "id": "TM4", "scores": [ 30 ] }, "officials": { "team": "TM2" } },
-            { "id": "LG6", "court": "1", "type": "match", "start": "15:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 26 ] }, "awayTeam": { "id": "TM2", "scores": [ 32 ] }, "officials": { "team": "TM4" } }
+            { "id": "LG4", "court": "1", "type": "match", "start": "13:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 24 ], "bonusPoints": 0, "penaltyPoints": 0 }, "awayTeam": { "id": "TM4", "scores": [ 28 ], "bonusPoints": 0, "penaltyPoints": 0 }, "officials": { "team": "TM3" } },
+            { "id": "LG5", "court": "1", "type": "match", "start": "14:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM3", "scores": [ 25 ], "bonusPoints": 0, "penaltyPoints": 0 }, "awayTeam": { "id": "TM4", "scores": [ 30 ], "bonusPoints": 0, "penaltyPoints": 0 }, "officials": { "team": "TM2" } },
+            { "id": "LG6", "court": "1", "type": "match", "start": "15:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 26 ], "bonusPoints": 0, "penaltyPoints": 0 }, "awayTeam": { "id": "TM2", "scores": [ 32 ], "bonusPoints": 0, "penaltyPoints": 0 }, "officials": { "team": "TM4" } }
           ]
         }
       ]

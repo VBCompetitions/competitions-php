@@ -70,7 +70,7 @@ final class League extends Group
                         $team_results[$match->getWinnerTeamID()]->getH2H()->{$match->getLoserTeamID()}++;
                     }
                     if (!property_exists($team_results[$match->getLoserTeamID()]->getH2H(), $match->getWinnerTeamID())) {
-                        $team_results[$match->getLoserTeamID()]->getH2H()->{$match->getWinnerTeamID()} = 0;
+                        $team_results[$match->getLoserTeamID()]->getH2H()->{$match->getWinnerTeamID()} = -1;
                     } else {
                         $team_results[$match->getLoserTeamID()]->getH2H()->{$match->getWinnerTeamID()}--;
                     }
@@ -145,17 +145,18 @@ final class League extends Group
                 if ($match->getAwayTeam()->getForfeit()) {
                     $team_results[$away_team_id]->setPTS($team_results[$away_team_id]->getPTS() - $this->league_config->getPoints()->getForfeit());
                 }
-                $team_results[$home_team_id]->setPTS($team_results[$home_team_id]->getPTS() + $match->getHomeTeam()->getBonusPoints());
-                $team_results[$home_team_id]->setPTS($team_results[$home_team_id]->getPTS() - $match->getHomeTeam()->getPenaltyPoints());
-                $team_results[$away_team_id]->setPTS($team_results[$away_team_id]->getPTS() + $match->getAwayTeam()->getBonusPoints());
-                $team_results[$away_team_id]->setPTS($team_results[$away_team_id]->getPTS() - $match->getAwayTeam()->getPenaltyPoints());
+                $team_results[$home_team_id]->setBP($team_results[$home_team_id]->getBP() + $match->getHomeTeam()->getBonusPoints());
+                $team_results[$home_team_id]->setPP($team_results[$home_team_id]->getPP() + $match->getHomeTeam()->getPenaltyPoints());
+
+                $team_results[$away_team_id]->setBP($team_results[$away_team_id]->getBP() + $match->getAwayTeam()->getBonusPoints());
+                $team_results[$away_team_id]->setPP($team_results[$away_team_id]->getPP() + $match->getAwayTeam()->getPenaltyPoints());
             }
         }
 
         foreach ($team_results as $team_line) {
             $team_line->setPD($team_line->getPF() - $team_line->getPA());
             $team_line->setSD($team_line->getSF() - $team_line->getSA());
-            $team_line->setPTS($team_line->getPTS() + ($team_line->getPlayed() * $this->league_config->getPoints()->getPlayed()));
+            $team_line->setPTS($team_line->getPTS() + ($team_line->getPlayed() * $this->league_config->getPoints()->getPlayed()) + $team_line->getBP() - $team_line->getPP());
             array_push($this->table->entries, $team_line);
         }
 
@@ -204,6 +205,12 @@ final class League extends Group
                     break;
                 case 'SD':
                     $compare_result = League::compareSetsDifference($a, $b);
+                    break;
+                case 'BP':
+                    $compare_result = League::compareBonusPoints($a, $b);
+                    break;
+                case 'PP':
+                    $compare_result = League::comparePenaltyPoints($a, $b);
                     break;
             }
             if ($compare_result !== 0) {
@@ -346,6 +353,30 @@ final class League extends Group
     private static function compareSetsDifference(LeagueTableEntry $a, LeagueTableEntry $b)
     {
         return $b->getSD() - $a->getSD();
+    }
+
+    /**
+     * Compares two LeagueTableEntry objects based on their bonus points.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
+     */
+    private static function compareBonusPoints(LeagueTableEntry $a, LeagueTableEntry $b)
+    {
+        return $b->getBP() - $a->getBP();
+    }
+
+    /**
+     * Compares two LeagueTableEntry objects based on their penalty points.
+     *
+     * @param LeagueTableEntry $a The first league table entry to compare
+     * @param LeagueTableEntry $b The second league table entry to compare
+     * @return int Returns an integer less than, equal to, or greater than zero to be used by the sort function
+     */
+    private static function comparePenaltyPoints(LeagueTableEntry $a, LeagueTableEntry $b)
+    {
+        return $a->getPP() - $b->getPP();
     }
 
     /**

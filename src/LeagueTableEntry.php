@@ -18,6 +18,8 @@ final class LeagueTableEntry
     private int $pf = 0;
     private int $pa = 0;
     private int $pd = 0;
+    private int $bp = 0;
+    private int $pp = 0;
     private int $pts = 0;
     private object $head;
 
@@ -144,6 +146,26 @@ final class LeagueTableEntry
     public function setPD(int $pd) : void
     {
         $this->pd = $pd;
+    }
+
+    public function getBP() : int
+    {
+        return $this->bp;
+    }
+
+    public function setBP(int $bp) : void
+    {
+        $this->bp = $bp;
+    }
+
+    public function getPP() : int
+    {
+        return $this->pp;
+    }
+
+    public function setPP(int $pp) : void
+    {
+        $this->pp = $pp;
     }
 
     public function getPTS() : int
