@@ -1763,4 +1763,26 @@ final class HTMLTest extends TestCase {
             $final_standing_html
         );
     }
+
+    public function testHTMLLeagueBonusesPenalties() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-bonuses-penalties.json');
+        $league_table_config = new stdClass();
+        $league_table_config->headings = [HTML::LEAGUE_COLUMN_POSITION, HTML::LEAGUE_COLUMN_TEAM, HTML::LEAGUE_COLUMN_BONUS_POINTS, HTML::LEAGUE_COLUMN_PENALTY_POINTS, HTML::LEAGUE_COLUMN_LEAGUE_POINTS];
+        $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('L')->getGroupById('LG'), $league_table_config);
+
+        $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
+        $expected_table .= '<tr><th class="vbc-league-table-pos vbc-league-table-group-LG">Pos</th><th class="vbc-league-table-team vbc-league-table-group-LG">Team</th><th class="vbc-league-table-bp vbc-league-table-group-LG">BP</th><th class="vbc-league-table-pp vbc-league-table-group-LG">PP</th><th class="vbc-league-table-pts vbc-league-table-group-LG">PTS</th></tr>';
+        $expected_table .= '<tr><td class="vbc-league-table-pos vbc-league-table-num vbc-league-table-group-LG">1.</td><td class="vbc-league-table-team vbc-league-table-group-LG">Team 3</td><td class="vbc-league-table-bp vbc-league-table-num vbc-league-table-group-LG">8</td><td class="vbc-league-table-pp vbc-league-table-num vbc-league-table-group-LG">0</td><td class="vbc-league-table-pts vbc-league-table-num vbc-league-table-group-LG">14</td></tr>';
+        $expected_table .= '<tr><td class="vbc-league-table-pos vbc-league-table-num vbc-league-table-group-LG">2.</td><td class="vbc-league-table-team vbc-league-table-group-LG">Team 4</td><td class="vbc-league-table-bp vbc-league-table-num vbc-league-table-group-LG">2</td><td class="vbc-league-table-pp vbc-league-table-num vbc-league-table-group-LG">2</td><td class="vbc-league-table-pts vbc-league-table-num vbc-league-table-group-LG">6</td></tr>';
+        $expected_table .= '<tr><td class="vbc-league-table-pos vbc-league-table-num vbc-league-table-group-LG">3.</td><td class="vbc-league-table-team vbc-league-table-group-LG">Team 1</td><td class="vbc-league-table-bp vbc-league-table-num vbc-league-table-group-LG">2</td><td class="vbc-league-table-pp vbc-league-table-num vbc-league-table-group-LG">2</td><td class="vbc-league-table-pts vbc-league-table-num vbc-league-table-group-LG">3</td></tr>';
+        $expected_table .= '<tr><td class="vbc-league-table-pos vbc-league-table-num vbc-league-table-group-LG">4.</td><td class="vbc-league-table-team vbc-league-table-group-LG">Team 2</td><td class="vbc-league-table-bp vbc-league-table-num vbc-league-table-group-LG">0</td><td class="vbc-league-table-pp vbc-league-table-num vbc-league-table-group-LG">5</td><td class="vbc-league-table-pts vbc-league-table-num vbc-league-table-group-LG">-2</td></tr>';
+        $expected_table .= '</table>';
+        $expected_table .= '<p>Position is decided by bonus points, then penalty points, then wins, then points difference</p>';
+
+        $this->assertEquals(
+            $expected_table,
+            $league_table_html
+        );
+    }
 }

@@ -25,6 +25,8 @@ class HTML {
     public const LEAGUE_COLUMN_POINTS_FOR = 'pf';
     public const LEAGUE_COLUMN_POINTS_AGAINST = 'pa';
     public const LEAGUE_COLUMN_POINTS_DIFFERENCE = 'pd';
+    public const LEAGUE_COLUMN_BONUS_POINTS = 'bp';
+    public const LEAGUE_COLUMN_PENALTY_POINTS = 'pp';
     public const LEAGUE_COLUMN_LEAGUE_POINTS = 'pts';
 
     /**
@@ -142,6 +144,12 @@ class HTML {
         }
         if(!array_key_exists(HTML::LEAGUE_COLUMN_POINTS_DIFFERENCE, $config->headingMap)) {
             $config->headingMap[HTML::LEAGUE_COLUMN_POINTS_DIFFERENCE] = 'PD';
+        }
+        if(!array_key_exists(HTML::LEAGUE_COLUMN_BONUS_POINTS, $config->headingMap)) {
+            $config->headingMap[HTML::LEAGUE_COLUMN_BONUS_POINTS] = 'BP';
+        }
+        if(!array_key_exists(HTML::LEAGUE_COLUMN_PENALTY_POINTS, $config->headingMap)) {
+            $config->headingMap[HTML::LEAGUE_COLUMN_PENALTY_POINTS] = 'PP';
         }
         if(!array_key_exists(HTML::LEAGUE_COLUMN_LEAGUE_POINTS, $config->headingMap)) {
             $config->headingMap[HTML::LEAGUE_COLUMN_LEAGUE_POINTS] = 'PTS';
@@ -321,6 +329,12 @@ class HTML {
                 case HTML::LEAGUE_COLUMN_POINTS_DIFFERENCE:
                     array_push($headings, HTML::genTableCell(HTML::LEAGUE_COLUMN_POINTS_DIFFERENCE, 'vbc-league-table-pd vbc-league-table-group-'.$table->getGroupID(), $config->headingMap[HTML::LEAGUE_COLUMN_POINTS_DIFFERENCE]));
                     break;
+                case HTML::LEAGUE_COLUMN_BONUS_POINTS:
+                    array_push($headings, HTML::genTableCell(HTML::LEAGUE_COLUMN_BONUS_POINTS, 'vbc-league-table-bp vbc-league-table-group-'.$table->getGroupID(), $config->headingMap[HTML::LEAGUE_COLUMN_BONUS_POINTS]));
+                    break;
+                case HTML::LEAGUE_COLUMN_PENALTY_POINTS:
+                    array_push($headings, HTML::genTableCell(HTML::LEAGUE_COLUMN_PENALTY_POINTS, 'vbc-league-table-pp vbc-league-table-group-'.$table->getGroupID(), $config->headingMap[HTML::LEAGUE_COLUMN_PENALTY_POINTS]));
+                    break;
                 case HTML::LEAGUE_COLUMN_LEAGUE_POINTS:
                     array_push($headings, HTML::genTableCell(HTML::LEAGUE_COLUMN_LEAGUE_POINTS, 'vbc-league-table-pts vbc-league-table-group-'.$table->getGroupID(), $config->headingMap[HTML::LEAGUE_COLUMN_LEAGUE_POINTS]));
                     break;
@@ -378,6 +392,12 @@ class HTML {
                     break;
                 case HTML::LEAGUE_COLUMN_POINTS_DIFFERENCE:
                     array_push($cells, HTML::genTableCell(HTML::LEAGUE_COLUMN_POINTS_DIFFERENCE, 'vbc-league-table-pd vbc-league-table-num vbc-league-table-group-'.$entry->getGroupID(), strval($entry->getPD())));
+                    break;
+                case HTML::LEAGUE_COLUMN_BONUS_POINTS:
+                    array_push($cells, HTML::genTableCell(HTML::LEAGUE_COLUMN_BONUS_POINTS, 'vbc-league-table-bp vbc-league-table-num vbc-league-table-group-'.$entry->getGroupID(), strval($entry->getBP())));
+                    break;
+                case HTML::LEAGUE_COLUMN_PENALTY_POINTS:
+                    array_push($cells, HTML::genTableCell(HTML::LEAGUE_COLUMN_PENALTY_POINTS, 'vbc-league-table-pp vbc-league-table-num vbc-league-table-group-'.$entry->getGroupID(), strval($entry->getPP())));
                     break;
                 case HTML::LEAGUE_COLUMN_LEAGUE_POINTS:
                     array_push($cells, HTML::genTableCell(HTML::LEAGUE_COLUMN_LEAGUE_POINTS, 'vbc-league-table-pts vbc-league-table-num vbc-league-table-group-'.$entry->getGroupID(), strval($entry->getPTS())));
@@ -815,6 +835,21 @@ class HTML {
      */
     public static function getMatchesHTML(MatchContainerInterface $match_container, object $config = null, string $team_id = null, int $flags = 1) : string
     {
+
+
+
+        /* TODO
+
+        We can't call HTML::getMatchesHTML($league->getMatchesOnDate('YYYY-MM-DD')); because getMatchesOnDate() returns array<MatchInterface> and getMatchesHTML()
+        wants MatchContainerInterface.  Should there be a function that takes an array
+
+
+        */
+
+
+
+
+
         $config = HTML::enrichMatchConfig($match_container, $config);
         $matches = HTML::getMatchesForHTML($match_container, $config, $team_id, $flags);
         $body = '<table class="'.$matches->class.'"><tr>';
