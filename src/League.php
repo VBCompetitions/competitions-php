@@ -101,7 +101,7 @@ final class League extends Group
 
                         if ($match->getHomeTeam()->getScores()[$i] > $match->getAwayTeam()->getScores()[$i]) {
                             $home_team_sets++;
-                        } else {
+                        } else if ($match->getHomeTeam()->getScores()[$i] < $match->getAwayTeam()->getScores()[$i]) {
                             $away_team_sets++;
                         }
                     }
