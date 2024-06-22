@@ -518,6 +518,13 @@ final class Competition implements JsonSerializable
         }
 
         // Also remove team from any club's list
+        foreach ($this->clubs as $club) {
+            $club->deleteTeam($team_id);
+        }
+
+        // Then delete the team
+        unset($this->team_lookup->$team_id);
+        $this->teams = array_values(array_filter($this->teams, fn(CompetitionTeam $el): bool => $el->getID() !== $team_id));
 
         return $this;
     }
@@ -703,10 +710,11 @@ final class Competition implements JsonSerializable
         if (count($teams_in_club) > 0) {
             throw new Exception('Club still contains teams with IDs: '.join(', ', array_map(fn(CompetitionTeam $t): string => '{'.$t->getID().'}', $teams_in_club)));
         }
-        // throw if any team still declares this club
+
+        unset($this->club_lookup->$club_id);
+        $this->clubs = array_values(array_filter($this->clubs, fn (Club $el): bool => $el->getID() !== $club_id));
 
         return $this;
-
     }
 
     /**
