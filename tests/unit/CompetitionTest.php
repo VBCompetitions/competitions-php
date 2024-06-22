@@ -665,6 +665,11 @@ final class CompetitionTest extends TestCase {
         $team_3 = new CompetitionTeam($competition, 'T3', 'Team 3');
         $team_4 = new CompetitionTeam($competition, 'T4', 'Team 4');
         $competition->addTeam($team_1)->addTeam($team_2)->addTeam($team_3)->addTeam($team_4);
+        $club_1 = new Club($competition, 'C1', 'Club 1');
+        $club_2 = new Club($competition, 'C2', 'Club 2');
+        $competition->addClub($club_1)->addClub($club_2);
+        $club_1->addTeam($team_1)->addTeam($team_2);
+        $club_2->addTeam($team_3)->addTeam($team_4);
         $stage = new Stage($competition, 'S');
         $competition->addStage($stage);
         $league = new League($stage, 'G', MatchType::CONTINUOUS, false);
@@ -702,8 +707,76 @@ final class CompetitionTest extends TestCase {
             $this->assertEquals('Team still has matches with IDs: {S:G:M1}, {S:G:M2}', $e->getMessage());
         }
 
+        $this->assertEquals(4, count($competition->getTeams()));
         $competition->deleteTeam($team_4->getID());
+        $this->assertFalse($competition->hasTeamWithID('T4'));
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('T4')->getID());
+        $this->assertEquals(3, count($competition->getTeams()));
+
         $competition->deleteTeam('undefined-team-id');
+    }
+
+    public function testCompetitionDeleteClub() : void
+    {
+        $competition = new Competition('test competition');
+        $team_1 = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $team_2 = new CompetitionTeam($competition, 'T2', 'Team 2');
+        $team_3 = new CompetitionTeam($competition, 'T3', 'Team 3');
+        $team_4 = new CompetitionTeam($competition, 'T4', 'Team 4');
+        $competition->addTeam($team_1)->addTeam($team_2)->addTeam($team_3)->addTeam($team_4);
+        $club_1 = new Club($competition, 'C1', 'Club 1');
+        $club_2 = new Club($competition, 'C2', 'Club 2');
+        $competition->addClub($club_1)->addClub($club_2);
+        $club_1->addTeam($team_1)->addTeam($team_2);
+        $club_2->addTeam($team_3);
+        $stage = new Stage($competition, 'S');
+        $competition->addStage($stage);
+        $league = new League($stage, 'G', MatchType::CONTINUOUS, false);
+        $stage->addGroup($league);
+        $match_1 = new GroupMatch($league, 'M1');
+        $match_1->setHomeTeam(new MatchTeam($match_1, $team_1->getID()))->setAwayTeam(new MatchTeam($match_1, $team_2->getID()))->setOfficials(new MatchOfficials($match_1, $team_3->getID()));
+        $match_2 = new GroupMatch($league, 'M2');
+        $match_2->setHomeTeam(new MatchTeam($match_2, $team_2->getID()))->setAwayTeam(new MatchTeam($match_2, $team_1->getID()))->setOfficials(new MatchOfficials($match_2, $team_3->getID()));
+        $league->addMatch($match_1)->addMatch($match_2);
+        $league_config = new LeagueConfig($league);
+        $league->setLeagueConfig($league_config);
+        $league_config->setOrdering(['PTS', 'PD']);
+        $league_config_points = new LeagueConfigPoints($league_config);
+        $league_config->setPoints($league_config_points);
+
+        $this->assertEquals('C1', $team_1->getClub()->getID());
+        $this->assertEquals('C1', $team_2->getClub()->getID());
+        $this->assertNull($team_4->getClub());
+
+        // Club with teams cannot be deleted
+        try {
+            $competition->deleteClub($club_1->getID());
+            $this->fail('Test should have caught deleting a team still in a club');
+        } catch (Exception $e) {
+            $this->assertEquals('Club still contains teams with IDs: {T1}, {T2}', $e->getMessage());
+        }
+
+        try {
+            $competition->deleteClub($club_2->getID());
+            $this->fail('Test should have caught deleting a team still in a club');
+        } catch (Exception $e) {
+            $this->assertEquals('Club still contains teams with IDs: {T3}', $e->getMessage());
+        }
+
+        $club_1->deleteTeam('T1');
+        $club_1->deleteTeam('T2');
+        $this->assertEquals(2, count($competition->getClubs()));
+        $competition->deleteClub($club_1->getID());
+        $this->assertFalse($competition->hasClubWithID('C1'));
+        $this->assertEquals(1, count($competition->getClubs()));
+        try {
+            $competition->getClubByID('C1');
+            $this->fail('Test should have caught getting a club that does not exist');
+        } catch (Exception $e) {
+            $this->assertEquals('Club with ID "C1" not found', $e->getMessage());
+        }
+
+        $competition->deleteClub('undefined-club-id');
     }
 
     public function testCompetitionSetters() : void
@@ -814,39 +887,6 @@ final class CompetitionTest extends TestCase {
         $competition_1->addClub($stage);
         $this->assertCount(1, $competition_1->getClubs());
         $this->assertCount(0, $competition_2->getClubs());
-    }
-
-    public function testCompetitionDeleteClub() : void
-    {
-        // Create a competition with a club containing two teams, and a second club with no teams
-        $competition = new Competition('test competition');
-        $team_1 = new CompetitionTeam($competition, 'T1', 'Team 1');
-        $team_2 = new CompetitionTeam($competition, 'T2', 'Team 2');
-        $team_3 = new CompetitionTeam($competition, 'T3', 'Team 3');
-        $club_1 = new Club($competition, 'C1', 'Club 1');
-        $club_2 = new Club($competition, 'C2', 'Club 2');
-        $competition->addClub($club_1)->addClub($club_2);
-        $competition->addTeam($team_1)->addTeam($team_2)->addTeam($team_3);
-        $team_1->setClubID($club_1->getID());
-        $team_2->setClubID($club_1->getID());
-
-        $this->assertEquals('C1', $team_1->getClub()->getID());
-        $this->assertEquals('C1', $team_2->getClub()->getID());
-        $this->assertNull($team_3->getClub());
-
-        try {
-            $competition->deleteClub($club_1->getID());
-            $this->fail('Test should have caught deleting a club with teams');
-        } catch (Exception $e) {
-            $this->assertEquals('Club still contains teams with IDs: {T1}, {T2}', $e->getMessage());
-        }
-
-        $competition->deleteClub($club_2->getID());
-        $club_1->deleteTeam($team_1->getID());
-        $club_1->deleteTeam($team_2->getID());
-        $competition->deleteClub($club_1->getID());
-
-        $competition->deleteClub('non-existent-team-id');
     }
 
     public function testCompetitionMetadataList() : void
