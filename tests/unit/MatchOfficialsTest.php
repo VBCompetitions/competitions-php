@@ -22,13 +22,13 @@ final class MatchOfficialsTest extends TestCase {
     public function testOfficialsNone() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'officials'))), 'officials-team.json');
-        $this->assertNull($competition->getStageById('L')->getGroupById('LG')->getMatchById('LG2')->getOfficials());
+        $this->assertNull($competition->getStage('L')->getGroup('LG')->getMatch('LG2')->getOfficials());
     }
 
     public function testOfficialsTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'officials'))), 'officials-team.json');
-        $match_officials = $competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getOfficials();
+        $match_officials = $competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getOfficials();
 
         $this->assertTrue($match_officials->isTeam());
         $this->assertEquals('TM1', $match_officials->getTeamID());
@@ -53,7 +53,7 @@ final class MatchOfficialsTest extends TestCase {
     public function testOfficialsPerson() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'officials'))), 'officials-persons.json');
-        $match_officials = $competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getOfficials();
+        $match_officials = $competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getOfficials();
 
         $this->assertFalse($match_officials->isTeam());
         $this->assertNull($match_officials->getTeamID());
@@ -73,7 +73,7 @@ final class MatchOfficialsTest extends TestCase {
     public function testOfficialsSetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'officials'))), 'officials-team.json');
-        $match_officials = $competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getOfficials();
+        $match_officials = $competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getOfficials();
 
         $this->assertTrue($match_officials->isTeam());
 
@@ -140,7 +140,7 @@ final class MatchOfficialsTest extends TestCase {
     public function testOfficialsExceptionSettingInvalidTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'officials'))), 'officials-team.json');
-        $match_officials = $competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getOfficials();
+        $match_officials = $competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getOfficials();
 
         $this->expectExceptionMessageMatches('/Invalid team reference for officials in match with ID "LG1": "{L:LG:LG2"/');
         $match_officials->setTeamID('{L:LG:LG2');

@@ -121,10 +121,22 @@ final class CompetitionTest extends TestCase {
         }
     }
 
+    public function testClubsDuplicateID() : void
+    {
+        $this->expectExceptionMessage('Club with ID "NOR" already exists in the competition');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-club-ids.json');
+    }
+
     public function testCompetitionDuplicateTeamIDs() : void
     {
         $this->expectExceptionMessage('Team with ID "TM1" already exists in the competition');
         Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-team-ids.json');
+    }
+
+    public function testCompetitionDuplicatePlayerID() : void
+    {
+        $this->expectExceptionMessage('Player with ID "P1" already exists in the competition');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-duplicate-player-ids.json');
     }
 
     public function testCompetitionDuplicateStageIDs() : void
@@ -142,14 +154,14 @@ final class CompetitionTest extends TestCase {
     public function testCompetitionGetTeamByIDTernaries() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-with-references.json');
-        $matchF1 = $competition->getStageById('F')->getGroupById('F')->getMatchById('F1');
-        $matchF2 = $competition->getStageById('F')->getGroupById('F')->getMatchById('F2');
+        $matchF1 = $competition->getStage('F')->getGroup('F')->getMatch('F1');
+        $matchF2 = $competition->getStage('F')->getGroup('F')->getMatch('F2');
 
-        $truthyTeam = $competition->getTeamByID($matchF1->getHomeTeam()->getID());
-        $falsyTeam = $competition->getTeamByID($matchF1->getAwayTeam()->getID());
+        $truthyTeam = $competition->getTeam($matchF1->getHomeTeam()->getID());
+        $falsyTeam = $competition->getTeam($matchF1->getAwayTeam()->getID());
 
-        $truthyTeamRef = $competition->getTeamByID($matchF2->getHomeTeam()->getID());
-        $falsyTeamRef = $competition->getTeamByID($matchF2->getAwayTeam()->getID());
+        $truthyTeamRef = $competition->getTeam($matchF2->getHomeTeam()->getID());
+        $falsyTeamRef = $competition->getTeam($matchF2->getAwayTeam()->getID());
 
         $this->assertEquals('TM1', $truthyTeam->getID());
         $this->assertEquals('TM2', $falsyTeam->getID());
@@ -162,7 +174,7 @@ final class CompetitionTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
         $this->assertEquals(1, count($competition->getStages()));
         $this->assertEquals('L', $competition->getStages()[0]->getID());
-        $stage = $competition->getStageById('L');
+        $stage = $competition->getStage('L');
         $this->assertEquals('league', $stage->getName());
     }
 
@@ -170,7 +182,7 @@ final class CompetitionTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
         $this->expectExceptionMessage('Stage with ID NO-STAGE not found');
-        $competition->getStageById('NO-STAGE');
+        $competition->getStage('NO-STAGE');
     }
 
     public function testCompetitionGetTeamLookupsIncomplete() : void
@@ -178,33 +190,33 @@ final class CompetitionTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
 
         $this->assertFalse($competition->isComplete());
-        $this->assertTrue($competition->hasTeamID('TM1'));
-        $this->assertTrue($competition->hasTeamID('TM8'));
+        $this->assertTrue($competition->hasTeam('TM1'));
+        $this->assertTrue($competition->hasTeam('TM8'));
 
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:1}')->getID());
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:2}')->getID());
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:3}')->getID());
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:4}')->getID());
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:5}')->getID());
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:6}')->getID());
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:7}')->getID());
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:league:8}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:league:1}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:league:2}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:league:3}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:league:4}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:league:5}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:league:6}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:league:7}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:league:8}')->getID());
 
-        $this->assertEquals('TM2', $competition->getTeamByID('{L:RL:RLM1:winner}')->getID());
-        $this->assertEquals('TM1', $competition->getTeamByID('{L:RL:RLM1:loser}')->getID());
+        $this->assertEquals('TM2', $competition->getTeam('{L:RL:RLM1:winner}')->getID());
+        $this->assertEquals('TM1', $competition->getTeam('{L:RL:RLM1:loser}')->getID());
 
-        $this->assertFalse($competition->hasTeamID('NO-SUCH-TEAM'));
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('NO-SUCH-TEAM')->getID());
+        $this->assertFalse($competition->hasTeam('NO-SUCH-TEAM'));
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('NO-SUCH-TEAM')->getID());
 
-        $this->assertFalse($competition->hasTeamID('{NO:SUCH:TEAM:REF}'));
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{NO:SUCH:TEAM:REF}')->getID());
+        $this->assertFalse($competition->hasTeam('{NO:SUCH:TEAM:REF}'));
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{NO:SUCH:TEAM:REF}')->getID());
     }
 
     public function testCompetitionGetTeamLookupsInvalid() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition.json');
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{L:RL:RLM1:foo}')->getID());
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{KO:CUP:QF1:foo}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:RL:RLM1:foo}')->getID());
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{KO:CUP:QF1:foo}')->getID());
     }
 
     public function testCompetitionGetTeamLookupsComplete() : void
@@ -213,42 +225,42 @@ final class CompetitionTest extends TestCase {
         $this->assertEquals('1.0.0', $competition->getVersion());
 
         $this->assertTrue($competition->isComplete());
-        $this->assertTrue($competition->hasTeamID('TM1'));
-        $this->assertTrue($competition->hasTeamID('TM8'));
+        $this->assertTrue($competition->hasTeam('TM1'));
+        $this->assertTrue($competition->hasTeam('TM8'));
 
-        $this->assertEquals('TM6', $competition->getTeamByID('{L:RL:league:1}')->getID());
-        $this->assertEquals('TM5', $competition->getTeamByID('{L:RL:league:2}')->getID());
-        $this->assertEquals('TM2', $competition->getTeamByID('{L:RL:league:3}')->getID());
-        $this->assertEquals('TM4', $competition->getTeamByID('{L:RL:league:4}')->getID());
-        $this->assertEquals('TM3', $competition->getTeamByID('{L:RL:league:5}')->getID());
-        $this->assertEquals('TM7', $competition->getTeamByID('{L:RL:league:6}')->getID());
-        $this->assertEquals('TM8', $competition->getTeamByID('{L:RL:league:7}')->getID());
-        $this->assertEquals('TM1', $competition->getTeamByID('{L:RL:league:8}')->getID());
+        $this->assertEquals('TM6', $competition->getTeam('{L:RL:league:1}')->getID());
+        $this->assertEquals('TM5', $competition->getTeam('{L:RL:league:2}')->getID());
+        $this->assertEquals('TM2', $competition->getTeam('{L:RL:league:3}')->getID());
+        $this->assertEquals('TM4', $competition->getTeam('{L:RL:league:4}')->getID());
+        $this->assertEquals('TM3', $competition->getTeam('{L:RL:league:5}')->getID());
+        $this->assertEquals('TM7', $competition->getTeam('{L:RL:league:6}')->getID());
+        $this->assertEquals('TM8', $competition->getTeam('{L:RL:league:7}')->getID());
+        $this->assertEquals('TM1', $competition->getTeam('{L:RL:league:8}')->getID());
 
-        $this->assertEquals('TM2', $competition->getTeamByID('{L:RL:RLM1:winner}')->getID());
-        $this->assertEquals('TM1', $competition->getTeamByID('{L:RL:RLM1:loser}')->getID());
+        $this->assertEquals('TM2', $competition->getTeam('{L:RL:RLM1:winner}')->getID());
+        $this->assertEquals('TM1', $competition->getTeam('{L:RL:RLM1:loser}')->getID());
 
-        $this->assertFalse($competition->hasTeamID('NO-SUCH-TEAM'));
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('NO-SUCH-TEAM')->getID());
+        $this->assertFalse($competition->hasTeam('NO-SUCH-TEAM'));
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('NO-SUCH-TEAM')->getID());
 
-        $this->assertFalse($competition->hasTeamID('{NO:SUCH:TEAM:REF}'));
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('{NO:SUCH:TEAM:REF}')->getID());
+        $this->assertFalse($competition->hasTeam('{NO:SUCH:TEAM:REF}'));
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{NO:SUCH:TEAM:REF}')->getID());
     }
 
     public function testCompetitionStageWithNoName() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-stages-no-name.json');
 
-        $this->assertNull($competition->getStageById('L0')->getName());
-        $this->assertEquals('league', $competition->getStageById('L1')->getName());
-        $this->assertNull($competition->getStageById('L2')->getName());
+        $this->assertNull($competition->getStage('L0')->getName());
+        $this->assertEquals('league', $competition->getStage('L1')->getName());
+        $this->assertNull($competition->getStage('L2')->getName());
     }
 
     public function testCompetitionIncompleteWithTeamReferences() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions'))), 'competition-half-done-with-references.json');
 
-        $this->assertFalse($competition->getStageById('Divisions')->getGroupById('Division 1')->getMatchById('D1M1')->isComplete());
+        $this->assertFalse($competition->getStage('Divisions')->getGroup('Division 1')->getMatch('D1M1')->isComplete());
     }
 
     public function testCompetitionValidHomeTeamRef() : void
@@ -709,8 +721,8 @@ final class CompetitionTest extends TestCase {
 
         $this->assertEquals(4, count($competition->getTeams()));
         $competition->deleteTeam($team_4->getID());
-        $this->assertFalse($competition->hasTeamWithID('T4'));
-        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeamByID('T4')->getID());
+        $this->assertFalse($competition->hasTeam('T4'));
+        $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('T4')->getID());
         $this->assertEquals(3, count($competition->getTeams()));
 
         $competition->deleteTeam('undefined-team-id');
@@ -767,10 +779,10 @@ final class CompetitionTest extends TestCase {
         $club_1->deleteTeam('T2');
         $this->assertEquals(2, count($competition->getClubs()));
         $competition->deleteClub($club_1->getID());
-        $this->assertFalse($competition->hasClubWithID('C1'));
+        $this->assertFalse($competition->hasClub('C1'));
         $this->assertEquals(1, count($competition->getClubs()));
         try {
-            $competition->getClubByID('C1');
+            $competition->getClub('C1');
             $this->fail('Test should have caught getting a club that does not exist');
         } catch (Exception $e) {
             $this->assertEquals('Club with ID "C1" not found', $e->getMessage());

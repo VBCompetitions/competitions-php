@@ -46,7 +46,7 @@ final class Contact implements JsonSerializable
             throw new Exception('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =');
         }
 
-        if ($team->hasContactWithID($id)) {
+        if ($team->hasContact($id)) {
             throw new Exception('Contact with ID "'.$id.'" already exists in the team');
         }
 

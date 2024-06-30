@@ -563,16 +563,21 @@ class HTML {
                     }
                     break;
                 case HTML::MATCH_COLUMN_HOME_TEAM:
-                    $home_team_match = $team_id !== CompetitionTeam::UNKNOWN_TEAM_ID && $match_container->getCompetition()->getTeamByID($match->getHomeTeam()->getID())->getID() === $team_id;
+                    $home_team_match = $team_id !== CompetitionTeam::UNKNOWN_TEAM_ID && $match_container->getCompetition()->getTeam($match->getHomeTeam()->getID())->getID() === $team_id;
                     $class = 'vbc-match-team vbc-match-group-'.$match->getGroup()->getID().($home_team_match ? ' vbc-this-team' : '');
                     if ($config->lookupTeamIDs) {
-                        $team_name = $match_container->getCompetition()->getTeamByID($match->getHomeTeam()->getID())->getName();
+                        $team_name = $match_container->getCompetition()->getTeam($match->getHomeTeam()->getID())->getName();
                     } else {
                         $team_name = $match->getHomeTeam()->getID();
                     }
                     $metadata = [];
                     if (property_exists($match->getHomeTeam(), 'mvp')) {
-                        $metadata['mvp'] = $match->getHomeTeam()->getMVP();
+                        if ($match->getHomeTeam()->getMVP() === null) {
+                            $metadata['mvp'] = null;
+                        } else {
+                            $metadata['mvp'] = $match->getHomeTeam()->getMVP()->getName();
+                            $metadata['mvp-id'] = $match->getHomeTeam()->getMVP()->getID();
+                        }
                     }
                     array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_HOME_TEAM, $global_class.$class, $team_name, $metadata));
                     break;
@@ -662,16 +667,21 @@ class HTML {
                     }
                     break;
                 case HTML::MATCH_COLUMN_AWAY_TEAM:
-                    $away_team_match = $team_id !== CompetitionTeam::UNKNOWN_TEAM_ID && $match_container->getCompetition()->getTeamByID($match->getAwayTeam()->getID())->getID() === $team_id;
+                    $away_team_match = $team_id !== CompetitionTeam::UNKNOWN_TEAM_ID && $match_container->getCompetition()->getTeam($match->getAwayTeam()->getID())->getID() === $team_id;
                     $class = 'vbc-match-team vbc-match-group-'.$match->getGroup()->getID().($away_team_match ? ' vbc-this-team' : '');
                     if ($config->lookupTeamIDs) {
-                        $team_name = $match_container->getCompetition()->getTeamByID($match->getAwayTeam()->getID())->getName();
+                        $team_name = $match_container->getCompetition()->getTeam($match->getAwayTeam()->getID())->getName();
                     } else {
                         $team_name = $match->getAwayTeam()->getID();
                     }
                     $metadata = [];
                     if (property_exists($match->getAwayTeam(), 'mvp')) {
-                        $metadata['mvp'] = $match->getAwayTeam()->getMVP();
+                        if ($match->getAwayTeam()->getMVP() === null) {
+                            $metadata['mvp'] = null;
+                        } else {
+                            $metadata['mvp'] = $match->getAwayTeam()->getMVP()->getName();
+                            $metadata['mvp-id'] = $match->getAwayTeam()->getMVP()->getID();
+                        }
                     }
                     array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_AWAY_TEAM, $global_class.$class, $team_name, $metadata));
                     break;
@@ -682,7 +692,7 @@ class HTML {
                             array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, ''));
                         } else if ($match->getOfficials()->isTeam()) {
                             if ($config->lookupTeamIDs) {
-                                $official_team = $match_container->getCompetition()->getTeamByID($match->getOfficials()->getTeamID());
+                                $official_team = $match_container->getCompetition()->getTeam($match->getOfficials()->getTeamID());
 
                                 if ($team_id !== CompetitionTeam::UNKNOWN_TEAM_ID &&
                                     $team_id === $official_team->getID()) {
@@ -712,7 +722,11 @@ class HTML {
                     break;
                 case HTML::MATCH_COLUMN_MVP:
                     if ($match_container->matchesHaveMVPs()) {
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MVP, $global_class.'vbc-match-mvp vbc-match-group-'.$match->getGroup()->getID(), $match->getMVP()));
+                        $mvp = null;
+                        if ($match->getMVP() !== null) {
+                            $mvp = $match->getMVP()->getName();
+                        }
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MVP, $global_class.'vbc-match-mvp vbc-match-group-'.$match->getGroup()->getID(), $mvp));
                     }
                     break;
                 case HTML::MATCH_COLUMN_MANAGER:
@@ -722,7 +736,7 @@ class HTML {
                             array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, ''));
                         } else if ($match->getManager()->isTeam()) {
                             if ($config->lookupTeamIDs) {
-                                $manager_team = $match_container->getCompetition()->getTeamByID($match->getManager()->getTeamID());
+                                $manager_team = $match_container->getCompetition()->getTeam($match->getManager()->getTeamID());
 
                                 if ($team_id !== CompetitionTeam::UNKNOWN_TEAM_ID &&
                                     $team_id === $manager_team->getID()) {
@@ -958,7 +972,8 @@ class HTML {
      *                                       e.g. the
      *         [metadata]                  - an optional field containing extra metadata about this table cell.  This
      *                                       includes the following:
-     *                                       - "mvp": the team's MVP in a match (included in the team name cell)
+     *                                       - "mvp": the name of team's MVP in a match (included in the team name cell)
+     *                                       - "mvp-id": the player ID of the team's MVP in a match (included in the team name cell)
      *       },
      *       {...next cell's data...}
      *     ],
@@ -1215,7 +1230,7 @@ class HTML {
             $position = $pos + 1;
             $this_team = $team_id !== null
                       && $team_id !== CompetitionTeam::UNKNOWN_TEAM_ID
-                      && $league->getCompetition()->getTeamByID($league_entry->getTeamID())->getID() === $league->getCompetition()->getTeamByID($team_id)->getID();
+                      && $league->getCompetition()->getTeam($league_entry->getTeamID())->getID() === $league->getCompetition()->getTeam($team_id)->getID();
             $table->rows[$pos] = HTML::generateLeagueTableRow($config, $league_entry, $position, $this_team);
         }
 
@@ -1311,10 +1326,10 @@ class HTML {
             foreach ($knockout->getKnockoutConfig()->getStanding() as $standing_info) {
                 $this_team = $team_id !== null
                           && $team_id !== CompetitionTeam::UNKNOWN_TEAM_ID
-                          && $knockout->getCompetition()->getTeamByID($standing_info->id) === $knockout->getCompetition()->getTeamByID($team_id);
+                          && $knockout->getCompetition()->getTeam($standing_info->id) === $knockout->getCompetition()->getTeam($team_id);
                 $cells = [];
                 array_push($cells, HTML::genTableCell('pos', 'vbc-knockout-pos', $standing_info->position));
-                array_push($cells, HTML::genTableCell('team', 'vbc-knockout-team'.($this_team ? ' vbc-this-team' : ''), $knockout->getCompetition()->getTeamByID($standing_info->id)->getName()));
+                array_push($cells, HTML::genTableCell('team', 'vbc-knockout-team'.($this_team ? ' vbc-this-team' : ''), $knockout->getCompetition()->getTeam($standing_info->id)->getName()));
                 array_push($table->rows, $cells);
             }
         }

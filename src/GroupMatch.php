@@ -2,6 +2,7 @@
 
 namespace VBCompetitions\Competitions;
 
+use DateTime;
 use Exception;
 use JsonSerializable;
 use stdClass;
@@ -52,7 +53,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     private ?MatchOfficials $officials = null;
 
     /** A most valuable player award for the match */
-    private ?string $mvp = null;
+    private ?Player $mvp = null;
 
     /** The court manager in charge of this match */
     private ?MatchManager $manager = null;
@@ -86,7 +87,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      */
     function __construct($group, $id)
     {
-        if ($group->hasMatchWithID($id)) {
+        if ($group->hasMatch($id)) {
             throw new Exception('Group {'.$group->getStage()->getID().':'.$group->getID().'}: matches with duplicate IDs {'.$id.'} not allowed');
         }
         $this->group = $group;
@@ -140,7 +141,11 @@ final class GroupMatch implements JsonSerializable, MatchInterface
             $this->setOfficials($officials);
         }
         if (property_exists($match_data, 'mvp')) {
-            $this->setMVP($match_data->mvp);
+            if (preg_match('/^{(.*)}$/', $match_data->mvp, $mvp_match)) {
+                $this->setMVP($this->getGroup()->getStage()->getCompetition()->getPlayer($mvp_match[1]));
+            } else {
+                $this->setMVP(new Player($this->getGroup()->getStage()->getCompetition(), Player::UNREGISTERED_PLAYER_ID, $match_data->mvp));
+            }
         }
         if (property_exists($match_data, 'manager')) {
             $this->setManager(MatchManager::loadFromData($this, $match_data->manager));
@@ -199,7 +204,11 @@ final class GroupMatch implements JsonSerializable, MatchInterface
             $match->officials = $this->officials;
         }
         if ($this->mvp !== null) {
-            $match->mvp = $this->mvp;
+            if ($this->mvp->getID() === Player::UNREGISTERED_PLAYER_ID) {
+                $match->mvp = $this->mvp->getName();
+            } else {
+                $match->mvp = '{'.$this->mvp->getID().'}';
+            }
         }
         if ($this->manager !== null) {
             $match->manager = $this->manager;
@@ -290,6 +299,15 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      */
     public function setDate(?string $date) : GroupMatch
     {
+        if (!preg_match('/^[0-9]{4}-(0[0-9]|1[0-2])-(0[1-9]|[12][0-9]|3[01])$/', $date)) {
+            throw new Exception('Invalid date "'.$date.'": must contain a value of the form "YYYY-MM-DD"');
+        }
+
+        $d = DateTime::createFromFormat('Y-m-d', $date);
+        if ($d === false || $d->format('Y-m-d') !== $date) {
+            throw new Exception('Invalid date "'.$date.'": date does not exist');
+        }
+
         $this->date = $date;
         return $this;
     }
@@ -316,6 +334,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      */
     public function setWarmup(?string $warmup) : GroupMatch
     {
+        if (!preg_match('/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/', $warmup)) {
+            throw new Exception('Invalid warmup time "'.$warmup.'": must contain a value of the form "HH:mm" using a 24 hour clock');
+        }
         $this->warmup = $warmup;
         return $this;
     }
@@ -342,6 +363,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      */
     public function setStart(?string $start) : GroupMatch
     {
+        if (!preg_match('/^([0-1][0-9]|2[0-3]):[0-5][0-9]$/', $start)) {
+            throw new Exception('Invalid start time "'.$start.'": must contain a value of the form "HH:mm" using a 24 hour clock');
+        }
         $this->start = $start;
         return $this;
     }
@@ -367,6 +391,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
      */
     public function setDuration(?string $duration) : GroupMatch
     {
+        if (!preg_match('/^[0-9]+:[0-5][0-9]$/', $duration)) {
+            throw new Exception('Invalid duration "'.$duration.'": must contain a value of the form "HH:mm"');
+        }
         $this->duration = $duration;
         return $this;
     }
@@ -538,9 +565,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the MVP for this match
      *
-     * @param ?string $mvp the MVP for this match
+     * @param ?Player $mvp the MVP for this match
      */
-    public function setMVP(?string $mvp) : GroupMatch
+    public function setMVP(?Player $mvp) : GroupMatch
     {
         $this->mvp = $mvp;
         return $this;
@@ -549,9 +576,9 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Get the MVP for this match
      *
-     * @return ?string the MVP for this match
+     * @return ?Player the MVP for this match
      */
-    public function getMVP() : ?string
+    public function getMVP() : ?Player
     {
         return $this->mvp;
     }

@@ -511,7 +511,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Returns a list of matches from this Group, where the list depends on the input parameters and on the type of the MatchContainer
      *
-     * @param string $team_id When provided, return the matches where this team is playing, otherwise all matches are returned
+     * @param string $id When provided, return the matches where this team is playing, otherwise all matches are returned
      *                        (and subsequent parameters are ignored).  This must be a resolved team ID and not a reference.
      *                        A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null
      * @param int $flags Controls what gets returned
@@ -522,12 +522,12 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
      *                   </ul>
      * @return array<MatchInterface|BreakInterface>
      */
-    public function getMatches(string $team_id = null, int $flags = 0) : array
+    public function getMatches(string $id = null, int $flags = 0) : array
     {
-        if ($team_id === null ||
+        if ($id === null ||
             $flags & VBC_MATCH_ALL_IN_GROUP ||
-            $team_id === CompetitionTeam::UNKNOWN_TEAM_ID ||
-            strncmp($team_id, '{', 1) === 0)
+            $id === CompetitionTeam::UNKNOWN_TEAM_ID ||
+            strncmp($id, '{', 1) === 0)
         {
             return $this->matches;
         }
@@ -538,13 +538,13 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
             if ($match instanceof GroupBreak) {
                 continue;
             } else if ($flags & VBC_MATCH_PLAYING &&
-                ($this->competition->getTeamByID($match->getHomeTeam()->getID())->getID() === $team_id || $this->competition->getTeamByID($match->getAwayTeam()->getID())->getID() === $team_id))
+                ($this->competition->getTeam($match->getHomeTeam()->getID())->getID() === $id || $this->competition->getTeam($match->getAwayTeam()->getID())->getID() === $id))
             {
                 array_push($matches, $match);
             } else if ($flags & VBC_MATCH_OFFICIATING &&
                 $match->getOfficials() !== null &&
                 $match->getOfficials()->isTeam() &&
-                $this->competition->getTeamByID($match->getOfficials()->getTeamID())->getID() === $team_id)
+                $this->competition->getTeam($match->getOfficials()->getTeamID())->getID() === $id)
             {
                 array_push($matches, $match);
             }
@@ -579,14 +579,14 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         } else if ($flags & VBC_TEAMS_MAYBE) {
             return $this->getMaybeTeamIDs();
         } else if ($flags & VBC_TEAMS_KNOWN) {
-            $team_ids = array_values(array_unique(array_filter(array_keys($this->team_ids), fn($k): bool => $this->competition->getTeamByID($k)->getID() !== CompetitionTeam::UNKNOWN_TEAM_ID)));
+            $team_ids = array_values(array_unique(array_filter(array_keys($this->team_ids), fn($k): bool => $this->competition->getTeam($k)->getID() !== CompetitionTeam::UNKNOWN_TEAM_ID)));
             usort($team_ids, function($a, $b) {
-                return strcmp($this->competition->getTeamByID($a)->getName(), $this->competition->getTeamByID($b)->getName());
+                return strcmp($this->competition->getTeam($a)->getName(), $this->competition->getTeam($b)->getName());
             });
         } else if ($flags & VBC_TEAMS_FIXED_ID) {
             $team_ids = array_values(array_filter(array_keys($this->team_ids), fn($k): bool => strncmp($k, '{', 1) !== 0));
             usort($team_ids, function($a, $b) {
-                return strcmp($this->competition->getTeamByID($a)->getName(), $this->competition->getTeamByID($b)->getName());
+                return strcmp($this->competition->getTeam($a)->getName(), $this->competition->getTeam($b)->getName());
             });
         }
 
@@ -613,7 +613,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
             $this->buildStageGroupLookup();
 
             foreach ($this->stg_grp_lookup as $stage_and_group) {
-                $group = $this->competition->getStageByID($stage_and_group->stage)->getGroupByID($stage_and_group->group);
+                $group = $this->competition->getStage($stage_and_group->stage)->getGroup($stage_and_group->group);
                 if (!$group->isComplete()) {
                     $this->maybe_teams = array_unique(array_merge($this->maybe_teams, $group->getTeamIDs(VBC_TEAMS_KNOWN), $group->getTeamIDs(VBC_TEAMS_MAYBE)));
                 }
@@ -674,27 +674,27 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Returns the match with the specified ID
      *
-     * @param string $match_id The ID of the match
+     * @param string $id The ID of the match
      *
      * @return GroupMatch The requested match
      */
-    public function getMatchByID(string $match_id) : GroupMatch
+    public function getMatch(string $id) : GroupMatch
     {
-        if (property_exists($this->match_lookup, $match_id)) {
-            return $this->match_lookup->{$match_id};
+        if (property_exists($this->match_lookup, $id)) {
+            return $this->match_lookup->{$id};
         }
-        throw new OutOfBoundsException('Match with ID '.$match_id.' not found', 1);
+        throw new OutOfBoundsException('Match with ID '.$id.' not found', 1);
     }
 
     /**
      * Checks if a match with the given ID exists in the group.
      *
-     * @param string $match_id The ID of the match to check
+     * @param string $id The ID of the match to check
      * @return bool True if a match with the given ID exists, false otherwise
      */
-    public function hasMatchWithID(string $match_id) : bool
+    public function hasMatch(string $id) : bool
     {
-        return property_exists($this->match_lookup, $match_id);
+        return property_exists($this->match_lookup, $id);
     }
 
     /**
@@ -713,17 +713,17 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
      * @return CompetitionTeam The CompetitionTeam instance
      * @throws Exception If the entity is invalid
      */
-    public function getTeamByID(string $type, string $entity) : CompetitionTeam
+    public function getTeam(string $type, string $entity) : CompetitionTeam
     {
         if ($type === 'league') {
             throw new Exception('Invalid type "league" in team reference.  Cannot get league position from a non-league group');
         }
 
-        $match = $this->getMatchByID($type);
+        $match = $this->getMatch($type);
 
         return match ($entity) {
-            'winner' => $this->competition->getTeamByID($match->getWinnerTeamID()),
-            'loser' => $this->competition->getTeamByID($match->getLoserTeamID()),
+            'winner' => $this->competition->getTeam($match->getWinnerTeamID()),
+            'loser' => $this->competition->getTeam($match->getLoserTeamID()),
             default => throw new Exception('Invalid entity "'.$entity.'" in team reference'),
         };
     }
@@ -749,7 +749,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
             $completed_matches = 0;
             $matches_in_this_pool = 0;
 
-            foreach($this->getMatches() as $match) {
+            foreach ($this->getMatches() as $match) {
                 if ($match instanceof GroupBreak) {
                     continue;
                 }
@@ -878,7 +878,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
         $all_groups_complete = true;
         foreach ($this->team_references as $team_reference) {
             $parts = explode(':', trim($team_reference, '{}'), 4);
-            if (!$this->competition->getStageByID($parts[0])->getGroupByID($parts[1])->isComplete()) {
+            if (!$this->competition->getStage($parts[0])->getGroup($parts[1])->isComplete()) {
                 $all_groups_complete = false;
             }
         }
@@ -888,53 +888,53 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Returns whether the specified team is known to have matches in this group.
      *
-     * @param string $team_id The ID of the team
+     * @param string $id The ID of the team
      * @return bool Whether the specified team is known to have matches in this group
      */
-    public function teamHasMatches(string $team_id) : bool
+    public function teamHasMatches(string $id) : bool
     {
-        if (!property_exists($this->team_has_matches_lookup, $team_id)) {
-            $this->team_has_matches_lookup->$team_id = false;
-            foreach($this->matches as $match) {
+        if (!property_exists($this->team_has_matches_lookup, $id)) {
+            $this->team_has_matches_lookup->$id = false;
+            foreach ($this->matches as $match) {
                 if ($match instanceof GroupBreak) {
                     continue;
                 }
-                if ($this->competition->getTeamByID($match->getHomeTeam()->getID())->getID() === $team_id) {
-                    $this->team_has_matches_lookup->$team_id = true;
+                if ($this->competition->getTeam($match->getHomeTeam()->getID())->getID() === $id) {
+                    $this->team_has_matches_lookup->$id = true;
                     break;
                 }
-                if ($this->competition->getTeamByID($match->getAwayTeam()->getID())->getID() === $team_id) {
-                    $this->team_has_matches_lookup->$team_id = true;
+                if ($this->competition->getTeam($match->getAwayTeam()->getID())->getID() === $id) {
+                    $this->team_has_matches_lookup->$id = true;
                     break;
                 }
             }
         }
-        return $this->team_has_matches_lookup->$team_id;
+        return $this->team_has_matches_lookup->$id;
     }
 
     /**
      * Returns whether the specified team is known to have officiating duties in this group.
      *
-     * @param string $team_id The ID of the team
+     * @param string $id The ID of the team
      * @return bool Whether the specified team is known to have officiating duties in this group
      */
-    public function teamHasOfficiating(string $team_id) : bool
+    public function teamHasOfficiating(string $id) : bool
     {
-        if (!property_exists($this->team_has_officiating_lookup, $team_id)) {
-            $this->team_has_officiating_lookup->$team_id = false;
-            foreach($this->matches as $match) {
+        if (!property_exists($this->team_has_officiating_lookup, $id)) {
+            $this->team_has_officiating_lookup->$id = false;
+            foreach ($this->matches as $match) {
                 if ($match instanceof GroupBreak) {
                     continue;
                 }
                 if ($match->getOfficials() !== null && $match->getOfficials()->isTeam() &&
-                    $this->competition->getTeamByID($match->getOfficials()->getTeamID())->getID() === $team_id)
+                    $this->competition->getTeam($match->getOfficials()->getTeamID())->getID() === $id)
                 {
-                    $this->team_has_officiating_lookup->$team_id = true;
+                    $this->team_has_officiating_lookup->$id = true;
                     break;
                 }
             }
         }
-        return $this->team_has_officiating_lookup->$team_id;
+        return $this->team_has_officiating_lookup->$id;
     }
 
     /**
@@ -960,14 +960,14 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
      *
      * @return bool whether it is possible for a team with the given ID to have matches in this group
      */
-    public function teamMayHaveMatches(string $team_id) : bool
+    public function teamMayHaveMatches(string $id) : bool
     {
         if ($this->isComplete()) {
             // If the group is complete then there are no "maybes"; everything is known so you should call teamHasMatches()
             return false;
         }
 
-        if ($this->competition->getTeamByID($team_id)->getID() === CompetitionTeam::UNKNOWN_TEAM_ID) {
+        if ($this->competition->getTeam($id)->getID() === CompetitionTeam::UNKNOWN_TEAM_ID) {
             return false;
         }
 
@@ -975,8 +975,8 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
 
         // Look up each reference to see if it leads back to this team
         foreach ($this->stg_grp_lookup as $stage_and_group) {
-            $group = $this->competition->getStageByID($stage_and_group->stage)->getGroupByID($stage_and_group->group);
-            if ((!$group->isComplete() && $group->teamHasMatches($team_id)) || $group->teamMayHaveMatches($team_id)) {
+            $group = $this->competition->getStage($stage_and_group->stage)->getGroup($stage_and_group->group);
+            if ((!$group->isComplete() && $group->teamHasMatches($id)) || $group->teamMayHaveMatches($id)) {
                 return true;
             }
         }
@@ -1012,13 +1012,13 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
                 }
 
                 if ($flags & VBC_MATCH_PLAYING &&
-                    (($this->competition->getTeamByID($match->getHomeTeam()->getID())->getID() === $team_id) ||
-                     ($this->competition->getTeamByID($match->getAwayTeam()->getID())->getID() === $team_id))) {
+                    (($this->competition->getTeam($match->getHomeTeam()->getID())->getID() === $team_id) ||
+                     ($this->competition->getTeam($match->getAwayTeam()->getID())->getID() === $team_id))) {
                         $match_dates[$match->getDate()] = 1;
                 } else if ($flags & VBC_MATCH_OFFICIATING &&
                     $match->getOfficials() !== null &&
                     $match->getOfficials()->isTeam() &&
-                    $this->competition->getTeamByID($match->getOfficials()->getTeamID())->getID() === $team_id) {
+                    $this->competition->getTeam($match->getOfficials()->getTeamID())->getID() === $team_id) {
                     $match_dates[$match->getDate()] = 1;
                 }
             }
@@ -1054,13 +1054,13 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
                     if (!$match instanceof GroupMatch) {
                         array_push($matches, $match);
                     } else if ($flags & VBC_MATCH_PLAYING &&
-                              (($this->competition->getTeamByID($match->getHomeTeam()->getID())->getID() === $team_id) ||
-                               ($this->competition->getTeamByID($match->getAwayTeam()->getID())->getID() === $team_id))) {
+                              (($this->competition->getTeam($match->getHomeTeam()->getID())->getID() === $team_id) ||
+                               ($this->competition->getTeam($match->getAwayTeam()->getID())->getID() === $team_id))) {
                         array_push($matches, $match);
                     } else if ($flags & VBC_MATCH_OFFICIATING &&
                                $match->getOfficials() !== null &&
                                $match->getOfficials()->isTeam() &&
-                               $this->competition->getTeamByID($match->getOfficials()->getTeamID())->getID() === $team_id) {
+                               $this->competition->getTeam($match->getOfficials()->getTeamID())->getID() === $team_id) {
                         array_push($matches, $match);
                     }
                 }

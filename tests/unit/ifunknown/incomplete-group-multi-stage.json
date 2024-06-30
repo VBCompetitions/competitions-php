@@ -10,6 +10,9 @@
     { "id": "TM7", "name": "Grace VC" },
     { "id": "TM8", "name": "Heidi VC" }
   ],
+  "players": [
+    { "id": "P1", "name": "A Ringer" }
+  ],
   "stages": [
     {
       "name": "Pools",
@@ -100,7 +103,7 @@
         ],
         "matches": [
           { "id": "SF1", "type": "match", "court": "1", "date": "2020-06-06", "venue": "City Stadium", "duration": "0:50", "warmup": "09:00", "start": "09:10", "complete": false, "mvp": "J Doe", "homeTeam": { "id": "1st Group A", "scores": [] }, "awayTeam": { "id": "2nd Group B", "scores": [] }, "officials": { "team": "1st Group B" } },
-          { "id": "SF2", "type": "match", "court": "1", "date": "2020-06-06", "venue": "City Stadium", "duration": "0:50", "warmup": "10:00", "start": "10:10", "complete": false, "mvp": "J Doe", "homeTeam": { "id": "1st Group B", "scores": [] }, "awayTeam": { "id": "2nd Group A", "scores": [] }, "officials": { "team": "SF1 loser" } },
+          { "id": "SF2", "type": "match", "court": "1", "date": "2020-06-06", "venue": "City Stadium", "duration": "0:50", "warmup": "10:00", "start": "10:10", "complete": false, "mvp": "{P1}", "homeTeam": { "id": "1st Group B", "scores": [] }, "awayTeam": { "id": "2nd Group A", "scores": [] }, "officials": { "team": "SF1 loser" } },
           { "type": "break", "name": "Lunch break", "start": "11:30", "date": "2020-06-06", "duration": "1:20" },
           { "id": "PO", "type": "match", "court": "1", "date": "2020-06-06", "venue": "City Stadium", "duration": "0:50", "warmup": "13:00", "start": "13:10", "complete": false, "mvp": "J Doe", "homeTeam": { "id": "SF1 loser", "scores": [] }, "awayTeam": { "id": "SF2 loser", "scores": [] }, "officials": { "team": "1st Group A or SF 2 Winner" } },
           { "id": "FIN", "type": "match", "court": "1", "date": "2020-06-06", "venue": "City Stadium", "duration": "0:50", "warmup": "14:00", "start": "14:10", "complete": false, "mvp": "J Doe", "homeTeam": { "id": "SF1 winner", "scores": [] }, "awayTeam": { "id": "SF2 winner", "scores": [] }, "officials": { "team": "Play-off loser" }, "notes": "Presentation after match", "manager": "A Bobs" }

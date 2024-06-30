@@ -16,7 +16,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLMatchesForHTMLPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $matches = HTML::getMatchesForHTML($competition->getStageById('L')->getGroupById('LG'));
+        $matches = HTML::getMatchesForHTML($competition->getStage('L')->getGroup('LG'));
 
         $this->assertEquals('vbc-match vbc-match-group-LG', $matches->class);
 
@@ -242,7 +242,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLMatchesForHTMLWithEverything() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
-        $matches = HTML::getMatchesForHTML($competition->getStageById('L')->getGroupById('LG'));
+        $matches = HTML::getMatchesForHTML($competition->getStage('L')->getGroup('LG'));
 
         $this->assertEquals('vbc-match vbc-match-group-LG', $matches->class);
 
@@ -626,7 +626,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLMatchesForHTMLSetsPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $matches = HTML::getMatchesForHTML($competition->getStageById('LS')->getGroupById('LG'));
+        $matches = HTML::getMatchesForHTML($competition->getStage('LS')->getGroup('LG'));
 
         $this->assertEquals('vbc-match vbc-match-group-LG', $matches->class);
 
@@ -834,7 +834,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLMatchesHTMLPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'));
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'));
 
         $expected_table = '<table class="vbc-match vbc-match-group-LG">';
         $expected_table .= '<tr><th class="vbc-match-id vbc-match-group-LG">MatchNo</th><th class="vbc-match-court vbc-match-group-LG">Court</th><th class="vbc-match-start vbc-match-group-LG">Start</th><th class="vbc-match-duration vbc-match-group-LG">Duration</th><th class="vbc-match-team vbc-match-group-LG">Home Team</th><th class="vbc-match-score vbc-match-group-LG" colspan="2">Score</th><th class="vbc-match-team vbc-match-group-LG">Away Team</th><th class="vbc-match-officials vbc-match-group-LG">Officials</th></tr>';
@@ -856,7 +856,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLMatchesHTMLNoMatches() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'empty.json');
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'));
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'));
 
         $expected_table = '<table class="vbc-match vbc-match-group-LG">';
         $expected_table .= '<tr><th class="vbc-match-id vbc-match-group-LG">MatchNo</th><th class="vbc-match-team vbc-match-group-LG">Home Team</th><th class="vbc-match-score vbc-match-group-LG" colspan="2">Score</th><th class="vbc-match-team vbc-match-group-LG">Away Team</th></tr>';
@@ -873,7 +873,7 @@ final class HTMLTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
         $matches_config = new stdClass();
         $matches_config->merge = [];
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), $matches_config);
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'), $matches_config);
 
         $expected_table = '<table class="vbc-match vbc-match-group-LG">';
         $expected_table .= '<tr><th class="vbc-match-id vbc-match-group-LG">MatchNo</th><th class="vbc-match-court vbc-match-group-LG">Court</th><th class="vbc-match-start vbc-match-group-LG">Start</th><th class="vbc-match-duration vbc-match-group-LG">Duration</th><th class="vbc-match-team vbc-match-group-LG">Home Team</th><th class="vbc-match-score vbc-match-group-LG" colspan="2">Score</th><th class="vbc-match-team vbc-match-group-LG">Away Team</th><th class="vbc-match-officials vbc-match-group-LG">Officials</th></tr>';
@@ -904,7 +904,7 @@ final class HTMLTest extends TestCase {
             HTML::MATCH_COLUMN_AWAY_TEAM => 'League Points'
         ];
         $matches_config->includeTeamMVPs = true;
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), $matches_config, 'TM1');
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'), $matches_config, 'TM1');
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
         $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">Match</th><th class="vbc-match-team vbc-match-group-LG">Team Name</th><th class="vbc-match-team vbc-match-group-LG">League Points</th><th class="vbc-match-notes vbc-match-group-LG">Notes</th><th class="vbc-match-officials vbc-match-group-LG">Officials</th></tr>';
@@ -926,7 +926,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLMatchesHTMLEverything() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-everything.json');
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), null, 'TM1');
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'), null, 'TM1');
         $expected_table = '<table class="vbc-match vbc-match-group-LG">';
         $expected_table .= '<tr><th class="vbc-match-id vbc-match-group-LG">MatchNo</th><th class="vbc-match-court vbc-match-group-LG">Court</th><th class="vbc-match-venue vbc-match-group-LG">Venue</th><th class="vbc-match-date vbc-match-group-LG">Date</th><th class="vbc-match-warmup vbc-match-group-LG">Warmup</th><th class="vbc-match-start vbc-match-group-LG">Start</th><th class="vbc-match-duration vbc-match-group-LG">Duration</th><th class="vbc-match-team vbc-match-group-LG">Home Team</th><th class="vbc-match-score vbc-match-group-LG" colspan="2">Score</th><th class="vbc-match-team vbc-match-group-LG">Away Team</th><th class="vbc-match-officials vbc-match-group-LG">Officials</th><th class="vbc-match-mvp vbc-match-group-LG">MVP</th><th class="vbc-match-manager vbc-match-group-LG">Manager</th><th class="vbc-match-notes vbc-match-group-LG">Notes</th></tr>';
         $expected_table .= '<tr><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td><td class="">&nbsp;</td></tr>';
@@ -958,7 +958,7 @@ final class HTMLTest extends TestCase {
             HTML::MATCH_COLUMN_AWAY_TEAM => 'League Points'
         ];
         $matches_config->includeTeamMVPs = true;
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), $matches_config, 'TM1');
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'), $matches_config, 'TM1');
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
         $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">Match</th><th class="vbc-match-team vbc-match-group-LG">Team Name</th><th class="vbc-match-team vbc-match-group-LG">League Points</th></tr>';
@@ -989,7 +989,7 @@ final class HTMLTest extends TestCase {
             HTML::MATCH_COLUMN_OFFICIALS => 'Referees'
         ];
         $matches_config->includeTeamMVPs = true;
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), $matches_config, 'TM1', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'), $matches_config, 'TM1', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
         $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">Match</th><th class="vbc-match-team vbc-match-group-LG">Team Name</th><th class="vbc-match-team vbc-match-group-LG">League Points</th><th class="vbc-match-officials vbc-match-group-LG">Referees</th></tr>';
@@ -1018,7 +1018,7 @@ final class HTMLTest extends TestCase {
             HTML::MATCH_COLUMN_MANAGER => 'Managers',
         ];
         $matches_config->lookupTeamIDs = false;
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), $matches_config, 'TM1', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'), $matches_config, 'TM1', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
         $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">Match</th><th class="vbc-match-blank vbc-match-group-LG"></th><th class="vbc-match-team vbc-match-group-LG">Team Name</th><th class="vbc-match-team vbc-match-group-LG">League Points</th><th class="vbc-match-officials vbc-match-group-LG">Referees</th><th class="vbc-match-manager vbc-match-group-LG">Managers</th></tr>';
@@ -1046,7 +1046,7 @@ final class HTMLTest extends TestCase {
             HTML::MATCH_COLUMN_AWAY_TEAM => 'League Points',
         ];
         $matches_config->lookupTeamIDs = false;
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'), $matches_config);
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'), $matches_config);
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
         $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">Match</th><th class="vbc-match-team vbc-match-group-LG">Team Name</th><th class="vbc-match-team vbc-match-group-LG">League Points</th></tr>';
@@ -1062,7 +1062,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLMatchesHTMLDrawsAllowed() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'incomplete-league-draws.json');
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('L')->getGroupById('LG'));
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getGroup('LG'));
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
         $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">MatchNo</th><th class="vbc-match-court vbc-match-group-LG">Court</th><th class="vbc-match-start vbc-match-group-LG">Start</th><th class="vbc-match-duration vbc-match-group-LG">Duration</th><th class="vbc-match-team vbc-match-group-LG">Home Team</th><th class="vbc-match-score vbc-match-group-LG" colspan="2">Score</th><th class="vbc-match-team vbc-match-group-LG">Away Team</th><th class="vbc-match-officials vbc-match-group-LG">Officials</th></tr>';
@@ -1084,7 +1084,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLMatchesHTMLSetsDrawsAllowed() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'incomplete-league-draws.json');
-        $matches_html = HTML::getMatchesHTML($competition->getStageById('LS')->getGroupById('LG'));
+        $matches_html = HTML::getMatchesHTML($competition->getStage('LS')->getGroup('LG'));
 
         $expected_matches = '<table class="vbc-match vbc-match-group-LG">';
         $expected_matches .= '<tr><th class="vbc-match-id vbc-match-group-LG">MatchNo</th><th class="vbc-match-court vbc-match-group-LG">Court</th><th class="vbc-match-start vbc-match-group-LG">Start</th><th class="vbc-match-duration vbc-match-group-LG">Duration</th><th class="vbc-match-team vbc-match-group-LG">Home Team</th><th class="vbc-match-score vbc-match-group-LG" colspan="2">Score</th><th class="vbc-match-team vbc-match-group-LG">Away Team</th><th class="vbc-match-officials vbc-match-group-LG">Officials</th><th class="vbc-match-manager vbc-match-group-LG">Manager</th></tr>';
@@ -1112,7 +1112,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLLeagueForHTMLPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $league_table = HTML::getLeagueTableForHTML($competition->getStageById('L')->getGroupById('LG'));
+        $league_table = HTML::getLeagueTableForHTML($competition->getStage('L')->getGroup('LG'));
 
         $this->assertEquals('vbc-league-table vbc-league-table-group-LG', $league_table->class);
 
@@ -1262,7 +1262,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLLeagueForHTMLThisTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $league_table = HTML::getLeagueTableForHTML($competition->getStageById('L')->getGroupById('LG'), null, 'TM4');
+        $league_table = HTML::getLeagueTableForHTML($competition->getStage('L')->getGroup('LG'), null, 'TM4');
 
         $this->assertEquals('vbc-league-table vbc-league-table-group-LG', $league_table->class);
 
@@ -1284,7 +1284,7 @@ final class HTMLTest extends TestCase {
             HTML::LEAGUE_COLUMN_TEAM => 'Team Name',
             HTML::LEAGUE_COLUMN_LEAGUE_POINTS => 'League Points'
         ];
-        $league_table = HTML::getLeagueTableForHTML($competition->getStageById('L')->getGroupById('LG'), $league_table_config);
+        $league_table = HTML::getLeagueTableForHTML($competition->getStage('L')->getGroup('LG'), $league_table_config);
 
         $this->assertEquals('vbc-league-table vbc-league-table-group-LG', $league_table->class);
 
@@ -1344,7 +1344,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLLeagueForHTMLSetsPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $league_table = HTML::getLeagueTableForHTML($competition->getStageById('LS')->getGroupById('LG'));
+        $league_table = HTML::getLeagueTableForHTML($competition->getStage('LS')->getGroup('LG'));
 
         $this->assertEquals('vbc-league-table vbc-league-table-group-LG', $league_table->class);
 
@@ -1554,7 +1554,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLLeagueHTMLPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('L')->getGroupById('LG'));
+        $league_table_html = HTML::getLeagueTableHTML($competition->getStage('L')->getGroup('LG'));
 
         $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
         $expected_table .= '<tr><th class="vbc-league-table-pos vbc-league-table-group-LG">Pos</th><th class="vbc-league-table-team vbc-league-table-group-LG">Team</th><th class="vbc-league-table-played vbc-league-table-group-LG">P</th><th class="vbc-league-table-wins vbc-league-table-group-LG">W</th><th class="vbc-league-table-losses vbc-league-table-group-LG">L</th><th class="vbc-league-table-pf vbc-league-table-group-LG">PF</th><th class="vbc-league-table-pa vbc-league-table-group-LG">PA</th><th class="vbc-league-table-pd vbc-league-table-group-LG">PD</th><th class="vbc-league-table-pts vbc-league-table-group-LG">PTS</th></tr>';
@@ -1574,7 +1574,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLLeagueHTMLThisTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('L')->getGroupById('LG'), null, 'TM3');
+        $league_table_html = HTML::getLeagueTableHTML($competition->getStage('L')->getGroup('LG'), null, 'TM3');
 
         $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
         $expected_table .= '<tr><th class="vbc-league-table-pos vbc-league-table-group-LG">Pos</th><th class="vbc-league-table-team vbc-league-table-group-LG">Team</th><th class="vbc-league-table-played vbc-league-table-group-LG">P</th><th class="vbc-league-table-wins vbc-league-table-group-LG">W</th><th class="vbc-league-table-losses vbc-league-table-group-LG">L</th><th class="vbc-league-table-pf vbc-league-table-group-LG">PF</th><th class="vbc-league-table-pa vbc-league-table-group-LG">PA</th><th class="vbc-league-table-pd vbc-league-table-group-LG">PD</th><th class="vbc-league-table-pts vbc-league-table-group-LG">PTS</th></tr>';
@@ -1594,7 +1594,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLLeagueHTMLSetsPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
-        $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('LS')->getGroupById('LG'));
+        $league_table_html = HTML::getLeagueTableHTML($competition->getStage('LS')->getGroup('LG'));
 
         $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
         $expected_table .= '<tr><th class="vbc-league-table-pos vbc-league-table-group-LG">Pos</th><th class="vbc-league-table-team vbc-league-table-group-LG">Team</th><th class="vbc-league-table-played vbc-league-table-group-LG">P</th><th class="vbc-league-table-wins vbc-league-table-group-LG">W</th><th class="vbc-league-table-losses vbc-league-table-group-LG">L</th><th class="vbc-league-table-draws vbc-league-table-group-LG">D</th><th class="vbc-league-table-sf vbc-league-table-group-LG">SF</th><th class="vbc-league-table-sa vbc-league-table-group-LG">SA</th><th class="vbc-league-table-sd vbc-league-table-group-LG">SD</th><th class="vbc-league-table-pf vbc-league-table-group-LG">PF</th><th class="vbc-league-table-pa vbc-league-table-group-LG">PA</th><th class="vbc-league-table-pd vbc-league-table-group-LG">PD</th><th class="vbc-league-table-pts vbc-league-table-group-LG">PTS</th></tr>';
@@ -1621,7 +1621,7 @@ final class HTMLTest extends TestCase {
             HTML::LEAGUE_COLUMN_TEAM => 'Team Name',
             HTML::LEAGUE_COLUMN_LEAGUE_POINTS => 'League Points'
         ];
-        $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('LS')->getGroupById('LG'), $league_table_config, 'TM2');
+        $league_table_html = HTML::getLeagueTableHTML($competition->getStage('LS')->getGroup('LG'), $league_table_config, 'TM2');
 
         $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
         $expected_table .= '<tr><th class="vbc-league-table-pos vbc-league-table-group-LG">Position</th><th class="vbc-league-table-team vbc-league-table-group-LG">Team Name</th><th class="vbc-league-table-pts vbc-league-table-group-LG">League Points</th></tr>';
@@ -1641,7 +1641,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLKnockoutStandingForHTMLPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
-        $final_standing = HTML::getFinalStandingForHTML($competition->getStageById('KO')->getGroupById('CUP'));
+        $final_standing = HTML::getFinalStandingForHTML($competition->getStage('KO')->getGroup('CUP'));
 
         $this->assertEquals('vbc-knockout', $final_standing->class);
 
@@ -1687,7 +1687,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLKnockoutStandingForHTMLThisTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
-        $final_standing = HTML::getFinalStandingForHTML($competition->getStageById('KO')->getGroupById('CUP'), 'TM7');
+        $final_standing = HTML::getFinalStandingForHTML($competition->getStage('KO')->getGroup('CUP'), 'TM7');
 
         $this->assertCount(4, $final_standing->rows);
 
@@ -1700,7 +1700,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLKnockoutStandingForHTMLNoStanding() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout-nostanding.json');
-        $final_standing = HTML::getFinalStandingForHTML($competition->getStageById('KO')->getGroupById('CUP'));
+        $final_standing = HTML::getFinalStandingForHTML($competition->getStage('KO')->getGroup('CUP'));
 
         $this->assertEquals('vbc-knockout', $final_standing->class);
 
@@ -1718,7 +1718,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLKnockoutStandingHTMLPlain() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
-        $final_standing_html = HTML::getFinalStandingHTML($competition->getStageById('KO')->getGroupById('CUP'));
+        $final_standing_html = HTML::getFinalStandingHTML($competition->getStage('KO')->getGroup('CUP'));
 
         $expected_table = '<table class="vbc-knockout">';
         $expected_table .= '<tr><th class="vbc-knockout-pos">Pos</th><th class="vbc-knockout-team">Team</th></tr>';
@@ -1737,7 +1737,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLKnockoutStandingHTMLThisTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout.json');
-        $final_standing_html = HTML::getFinalStandingHTML($competition->getStageById('KO')->getGroupById('CUP'), 'TM7');
+        $final_standing_html = HTML::getFinalStandingHTML($competition->getStage('KO')->getGroup('CUP'), 'TM7');
 
         $expected_table = '<table class="vbc-knockout">';
         $expected_table .= '<tr><th class="vbc-knockout-pos">Pos</th><th class="vbc-knockout-team">Team</th></tr>';
@@ -1756,7 +1756,7 @@ final class HTMLTest extends TestCase {
     public function testHTMLKnockoutStandingHTMLNoStanding() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-knockout-nostanding.json');
-        $final_standing_html = HTML::getFinalStandingHTML($competition->getStageById('KO')->getGroupById('CUP'));
+        $final_standing_html = HTML::getFinalStandingHTML($competition->getStage('KO')->getGroup('CUP'));
 
         $this->assertEquals(
             '',
@@ -1769,7 +1769,7 @@ final class HTMLTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league-bonuses-penalties.json');
         $league_table_config = new stdClass();
         $league_table_config->headings = [HTML::LEAGUE_COLUMN_POSITION, HTML::LEAGUE_COLUMN_TEAM, HTML::LEAGUE_COLUMN_BONUS_POINTS, HTML::LEAGUE_COLUMN_PENALTY_POINTS, HTML::LEAGUE_COLUMN_LEAGUE_POINTS];
-        $league_table_html = HTML::getLeagueTableHTML($competition->getStageById('L')->getGroupById('LG'), $league_table_config);
+        $league_table_html = HTML::getLeagueTableHTML($competition->getStage('L')->getGroup('LG'), $league_table_config);
 
         $expected_table = '<table class="vbc-league-table vbc-league-table-group-LG">';
         $expected_table .= '<tr><th class="vbc-league-table-pos vbc-league-table-group-LG">Pos</th><th class="vbc-league-table-team vbc-league-table-group-LG">Team</th><th class="vbc-league-table-bp vbc-league-table-group-LG">BP</th><th class="vbc-league-table-pp vbc-league-table-group-LG">PP</th><th class="vbc-league-table-pts vbc-league-table-group-LG">PTS</th></tr>';

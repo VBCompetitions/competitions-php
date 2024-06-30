@@ -34,9 +34,9 @@ final class CompetitionUpdateMatchTest extends TestCase {
         $this->assertTrue($score_updated);
 
         $updated_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition.json');
-        $match_14 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM14');
-        $match_15 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM15');
-        $match_16 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM16');
+        $match_14 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM14');
+        $match_15 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM15');
+        $match_16 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM16');
         $this->assertTrue($match_14->isComplete());
         $this->assertTrue($match_15->isComplete());
         $this->assertFalse($match_16->isComplete());
@@ -77,9 +77,9 @@ final class CompetitionUpdateMatchTest extends TestCase {
         $this->assertTrue($score_updated);
 
         $updated_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition-sets.json');
-        $match_14 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM14');
-        $match_15 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM15');
-        $match_16 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM16');
+        $match_14 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM14');
+        $match_15 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM15');
+        $match_16 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM16');
         $this->assertTrue($match_14->isComplete());
         $this->assertTrue($match_15->isComplete());
         $this->assertFalse($match_16->isComplete());
@@ -98,9 +98,9 @@ final class CompetitionUpdateMatchTest extends TestCase {
         $this->assertTrue($score_updated);
 
         $updated_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition-sets-duration.json');
-        $match_14 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM14');
-        $match_15 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM15');
-        $match_16 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM16');
+        $match_14 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM14');
+        $match_15 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM15');
+        $match_16 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM16');
         $this->assertTrue($match_14->isComplete());
         $this->assertTrue($match_15->isComplete());
         $this->assertFalse($match_16->isComplete());
@@ -119,9 +119,9 @@ final class CompetitionUpdateMatchTest extends TestCase {
         $this->assertTrue($score_updated);
 
         $updated_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'update'))), 'competition.json');
-        $match_14 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM14');
-        $match_15 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM15');
-        $match_16 = $updated_competition->getStageById('L')->getGroupById('RL')->getMatchById('RLM16');
+        $match_14 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM14');
+        $match_15 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM15');
+        $match_16 = $updated_competition->getStage('L')->getGroup('RL')->getMatch('RLM16');
         $this->assertTrue($match_14->isComplete());
         $this->assertFalse($match_15->isComplete());
         $this->assertFalse($match_16->isComplete());

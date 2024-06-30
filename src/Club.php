@@ -33,26 +33,26 @@ final class Club implements JsonSerializable
      * Contains the club data of a competition, creating any metadata needed
      *
      * @param Competition $competition A link back to the Competition this Stage is in
-     * @param string $club_id The ID of this Team
+     * @param string $id The ID of this Team
      * @param string $club_name The name of this Team
      * @throws Exception When the provided club ID is invalid or already exists in the competition
      */
-    function __construct(Competition $competition, string $club_id, string $club_name)
+    function __construct(Competition $competition, string $id, string $club_name)
     {
-        if (strlen($club_id) > 100 || strlen($club_id) < 1) {
+        if (strlen($id) > 100 || strlen($id) < 1) {
             throw new Exception('Invalid club ID: must be between 1 and 100 characters long');
         }
 
-        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $club_id)) {
+        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $id)) {
             throw new Exception('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =');
         }
 
-        if ($competition->hasClubWithID($club_id)) {
-            throw new Exception('Club with ID "'.$club_id.'" already exists in the competition');
+        if ($competition->hasClub($id)) {
+            throw new Exception('Club with ID "'.$id.'" already exists in the competition');
         }
 
         $this->competition = $competition;
-        $this->id = $club_id;
+        $this->id = $id;
         $this->setName($club_name);
         $this->team_lookup = new stdClass();
     }
@@ -177,7 +177,7 @@ final class Club implements JsonSerializable
      */
     public function addTeam(CompetitionTeam $team) : Club
     {
-        if ($this->hasTeamWithID($team->getID())) {
+        if ($this->hasTeam($team->getID())) {
             return $this;
         }
         $this->team_lookup->{$team->getID()} = $team;
@@ -202,25 +202,25 @@ final class Club implements JsonSerializable
     /**
      * Check if the club has a team with the specified ID
      *
-     * @param string $team_id The ID of the team
+     * @param string $id The ID of the team
      * @return bool
      */
-    public function hasTeamWithID(string $team_id) : bool
+    public function hasTeam(string $id) : bool
     {
-        return property_exists($this->team_lookup, $team_id);
+        return property_exists($this->team_lookup, $id);
     }
 
     /**
      * Delete a team from this club
      *
-     * @param string $team_id The ID of the team to delete
+     * @param string $id The ID of the team to delete
      * @return Club this Club
      */
-    public function deleteTeam(string $team_id) : Club
+    public function deleteTeam(string $id) : Club
     {
-        if ($this->hasTeamWithID($team_id)) {
-            $team = $this->team_lookup->$team_id;
-            unset($this->team_lookup->$team_id);
+        if ($this->hasTeam($id)) {
+            $team = $this->team_lookup->$id;
+            unset($this->team_lookup->$id);
             $team->setClubID(null);
         }
 

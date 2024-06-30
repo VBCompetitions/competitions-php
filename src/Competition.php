@@ -35,6 +35,9 @@ final class Competition implements JsonSerializable
     /** @var array The list of all teams in this competition */
     private array $teams = [];
 
+    /** @var array A list of players in the competition */
+    private array $players = [];
+
     /**
      * @var array The stages of the competition. Stages are phases of a competition that happen in order.  There may be only one stage (e.g. for a flat league) or multiple in sequence
      * (e.g. for a tournament with pools, then crossovers, then finals)
@@ -43,6 +46,10 @@ final class Competition implements JsonSerializable
 
     /** @var object A Lookup table from team IDs (including references) to the team */
     private object $team_lookup;
+
+    /** @var object A Lookup table from player IDs to the player */
+    private object $player_lookup;
+
 
     /** @var object A Lookup table from stage IDs to the stage */
     private object $stage_lookup;
@@ -69,6 +76,7 @@ final class Competition implements JsonSerializable
         $this->name = $name;
 
         $this->team_lookup = new stdClass();
+        $this->player_lookup = new stdClass();
         $this->stage_lookup = new stdClass();
         $this->club_lookup = new stdClass();
 
@@ -143,6 +151,13 @@ final class Competition implements JsonSerializable
             $competition->addTeam((new CompetitionTeam($competition, $team_data->id, $team_data->name))->loadFromData($team_data));
         }
 
+        if (property_exists($competition_data, 'players')) {
+            foreach ($competition_data->players as $player_data) {
+                $competition->addPlayer((new Player($competition, $player_data->id, $player_data->name))->loadFromData($player_data));
+            }
+        }
+
+
         foreach ($competition_data->stages as $stage_data) {
             $stage = new Stage($competition, $stage_data->id);
             $competition->addStage($stage);
@@ -191,9 +206,15 @@ final class Competition implements JsonSerializable
             $competition->notes = $this->notes;
         }
 
-        $competition->clubs = $this->clubs;
+        if (count($this->clubs) > 0) {
+            $competition->clubs = $this->clubs;
+        }
 
         $competition->teams = $this->teams;
+
+        if (count($this->players) > 0) {
+            $competition->players = $this->players;
+        }
 
         $competition->stages = $this->stages;
 
@@ -414,7 +435,7 @@ final class Competition implements JsonSerializable
         if ($team->getCompetition() !== $this) {
             throw new Exception('Team was initialised with a different Competition');
         }
-        if ($this->hasTeamWithID($team->getID())) {
+        if ($this->hasTeam($team->getID())) {
             return $this;
         }
         array_push($this->teams, $team);
@@ -435,17 +456,17 @@ final class Competition implements JsonSerializable
     /**
      * Gets the Team for the given team ID
      *
-     * @param string $team_id The team ID to look up. This may be a pure ID, a reference, or a ternary
+     * @param string $id The team ID to look up. This may be a pure ID, a reference, or a ternary
      *
      * @return CompetitionTeam The team
      */
-    public function getTeamByID(string $team_id) : CompetitionTeam
+    public function getTeam(string $id) : CompetitionTeam
     {
         $this->processMatches();
 
-        if (strncmp($team_id, '{', 1) !== 0) {
-            if (property_exists($this->team_lookup, $team_id)) {
-                return $this->team_lookup->$team_id;
+        if (strncmp($id, '{', 1) !== 0) {
+            if (property_exists($this->team_lookup, $id)) {
+                return $this->team_lookup->$id;
             }
         }
 
@@ -454,25 +475,25 @@ final class Competition implements JsonSerializable
          * Note that we only allow one level of ternary, i.e. this does not resolve:
          *  { {ta}=={tb}?{t_true}:{t_false} }=={T2}?{T_True}:{T_False}
          */
-        if (preg_match('/^([^=]*)==([^?]*)\?(.*)$/', $team_id, $lr_matches)) {
-            $left_team = $this->getTeamByID($lr_matches[1]);
-            $right_team = $this->getTeamByID($lr_matches[2]);
+        if (preg_match('/^([^=]*)==([^?]*)\?(.*)$/', $id, $lr_matches)) {
+            $left_team = $this->getTeam($lr_matches[1]);
+            $right_team = $this->getTeam($lr_matches[2]);
             $true_team = null;
             if (preg_match('/^({[^}]*}):(.*)$/', $lr_matches[3], $tf_matches)) {
-                $true_team = $this->getTeamByID($tf_matches[1]);
-                $false_team = $this->getTeamByID($tf_matches[2]);
+                $true_team = $this->getTeam($tf_matches[1]);
+                $false_team = $this->getTeam($tf_matches[2]);
             } elseif (preg_match('/^([^:]*):(.*)$/', $lr_matches[3], $tf_matches)) {
-                $true_team = $this->getTeamByID($tf_matches[1]);
-                $false_team = $this->getTeamByID($tf_matches[2]);
+                $true_team = $this->getTeam($tf_matches[1]);
+                $false_team = $this->getTeam($tf_matches[2]);
             }
             if ($true_team !== null) {
                 return $left_team == $right_team ? $true_team : $false_team;
             }
         }
 
-        if (preg_match('/^{([^:]*):([^:]*):([^:]*):([^:]*)}$/', $team_id, $team_ref_parts)) {
+        if (preg_match('/^{([^:]*):([^:]*):([^:]*):([^:]*)}$/', $id, $team_ref_parts)) {
             try {
-                return $this->getStageByID($team_ref_parts[1])->getGroupByID($team_ref_parts[2])->getTeamByID($team_ref_parts[3], $team_ref_parts[4]);
+                return $this->getStage($team_ref_parts[1])->getGroup($team_ref_parts[2])->getTeam($team_ref_parts[3], $team_ref_parts[4]);
             } catch (Throwable $th) {
                 return $this->unknown_team;
             }
@@ -484,31 +505,31 @@ final class Competition implements JsonSerializable
     /**
      * Check if a team with the given ID exists in the competition
      *
-     * @param string $team_id The ID of the team to check
+     * @param string $id The ID of the team to check
      *
      * @return bool True if the team exists, false otherwise
      */
-    public function hasTeamWithID(string $team_id) : bool
+    public function hasTeam(string $id) : bool
     {
-        return property_exists($this->team_lookup, $team_id);
+        return property_exists($this->team_lookup, $id);
     }
 
     /**
      * Delete a team from the competition
      *
-     * @param string $team_id The ID of the team to delete
+     * @param string $id The ID of the team to delete
      *
      * @return Competition This competition
      */
-    public function deleteTeam(string $team_id) : Competition
+    public function deleteTeam(string $id) : Competition
     {
-        if (!$this->hasTeamWithID($team_id)) {
+        if (!$this->hasTeam($id)) {
             return $this;
         }
 
         $team_matches = [];
         foreach ($this->stages as $stage) {
-            $stage_matches = $stage->getMatches($team_id, VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
+            $stage_matches = $stage->getMatches($id, VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
             $team_matches = array_merge($team_matches, $stage_matches);
         }
 
@@ -519,13 +540,142 @@ final class Competition implements JsonSerializable
 
         // Also remove team from any club's list
         foreach ($this->clubs as $club) {
-            $club->deleteTeam($team_id);
+            $club->deleteTeam($id);
         }
 
         // Then delete the team
-        unset($this->team_lookup->$team_id);
-        $this->teams = array_values(array_filter($this->teams, fn(CompetitionTeam $el): bool => $el->getID() !== $team_id));
+        unset($this->team_lookup->$id);
+        $this->teams = array_values(array_filter($this->teams, fn(CompetitionTeam $team): bool => $team->getID() !== $id));
 
+        return $this;
+    }
+
+    /**
+     * Add a player to this competition
+     *
+     * @param Player $player The player to add to this competition
+     *
+     * @return Competition This Competition instance
+     *
+     * @throws Exception If a player with a duplicate ID within the competition is added
+     */
+    public function addPlayer(Player $player) : Competition
+    {
+        if ($player->getID() !== Player::UNREGISTERED_PLAYER_ID && $this->hasPlayer($player->getID())) {
+            throw new Exception('players with duplicate IDs within a competition not allowed');
+        }
+
+        array_push($this->players, $player);
+        $this->player_lookup->{$player->getID()} = $player;
+        return $this;
+    }
+
+    /**
+     * Get the players in this competition
+     *
+     * @return array<Player> The players in this competition
+     */
+    public function getPlayers() : array
+    {
+        return $this->players;
+    }
+
+    /**
+     * Get the players in the team with the given ID
+     *
+     * @param {string} $id the ID of the team to get the players for
+     *
+     * @return array<Player> The players in the team with the given ID
+     */
+    public function getPlayersInTeam($id) : array
+    {
+        return array_values(array_filter($this->players, fn($player): bool => $player->getLatestTeamEntry() !== null && $player->getLatestTeamEntry()->getID() === $id));
+    }
+
+    /**
+     * Returns the Player with the requested ID, or throws if the ID is not found
+     *
+     * @param string $id The ID of the player in this team to return
+     *
+     * @throws OutOfBoundsException If a Player with the requested ID was not found
+     *
+     * @return Player The requested player for this team
+     */
+    public function getPlayer(string $id) : Player
+    {
+        if (!property_exists($this->player_lookup, $id)) {
+            throw new OutOfBoundsException('Player with ID "'.$id.'" not found');
+        }
+        return $this->player_lookup->$id;
+    }
+
+    /**
+     * Check if this competition has any players
+     *
+     * @return bool True if the competition has players, otherwise false
+     */
+    public function hasPlayers() : bool
+    {
+        return count($this->players) > 0;
+    }
+
+    /**
+     * Check if a player with the given ID exists in this competition
+     *
+     * @param string $id The ID of the player to check
+     *
+     * @return bool True if the player exists, otherwise false
+     */
+    public function hasPlayer(string $id) : bool
+    {
+        return property_exists($this->player_lookup, $id);
+    }
+
+    /**
+     * Check if the team with the given ID has any players defined
+     *
+     * @param string $id the ID of the team to check
+     *
+     * @return bool True if the team with the given ID has any players defined
+     */
+    public function hasPlayersInTeam(string $id) {
+        foreach ($this->players as $player) {
+            $latest_team = $player->getLatestTeamEntry();
+            if ($latest_team !== null && $latest_team->getID() === $id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    /**
+     * Check if the player with the given ID exists in the team with the given ID
+     *
+     * @param string $playerID the ID of the player to check
+     * @param string $teamID the ID of the team to check
+     *
+     * @return bool True if the player with the given ID exists in the team with the given ID
+     */
+    public function hasPlayerInTeam(string $playerID, string $teamID) {
+        return $this->hasPlayer($playerID) && $this->getPlayer($playerID)->getLatestTeamEntry() !== null && $this->getPlayer($playerID)->getLatestTeamEntry()->getID() === $teamID;
+    }
+
+    /**
+     * Delete a player from the team
+     *
+     * @param string $id The ID of the player to delete
+     *
+     * @return Competition This Competition instance
+     */
+    public function deletePlayer(string $id) : Competition
+    {
+        // TODO check if this player is in any matches
+        if (!$this->hasPlayer($id)) {
+            return $this;
+        }
+
+        unset($this->player_lookup->$id);
+        $this->players = array_values(array_filter($this->players, fn(Player $player): bool => $player->getID() !== $id));
         return $this;
     }
 
@@ -567,7 +717,7 @@ final class Competition implements JsonSerializable
      *
      * @return Stage The requested stage
      */
-    public function getStageByID(string $id) : Stage
+    public function getStage(string $id) : Stage
     {
         if (!property_exists($this->stage_lookup, $id)) {
             throw new OutOfBoundsException('Stage with ID '.$id.' not found');
@@ -582,7 +732,7 @@ final class Competition implements JsonSerializable
      *
      * @return bool True if the stage exists, false otherwise
      */
-    public function hasStageWithID(string $id) : bool
+    public function hasStage(string $id) : bool
     {
         return property_exists($this->stage_lookup, $id);
     }
@@ -590,11 +740,11 @@ final class Competition implements JsonSerializable
     /**
      * Delete a stage from the competition
      *
-     * @param mixed $stage_id The ID of the stage to delete
+     * @param string $id The ID of the stage to delete
      *
      * @return Competition This competition
      */
-    public function deleteStage($stage_id) : Competition
+    public function deleteStage($id) : Competition
     {
         $stage_found = false;
         foreach ($this->stages as $stage) {
@@ -612,14 +762,14 @@ final class Competition implements JsonSerializable
 
                         foreach ($team_references as $reference) {
                             if (preg_match('/^{([^:]*):.*}$/', $reference, $parts)) {
-                                if ($parts[1] === $stage_id) {
-                                    throw new Exception('Cannot delete stage with id "'.$stage_id.'" as it is referenced in match {'.$stage->getID().':'.$group->getID().':'.$match->getID().'}');
+                                if ($parts[1] === $id) {
+                                    throw new Exception('Cannot delete stage with id "'.$id.'" as it is referenced in match {'.$stage->getID().':'.$group->getID().':'.$match->getID().'}');
                                 }
                             }
                         }
                     }
                 }
-            } else if ($stage->getID() === $stage_id) {
+            } else if ($stage->getID() === $id) {
                 $stage_found = true;
             }
         }
@@ -628,8 +778,8 @@ final class Competition implements JsonSerializable
             return $this;
         }
 
-        unset($this->stage_lookup->$stage_id);
-        $this->stages = array_values(array_filter($this->stages, fn(Stage $el): bool => $el->getID() === $stage_id));
+        unset($this->stage_lookup->$id);
+        $this->stages = array_values(array_filter($this->stages, fn(Stage $el): bool => $el->getID() === $id));
 
         return $this;
     }
@@ -666,53 +816,63 @@ final class Competition implements JsonSerializable
     /**
      * Returns the Club with the requested ID, or throws if the ID is not found
      *
-     * @param string $club_id The ID of the club to return
+     * @param string $id The ID of the club to return
      *
      * @throws OutOfBoundsException When no club with the provided ID is found
      *
      * @return Club The requested club
      */
-    public function getClubByID(string $club_id) : Club
+    public function getClub(string $id) : Club
     {
-        if (!property_exists($this->club_lookup, $club_id)) {
-            throw new OutOfBoundsException('Club with ID "'.$club_id.'" not found');
+        if (!property_exists($this->club_lookup, $id)) {
+            throw new OutOfBoundsException('Club with ID "'.$id.'" not found');
         }
-        return $this->club_lookup->$club_id;
+        return $this->club_lookup->$id;
+    }
+
+    /**
+     * Check if this competition has any clubs
+     *
+     * @return bool True if the competition has clubs, otherwise false
+     */
+    public function hasClubs() : bool
+    {
+        return count($this->clubs) > 0;
     }
 
     /**
      * Check if a club with the given ID exists in the competition
      *
-     * @param string $club_id The ID of the club to check
+     * @param string $id The ID of the club to check
      *
      * @return bool True if the club exists, false otherwise
      */
-    public function hasClubWithID(string $club_id) : bool
+    public function hasClub(string $id) : bool
     {
-        return property_exists($this->club_lookup, $club_id);
+        return property_exists($this->club_lookup, $id);
     }
 
     /**
      * Delete a club from the competition
      *
-     * @param string $club_id The ID of the club to delete
+     * @param string $id The ID of the club to delete
      *
      * @return Competition This competition
      */
-    public function deleteClub(string $club_id) : Competition
+    public function deleteClub(string $id) : Competition
     {
-        if (!$this->hasClubWithID($club_id)) {
+        if (!$this->hasClub($id)) {
             return $this;
         }
 
-        $club = $this->getClubByID($club_id);
+        $club = $this->getClub($id);
         $teams_in_club = $club->getTeams();
         if (count($teams_in_club) > 0) {
             throw new Exception('Club still contains teams with IDs: '.join(', ', array_map(fn(CompetitionTeam $t): string => '{'.$t->getID().'}', $teams_in_club)));
         }
 
-        unset($this->club_lookup->$club_id);
-        $this->clubs = array_values(array_filter($this->clubs, fn (Club $el): bool => $el->getID() !== $club_id));
+        unset($this->club_lookup->$id);
+        $this->clubs = array_values(array_filter($this->clubs, fn (Club $el): bool => $el->getID() !== $id));
 
         return $this;
     }
@@ -795,7 +955,7 @@ final class Competition implements JsonSerializable
 
         $list = [];
         $competition_file_list = scandir($competition_data_dir);
-        foreach($competition_file_list as $competition_file) {
+        foreach ($competition_file_list as $competition_file) {
             $real_path = realpath($competition_data_dir.DIRECTORY_SEPARATOR.$competition_file);
             if (!is_file($real_path)) {
                 continue;
@@ -1078,14 +1238,14 @@ final class Competition implements JsonSerializable
     /**
      * Takes in an exact, resolved team ID and checks that the team exists
      *
-     * @param string $team_id The team ID to check. This must be a resolved team ID, not a team reference or a ternary
+     * @param string $id The team ID to check. This must be a resolved team ID, not a team reference or a ternary
      *
      * @throws Exception An exception if the team does not exist
      */
-    private function validateTeamExists(string $team_id)
+    private function validateTeamExists(string $id)
     {
-        if (!$this->hasTeamID($team_id)) {
-            throw new Exception('Team with ID "'.$team_id.'" does not exist');
+        if (!$this->hasTeam($id)) {
+            throw new Exception('Team with ID "'.$id.'" does not exist');
         }
     }
 
@@ -1110,13 +1270,13 @@ final class Competition implements JsonSerializable
         if (preg_match('/^{([^:]*):([^:]*):([^:]*):(.*)}$/', $team_ref, $parts)) {
             $group = null;
             try {
-                $stage = $this->getStageByID($parts[1]);
+                $stage = $this->getStage($parts[1]);
             } catch (Throwable $_) {
                 throw new Exception('Invalid Stage part: Stage with ID "'.$parts[1].'" does not exist');
             }
 
             try {
-                $group = $stage->getGroupByID($parts[2]);
+                $group = $stage->getGroup($parts[2]);
             } catch (Throwable $_) {
                 throw new Exception('Invalid Group part: Group with ID "'.$parts[2].'" does not exist in stage with ID "'.$parts[1].'"');
             }
@@ -1136,7 +1296,7 @@ final class Competition implements JsonSerializable
                 }
             } else {
                 try {
-                    $group->getMatchByID($parts[3]);
+                    $group->getMatch($parts[3]);
                 } catch (Throwable $_) {
                     throw new Exception('Invalid Match part in reference '.$team_ref.' : Match with ID "'.$parts[3].'" does not exist in stage:group with IDs "'.$parts[1].':'.$parts[2].'"');
                 }
@@ -1166,23 +1326,6 @@ final class Competition implements JsonSerializable
         }
 
         return array_unique($references);
-    }
-
-    /**
-     * Checks whether the given team ID is in the list of teams for this competition
-     *
-     * @param string $team_id The team ID (or a team reference) to look up
-     *
-     * @return bool Whether a team with the given ID exists
-     */
-    public function hasTeamID(string $team_id) : bool
-    {
-        // default to false if property_exists hits an error and returns null
-        $team_exists = property_exists($this->team_lookup, $team_id);
-        if ($team_exists === false || $team_exists === null) {
-            return false;
-        }
-        return true;
     }
 
     /**

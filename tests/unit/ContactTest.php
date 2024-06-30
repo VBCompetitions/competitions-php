@@ -22,7 +22,7 @@ final class ContactTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
 
-        $team = $competition->getTeamByID('TM1');
+        $team = $competition->getTeam('TM1');
         $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
         $this->assertCount(0, $team->getContacts(), 'Team 1 should have no contacts defined');
     }
@@ -31,14 +31,14 @@ final class ContactTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
 
-        $team = $competition->getTeamByID('TM2');
+        $team = $competition->getTeam('TM2');
         $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
 
         $this->assertEquals(1, count($team->getContacts()), 'Team 2 should have only one contact defined');
-        $this->assertEquals('C1', $team->getContactByID('C1')->getID());
-        $this->assertEquals('Alice Alison', $team->getContactByID('C1')->getName());
-        $this->assertEquals(['alice@example.com'], $team->getContactByID('C1')->getEmails());
-        $this->assertEquals([ContactRole::SECRETARY], $team->getContactByID('C1')->getRoles());
+        $this->assertEquals('C1', $team->getContact('C1')->getID());
+        $this->assertEquals('Alice Alison', $team->getContact('C1')->getName());
+        $this->assertEquals(['alice@example.com'], $team->getContact('C1')->getEmails());
+        $this->assertEquals([ContactRole::SECRETARY], $team->getContact('C1')->getRoles());
     }
 
     public function testContactsDuplicateID() : void
@@ -50,11 +50,11 @@ final class ContactTest extends TestCase {
     public function testContactsEach() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
-        $team = $competition->getTeamByID('TM3');
+        $team = $competition->getTeam('TM3');
 
         $this->assertEquals(7, count($team->getContacts()), 'Team 3 should have 7 contacts defined');
 
-        $contactC1 = $team->getContactByID('C1');
+        $contactC1 = $team->getContact('C1');
         $this->assertEquals('C1', $contactC1->getID());
         $this->assertEquals('Alice Alison', $contactC1->getName());
         $this->assertEquals(['alice@example.com'], $contactC1->getEmails());
@@ -69,12 +69,12 @@ final class ContactTest extends TestCase {
         $this->assertFalse($contactC1->hasRole(ContactRole::COACH));
         $this->assertFalse($contactC1->hasRole(ContactRole::MEDIC));
 
-        $this->assertEquals([ContactRole::TREASURER], $team->getContactByID('C2')->getRoles());
-        $this->assertEquals([ContactRole::MANAGER], $team->getContactByID('C3')->getRoles());
-        $this->assertEquals([ContactRole::CAPTAIN], $team->getContactByID('C4')->getRoles());
-        $this->assertEquals([ContactRole::COACH], $team->getContactByID('C5')->getRoles());
-        $this->assertEquals([ContactRole::ASSISTANT_COACH], $team->getContactByID('C6')->getRoles());
-        $this->assertEquals([ContactRole::MEDIC], $team->getContactByID('C7')->getRoles());
+        $this->assertEquals([ContactRole::TREASURER], $team->getContact('C2')->getRoles());
+        $this->assertEquals([ContactRole::MANAGER], $team->getContact('C3')->getRoles());
+        $this->assertEquals([ContactRole::CAPTAIN], $team->getContact('C4')->getRoles());
+        $this->assertEquals([ContactRole::COACH], $team->getContact('C5')->getRoles());
+        $this->assertEquals([ContactRole::ASSISTANT_COACH], $team->getContact('C6')->getRoles());
+        $this->assertEquals([ContactRole::MEDIC], $team->getContact('C7')->getRoles());
     }
 
     public function testContactsGetByIDOutOfBounds() : void
@@ -83,7 +83,7 @@ final class ContactTest extends TestCase {
 
         $this->expectException(OutOfBoundsException::class);
         $this->expectExceptionMessage('Contact with ID "NO-SUCH-TEAM" not found');
-        $competition->getTeamByID('TM1')->getContactByID('NO-SUCH-TEAM');
+        $competition->getTeam('TM1')->getContact('NO-SUCH-TEAM');
     }
 
     public function testContactSetName() : void

@@ -22,13 +22,13 @@ final class MatchManagerTest extends TestCase {
     public function testManagerNone() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'manager'))), 'manager-team.json');
-        $this->assertNull($competition->getStageById('L')->getGroupById('LG')->getMatchById('LG2')->getManager());
+        $this->assertNull($competition->getStage('L')->getGroup('LG')->getMatch('LG2')->getManager());
     }
 
     public function testManagerTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'manager'))), 'manager-team.json');
-        $match_manager = $competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getManager();
+        $match_manager = $competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getManager();
 
         $this->assertTrue($match_manager->isTeam());
         $this->assertEquals('TM1', $match_manager->getTeamID());
@@ -39,7 +39,7 @@ final class MatchManagerTest extends TestCase {
     public function testManagerPerson() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'manager'))), 'manager-person.json');
-        $match_manager = $competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getManager();
+        $match_manager = $competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getManager();
 
         $this->assertFalse($match_manager->isTeam());
         $this->assertEquals('Some Manager', $match_manager->getManagerName());
@@ -50,7 +50,7 @@ final class MatchManagerTest extends TestCase {
     public function testManagerSetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'manager'))), 'manager-team.json');
-        $match_manager = $competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getManager();
+        $match_manager = $competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getManager();
 
         $this->assertTrue($match_manager->isTeam());
         $match_manager->setManagerName('Alan Measles');

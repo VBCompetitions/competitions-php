@@ -13,7 +13,7 @@ final class MatchTeam implements JsonSerializable
     private string $id;
 
     /** This team's most valuable player award */
-    private ?string $mvp = null;
+    private ?Player $mvp = null;
 
     /** Did this team forfeit the match */
     private bool $forfeit = false;
@@ -50,7 +50,11 @@ final class MatchTeam implements JsonSerializable
     {
         $team = new MatchTeam($match, $team_data->id);
         if (property_exists($team_data, 'mvp')) {
-            $team->setMVP($team_data->mvp);
+            if (preg_match('/^{(.*)}$/', $team_data->mvp, $mvp_match)) {
+                $team->setMVP($match->getGroup()->getStage()->getCompetition()->getPlayer($mvp_match[1]));
+            } else {
+                $team->setMVP(new Player($match->getGroup()->getStage()->getCompetition(), Player::UNREGISTERED_PLAYER_ID, $team_data->mvp));
+            }
         }
         $team->setForfeit($team_data->forfeit);
         $team->setBonusPoints($team_data->bonusPoints);
@@ -59,7 +63,15 @@ final class MatchTeam implements JsonSerializable
             $team->setNotes($team_data->notes);
         }
         if (property_exists($team_data, 'players')) {
-            $team->setPlayers($team_data->players);
+            $players = [];
+            foreach ($team_data->players as $player_data) {
+                if (preg_match('/^{(.*)}$/', $player_data, $player_ref_match)) {
+                    array_push($players, $match->getGroup()->getStage()->getCompetition()->getPlayer($player_ref_match[1]));
+                } else {
+                    array_push($players, new Player($match->getGroup()->getStage()->getCompetition(), Player::UNREGISTERED_PLAYER_ID, $player_data));
+                }
+            }
+            $team->setPlayers($players);
         }
         return $team;
     }
@@ -75,16 +87,34 @@ final class MatchTeam implements JsonSerializable
 
         $match_team->id = $this->id;
         $match_team->scores = $this->getScores();
+
         if ($this->mvp !== null) {
-            $match_team->mvp = $this->mvp;
+            if ($this->mvp->getID() === Player::UNREGISTERED_PLAYER_ID) {
+                $match_team->mvp = $this->mvp->getName();
+            } else {
+                $match_team->mvp = '{'.$this->mvp->getID().'}';
+            }
         }
+
         $match_team->forfeit = $this->forfeit;
         $match_team->bonusPoints = $this->bonus_points;
         $match_team->penaltyPoints = $this->penalty_points;
+
+        if (count($this->players) > 0) {
+            $players = [];
+            foreach ($this->players as $player) {
+                if ($player->getID() === Player::UNREGISTERED_PLAYER_ID) {
+                    array_push($players, $player->getName());
+                } else {
+                    array_push($players, '{'.$player->getID().'}');
+                }
+            }
+            $match_team->players = $players;
+        }
+
         if ($this->notes !== null) {
             $match_team->notes = $this->notes;
         }
-        $match_team->players = $this->players;
 
         return $match_team;
     }
@@ -99,17 +129,34 @@ final class MatchTeam implements JsonSerializable
         return $this->match;
     }
 
+    /**
+     * Get the ID of the team
+     *
+     * @return string The team ID
+     */
     public function getID() : string
     {
         return $this->id;
     }
 
+    /**
+     * Set whether the team forfeited the match
+     *
+     * @param bool $forfeit Whether the team forfeited the match
+     *
+     * @return MatchTeam The MatchTeam instance
+     */
     public function setForfeit(bool $forfeit) : MatchTeam
     {
         $this->forfeit = $forfeit;
         return $this;
     }
 
+    /**
+     * Get whether the team forfeited the match
+     *
+     * @return bool Whether the team forfeited the match
+     */
     public function getForfeit() : bool
     {
         return $this->forfeit;
@@ -128,50 +175,105 @@ final class MatchTeam implements JsonSerializable
         return $this->match->getAwayTeamScores();
     }
 
+    /**
+     * Set the bonus points for the team
+     *
+     * @param int $bonus_points The bonus points for the team
+     *
+     * @return MatchTeam The MatchTeam instance
+     */
     public function setBonusPoints(int $bonus_points) : MatchTeam
     {
         $this->bonus_points = $bonus_points;
         return $this;
     }
 
+    /**
+     * Get the bonus points for the team
+     *
+     * @return int The bonus points for the team
+     */
     public function getBonusPoints() : int
     {
         return $this->bonus_points;
     }
 
+    /**
+     * Set the penalty points for the team
+     *
+     * @param int $penalty_points The penalty points for the team
+     *
+     * @return MatchTeam The MatchTeam instance
+     */
     public function setPenaltyPoints(int $penalty_points) : MatchTeam
     {
         $this->penalty_points = $penalty_points;
         return $this;
     }
 
+    /**
+     * Get the penalty points for the team
+     *
+     * @return int The penalty points for the team
+     */
     public function getPenaltyPoints() : int
     {
         return $this->penalty_points;
     }
 
-    public function setMVP(?string $mvp) : MatchTeam
+    /**
+     * Set the most valuable player for the team
+     *
+     * @param Player|null $mvp The most valuable player for the team
+     *
+     * @return MatchTeam The MatchTeam instance
+     */
+    public function setMVP(?Player $mvp) : MatchTeam
     {
         $this->mvp = $mvp;
         return $this;
     }
 
-    public function getMVP() : ?string
+    /**
+     * Get the most valuable player for the team
+     *
+     * @return Player|null The most valuable player for the team
+     */
+    public function getMVP() : ?Player
     {
         return $this->mvp;
     }
 
+    /**
+     * Set notes for the team
+     *
+     * @param string|null $notes The notes for the team
+     *
+     * @return MatchTeam The MatchTeam instance
+     */
     public function setNotes(?string $notes) : MatchTeam
     {
         $this->notes = $notes;
         return $this;
     }
 
-    public function getNotes() : string
+    /**
+     * Get notes for the team
+     *
+     * @return string|null The notes for the team
+     */
+    public function getNotes() : ?string
     {
         return $this->notes;
     }
 
+    /**
+     * Set the players for the team
+     *
+     * @param array<Player> $players The players for the team
+     *
+     * @return MatchTeam The MatchTeam instance
+     */
     public function setPlayers(array $players) : MatchTeam
     {
         $this->players = $players;

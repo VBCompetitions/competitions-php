@@ -39,12 +39,12 @@ class ICS {
      */
     public function getContentDisposition(string $team_id, string $filename = null) : string
     {
-        if (!$this->competition->hasTeamID($team_id)) {
+        if (!$this->competition->hasTeam($team_id)) {
             throw new Exception('Team with ID "'.$team_id.'" does not exist', 1);
         }
 
         if ($filename === null) {
-            $filename = $this->competition->getTeamByID($team_id)->getName() . '-' . $this->competition->getName() . '.ics';
+            $filename = $this->competition->getTeam($team_id)->getName() . '-' . $this->competition->getName() . '.ics';
         }
         // TODO - If using the name then need to limit the valid chars in a team name?
         // Or need to filter and remove bad chars
@@ -67,7 +67,7 @@ class ICS {
      */
     public function getCalendar(string $unique_id, string $team_id = null) : string
     {
-        if ($team_id !== null && !$this->competition->hasTeamID($team_id)) {
+        if ($team_id !== null && !$this->competition->hasTeam($team_id)) {
             throw new Exception('Team with ID "'.$team_id.'" does not exist');
         }
 
@@ -120,7 +120,7 @@ class ICS {
                 $cal .= "BEGIN:VEVENT\r\n";
                 $cal .= 'SUMMARY:';
                 if ($team_id !== null) {
-                    $cal .= $this->competition->getTeamByID($team_id)->getName().' ';
+                    $cal .= $this->competition->getTeam($team_id)->getName().' ';
                 }
                 $cal .= $this->competition->getName()." matches\r\n";
                 $cal .= 'DTSTAMP:' . date_format($now,'Ymd\THis') . "\r\n";
@@ -228,11 +228,11 @@ class ICS {
         if ($match->getCourt() !== null) {
             $description .= 'court '.$match->getCourt().' ';
         }
-        $description .= '- '.$this->competition->getTeamByID($match->getHomeTeam()->getID())->getName().' v '.$this->competition->getTeamByID($match->getAwayTeam()->getID())->getName();
+        $description .= '- '.$this->competition->getTeam($match->getHomeTeam()->getID())->getName().' v '.$this->competition->getTeam($match->getAwayTeam()->getID())->getName();
 
         if ($match->getOfficials() !== null) {
             if ($match->getOfficials()->isTeam()) {
-                $description .= ' ('.$this->competition->getTeamByID($match->getOfficials()->getTeamID())->getName().' ref)';
+                $description .= ' ('.$this->competition->getTeam($match->getOfficials()->getTeamID())->getName().' ref)';
             } else {
                 $description .= ' (First ref: '.$match->getOfficials()->getFirstRef();
                 $description .= $match->getOfficials()->hasSecondRef() ? ', Second ref: '.$match->getOfficials()->getSecondRef() : '';

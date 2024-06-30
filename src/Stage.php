@@ -46,25 +46,25 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      * Contains the stage data of a competition, creating any metadata needed.
      *
      * @param Competition $competition A link back to the Competition this Stage is in
-     * @param string $stage_id The unique ID of this Stage
+     * @param string $id The unique ID of this Stage
      * @throws Exception If the stage ID is invalid or already exists in the competition
      */
-    function __construct(Competition $competition, string $stage_id)
+    function __construct(Competition $competition, string $id)
     {
-        $stage_id_length = strlen($stage_id);
+        $stage_id_length = strlen($id);
         if ($stage_id_length > 100 || $stage_id_length < 1) {
             throw new Exception('Invalid stage ID: must be between 1 and 100 characters long');
         }
 
-        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $stage_id)) {
+        if (!preg_match('/^((?![":{}?=])[\x20-\x7F])+$/', $id)) {
             throw new Exception('Invalid stage ID: must contain only ASCII printable characters excluding " : { } ? =');
         }
 
-        if ($competition->hasStageWithID($stage_id)) {
-            throw new Exception('Stage with ID "'.$stage_id.'" already exists in the competition');
+        if ($competition->hasStage($id)) {
+            throw new Exception('Stage with ID "'.$id.'" already exists in the competition');
         }
 
-        $this->id = $stage_id;
+        $this->id = $id;
         $this->competition = $competition;
         $this->group_lookup = new stdClass();
     }
@@ -172,7 +172,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
         if ($group->getStage() !== $this) {
             throw new Exception('Group was initialised with a different Stage');
         }
-        if ($this->hasGroupWithID($group->getID())) {
+        if ($this->hasGroup($group->getID())) {
             throw new Exception('Groups in a Stage with duplicate IDs not allowed: {'.$this->id.':'.$group->getID().'}');
         }
         array_push($this->groups, $group);
@@ -295,7 +295,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Returns a list of matches from this Stage, where the list depends on the input parameters and on the type of the MatchContainer.
      *
-     * @param string $team_id When provided, return the matches where this team is playing, otherwise all matches are returned
+     * @param string $id When provided, return the matches where this team is playing, otherwise all matches are returned
      *                        (and $flags is ignored).  This must be a resolved team ID and not a reference.
      *                        A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null
      * @param int $flags Controls what gets returned
@@ -306,18 +306,18 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      *                   </ul>
      * @return array<MatchInterface>
      */
-    public function getMatches(string $team_id = null, int $flags = 0) : array
+    public function getMatches(string $id = null, int $flags = 0) : array
     {
         /*
             TODO when should we include breaks?
             TODO how do we handle duplicate breaks?
         */
 
-        if ($team_id === null || $team_id === CompetitionTeam::UNKNOWN_TEAM_ID || strncmp($team_id, '{', 1) === 0) {
+        if ($id === null || $id === CompetitionTeam::UNKNOWN_TEAM_ID || strncmp($id, '{', 1) === 0) {
             return $this->getAllMatchesInStage();
         }
 
-        return $this->getMatchesForTeam($team_id, $flags);
+        return $this->getMatchesForTeam($id, $flags);
     }
 
     /**
@@ -375,27 +375,27 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Return the group in this stage with the given ID.
      *
-     * @param string $group_id The ID of the group
+     * @param string $id The ID of the group
      * @return Group The group with the given ID
      * @throws OutOfBoundsException If the group with the given ID is not found
      */
-    public function getGroupByID(string $group_id) : Group
+    public function getGroup(string $id) : Group
     {
-        if (!property_exists($this->group_lookup, $group_id)) {
-            throw new OutOfBoundsException('Group with ID '.$group_id.' not found in stage with ID '.$this->id);
+        if (!property_exists($this->group_lookup, $id)) {
+            throw new OutOfBoundsException('Group with ID '.$id.' not found in stage with ID '.$this->id);
         }
-        return $this->group_lookup->$group_id;
+        return $this->group_lookup->$id;
     }
 
     /**
      * Check if the stage contains a group with the given ID.
      *
-     * @param string $group_id The ID of the group
+     * @param string $id The ID of the group
      * @return bool True if the stage contains a group with the given ID, false otherwise
      */
-    public function hasGroupWithID(string $group_id) : bool
+    public function hasGroup(string $id) : bool
     {
-        return property_exists($this->group_lookup, $group_id);
+        return property_exists($this->group_lookup, $id);
     }
 
     /**
@@ -417,20 +417,20 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Get matches for a specific team in this stage.
      *
-     * @param string $team_id The ID of the team
+     * @param string $id The ID of the team
      * @param int $flags Flags to filter the matches
      * @return array An array of matches for the specified team
      */
-    private function getMatchesForTeam(string $team_id, int $flags) : array
+    private function getMatchesForTeam(string $id, int $flags) : array
     {
         $matches = [];
 
         foreach ($this->groups as $group) {
-            if ($group->teamHasMatches($team_id)) {
+            if ($group->teamHasMatches($id)) {
                 // $matches = array_merge($matches, $group->getMatches($team_id, $flags & (VBC_MATCH_ALL_IN_GROUP | VBC_MATCH_PLAYING)));
-                $matches = array_merge($matches, $group->getMatches($team_id, $flags));
-            } else if ($flags & VBC_MATCH_OFFICIATING && $group->teamHasOfficiating($team_id)) {
-                $matches = array_merge($matches, $group->getMatches($team_id, VBC_MATCH_OFFICIATING));
+                $matches = array_merge($matches, $group->getMatches($id, $flags));
+            } else if ($flags & VBC_MATCH_OFFICIATING && $group->teamHasOfficiating($id)) {
+                $matches = array_merge($matches, $group->getMatches($id, VBC_MATCH_OFFICIATING));
             }
         }
 
@@ -601,13 +601,13 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Check if a team has matches scheduled in any group within this stage.
      *
-     * @param string $team_id The ID of the team
+     * @param string $id The ID of the team
      * @return bool True if the team has matches scheduled, false otherwise
      */
-    public function teamHasMatches(string $team_id) : bool
+    public function teamHasMatches(string $id) : bool
     {
         foreach ($this->groups as $group) {
-            if ($group->teamHasMatches($team_id)) {
+            if ($group->teamHasMatches($id)) {
                 return true;
             }
         }
@@ -617,13 +617,13 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Check if a team has officiating duties assigned in any group within this stage.
      *
-     * @param string $team_id The ID of the team
+     * @param string $id The ID of the team
      * @return bool True if the team has officiating duties assigned, false otherwise
      */
-    public function teamHasOfficiating(string $team_id) : bool
+    public function teamHasOfficiating(string $id) : bool
     {
         foreach ($this->groups as $group) {
-            if ($group->teamHasOfficiating($team_id)) {
+            if ($group->teamHasOfficiating($id)) {
                 return true;
             }
         }
@@ -636,10 +636,10 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      * references that might point to this team (e.g. a reference to a team in a league position in an incomplete league) then call this function.  This
      * is essentially so we know whether we still need to consider displaying a stage to the competitors as they <i>might</i> still be able to reach that stage.
      *
-     * @param string $team_id The ID of the team to check
+     * @param string $id The ID of the team to check
      * @return bool True if the team may have matches scheduled, false otherwise
      */
-    public function teamMayHaveMatches(string $team_id) : bool
+    public function teamMayHaveMatches(string $id) : bool
     {
         /* TODO Do we need to rewrite this?
 
@@ -661,7 +661,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             $this->team_stg_grp_lookup = [];
             foreach ($this->groups as $group) {
                 foreach ($group->getMatches() as $match) {
-                    if ($match instanceof GroupMatch && $this->competition->getTeamByID($team_id)->getID() !== CompetitionTeam::UNKNOWN_TEAM_ID) {
+                    if ($match instanceof GroupMatch && $this->competition->getTeam($id)->getID() !== CompetitionTeam::UNKNOWN_TEAM_ID) {
                         $home_team_parts = explode(':', substr($match->getHomeTeam()->getID(), 1), 3);
                         if (count($home_team_parts) > 2) {
                             $key = $home_team_parts[0].':'.$home_team_parts[1];
@@ -701,8 +701,8 @@ final class Stage implements JsonSerializable, MatchContainerInterface
 
         // Look up each reference to see if it leads back to this team
         foreach ($this->team_stg_grp_lookup as $key => $stage_and_group) {
-            $group = $this->competition->getStageByID($stage_and_group->stage)->getGroupByID($stage_and_group->group);
-            if ((!$group->isComplete() && $group->teamHasMatches($team_id)) || $group->teamMayHaveMatches($team_id)) {
+            $group = $this->competition->getStage($stage_and_group->stage)->getGroup($stage_and_group->group);
+            if ((!$group->isComplete() && $group->teamHasMatches($id)) || $group->teamMayHaveMatches($id)) {
                 return true;
             }
         }
@@ -712,7 +712,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Returns a list of match dates in this Stage.  If a team ID is given then return dates for just that team.
      *
-     * @param string $team_id This must be a resolved team ID and not a reference
+     * @param string $id This must be a resolved team ID and not a reference
      * @param int $flags Controls what gets returned
      *                   <ul>
      *                     <li><code>VBC_MATCH_ALL</code> - Include all matches</li>
@@ -721,11 +721,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      *                   </ul>
      * @return array<string>
      */
-    public function getMatchDates(string $team_id = null, int $flags = VBC_MATCH_PLAYING) : array
+    public function getMatchDates(string $id = null, int $flags = VBC_MATCH_PLAYING) : array
     {
         $match_dates = [];
         foreach ($this->groups as $group) {
-            $group_match_dates = $group->getMatchDates($team_id, $flags);
+            $group_match_dates = $group->getMatchDates($id, $flags);
             $match_dates = array_merge($match_dates, $group_match_dates);
         }
         sort($match_dates);
@@ -737,7 +737,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      * The returned list includes breaks when that break has a date value
      *
      * @param string $date The requested date in the format YYYY-MM-DD
-     * @param string $team_id This must be a resolved team ID and not a reference
+     * @param string $id This must be a resolved team ID and not a reference
      * @param int $flags Controls what gets returned
      *                   <ul>
      *                     <li><code>VBC_MATCH_ALL</code> - Include all matches</li>
@@ -746,11 +746,11 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      *                   </ul>
      * @return array<MatchInterface>
      */
-    public function getMatchesOnDate(string $date, string $team_id = null, int $flags = VBC_MATCH_ALL) : array
+    public function getMatchesOnDate(string $date, string $id = null, int $flags = VBC_MATCH_ALL) : array
     {
         $matches = [];
         foreach ($this->groups as $group) {
-            $group_matches = $group->getMatchesOnDate($date, $team_id, $flags);
+            $group_matches = $group->getMatchesOnDate($date, $id, $flags);
             $matches = array_merge($matches, $group_matches);
         }
         usort($matches, function ($a, $b) {

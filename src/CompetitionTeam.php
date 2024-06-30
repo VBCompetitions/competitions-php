@@ -21,9 +21,6 @@ final class CompetitionTeam implements JsonSerializable
     /** @var array The contacts for the Team */
     private array $contacts = [];
 
-    /** @var array A list of players for a team */
-    private array $players = [];
-
     /** @var ?Club The club this team is in */
     private ?Club $club = null;
 
@@ -38,9 +35,6 @@ final class CompetitionTeam implements JsonSerializable
 
     /** @var object A Lookup table from contact IDs to the contact */
     private object $contact_lookup;
-
-    /** @var object A Lookup table from player IDs to the contact */
-    private object $player_lookup;
 
     /**
      * Contains the team data of a competition, creating any metadata needed
@@ -59,7 +53,7 @@ final class CompetitionTeam implements JsonSerializable
             throw new Exception('Invalid team ID: must contain only ASCII printable characters excluding " : { } ? =');
         }
 
-        if ($competition->hasTeamWithID($id)) {
+        if ($competition->hasTeam($id)) {
             throw new Exception('Team with ID "'.$id.'" already exists in the competition');
         }
 
@@ -67,7 +61,6 @@ final class CompetitionTeam implements JsonSerializable
         $this->id = $id;
         $this->setName($name);
         $this->contact_lookup = new stdClass();
-        $this->player_lookup = new stdClass();
     }
 
     /**
@@ -99,12 +92,6 @@ final class CompetitionTeam implements JsonSerializable
             }
         }
 
-        if (property_exists($team_data, 'players')) {
-            foreach ($team_data->players as $player_data) {
-                $this->addPlayer((new Player($this, $player_data->id, $player_data->name))->loadFromData($player_data));
-            }
-        }
-
         if (property_exists($team_data, 'club')) {
             $this->setClubID($team_data->club);
             $this->getClub()->addTeam($this);
@@ -129,9 +116,6 @@ final class CompetitionTeam implements JsonSerializable
         $team->name = $this->name;
         if (count($this->contacts) > 0) {
             $team->contacts = $this->contacts;
-        }
-        if (count($this->players) > 0) {
-            $team->players = $this->players;
         }
         if ($this->club !== null) {
             $team->club = $this->club->getID();
@@ -191,29 +175,29 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Set the club ID for this team
      *
-     * @param ?string $club_id The ID of the club this team is in
+     * @param ?string $id The ID of the club this team is in
      *
      * @return CompetitionTeam This competition team
      */
-    public function setClubID(?string $club_id) : CompetitionTeam
+    public function setClubID(?string $id) : CompetitionTeam
     {
-        if ($club_id === null) {
-            if ($this->club->hasTeamWithID($this->id)) {
+        if ($id === null) {
+            if ($this->club->hasTeam($this->id)) {
                 $this->club->deleteTeam($this->id);
             }
             $this->club = null;
             return $this;
         }
 
-        if ($this->club !== null && $club_id === $this->club->getID()) {
+        if ($this->club !== null && $id === $this->club->getID()) {
             return $this;
         }
 
-        if (!$this->competition->hasClubWithID($club_id)) {
-            throw new Exception('No club with ID "'.$club_id.'" exists');
+        if (!$this->competition->hasClub($id)) {
+            throw new Exception('No club with ID "'.$id.'" exists');
         }
 
-        $this->club = $this->competition->getClubByID($club_id);
+        $this->club = $this->competition->getClub($id);
         $this->club->addTeam($this);
 
         return $this;
@@ -283,7 +267,7 @@ final class CompetitionTeam implements JsonSerializable
      */
     public function addContact(Contact $contact) : CompetitionTeam
     {
-        if ($this->hasContactWithID($contact->getID())) {
+        if ($this->hasContact($contact->getID())) {
             throw new Exception('team contacts with duplicate IDs within a team not allowed');
         }
         array_push($this->contacts, $contact);
@@ -304,30 +288,30 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Returns the Contact with the requested ID, or throws if the ID is not found
      *
-     * @param string $contact_id The ID of the contact in this team to return
+     * @param string $id The ID of the contact in this team to return
      *
      * @throws OutOfBoundsException If a Contact with the requested ID was not found
      *
      * @return Contact The requested contact for this team
      */
-    public function getContactByID(string $contact_id) : Contact
+    public function getContact(string $id) : Contact
     {
-        if (!property_exists($this->contact_lookup, $contact_id)) {
-            throw new OutOfBoundsException('Contact with ID "'.$contact_id.'" not found');
+        if (!property_exists($this->contact_lookup, $id)) {
+            throw new OutOfBoundsException('Contact with ID "'.$id.'" not found');
         }
-        return $this->contact_lookup->$contact_id;
+        return $this->contact_lookup->$id;
     }
 
     /**
      * Check if a contact with the given ID exists in this team
      *
-     * @param string $contact_id The ID of the contact to check
+     * @param string $id The ID of the contact to check
      *
      * @return bool True if the contact exists, otherwise false
      */
-    public function hasContactWithID(string $contact_id) : bool
+    public function hasContact(string $id) : bool
     {
-        return property_exists($this->contact_lookup, $contact_id);
+        return property_exists($this->contact_lookup, $id);
     }
 
     /**
@@ -343,78 +327,41 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Delete a contact from the team
      *
-     * @param string $contact_id The ID of the contact to delete
+     * @param string $id The ID of the contact to delete
      *
      * @return CompetitionTeam This CompetitionTeam instance
      */
-    public function deleteContact(string $contact_id) : CompetitionTeam
+    public function deleteContact(string $id) : CompetitionTeam
     {
-        if (!$this->hasContactWithID($contact_id)) {
+        if (!$this->hasContact($id)) {
             return $this;
         }
 
-        unset($this->contact_lookup->$contact_id);
-        $this->contacts = array_values(array_filter($this->contacts, fn(Contact $el): bool => $el->getID() !== $contact_id));
-        return $this;
-    }
-
-    /**
-     * Add a player to this team
-     *
-     * @param Player $player The player to add to this team
-     *
-     * @return CompetitionTeam This CompetitionTeam instance
-     *
-     * @throws Exception If a player with a duplicate ID within the team is added
-     */
-    public function addPlayer(Player $player) : CompetitionTeam
-    {
-        if ($this->hasPlayerWithID($player->getID())) {
-            throw new Exception('team players with duplicate IDs within a team not allowed');
-        }
-
-        array_push($this->players, $player);
-        $this->player_lookup->{$player->getID()} = $player;
+        unset($this->contact_lookup->$id);
+        $this->contacts = array_values(array_filter($this->contacts, fn(Contact $el): bool => $el->getID() !== $id));
         return $this;
     }
 
     /**
      * Get the players for this team
      *
-     * @return null|array<Player> The players for this team
+     * @return array<Player> The players for this team
      */
-    public function getPlayers() : ?array
+    public function getPlayers () : array
     {
-        return $this->players;
-    }
-
-    /**
-     * Returns the Player with the requested ID, or throws if the ID is not found
-     *
-     * @param string $player_id The ID of the player in this team to return
-     *
-     * @throws OutOfBoundsException If a Player with the requested ID was not found
-     *
-     * @return Player The requested player for this team
-     */
-    public function getPlayerByID(string $player_id) : Player
-    {
-        if (!property_exists($this->player_lookup, $player_id)) {
-            throw new OutOfBoundsException('Player with ID "'.$player_id.'" not found');
-        }
-        return $this->player_lookup->$player_id;
+        return $this->competition->getPlayersInTeam($this->id);
     }
 
     /**
      * Check if a player with the given ID exists in this team
      *
-     * @param string $player_id The ID of the player to check
+     * @param string $id The ID of the player to check
      *
      * @return bool True if the player exists, otherwise false
      */
-    public function hasPlayerWithID(string $player_id) : bool
+    public function hasPlayer ($id) : bool
     {
-        return property_exists($this->player_lookup, $player_id);
+        return $this->competition->hasPlayerInTeam($id, $this->id);
     }
 
     /**
@@ -422,26 +369,8 @@ final class CompetitionTeam implements JsonSerializable
      *
      * @return bool True if the team has players, otherwise false
      */
-    public function hasPlayers() : bool
+    public function hasPlayers () : bool
     {
-        return count($this->players) > 0;
-    }
-
-    /**
-     * Delete a player from the team
-     *
-     * @param string $player_id The ID of the player to delete
-     *
-     * @return CompetitionTeam This CompetitionTeam instance
-     */
-    public function deletePlayer(string $player_id) : CompetitionTeam
-    {
-        if (!$this->hasPlayerWithID($player_id)) {
-            return $this;
-        }
-
-        unset($this->player_lookup->$player_id);
-        $this->players = array_values(array_filter($this->players, fn(Player $el): bool => $el->getID() !== $player_id));
-        return $this;
+        return $this->competition->hasPlayersInTeam($this->id);
     }
 }

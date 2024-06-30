@@ -43,7 +43,7 @@ final class League extends Group
 
         $team_results = array();
 
-        foreach($this->matches as $match) {
+        foreach ($this->matches as $match) {
             if ($match instanceof GroupBreak || $match->isFriendly()) {
                 continue;
             }
@@ -51,11 +51,11 @@ final class League extends Group
             $away_team_id = $match->getAwayTeam()->getID();
 
             if (!array_key_exists($home_team_id, $team_results)) {
-                $team_results[$home_team_id] = new LeagueTableEntry($this, $home_team_id, $this->competition->getTeamByID($home_team_id)->getName());
+                $team_results[$home_team_id] = new LeagueTableEntry($this, $home_team_id, $this->competition->getTeam($home_team_id)->getName());
             }
 
             if (!array_key_exists($away_team_id, $team_results)) {
-                $team_results[$away_team_id] = new LeagueTableEntry($this, $away_team_id, $this->competition->getTeamByID($away_team_id)->getName());
+                $team_results[$away_team_id] = new LeagueTableEntry($this, $away_team_id, $this->competition->getTeam($away_team_id)->getName());
             }
 
             if ($match->isComplete()) {
@@ -409,7 +409,7 @@ final class League extends Group
      * @return CompetitionTeam The CompetitionTeam instance
      * @throws Exception If the entity is invalid
      */
-    public function getTeamByID(string $type, string $entity) : CompetitionTeam
+    public function getTeam(string $type, string $entity) : CompetitionTeam
     {
         if ($type === 'league') {
             $this->processMatches();
@@ -419,14 +419,14 @@ final class League extends Group
             if ((int)$entity > count($this->table->entries)) {
                 throw new Exception('Invalid League position: position is bigger than the number of teams');
             }
-            return $this->competition->getTeamByID($this->table->entries[(int)$entity-1]->getTeamID());
+            return $this->competition->getTeam($this->table->entries[(int)$entity-1]->getTeamID());
         }
 
-        $match = $this->getMatchByID($type);
+        $match = $this->getMatch($type);
 
         return match ($entity) {
-            'winner' => $this->competition->getTeamByID($match->getWinnerTeamID()),
-            'loser' => $this->competition->getTeamByID($match->getLoserTeamID()),
+            'winner' => $this->competition->getTeam($match->getWinnerTeamID()),
+            'loser' => $this->competition->getTeam($match->getLoserTeamID()),
             default => throw new Exception('Invalid entity "'.$entity.'" in team reference'),
         };
     }

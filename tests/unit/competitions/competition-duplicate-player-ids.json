@@ -7,21 +7,21 @@
     },
     {
       "id": "TM2",
-      "name": "Team 2",
-      "players": [
-        {
-          "id": "P1",
-          "name": "Alice Alison"
-        },
-        {
-          "id": "P1",
-          "name": "Alice Bobson"
-        }
-      ]
+      "name": "Team 2"
     },
     {
       "id": "TM3",
       "name": "Team 3"
+    }
+  ],
+  "players": [
+    {
+      "id": "P1",
+      "name": "Alice Alison"
+    },
+    {
+      "id": "P1",
+      "name": "Alice Bobson"
     }
   ],
   "stages": [

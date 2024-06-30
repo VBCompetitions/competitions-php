@@ -107,13 +107,13 @@ final class MatchManager implements JsonSerializable
     /**
      * Set the ID for the team managing the match. Note that this unsets any manager name.
      *
-     * @param string $manager_team The ID for the team managing the match
+     * @param string $id The ID for the team managing the match
      * @throws Exception If the team ID is invalid
      */
-    public function setTeamID($manager_team) : void
+    public function setTeamID($id) : void
     {
-        $this->match->getGroup()->getStage()->getCompetition()->validateTeamID($manager_team, $this->match->getID(), 'manager');
-        $this->manager_team = $manager_team;
+        $this->match->getGroup()->getStage()->getCompetition()->validateTeamID($id, $this->match->getID(), 'manager');
+        $this->manager_team = $id;
         $this->manager_name = null;
     }
 
