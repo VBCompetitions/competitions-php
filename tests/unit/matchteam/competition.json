@@ -4,11 +4,7 @@
     {
       "id": "TM1",
       "name": "Alice VC",
-      "notes": "Alice is the first team, but they cannot play the first match as they have far to travel",
-      "players": [
-        { "id": "P1", "name": "Alice Alison" },
-        { "id": "P2", "name": "Andy Bobson" }
-      ]
+      "notes": "Alice is the first team, but they cannot play the first match as they have far to travel"
     },
     { "id": "TM2",
       "name": "Bob VC",
@@ -64,12 +60,16 @@
         }
       ]
     },
-    { "id": "TM3", "name": "Charlie VC" },
-    { "id": "TM4", "name": "David VC" },
+      { "id": "TM3", "name": "Charlie VC" },
+      { "id": "TM4", "name": "David VC" },
     { "id": "TM5", "name": "Erin VC" },
     { "id": "TM6", "name": "Frank VC" },
     { "id": "TM7", "name": "Grace VC" },
     { "id": "TM8", "name": "Heidi VC" }
+  ],
+  "players": [
+    { "id": "P1", "name": "Alice Alison", "teams": [{ "id": "TM1" }] },
+    { "id": "P2", "name": "Andy Bobson", "teams": [{ "id": "TM1" }] }
   ],
   "stages": [
     {
@@ -88,7 +88,7 @@
           },
           "matchType": "continuous",
           "matches": [
-            { "id": "RLM1", "court": "5", "type": "match", "start": "10:00", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [17], "mvp": "A Alice", "notes": "Some team note", "players": ["P1"] }, "awayTeam": { "id": "TM2", "scores": [22], "mvp": "B Bobs" }, "officials": { "team": "TM5" }, "notes": "Some notes" },
+            { "id": "RLM1", "court": "5", "type": "match", "start": "10:00", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [17], "mvp": "A Alice", "notes": "Some team note", "players": ["{P1}"] }, "awayTeam": { "id": "TM2", "scores": [22], "mvp": "B Bobs" }, "officials": { "team": "TM5" }, "notes": "Some notes" },
             { "id": "RLM2", "court": "6", "type": "match", "start": "10:00", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM3", "scores": [23] }, "awayTeam": { "id": "TM4", "scores": [18] }, "officials": { "team": "TM7" } },
             { "id": "RLM3", "court": "5", "type": "match", "start": "10:30", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM5", "scores": [19] }, "awayTeam": { "id": "TM6", "scores": [26] }, "officials": { "team": "TM1" } },
             { "id": "RLM4", "court": "6", "type": "match", "start": "10:30", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM7", "scores": [24] }, "awayTeam": { "id": "TM8", "scores": [18] }, "officials": { "team": "TM3" } },

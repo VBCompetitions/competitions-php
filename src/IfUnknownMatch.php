@@ -48,8 +48,8 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /** @var ?MatchOfficials The officials for this match */
     private ?MatchOfficials $officials = null;
 
-    /** @var ?string A most valuable player award for the match */
-    private ?string $mvp = null;
+    /** @var null|Player A most valuable player award for the match */
+    private ?Player $mvp = null;
 
     /** @var ?MatchManager The court manager in charge of this match */
     private ?MatchManager $manager = null;
@@ -73,7 +73,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
      */
     function __construct(IfUnknown $if_unknown, string $id)
     {
-        if ($if_unknown->hasMatchWithID($id)) {
+        if ($if_unknown->hasMatch($id)) {
             throw new Exception('stage ID {'.$if_unknown->getStage()->getID().'}, ifUnknown: matches with duplicate IDs {'.$id.'} not allowed');
         }
 
@@ -118,7 +118,11 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
             $this->setOfficials(MatchOfficials::loadFromData($this, $match_data->officials));
         }
         if (property_exists($match_data, 'mvp')) {
-            $this->setMVP($match_data->mvp);
+            if (preg_match('/^{(.*)}$/', $match_data->mvp, $mvp_match)) {
+                $this->setMVP($this->getGroup()->getStage()->getCompetition()->getPlayer($mvp_match[1]));
+            } else {
+                $this->setMVP(new Player($this->getGroup()->getStage()->getCompetition(), Player::UNREGISTERED_PLAYER_ID, $match_data->mvp));
+            }
         }
         if (property_exists($match_data, 'manager')) {
             $this->setManager(MatchManager::loadFromData($this, $match_data->manager));
@@ -170,7 +174,11 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
             $match->officials = $this->officials;
         }
         if ($this->mvp !== null) {
-            $match->mvp = $this->mvp;
+            if ($this->mvp->getID() === Player::UNREGISTERED_PLAYER_ID) {
+                $match->mvp = $this->mvp->getName();
+            } else {
+                $match->mvp = '{'.$this->mvp->getID().'}';
+            }
         }
         if ($this->manager !== null) {
             $match->manager = $this->manager;
@@ -437,15 +445,12 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Set the Most Valuable Player (MVP) for the match
      *
-     * @param string $mvp The Most Valuable Player for the match
+     * @param Player $mvp The Most Valuable Player for the match
      * @return IfUnknownMatch The updated IfUnknownMatch instance
      * @throws Exception If the MVP string is invalid
      */
-    public function setMVP(string $mvp) : IfUnknownMatch
+    public function setMVP(Player $mvp) : IfUnknownMatch
     {
-        if (strlen($mvp) > 203 || strlen($mvp) < 1) {
-            throw new Exception('Invalid MVP: must be between 1 and 203 characters long');
-        }
         $this->mvp = $mvp;
         return $this;
     }
@@ -453,9 +458,9 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /**
      * Get the Most Valuable Player (MVP) for the match
      *
-     * @return ?string The Most Valuable Player for the match
+     * @return ?Player The Most Valuable Player for the match
      */
-    public function getMVP() : ?string
+    public function getMVP() : ?Player
     {
         return $this->mvp;
     }

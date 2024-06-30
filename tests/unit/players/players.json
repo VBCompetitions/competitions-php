@@ -7,26 +7,22 @@
     },
     {
       "id": "TM2",
-      "name": "Team 2",
-      "players": [
-        {
-          "id": "P1",
-          "name": "Alice Alison"
-        }
-      ]
+      "name": "Team 2"
     },
     {
       "id": "TM3",
-      "name": "Team 3",
-      "players": [
-        { "id": "P1", "name": "Alice Alison", "number": 1, "notes": "junior" },
-        { "id": "P2", "name": "Bobby Bobs", "number": 2 },
-        { "id": "P3", "name": "Charlie Charleston", "number": 7 },
-        { "id": "P4", "name": "Dave Davidson", "number": 4 },
-        { "id": "P5", "name": "Emma Emerson", "number": 11 },
-        { "id": "P6", "name": "Frankie Frank", "number": 8 }
-      ]
+      "name": "Team 3"
     }
+  ],
+  "players": [
+    { "id": "P1", "name": "Alice Alison", "teams": [{ "id": "TM2", "from": "2023-09-01", "until": "2024-01-14" }, { "id": "TM3", "from": "2024-01-14", "notes": "some notes" }], "number": 1, "notes": "junior" },
+    { "id": "P2", "name": "Bobby Bobs", "teams": [{ "id": "TM3" }], "number": 2 },
+    { "id": "P3", "name": "Charlie Charleston", "teams": [{ "id": "TM3" }], "number": 7 },
+    { "id": "P4", "name": "Dave Davidson", "teams": [{ "id": "TM3" }], "number": 4 },
+    { "id": "P5", "name": "Emma Emerson", "teams": [{ "id": "TM3" }], "number": 11 },
+    { "id": "P6", "name": "Frankie Frank", "teams": [{ "id": "TM3" }], "number": 8 },
+    { "id": "P7", "name": "Alice Alison", "teams": [{ "id": "TM2" }] },
+    { "id": "P8", "name": "Billy No Team" }
   ],
   "stages": [
     {

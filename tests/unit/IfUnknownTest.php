@@ -16,6 +16,7 @@ use VBCompetitions\Competitions\IfUnknownBreak;
 use VBCompetitions\Competitions\IfUnknownMatch;
 use VBCompetitions\Competitions\MatchOfficials;
 use VBCompetitions\Competitions\MatchType;
+use VBCompetitions\Competitions\Player;
 use VBCompetitions\Competitions\Stage;
 
 #[CoversClass(IfUnknown::class)]
@@ -25,7 +26,7 @@ final class IfUnknownTest extends TestCase {
     public function testIfUnknownLoad() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage.json');
-        $if_unknown = $competition->getStageById('F')->getIfUnknown();
+        $if_unknown = $competition->getStage('F')->getIfUnknown();
 
         $this->assertEquals(MatchType::CONTINUOUS, $if_unknown->getMatchType());
         $this->assertEquals('unknown', $if_unknown->getID());
@@ -62,8 +63,8 @@ final class IfUnknownTest extends TestCase {
         $this->assertNull($second_match->getNotes());
         $this->assertEquals('SF1 loser', $second_match->getOfficials()->getTeamID());
 
-        $this->assertEquals('A Bobs', $if_unknown->getMatchById('FIN')->getManager()->getManagerName());
-        $this->assertEquals('J Doe', $if_unknown->getMatchById('FIN')->getMVP());
+        $this->assertEquals('A Bobs', $if_unknown->getMatch('FIN')->getManager()->getManagerName());
+        $this->assertEquals('J Doe', $if_unknown->getMatch('FIN')->getMVP()->getName());
 
         $break = $if_unknown->getMatches()[2];
         if ($break instanceof IfUnknownBreak) {
@@ -80,7 +81,7 @@ final class IfUnknownTest extends TestCase {
     public function testIfUnknownLoadSparse() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage-sparse.json');
-        $if_unknown = $competition->getStageById('F')->getIfUnknown();
+        $if_unknown = $competition->getStage('F')->getIfUnknown();
 
         $this->assertEquals(MatchType::CONTINUOUS, $if_unknown->getMatchType());
         $this->assertEquals('unknown', $if_unknown->getID());
@@ -134,7 +135,7 @@ final class IfUnknownTest extends TestCase {
     public function testIfUnknownMatchSaveScoresIsIgnored() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'matches'))), 'save-scores.json');
-        $if_unknown = $competition->getStageById('L')->getIfUnknown();
+        $if_unknown = $competition->getStage('L')->getIfUnknown();
         $match = $if_unknown->getMatches()[0];
 
         $match->setScores([23], [25]);
@@ -153,7 +154,7 @@ final class IfUnknownTest extends TestCase {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'ifunknown'))), 'incomplete-group-multi-stage-sparse.json');
         $this->expectExceptionMessage('Match with ID NO_SUCH_MATCH not found');
         $this->expectException(OutOfBoundsException::class);
-        $competition->getStageById('F')->getIfUnknown()->getMatchById('NO_SUCH_MATCH');
+        $competition->getStage('F')->getIfUnknown()->getMatch('NO_SUCH_MATCH');
     }
 
     public function testIfUnknownBreakSetters() : void
@@ -230,7 +231,8 @@ final class IfUnknownTest extends TestCase {
 
     public function testIfUnknownMatchSetters() : void
     {
-        $stage = new Stage(new Competition('test'), 'S');
+        $competition = new Competition('test');
+        $stage = new Stage($competition, 'S');
         $if_unknown = new IfUnknown($stage, ['test unknown']);
         $if_unknown_match = new IfUnknownMatch($if_unknown, 'M1');
 
@@ -328,31 +330,13 @@ final class IfUnknownTest extends TestCase {
             $this->assertEquals('Invalid duration "1:61": must contain a value of the form "HH:mm"', $e->getMessage());
         }
 
-        try {
-            $if_unknown_match->setMVP('');
-            $this->fail('IfUnknownMatch should not allow empty MVP');
-        } catch (Exception $e) {
-            $this->assertEquals('Invalid MVP: must be between 1 and 203 characters long', $e->getMessage());
-        }
-
-        try {
-            $mvp = '1234';
-            for ($i=0; $i < 200; $i++) {
-                $mvp .= '0123456789';
-            }
-            $if_unknown_match->setMVP($mvp);
-            $this->fail('IfUnknownMatch should not allow long MVP');
-        } catch (Exception $e) {
-            $this->assertEquals('Invalid MVP: must be between 1 and 203 characters long', $e->getMessage());
-        }
-
         $if_unknown_match->setCourt('court 1');
         $if_unknown_match->setVenue('City Stadium');
         $if_unknown_match->setDate('2024-02-29');
         $if_unknown_match->setWarmup('10:00');
         $if_unknown_match->setStart('10:20');
         $if_unknown_match->setDuration('0:40');
-        $if_unknown_match->setMVP('Alan Measles');
+        $if_unknown_match->setMVP(new Player($competition, Player::UNREGISTERED_PLAYER_ID, 'Alan Measles'));
         $if_unknown_match->setFriendly(false);
 
         $this->assertFalse($if_unknown_match->isFriendly());

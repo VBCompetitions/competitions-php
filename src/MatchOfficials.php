@@ -182,14 +182,14 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the officiating team.
      *
-     * @param ?string $officials_team The ID of the officiating team
+     * @param ?string $id The ID of the officiating team
      */
-    public function setTeamID(?string $officials_team, bool $is_unknown = false) : void
+    public function setTeamID(?string $id, bool $is_unknown = false) : void
     {
         if (!$is_unknown) {
-            $this->match->getGroup()->getCompetition()->validateTeamID($officials_team, $this->match->getID(), 'officials');
+            $this->match->getGroup()->getCompetition()->validateTeamID($id, $this->match->getID(), 'officials');
         }
-        $this->officials_team = $officials_team;
+        $this->officials_team = $id;
         $this->first = null;
         $this->second = null;
         $this->challenge = null;

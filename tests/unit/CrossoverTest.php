@@ -20,36 +20,36 @@ final class CrossoverTest extends TestCase {
     public function testCrossover() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'complete-crossover.json');
-        $crossover = $competition->getStageById('C')->getGroupById('CO');
+        $crossover = $competition->getStage('C')->getGroup('CO');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\Crossover', $crossover, 'Group should be a crossover');
 
         $this->assertTrue($crossover->isComplete(), 'Group should be found as completed');
         $this->assertEquals($crossover->getType(), GroupType::CROSSOVER);
-        $this->assertEquals('TM3', $competition->getTeamByID('{C:CO:CO1:winner}')->getID());
-        $this->assertEquals('TM1', $competition->getTeamByID('{C:CO:CO1:loser}')->getID());
-        $this->assertEquals('TM4', $competition->getTeamByID('{C:CO:CO2:winner}')->getID());
-        $this->assertEquals('TM2', $competition->getTeamByID('{C:CO:CO2:loser}')->getID());
+        $this->assertEquals('TM3', $competition->getTeam('{C:CO:CO1:winner}')->getID());
+        $this->assertEquals('TM1', $competition->getTeam('{C:CO:CO1:loser}')->getID());
+        $this->assertEquals('TM4', $competition->getTeam('{C:CO:CO2:winner}')->getID());
+        $this->assertEquals('TM2', $competition->getTeam('{C:CO:CO2:loser}')->getID());
     }
 
     public function testCrossoverWithSets() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'complete-crossover-sets.json');
-        $crossover = $competition->getStageById('C')->getGroupById('CO');
+        $crossover = $competition->getStage('C')->getGroup('CO');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\Crossover', $crossover, 'Group should be a crossover');
 
         $this->assertTrue($crossover->isComplete(), 'Group should be found as completed');
-        $this->assertEquals('TM3', $competition->getTeamByID('{C:CO:CO1:winner}')->getID());
-        $this->assertEquals('TM1', $competition->getTeamByID('{C:CO:CO1:loser}')->getID());
-        $this->assertEquals('TM4', $competition->getTeamByID('{C:CO:CO2:winner}')->getID());
-        $this->assertEquals('TM2', $competition->getTeamByID('{C:CO:CO2:loser}')->getID());
+        $this->assertEquals('TM3', $competition->getTeam('{C:CO:CO1:winner}')->getID());
+        $this->assertEquals('TM1', $competition->getTeam('{C:CO:CO1:loser}')->getID());
+        $this->assertEquals('TM4', $competition->getTeam('{C:CO:CO2:winner}')->getID());
+        $this->assertEquals('TM2', $competition->getTeam('{C:CO:CO2:loser}')->getID());
     }
 
     public function testCrossoverIncomplete() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'incomplete-crossover.json');
-        $crossover = $competition->getStageById('C')->getGroupById('CO');
+        $crossover = $competition->getStage('C')->getGroup('CO');
 
         $this->assertInstanceOf('VBCompetitions\Competitions\Crossover', $crossover, 'Group should be a crossover');
 
@@ -65,10 +65,10 @@ final class CrossoverTest extends TestCase {
     public function testCrossoverGroupsWithoutNames() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'crossovers'))), 'crossover-no-names.json');
-        $crossover = $competition->getStageById('C');
+        $crossover = $competition->getStage('C');
 
-        $this->assertNull($crossover->getGroupById('CO0')->getName());
-        $this->assertEquals('Crossover round', $crossover->getGroupById('CO1')->getName());
-        $this->assertNull($crossover->getGroupById('CO2')->getName());
+        $this->assertNull($crossover->getGroup('CO0')->getName());
+        $this->assertEquals('Crossover round', $crossover->getGroup('CO1')->getName());
+        $this->assertNull($crossover->getGroup('CO2')->getName());
     }
 }

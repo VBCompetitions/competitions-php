@@ -123,13 +123,13 @@ if (!array_key_exists('team', $_GET)) {
 }
 
 $team_id = $_GET['team'];
-if (!$competition->hasTeamID($team_id)) {
+if (!$competition->hasTeam($team_id)) {
     echo '  </body>';
     echo '</html>';
     return;
 }
 
-echo '    <h2>'.$competition->getTeamByID($team_id)->getName().'</h2>';
+echo '    <h2>'.$competition->getTeam($team_id)->getName().'</h2>';
 
 foreach ($competition->getStages() as $stage) {
     if ($stage->teamHasMatches($team_id)) {

@@ -13,12 +13,14 @@ use VBCompetitions\Competitions\Contact;
 use VBCompetitions\Competitions\ContactRole;
 use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\Player;
+use VBCompetitions\Competitions\PlayerTeam;
 
 #[CoversClass(Club::class)]
 #[CoversClass(Competition::class)]
 #[CoversClass(CompetitionTeam::class)]
 #[CoversClass(Contact::class)]
 #[CoversClass(Player::class)]
+#[CoversClass(PlayerTeam::class)]
 final class CompetitionTeamTest extends TestCase {
     public function testCompetitionTeamDuplicateID() : void
     {
@@ -105,13 +107,13 @@ final class CompetitionTeamTest extends TestCase {
 
         $this->assertCount(0, $team->getContacts());
         $this->assertFalse($team->hasContacts());
-        $this->assertFalse($team->hasContactWithID('C1'));
+        $this->assertFalse($team->hasContact('C1'));
 
         $team->addContact($contact);
         $this->assertCount(1, $team->getContacts());
         $this->assertTrue($team->hasContacts());
-        $this->assertTrue($team->hasContactWithID('C1'));
-        $this->assertEquals(ContactRole::SECRETARY, $team->getContactByID('C1')->getRoles()[0]);
+        $this->assertTrue($team->hasContact('C1'));
+        $this->assertEquals(ContactRole::SECRETARY, $team->getContact('C1')->getRoles()[0]);
 
         try {
             $team->addContact($contact);
@@ -121,66 +123,81 @@ final class CompetitionTeamTest extends TestCase {
         }
         $this->assertCount(1, $team->getContacts());
         $this->assertTrue($team->hasContacts());
-        $this->assertTrue($team->hasContactWithID('C1'));
+        $this->assertTrue($team->hasContact('C1'));
 
         $team->deleteContact('C1');
         try {
-            $team->getContactByID('C1');
+            $team->getContact('C1');
             $this->fail('CompetitionTeam should throw when getting a non-existant contact');
         } catch (Exception $e) {
             $this->assertEquals('Contact with ID "C1" not found', $e->getMessage());
         }
         $this->assertCount(0, $team->getContacts());
         $this->assertFalse($team->hasContacts());
-        $this->assertFalse($team->hasContactWithID('C1'));
+        $this->assertFalse($team->hasContact('C1'));
 
         $team->deleteContact('C1');
         $this->assertCount(0, $team->getContacts());
         $this->assertFalse($team->hasContacts());
-        $this->assertFalse($team->hasContactWithID('C1'));
+        $this->assertFalse($team->hasContact('C1'));
     }
 
     public function testCompetitionTeamPlayers() : void
     {
         $competition = new Competition('test competition');
         $team = new CompetitionTeam($competition, 'T1', 'Team 1');
-        $player = new Player($team, 'P1', 'Player 1');
+        $competition->addTeam($team);
+        $player = new Player($competition, 'P1', 'Player 1');
+        $competition->addPlayer($player);
+        $player_team = new PlayerTeam($player, 'T1');
 
         $this->assertCount(0, $team->getPlayers());
         $this->assertFalse($team->hasPlayers());
-        $this->assertFalse($team->hasPlayerWithID('P1'));
+        $this->assertFalse($team->hasPlayer('P1'));
 
-        $team->addPlayer($player);
+        $player->appendTeamEntry($player_team);
         $this->assertCount(1, $team->getPlayers());
         $this->assertTrue($team->hasPlayers());
-        $this->assertTrue($team->hasPlayerWithID('P1'));
-        $this->assertEquals('Player 1', $team->getPlayerByID('P1')->getName());
+        $this->assertTrue($team->hasPlayer('P1'));
+        $this->assertCount(1, $competition->getPlayers());
+        $this->assertTrue($competition->hasPlayers());
+        $this->assertTrue($competition->hasPlayer('P1'));
+        $this->assertEquals('Player 1', $competition->getPlayer('P1')->getName());
 
         try {
-            $team->addPlayer($player);
-            $this->fail('CompetitionTeam should not allow a player with a duplicate ID');
+            $competition->addPlayer($player);
+            $this->fail('Competition should not allow a player with a duplicate ID');
         } catch (Exception $e) {
-            $this->assertEquals('team players with duplicate IDs within a team not allowed', $e->getMessage());
+            $this->assertEquals('players with duplicate IDs within a competition not allowed', $e->getMessage());
         }
         $this->assertCount(1, $team->getPlayers());
         $this->assertTrue($team->hasPlayers());
-        $this->assertTrue($team->hasPlayerWithID('P1'));
+        $this->assertTrue($team->hasPlayer('P1'));
+        $this->assertCount(1, $competition->getPlayers());
+        $this->assertTrue($competition->hasPlayers());
+        $this->assertTrue($competition->hasPlayer('P1'));
 
-        $team->deletePlayer('P1');
+        $competition->deletePlayer('P1');
         try {
-            $team->getPlayerByID('P1');
-            $this->fail('CompetitionTeam should throw when getting a non-existant player');
+            $competition->getPlayer('P1');
+            $this->fail('Competition should throw when getting a non-existant player');
         } catch (Exception $e) {
             $this->assertEquals('Player with ID "P1" not found', $e->getMessage());
         }
         $this->assertCount(0, $team->getPlayers());
         $this->assertFalse($team->hasPlayers());
-        $this->assertFalse($team->hasPlayerWithID('P1'));
+        $this->assertFalse($team->hasPlayer('P1'));
+        $this->assertCount(0, $competition->getPlayers());
+        $this->assertFalse($competition->hasPlayers());
+        $this->assertFalse($competition->hasPlayer('P1'));
 
-        $team->deletePlayer('P1');
+        $competition->deletePlayer('P1');
         $this->assertCount(0, $team->getPlayers());
         $this->assertFalse($team->hasPlayers());
-        $this->assertFalse($team->hasPlayerWithID('P1'));
+        $this->assertFalse($team->hasPlayer('P1'));
+        $this->assertCount(0, $competition->getPlayers());
+        $this->assertFalse($competition->hasPlayers());
+        $this->assertFalse($competition->hasPlayer('P1'));
     }
 
     public function testCompetitionTeamConstructorBadID() : void

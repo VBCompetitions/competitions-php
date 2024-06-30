@@ -28,6 +28,7 @@ use VBCompetitions\Competitions\MatchManager;
 use VBCompetitions\Competitions\MatchOfficials;
 use VBCompetitions\Competitions\MatchTeam;
 use VBCompetitions\Competitions\Player;
+use VBCompetitions\Competitions\PlayerTeam;
 use VBCompetitions\Competitions\SetConfig;
 use VBCompetitions\Competitions\Stage;
 
@@ -53,6 +54,7 @@ use VBCompetitions\Competitions\Stage;
 #[CoversClass(MatchOfficials::class)]
 #[CoversClass(MatchTeam::class)]
 #[CoversClass(Player::class)]
+#[CoversClass(PlayerTeam::class)]
 #[CoversClass(SetConfig::class)]
 #[CoversClass(Stage::class)]
 final class CompetitionSaveTest extends TestCase {
@@ -72,9 +74,9 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition.json');
         $this->assertIsArray($saved_competition->getTeams());
-        $stage = $saved_competition->getStageById('L');
+        $stage = $saved_competition->getStage('L');
         $this->assertEquals('league', $stage->getName());
-        $this->assertEquals('TM6', $saved_competition->getTeamByID('{L:RL:RLM14:winner}')->getID());
+        $this->assertEquals('TM6', $saved_competition->getTeam('{L:RL:RLM14:winner}')->getID());
     }
 
     public function testCompetitionSaveWithNewName() : void
@@ -84,12 +86,12 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition.json');
         $this->assertIsArray($saved_competition->getTeams());
-        $stage = $saved_competition->getStageById('L');
+        $stage = $saved_competition->getStage('L');
         $this->assertEquals('league', $stage->getName());
-        $this->assertEquals('TM6', $saved_competition->getTeamByID('{L:RL:RLM14:winner}')->getID());
+        $this->assertEquals('TM6', $saved_competition->getTeam('{L:RL:RLM14:winner}')->getID());
         $this->assertEquals('Saved Competition', $saved_competition->getName());
 
-        $this->assertEquals($competition->getTeamByID('TM1')->getNotes(), $saved_competition->getTeamByID('TM1')->getNotes());
+        $this->assertEquals($competition->getTeam('TM1')->getNotes(), $saved_competition->getTeam('TM1')->getNotes());
     }
 
     public function testCompetitionSaveWithDates() : void
@@ -99,9 +101,9 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-league-full-data.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-league-full-data.json');
         $this->assertIsArray($saved_competition->getTeams());
-        $stage = $saved_competition->getStageById('L');
+        $stage = $saved_competition->getStage('L');
         $this->assertEquals('league', $stage->getName());
-        $this->assertEquals('TM2', $saved_competition->getTeamByID('{L:RL:RLM4:winner}')->getID());
+        $this->assertEquals('TM2', $saved_competition->getTeam('{L:RL:RLM4:winner}')->getID());
         $this->assertEquals('Saved Competition', $saved_competition->getName());
     }
 
@@ -132,15 +134,13 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'players.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'players.json');
 
-        $team = $saved_competition->getTeamByID('TM3');
-        $this->assertEquals('Alice Alison', $team->getPlayerByID('P1')->getName());
-        $this->assertEquals('junior', $team->getPlayerByID('P1')->getNotes());
-        $this->assertEquals('Charlie Charleston', $team->getPlayerByID('P3')->getName());
-        $this->assertEquals(7, $team->getPlayerByID('P3')->getNumber());
+        $this->assertEquals('Alice Alison', $saved_competition->getPlayer('P1')->getName());
+        $this->assertEquals('junior', $saved_competition->getPlayer('P1')->getNotes());
+        $this->assertEquals('Charlie Charleston', $saved_competition->getPlayer('P3')->getName());
+        $this->assertEquals(7, $saved_competition->getPlayer('P3')->getNumber());
 
-        $team = $competition->getTeamByID('TM2');
-        $this->assertNull($team->getPlayerByID('P1')->getNumber());
-        $this->assertNull($team->getPlayerByID('P1')->getNotes());
+        $this->assertNull($saved_competition->getPlayer('P7')->getNumber());
+        $this->assertNull($saved_competition->getPlayer('P7')->getNotes());
     }
 
     public function testCompetitionSaveCompetitionKnockoutSets() : void
@@ -150,8 +150,8 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-knockout-sets.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-knockout-sets.json');
 
-        $this->assertEquals('TM7', $competition->getTeamByID('{KO:CUP:FIN:winner}')->getID());
-        $this->assertEquals('TM7', $saved_competition->getTeamByID('{KO:CUP:FIN:winner}')->getID());
+        $this->assertEquals('TM7', $competition->getTeam('{KO:CUP:FIN:winner}')->getID());
+        $this->assertEquals('TM7', $saved_competition->getTeam('{KO:CUP:FIN:winner}')->getID());
     }
 
     public function testCompetitionSaveCompetitionKnockoutSetsStandings() : void
@@ -161,8 +161,8 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-knockout-sets-standings.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-knockout-sets-standings.json');
 
-        $this->assertEquals('TM7', $competition->getTeamByID('{KO:CUP:FIN:winner}')->getID());
-        $this->assertEquals('TM7', $saved_competition->getTeamByID('{KO:CUP:FIN:winner}')->getID());
+        $this->assertEquals('TM7', $competition->getTeam('{KO:CUP:FIN:winner}')->getID());
+        $this->assertEquals('TM7', $saved_competition->getTeam('{KO:CUP:FIN:winner}')->getID());
     }
 
     public function testCompetitionSaveCompetitionWithIfUnknown() : void
@@ -172,8 +172,8 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'incomplete-group-multi-stage.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'incomplete-group-multi-stage.json');
 
-        $this->assertEquals('There will be a knockout stage', $competition->getStageById('F')->getIfUnknown()->getDescription()[0]);
-        $this->assertEquals('There will be a knockout stage', $saved_competition->getStageById('F')->getIfUnknown()->getDescription()[0]);
+        $this->assertEquals('There will be a knockout stage', $competition->getStage('F')->getIfUnknown()->getDescription()[0]);
+        $this->assertEquals('There will be a knockout stage', $saved_competition->getStage('F')->getIfUnknown()->getDescription()[0]);
     }
 
     public function testCompetitionSaveCompetitionWithClubs() : void
@@ -183,11 +183,11 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-with-clubs.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-with-clubs.json');
 
-        $this->assertEquals('Southampton', $competition->getClubById('SOU')->getName());
-        $this->assertEquals('Southampton', $saved_competition->getClubById('SOU')->getName());
+        $this->assertEquals('Southampton', $competition->getClub('SOU')->getName());
+        $this->assertEquals('Southampton', $saved_competition->getClub('SOU')->getName());
 
-        $this->assertIsArray($saved_competition->getClubById('SOU')->getTeams());
-        $this->assertCount(3, $saved_competition->getClubById('SOU')->getTeams());
+        $this->assertIsArray($saved_competition->getClub('SOU')->getTeams());
+        $this->assertCount(3, $saved_competition->getClub('SOU')->getTeams());
     }
 
     public function testCompetitionSaveMatchWithManagerTeam() : void
@@ -197,7 +197,7 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'manager-team.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'manager-team.json');
 
-        $this->assertEquals('TM1', $saved_competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getManager()->getTeamID());
+        $this->assertEquals('TM1', $saved_competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getManager()->getTeamID());
     }
 
     public function testCompetitionSaveMatchWithManagerPlayer() : void
@@ -207,7 +207,7 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'manager-person.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'manager-person.json');
 
-        $this->assertEquals('Some Manager', $saved_competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getManager()->getManagerName());
+        $this->assertEquals('Some Manager', $saved_competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getManager()->getManagerName());
     }
 
     public function testCompetitionSaveMatchWitOfficialsPeople() : void
@@ -217,7 +217,7 @@ final class CompetitionSaveTest extends TestCase {
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'officials-persons.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'officials-persons.json');
 
-        $this->assertEquals('A First', $saved_competition->getStageById('L')->getGroupById('LG')->getMatchById('LG1')->getOfficials()->getFirstRef());
+        $this->assertEquals('A First', $saved_competition->getStage('L')->getGroup('LG')->getMatch('LG1')->getOfficials()->getFirstRef());
     }
 
     public function testCompetitionSaveCompetitionWithMetadata() : void

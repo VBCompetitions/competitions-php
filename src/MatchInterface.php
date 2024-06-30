@@ -12,7 +12,7 @@ interface MatchInterface {
     public function getDuration() : ?string;
     public function getStart() : ?string;
     public function getManager() : ?MatchManager;
-    public function getMVP() : ?string;
+    public function getMVP() : ?Player;
     public function getNotes() : ?string;
     public function getOfficials() : ?MatchOfficials;
     public function hasOfficials() : bool;

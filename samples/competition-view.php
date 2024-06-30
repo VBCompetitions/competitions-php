@@ -129,7 +129,7 @@ if (!array_key_exists('stage', $_GET)) {
 }
 
 $stage_id = $_GET['stage'];
-$stage = $competition->getStageByID($stage_id);
+$stage = $competition->getStage($stage_id);
 $stage_name = $stage->getName();
 if ($stage_name == null) {
     $stage_name = $stage_i;
@@ -153,7 +153,7 @@ if (!array_key_exists('group', $_GET)) {
 }
 
 $group_id = $_GET['group'];
-$group = $stage->getGroupByID($group_id);
+$group = $stage->getGroup($group_id);
 
 $groupType = 'unknown';
 switch ($group->getType()) {

@@ -206,7 +206,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
      * @param mixed $id The ID of the match
      * @return bool
      */
-    public function hasMatchWithID($id) : bool
+    public function hasMatch($id) : bool
     {
         return property_exists($this->match_lookup, $id);
     }
@@ -235,16 +235,16 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Get the match with the specified ID
      *
-     * @param string $match_id The ID of the match
+     * @param string $id The ID of the match
      * @return IfUnknownMatch The requested match
      * @throws OutOfBoundsException When the match with the specified ID is not found
      */
-    public function getMatchByID(string $match_id) : IfUnknownMatch
+    public function getMatch(string $id) : IfUnknownMatch
     {
-        if (property_exists($this->match_lookup, $match_id)) {
-            return $this->match_lookup->{$match_id};
+        if (property_exists($this->match_lookup, $id)) {
+            return $this->match_lookup->{$id};
         }
-        throw new OutOfBoundsException('Match with ID '.$match_id.' not found', 1);
+        throw new OutOfBoundsException('Match with ID '.$id.' not found', 1);
     }
 
     /**

@@ -26,33 +26,33 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatch() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $this->assertEquals('LG', $group->getID());
-        $this->assertEquals('TM2', $group->getMatchById('LG1')->getHomeTeam()->getID());
+        $this->assertEquals('TM2', $group->getMatch('LG1')->getHomeTeam()->getID());
     }
 
     public function testGroupGetMatchSkipBreak() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
-        $this->assertEquals('TM1', $group->getMatchById('LG6')->getHomeTeam()->getID());
+        $this->assertEquals('TM1', $group->getMatch('LG6')->getHomeTeam()->getID());
     }
 
     public function testGroupGetMatchOutOfBounds() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $this->expectExceptionMessage('Match with ID FOO not found');
-        $group->getMatchById('FOO');
+        $group->getMatch('FOO');
     }
 
     public function testGroupGetTeamIDsSimple() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $expected_teams_sorted = ['TM1', 'TM2', 'TM3', 'TM4'];
         $expected_teams_by_name = ['TM2', 'TM1', 'TM4', 'TM3'];
@@ -79,7 +79,7 @@ final class GroupTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-maybes.json');
 
-        $fina_teams = $competition->getStageById('S4')->getGroupByID('FINA')->getTeamIDs(VBC_TEAMS_MAYBE);
+        $fina_teams = $competition->getStage('S4')->getGroup('FINA')->getTeamIDs(VBC_TEAMS_MAYBE);
         $this->assertCount(6, $fina_teams);
         $this->assertContains('TM1', $fina_teams);
         $this->assertContains('TM2', $fina_teams);
@@ -88,7 +88,7 @@ final class GroupTest extends TestCase {
         $this->assertContains('TM5', $fina_teams);
         $this->assertContains('TM6', $fina_teams);
 
-        $finb_teams = $competition->getStageById('S4')->getGroupByID('FINB')->getTeamIDs(VBC_TEAMS_MAYBE);
+        $finb_teams = $competition->getStage('S4')->getGroup('FINB')->getTeamIDs(VBC_TEAMS_MAYBE);
         $this->assertCount(7, $finb_teams);
         $this->assertContains('TM3', $finb_teams);
         $this->assertContains('TM4', $finb_teams);
@@ -98,7 +98,7 @@ final class GroupTest extends TestCase {
         $this->assertContains('TM8', $finb_teams);
         $this->assertContains('TM9', $finb_teams);
 
-        $sfb_teams = $competition->getStageById('S3')->getGroupByID('SFB')->getTeamIDs(VBC_TEAMS_MAYBE);
+        $sfb_teams = $competition->getStage('S3')->getGroup('SFB')->getTeamIDs(VBC_TEAMS_MAYBE);
         $this->assertCount(2, $sfb_teams);
         $this->assertContains('TM5', $sfb_teams);
         $this->assertContains('TM6', $sfb_teams);
@@ -119,7 +119,7 @@ final class GroupTest extends TestCase {
     public function testGroupGroupMatchesWithAllOptionalFields() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-matches-with-everything.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $this->assertEquals('Test League Table by PD', $group->getCompetition()->getName());
         $this->assertEquals('League', $group->getStage()->getName());
@@ -146,7 +146,7 @@ final class GroupTest extends TestCase {
     public function testGroupGroupMatchesWithNoOptionalFields() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-matches-with-nothing.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $this->assertNull($group->getName());
         $this->assertNull($group->getNotes());
@@ -168,7 +168,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesAllInGroup() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $matches = $group->getMatches('TM1', VBC_MATCH_ALL_IN_GROUP);
         $this->assertCount(7, $matches);
@@ -184,7 +184,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesUnknownTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $matches = $group->getMatches(CompetitionTeam::UNKNOWN_TEAM_ID);
         $this->assertCount(7, $matches);
@@ -200,7 +200,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesKnownTeamPlaying() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_PLAYING);
         $this->assertCount(3, $matches);
@@ -213,7 +213,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesKnownTeamOfficiating() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_OFFICIATING);
         $this->assertCount(2, $matches);
@@ -226,7 +226,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesKnownTeamAll() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
         $this->assertCount(5, $matches);
@@ -239,50 +239,50 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesWithReferencesKnownTeamPlaying() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
-        $group = $competition->getStageById('C')->getGroupById('CP');
+        $group = $competition->getStage('C')->getGroup('CP');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_PLAYING);
         $this->assertCount(3, $matches);
         $matchTwo = $matches[1];
         $this->assertInstanceOf(GroupMatch::class, $matchTwo);
-        $this->assertEquals('TM2', $competition->getTeamByID($matchTwo->getHomeTeam()->getID())->getID());
-        $this->assertEquals('TM6', $competition->getTeamByID($matchTwo->getAwayTeam()->getID())->getID());
+        $this->assertEquals('TM2', $competition->getTeam($matchTwo->getHomeTeam()->getID())->getID());
+        $this->assertEquals('TM6', $competition->getTeam($matchTwo->getAwayTeam()->getID())->getID());
         $matchThree = $matches[2];
         $this->assertInstanceOf(GroupMatch::class, $matchTwo);
-        $this->assertEquals('TM2', $competition->getTeamByID($matchThree->getHomeTeam()->getID())->getID());
-        $this->assertEquals('TM3', $competition->getTeamByID($matchThree->getAwayTeam()->getID())->getID());
+        $this->assertEquals('TM2', $competition->getTeam($matchThree->getHomeTeam()->getID())->getID());
+        $this->assertEquals('TM3', $competition->getTeam($matchThree->getAwayTeam()->getID())->getID());
     }
 
     public function testGroupGetMatchesWithReferencesKnownTeamOfficiating() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
-        $group = $competition->getStageById('C')->getGroupById('CP');
+        $group = $competition->getStage('C')->getGroup('CP');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_OFFICIATING);
         $this->assertCount(1, $matches);
         $matchOne = $matches[0];
         $this->assertInstanceOf(GroupMatch::class, $matchOne);
-        $this->assertEquals('TM2', $competition->getTeamByID($matchOne->getOfficials()->getTeamID())->getID());
+        $this->assertEquals('TM2', $competition->getTeam($matchOne->getOfficials()->getTeamID())->getID());
     }
 
     public function testGroupGetMatchesWithReferencesKnownTeamAll() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'complete-group-knockout.json');
-        $group = $competition->getStageById('C')->getGroupById('CP');
+        $group = $competition->getStage('C')->getGroup('CP');
 
         $matches = $group->getMatches('TM2', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
         $this->assertCount(4, $matches);
         $matchFour = $matches[3];
         $this->assertInstanceOf(GroupMatch::class, $matchFour);
-        $this->assertEquals('TM6', $competition->getTeamByID($matchFour->getHomeTeam()->getID())->getID());
-        $this->assertEquals('TM7', $competition->getTeamByID($matchFour->getAwayTeam()->getID())->getID());
+        $this->assertEquals('TM6', $competition->getTeam($matchFour->getHomeTeam()->getID())->getID());
+        $this->assertEquals('TM7', $competition->getTeam($matchFour->getAwayTeam()->getID())->getID());
     }
 
     public function testGroupGetMatchDatesFromGroup() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
-        $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
-        $groupB = $competition->getStageById('HVAGP')->getGroupById('B');
+        $groupA = $competition->getStage('HVAGP')->getGroup('A');
+        $groupB = $competition->getStage('HVAGP')->getGroup('B');
         $datesA = $groupA->getMatchDates();
         $datesB = $groupB->getMatchDates();
 
@@ -295,7 +295,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchDatesForTeamFromGroup() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
-        $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
+        $groupA = $competition->getStage('HVAGP')->getGroup('A');
         $datesTMC = $groupA->getMatchDates('TMC');
 
         $this->assertCount(3, $datesTMC);
@@ -305,7 +305,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchDatesForTeamPlaying() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
-        $groupC = $competition->getStageById('HVAGP2')->getGroupById('C');
+        $groupC = $competition->getStage('HVAGP2')->getGroup('C');
         $datesTMK = $groupC->getMatchDates('TMK', VBC_MATCH_PLAYING);
 
         $this->assertCount(2, $datesTMK);
@@ -315,7 +315,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchDatesForTeamOfficiating() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
-        $groupC = $competition->getStageById('HVAGP2')->getGroupById('C');
+        $groupC = $competition->getStage('HVAGP2')->getGroup('C');
         $datesTMM = $groupC->getMatchDates('TMM', VBC_MATCH_OFFICIATING);
 
         $this->assertCount(2, $datesTMM);
@@ -325,7 +325,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesOnDate() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
-        $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
+        $groupA = $competition->getStage('HVAGP')->getGroup('A');
         $matches = $groupA->getMatchesOnDate('2023-10-22');
 
         $this->assertCount(13, $matches);
@@ -335,7 +335,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesOnDateForTeam() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
-        $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
+        $groupA = $competition->getStage('HVAGP')->getGroup('A');
         $matchesTMC = $groupA->getMatchesOnDate('2024-01-21', 'TMC');
         $this->assertCount(12, $matchesTMC);
         $this->assertEquals('GP2AM9', $matchesTMC[8]->getID());
@@ -344,12 +344,12 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesOnDateForTeamPlaying() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
-        $groupA = $competition->getStageById('HVAGP')->getGroupById('A');
+        $groupA = $competition->getStage('HVAGP')->getGroup('A');
         $matchesTMC = $groupA->getMatchesOnDate('2023-10-22', 'TMC', VBC_MATCH_PLAYING | VBC_MATCH_OFFICIATING);
         $this->assertCount(1, $matchesTMC);
         $this->assertInstanceOf('VBCompetitions\Competitions\GroupBreak', $matchesTMC[0]);
 
-        $groupC = $competition->getStageById('HVAGP2')->getGroupById('C');
+        $groupC = $competition->getStage('HVAGP2')->getGroup('C');
         $matchesTMK = $groupC->getMatchesOnDate('2023-11-26', 'TMK', VBC_MATCH_PLAYING);
         $this->assertCount(3, $matchesTMK);
         $this->assertEquals('GP1CM7', $matchesTMK[1]->getID());
@@ -358,7 +358,7 @@ final class GroupTest extends TestCase {
     public function testGroupGetMatchesOnDateForTeamOfficiating() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'group-with-dates.json');
-        $groupC = $competition->getStageById('HVAGP2')->getGroupById('C');
+        $groupC = $competition->getStage('HVAGP2')->getGroup('C');
         $matchesTMM = $groupC->getMatchesOnDate('2024-02-25', 'TMM', VBC_MATCH_OFFICIATING);
         $this->assertCount(1, $matchesTMM);
         $this->assertEquals('GP2CM9', $matchesTMM[0]->getID());
@@ -367,9 +367,9 @@ final class GroupTest extends TestCase {
     public function testGroupAllTeamsKnown() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
-        $poolA = $competition->getStageById('P')->getGroupById('A');
-        $poolB = $competition->getStageById('P')->getGroupById('B');
-        $finals = $competition->getStageById('F')->getGroupById('F');
+        $poolA = $competition->getStage('P')->getGroup('A');
+        $poolB = $competition->getStage('P')->getGroup('B');
+        $finals = $competition->getStage('F')->getGroup('F');
 
         $this->assertTrue($poolA->allTeamsKnown());
         $this->assertTrue($poolB->allTeamsKnown());
@@ -379,8 +379,8 @@ final class GroupTest extends TestCase {
     public function testGroupTeamHasMatches() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
-        $poolA = $competition->getStageById('P')->getGroupById('A');
-        $finals = $competition->getStageById('F')->getGroupById('F');
+        $poolA = $competition->getStage('P')->getGroup('A');
+        $finals = $competition->getStage('F')->getGroup('F');
 
         $this->assertTrue($poolA->teamHasMatches('TM1'));
         $this->assertFalse($poolA->teamHasMatches('TM5'));
@@ -392,8 +392,8 @@ final class GroupTest extends TestCase {
     public function testGroupTeamHasOfficiating() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
-        $poolA = $competition->getStageById('P')->getGroupById('A');
-        $finals = $competition->getStageById('F')->getGroupById('F');
+        $poolA = $competition->getStage('P')->getGroup('A');
+        $finals = $competition->getStage('F')->getGroup('F');
 
         $this->assertTrue($poolA->teamHasOfficiating('TM1'));
         $this->assertFalse($poolA->teamHasOfficiating('TM5'));
@@ -404,8 +404,8 @@ final class GroupTest extends TestCase {
     public function testGroupTeamMayHaveMatches() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'groups'))),'incomplete-group-multi-stage.json');
-        $poolA = $competition->getStageById('P')->getGroupById('A');
-        $finals = $competition->getStageById('F')->getGroupById('F');
+        $poolA = $competition->getStage('P')->getGroup('A');
+        $finals = $competition->getStage('F')->getGroup('F');
 
         $this->assertFalse($poolA->teamMayHaveMatches('TM1'));
         $this->assertTrue($finals->teamMayHaveMatches('TM2'));
@@ -417,7 +417,7 @@ final class GroupTest extends TestCase {
     public function testGroupSettersGetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'groups'))), 'group-matches-with-everything.json');
-        $group = $competition->getStageById('L')->getGroupById('LG');
+        $group = $competition->getStage('L')->getGroup('LG');
 
         $this->assertEquals('League 1', $group->getName());
         $group->setName('League One');
@@ -445,7 +445,7 @@ final class GroupTest extends TestCase {
         $group = new Knockout($stage, 'Finals', MatchType::CONTINUOUS);
 
         try {
-            $group->getTeamByID('league', '1');
+            $group->getTeam('league', '1');
             $this->fail('Getting a team by league position in a non-league group should fail');
         } catch (Exception $e) {
             $this->assertEquals('Invalid type "league" in team reference.  Cannot get league position from a non-league group', $e->getMessage());

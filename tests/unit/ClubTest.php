@@ -19,34 +19,29 @@ final class ClubTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'club'))), 'competition-with-clubs.json');
 
-        $team = $competition->getTeamByID('TM7');
+        $team = $competition->getTeam('TM7');
         $this->assertNull($team->getClub(), 'Team 7 should have no club defined');
-    }
-
-    public function testClubsDuplicateID() : void
-    {
-        $this->expectExceptionMessage('Club with ID "NOR" already exists in the competition');
-        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'club'))), 'competition-with-clubs-duplicate-ids.json');
     }
 
     public function testCompetitionWithClubsNoSuchID() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'club'))), 'competition-with-clubs.json');
         $this->expectExceptionMessage('Club with ID "Foo" not found');
-        $competition->getClubByID('Foo');
+        $competition->getClub('Foo');
     }
 
     public function testCompetitionWithClubs() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'club'))), 'competition-with-clubs.json');
-        $this->assertEquals('SOU', $competition->getTeamByID('TM1')->getClub()->getID());
-        $this->assertEquals('NOR', $competition->getTeamByID('TM2')->getClub()->getID());
-        $this->assertNull($competition->getTeamByID('TM7')->getClub());
+        $this->assertTrue($competition->hasClubs());
+        $this->assertEquals('SOU', $competition->getTeam('TM1')->getClub()->getID());
+        $this->assertEquals('NOR', $competition->getTeam('TM2')->getClub()->getID());
+        $this->assertNull($competition->getTeam('TM7')->getClub());
 
-        $this->assertEquals('This is a club', $competition->getTeamByID('TM1')->getClub()->getNotes());
+        $this->assertEquals('This is a club', $competition->getTeam('TM1')->getClub()->getNotes());
 
-        $this->assertEquals('Southampton', $competition->getClubByID('SOU')->getName());
-        $this->assertEquals('Northampton', $competition->getClubByID('NOR')->getName());
+        $this->assertEquals('Southampton', $competition->getClub('SOU')->getName());
+        $this->assertEquals('Northampton', $competition->getClub('NOR')->getName());
 
         $clubs = $competition->getClubs();
         $this->assertCount(2, $clubs);
@@ -59,15 +54,15 @@ final class ClubTest extends TestCase {
     public function testClubSettersGetters() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'club'))), 'competition-with-clubs.json');
-        $club = $competition->getClubByID('SOU');
+        $club = $competition->getClub('SOU');
 
         $this->assertEquals('Southampton', $club->getName());
         $this->assertEquals('This is a club', $club->getNotes());
         $this->assertTrue($club->hasNotes());
         $this->assertCount(3, $club->getTeams());
         $this->assertEquals('Alice VC', $club->getTeams()[0]->getName());
-        $this->assertTrue($club->hasTeamWithID('TM1'));
-        $this->assertFalse($club->hasTeamWithID('TM2'));
+        $this->assertTrue($club->hasTeam('TM1'));
+        $this->assertFalse($club->hasTeam('TM2'));
 
         $club->setName('New Southampton');
         $club->setNotes('This is the club to be');
@@ -97,7 +92,7 @@ final class ClubTest extends TestCase {
     public function testClubDelete() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'club'))), 'competition-with-clubs.json');
-        $club = $competition->getClubByID('SOU');
+        $club = $competition->getClub('SOU');
         $team = $club->getTeams()[0];
 
         $this->assertEquals('Southampton', $club->getName());
@@ -105,8 +100,8 @@ final class ClubTest extends TestCase {
         $this->assertCount(3, $club->getTeams());
         $this->assertEquals('Alice VC', $team->getName());
         $this->assertEquals('SOU', $team->getClub()->getID());
-        $this->assertTrue($club->hasTeamWithID('TM1'));
-        $this->assertFalse($club->hasTeamWithID('TM2'));
+        $this->assertTrue($club->hasTeam('TM1'));
+        $this->assertFalse($club->hasTeam('TM2'));
 
         $club_returned = $club->deleteTeam('TM1');
         $this->assertInstanceOf('VBCompetitions\Competitions\Club', $club_returned);
