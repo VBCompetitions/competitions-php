@@ -133,7 +133,10 @@ final class Competition implements JsonSerializable
 
         if (property_exists($competition_data, 'metadata')) {
             foreach ($competition_data->metadata as $kv) {
-                $competition->setMetadataByID($kv->key, $kv->value);
+                if ($competition->hasMetadataByKey($kv->key)) {
+                    throw new Exception('Metadata with key "'.$kv->key.'" already exists in the competition');
+                }
+                $competition->setMetadataByKey($kv->key, $kv->value);
             }
         }
 
@@ -296,7 +299,7 @@ final class Competition implements JsonSerializable
      * @return Competition Returns the current Competition instance for method chaining
      * @throws Exception If the key or value is invalid
      */
-    public function setMetadataByID(string $key, string $value) : Competition
+    public function setMetadataByKey(string $key, string $value) : Competition
     {
         if (strlen($key) > 100 || strlen($key) < 1) {
             throw new Exception('Invalid metadata key: must be between 1 and 100 characters long');
