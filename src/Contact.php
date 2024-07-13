@@ -209,6 +209,32 @@ final class Contact implements JsonSerializable
     }
 
     /**
+     * Set the list of roles, overriding the previous list
+     *
+     * @param array<ContactRole> $roles The list of roles for the contact
+     *
+     * @return Contact Returns this contact for method chaining
+     * @throws Exception When the list of roles contains an invalid value
+     */
+    public function setRoles(array $roles) : Contact
+    {
+        if (count($roles) === 0) {
+            throw new Exception('Error setting the roles to an empty list as the Contact must have at least one role');
+        }
+
+        $new_roles = [];
+        foreach ($roles as $role) {
+            if (!$role instanceof ContactRole) {
+                throw new Exception('Error setting the roles due to invalid role: '.$role);
+            }
+            array_push($new_roles, $role);
+        }
+
+        $this->roles = $new_roles;
+        return $this;
+    }
+
+    /**
      * Get the email addresses for this contact
      *
      * @return array<string> The email addresses for this contact
@@ -224,12 +250,44 @@ final class Contact implements JsonSerializable
      * @param string $email The email address to add
      *
      * @return Contact Returns this contact for method chaining
+     * @throws Exception When the email address is invalid
      */
     public function addEmail($email) : Contact
     {
+        if (strlen($email) < 3) {
+            throw new Exception('Invalid contact email address: must be at least 3 characters long');
+        }
         if (!in_array($email, $this->emails)) {
             array_push($this->emails, $email);
         }
+        return $this;
+    }
+
+    /**
+     * Set the list of email addresses, overriding the previous list.  To delete all email addresses, pass in null
+     *
+     * @param array|null $emails The list of email addresses for the contact
+     *
+     * @return Contact Returns this contact for method chaining
+     * @throws Exception When one of the email addresses is invalid
+     */
+    public function setEmails(?array $emails) : Contact
+    {
+        if ($emails === null) {
+            $this->emails = [];
+            return $this;
+        }
+
+        $new_emails = [];
+        foreach ($emails as $email) {
+            if (strlen($email) < 3) {
+                throw new Exception('Invalid contact email address: must be at least 3 characters long');
+            }
+            if (!in_array($email, $new_emails)) {
+                array_push($new_emails, $email);
+            }
+        }
+        $this->emails = $new_emails;
         return $this;
     }
 
@@ -248,12 +306,44 @@ final class Contact implements JsonSerializable
      *
      * @param string $phone The phone number to add
      * @return Contact Returns this contact for method chaining
+     * @throws Exception When the phone number is invalid
      */
     public function addPhone($phone) : Contact
     {
+        if (strlen($phone) > 50 || strlen($phone) < 1) {
+            throw new Exception('Invalid contact phone number: must be between 1 and 50 characters long');
+        }
         if (!in_array($phone, $this->phones)) {
             array_push($this->phones, $phone);
         }
+        return $this;
+    }
+
+    /**
+     * Set the list of phone numbers, overriding the previous list.  To delete all phone numbers, pass in null
+     *
+     * @param array|null $phones The list of phone numbers for the contact
+     *
+     * @return Contact Returns this contact for method chaining
+     * @throws Exception When one of the phone numbers is invalid
+     */
+    public function setPhones(?array $phones) : Contact
+    {
+        if ($phones === null) {
+            $this->phones = [];
+            return $this;
+        }
+
+        $new_phones = [];
+        foreach ($phones as $phone) {
+            if (strlen($phone) > 50 || strlen($phone) < 1) {
+                throw new Exception('Invalid contact phone number: must be between 1 and 50 characters long');
+            }
+            if (!in_array($phone, $new_phones)) {
+                array_push($new_phones, $phone);
+            }
+        }
+        $this->phones = $new_phones;
         return $this;
     }
 }
