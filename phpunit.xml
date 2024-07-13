@@ -13,11 +13,6 @@
       <directory>tests</directory>
     </testsuite>
   </testsuites>
-  <coverage includeUncoveredFiles="false">
-    <report>
-      <html outputDirectory="coverage"/>
-    </report>
-  </coverage>
   <source>
     <include>
       <directory suffix=".php">src</directory>
