@@ -107,6 +107,7 @@ final class CompetitionTest extends TestCase {
 
     public function testCompetitionLoad_NotAFile() : void
     {
+        $this->expectNotToPerformAssertions();
         set_error_handler(function () {
             return;
         });
@@ -115,7 +116,7 @@ final class CompetitionTest extends TestCase {
             Competition::loadFromFile(realpath(__DIR__), 'competitions');
             restore_error_handler();
             $this->fail('File loading should have failed');
-        } catch (Throwable $th) {
+        } catch (Throwable $_) {
             restore_error_handler();
         }
     }
