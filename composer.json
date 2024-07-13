@@ -7,6 +7,10 @@
   "autoload": {
     "psr-4": {"VBCompetitions\\Competitions\\": "src/"}
   },
+  "scripts": {
+    "test": "vendor/bin/phpunit --coverage-html coverage",
+    "test:no-coverage": "vendor/bin/phpunit"
+  },
   "require": {
     "composer-runtime-api": "^2.2",
     "opis/json-schema": "^2.3",
