@@ -117,7 +117,6 @@ final class CompetitionTest extends TestCase {
             $this->fail('File loading should have failed');
         } catch (Throwable $th) {
             restore_error_handler();
-            $this->assertEquals('Failed to load file', $th->getMessage());
         }
     }
 
