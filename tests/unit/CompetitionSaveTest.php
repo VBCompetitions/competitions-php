@@ -228,4 +228,13 @@ final class CompetitionSaveTest extends TestCase {
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'competition-metadata-season-2324.json');
         $this->assertEquals('2023-2024', $saved_competition->getMetadataByKey('season'));
     }
+
+    public function testCompetitionSaveCompetitionWithContacts() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
+        $competition->setName('Saved Competition');
+        $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'contacts.json');
+        $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'contacts.json');
+        $this->assertEquals('frankie@example.com', $saved_competition->getTeam('TM3')->getContact('C6')->getEmails()[0]);
+    }
 }

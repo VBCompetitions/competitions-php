@@ -112,11 +112,11 @@ final class Contact implements JsonSerializable
             });
         }
 
-        if ($this->emails !== null) {
+        if (count($this->emails) > 0) {
             $contact->emails = $this->emails;
         }
 
-        if ($this->phones !== null) {
+        if (count($this->phones) > 0) {
             $contact->phones = $this->phones;
         }
 
