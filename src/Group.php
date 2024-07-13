@@ -317,7 +317,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Set the description for this group
      *
-     * @param null|array<string> $description The description for this group
+     * @param array<string>|null $description The description for this group
      * @return Group The Group instance
      */
     public function setDescription($description) : Group

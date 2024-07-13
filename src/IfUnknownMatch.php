@@ -48,7 +48,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
     /** @var ?MatchOfficials The officials for this match */
     private ?MatchOfficials $officials = null;
 
-    /** @var null|Player A most valuable player award for the match */
+    /** @var Player|null A most valuable player award for the match */
     private ?Player $mvp = null;
 
     /** @var ?MatchManager The court manager in charge of this match */

@@ -207,7 +207,7 @@ final class Player implements JsonSerializable
     /**
      * Get the most recent PlayerTeam that the player has been registered with
      *
-     * @return null|PlayerTeam The most recent PlayerTeam that the player has been registered with
+     * @return PlayerTeam|null The most recent PlayerTeam that the player has been registered with
      */
     public function getLatestTeamEntry() : ?PlayerTeam
     {
@@ -221,7 +221,7 @@ final class Player implements JsonSerializable
     /**
      * Get the most recent CompetitionTeam that the player has been registered with
      *
-     * @return null|CompetitionTeam The most recent CompetitionTeam that the player has been registered with
+     * @return CompetitionTeam|null The most recent CompetitionTeam that the player has been registered with
      */
     public function getCurrentTeam() : ?CompetitionTeam
     {

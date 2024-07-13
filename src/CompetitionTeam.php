@@ -278,7 +278,7 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Returns an array of Contacts for this team
      *
-     * @return null|array<Contact> The contacts for this team
+     * @return array<Contact>|null The contacts for this team
      */
     public function getContacts() : ?array
     {

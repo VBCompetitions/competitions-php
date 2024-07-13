@@ -133,6 +133,113 @@ final class ContactTest extends TestCase {
         $this->assertCount(1, $contact->getRoles());
     }
 
+    public function testContactSettersAndAdders() : void
+    {
+        $competition = new Competition('test competition');
+        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $contact = new Contact($team, 'C1', [ContactRole::SECRETARY]);
+
+        $this->assertCount(1, $contact->getRoles());
+        $contact->setRoles([ContactRole::CAPTAIN, ContactRole::COACH, ContactRole::TREASURER, ContactRole::SECRETARY]);
+        $this->assertCount(4, $contact->getRoles());
+
+        try {
+            $contact->setRoles([]);
+            $this->fail('Contact should not allow zero roles');
+        } catch (Exception $e) {
+            $this->assertEquals('Error setting the roles to an empty list as the Contact must have at least one role', $e->getMessage());
+        }
+
+        try {
+            $contact->setRoles(['foo']);
+            $this->fail('Contact should not allow an unknown role');
+        } catch (Exception $e) {
+            $this->assertEquals('Error setting the roles due to invalid role: foo', $e->getMessage());
+        }
+
+        $this->assertCount(0, $contact->getEmails());
+        // Include a duplicate
+        $contact->setEmails(['alice1@example.com', 'alice2@example.com', 'alice2@example.com']);
+        $this->assertCount(2, $contact->getEmails());
+        $contact->addEmail('alice3@example.com');
+        $this->assertCount(3, $contact->getEmails());
+        try {
+            $contact->addEmail('fo');
+            $this->fail('Contact should not allow invalid email');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact email address: must be at least 3 characters long', $e->getMessage());
+        }
+
+        $contact->setEmails(null);
+        $this->assertCount(0, $contact->getEmails());
+
+        try {
+            $contact->setEmails(['fo', 'alice1@example.com']);
+            $this->fail('Contact should not allow invalid email');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact email address: must be at least 3 characters long', $e->getMessage());
+        }
+
+        try {
+            $contact->setEmails(['alice1@example.com', 'fo']);
+            $this->fail('Contact should not allow invalid email');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact email address: must be at least 3 characters long', $e->getMessage());
+        }
+
+        $this->assertCount(0, $contact->getPhones());
+        // Include a duplicate
+        $contact->setPhones(['01234 567890', '01234 567891', '01234 567891']);
+        $this->assertCount(2, $contact->getPhones());
+        $contact->addPhone('01234 567892');
+        $this->assertCount(3, $contact->getPhones());
+
+        try {
+            $contact->addPhone('');
+            $this->fail('Contact should not allow an empty phone number');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact phone number: must be between 1 and 50 characters long', $e->getMessage());
+        }
+
+        try {
+            $contact->addPhone('012345678901234567890123456789012345678901234567890123456789');
+            $this->fail('Contact should not allow an empty phone number');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact phone number: must be between 1 and 50 characters long', $e->getMessage());
+        }
+
+        $contact->setPhones(null);
+        $this->assertCount(0, $contact->getPhones());
+
+        try {
+            $contact->setPhones(['', '01234 567890']);
+            $this->fail('Contact should not allow an empty phone number');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact phone number: must be between 1 and 50 characters long', $e->getMessage());
+        }
+
+        try {
+            $contact->setPhones(['01234 567890', '']);
+            $this->fail('Contact should not allow a string as a phone number');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact phone number: must be between 1 and 50 characters long', $e->getMessage());
+        }
+
+        try {
+            $contact->setPhones(['012345678901234567890123456789012345678901234567890123456789', '01234 567890']);
+            $this->fail('Contact should not allow an empty phone number');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact phone number: must be between 1 and 50 characters long', $e->getMessage());
+        }
+
+        try {
+            $contact->setPhones(['01234 567890', '012345678901234567890123456789012345678901234567890123456789']);
+            $this->fail('Contact should not allow a string as a phone number');
+        } catch (Exception $e) {
+            $this->assertEquals('Invalid contact phone number: must be between 1 and 50 characters long', $e->getMessage());
+        }
+    }
+
     public function testContactConstructorBadID() : void
     {
         $competition = new Competition('test competition');

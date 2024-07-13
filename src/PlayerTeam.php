@@ -15,15 +15,15 @@ final class PlayerTeam implements JsonSerializable
     /** @var string The team ID that the player is/was registered with */
     private string $id;
 
-    /** @var null|string The date from which the player is/was registered with this team.  When this is not present, there should not be any \"from\"
+    /** @var string|null The date from which the player is/was registered with this team.  When this is not present, there should not be any \"from\"
      * or \"until\" values in any entry in this player's \"teams\" array */
     private ?string $from;
 
-    /** @var null|string The date up to which the player was registered with this team.  When a \"from\" date is specified and this is not, it should
+    /** @var string|null The date up to which the player was registered with this team.  When a \"from\" date is specified and this is not, it should
      * be taken that a player is still registered with this team */
     private ?string $until;
 
-    /** @var null|string Free form string to add notes about this team registration entry for the player */
+    /** @var string|null Free form string to add notes about this team registration entry for the player */
     private ?string $notes;
 
     /** @var Player  The player associated with this record */
