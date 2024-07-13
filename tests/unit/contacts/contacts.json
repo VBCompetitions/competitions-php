@@ -67,7 +67,6 @@
           "id": "C7",
           "name": "George Grey",
           "roles": ["medic"],
-          "emails": ["george@example.com"],
           "phones": ["01234 567895"]
         }
       ]
