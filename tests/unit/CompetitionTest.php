@@ -881,6 +881,16 @@ final class CompetitionTest extends TestCase {
         }
 
         $competition->deleteStage($stage_2->getID());
+        $this->assertEquals('S1', $competition->getStage('S1')->getID());
+        $this->assertEquals('S1', $competition->getStages()[0]->getID());
+        try {
+            $competition->getStage('S2');
+            $this->fail('Test should have caught deleting the wrong stage');
+        } catch (Exception $e) {
+            $this->assertEquals('Stage with ID S2 not found', $e->getMessage());
+        }
+
+        $competition->deleteStage($stage_2->getID());
         $competition->deleteStage($stage_1->getID());
     }
 

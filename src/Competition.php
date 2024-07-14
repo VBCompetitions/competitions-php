@@ -782,7 +782,7 @@ final class Competition implements JsonSerializable
         }
 
         unset($this->stage_lookup->$id);
-        $this->stages = array_values(array_filter($this->stages, fn(Stage $el): bool => $el->getID() === $id));
+        $this->stages = array_values(array_filter($this->stages, fn(Stage $el): bool => $el->getID() !== $id));
 
         return $this;
     }
