@@ -26,8 +26,8 @@ final class MatchManager implements JsonSerializable
      * Defines the match/court manager of a match, which may be an individual or a team.
      *
      * @param MatchInterface $match The match this Manager is managing
-     * @param ?string $team_id The ID of the team managing the match
-     * @param ?string $manager The name of the manager managing the match
+     * @param string|null $team_id The ID of the team managing the match
+     * @param string|null $manager The name of the manager managing the match
      * @throws Exception If Match Managers must be either a team or a person
      */
     function __construct(MatchInterface $match, ?string $team_id, ?string $manager = null)

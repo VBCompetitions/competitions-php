@@ -175,7 +175,7 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Set the club ID for this team
      *
-     * @param ?string $id The ID of the club this team is in
+     * @param string|null $id The ID of the club this team is in
      *
      * @return CompetitionTeam This competition team
      */
@@ -236,7 +236,7 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Set the notes for this team
      *
-     * @param ?string $notes the notes for this team
+     * @param string|null $notes the notes for this team
      *
      * @return CompetitionTeam This competition team
      */

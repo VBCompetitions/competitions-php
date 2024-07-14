@@ -48,9 +48,9 @@ final class MatchOfficials implements JsonSerializable
      * Contains the officials data.
      *
      * @param MatchInterface $match The Match these Officials are in
-     * @param ?string $team_id The ID of the team officiating the match
-     * @param ?string $first The name of the first referee
-     * @param ?bool $is_unknown Whether the team ID is unknown
+     * @param string|null $team_id The ID of the team officiating the match
+     * @param string|null $first The name of the first referee
+     * @param bool|null $is_unknown Whether the team ID is unknown
      * @throws Exception If Match Officials must be either a team or a person
      */
     function __construct(MatchInterface $match, ?string $team_id, ?string $first = null, ?bool $is_unknown = false)
@@ -182,7 +182,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the officiating team.
      *
-     * @param ?string $id The ID of the officiating team
+     * @param string|null $id The ID of the officiating team
      */
     public function setTeamID(?string $id, bool $is_unknown = false) : void
     {
@@ -214,7 +214,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the first referee.
      *
-     * @param ?string $first The name of the first referee
+     * @param string|null $first The name of the first referee
      */
     public function setFirstRef(?string $first) : void
     {
@@ -245,7 +245,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the second referee.
      *
-     * @param ?string $second The name of the second referee
+     * @param string|null $second The name of the second referee
      */
     public function setSecondRef(?string $second) : void
     {
@@ -276,7 +276,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the challenge referee's name.
      *
-     * @param ?string $challenge The name of the challenge referee
+     * @param string|null $challenge The name of the challenge referee
      */
     public function setChallengeRef(?string $challenge) : void
     {
@@ -307,7 +307,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the name of the assistant challenge referee.
      *
-     * @param ?string $assistant_challenge The name of the assistant challenge referee
+     * @param string|null $assistant_challenge The name of the assistant challenge referee
      */
     public function setAssistantChallengeRef(?string $assistant_challenge) : void
     {
@@ -338,7 +338,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the name of the reserve referee.
      *
-     * @param ?string $reserve The name of the reserve referee
+     * @param string|null $reserve The name of the reserve referee
      */
     public function setReserveRef(?string $reserve) : void
     {
@@ -369,7 +369,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the name of the scorer.
      *
-     * @param ?string $scorer The name of the scorer
+     * @param string|null $scorer The name of the scorer
      */
     public function setScorer(?string $scorer) : void
     {
@@ -400,7 +400,7 @@ final class MatchOfficials implements JsonSerializable
     /**
      * Set the name of the assistant scorer.
      *
-     * @param ?string $assistant_scorer The name of the assistant scorer
+     * @param string|null $assistant_scorer The name of the assistant scorer
      */
     public function setAssistantScorer(?string $assistant_scorer) : void
     {

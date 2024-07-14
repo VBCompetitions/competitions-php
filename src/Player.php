@@ -171,7 +171,7 @@ final class Player implements JsonSerializable
     /**
      * Set the shirt number for this player.
      *
-     * @param ?int $number The shirt number for this player
+     * @param int|null $number The shirt number for this player
      * @throws Exception
      */
     public function setNumber(?int $number) : void
@@ -275,7 +275,7 @@ final class Player implements JsonSerializable
     /**
      * Set the notes for this player.
      *
-     * @param ?string $notes The notes for this player
+     * @param string|null $notes The notes for this player
      */
     public function setNotes(?string $notes) : void
     {

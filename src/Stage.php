@@ -205,7 +205,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      *
      * @param string $name The new name for the stage
      */
-    public function setName(string $name) : void
+    public function setName(?string $name) : void
     {
         $this->name = $name;
     }
@@ -223,7 +223,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Set the notes for this stage.
      *
-     * @param ?string $notes The notes for this stage
+     * @param string|null $notes The notes for this stage
      */
     public function setNotes(?string $notes) : void
     {
@@ -245,7 +245,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      *
      * @param array<string>|null $description The description for this stage
      */
-    public function setDescription($description) : void
+    public function setDescription(?array $description) : void
     {
         $this->description = $description;
     }
@@ -263,7 +263,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     /**
      * Set the IfUnknown object for this stage.
      *
-     * @param ?IfUnknown $if_unknown The IfUnknown object for this stage
+     * @param IfUnknown|null $if_unknown The IfUnknown object for this stage
      */
     public function setIfUnknown(?IfUnknown $if_unknown) : IfUnknown
     {

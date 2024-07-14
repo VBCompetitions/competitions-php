@@ -33,7 +33,7 @@ class ICS {
      * If $filename is defined then use that, otherwise use the team name
      *
      * @param string $team_id The team ID of the team the calendar is for
-     * @param ?string $filename A filename override for the calendar (default: null)
+     * @param string|null $filename A filename override for the calendar (default: null)
      *
      * @return string The ICS file's content disposition, i.e. "attachment; filename={filename}"
      */
@@ -61,7 +61,7 @@ class ICS {
      * @param string $unique_id Some unique string such as the domain name of the page generating the calendars.  This is used
      *                          in the UID field such that the UID will contain the date and time of the calendar entry, plus this
      *                          string
-     * @param ?string $team_id The ID for the team that the calendar is for.  When not specified the calendar will contain all matches (default: null)
+     * @param string|null $team_id The ID for the team that the calendar is for.  When not specified the calendar will contain all matches (default: null)
      *
      * @return string The body of the calendar
      */

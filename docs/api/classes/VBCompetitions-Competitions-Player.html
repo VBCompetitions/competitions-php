@@ -146,7 +146,21 @@
 </h3>
 
 <dl class="phpdocumentor-table-of-contents">
+            <dt class="phpdocumentor-table-of-contents__entry -constant -public">
+    <a href="classes/VBCompetitions-Competitions-Player.html#constant_UNREGISTERED_PLAYER_ID">UNREGISTERED_PLAYER_ID</a>
+    <span>
+        &nbsp;= &#039;UNKNOWN&#039;                            </span>
+</dt>
+<dd></dd>
+
                     <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/VBCompetitions-Competitions-Player.html#property_competition">$competition</a>
+    <span>
+                        &nbsp;: <a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a>            </span>
+</dt>
+<dd></dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
     <a href="classes/VBCompetitions-Competitions-Player.html#property_id">$id</a>
     <span>
                         &nbsp;: string            </span>
@@ -175,9 +189,9 @@
 <dd></dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -property -private">
-    <a href="classes/VBCompetitions-Competitions-Player.html#property_team">$team</a>
+    <a href="classes/VBCompetitions-Competitions-Player.html#property_teams">$teams</a>
     <span>
-                        &nbsp;: <a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>            </span>
+                        &nbsp;: array&lt;string|int, mixed&gt;            </span>
 </dt>
 <dd></dd>
 
@@ -189,11 +203,39 @@
 <dd>Contains the data of a player in a team.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-Player.html#method_appendTeamEntry">appendTeamEntry()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a>    </span>
+</dt>
+<dd>Append a PlayerTeam entry to the end of the list of teams that the player has been registered with</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-Player.html#method_getCompetition">getCompetition()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a>    </span>
+</dt>
+<dd>Get the competition this contact belongs to</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-Player.html#method_getCurrentTeam">getCurrentTeam()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>|null    </span>
+</dt>
+<dd>Get the most recent CompetitionTeam that the player has been registered with</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-Player.html#method_getID">getID()</a>
     <span>
                                 &nbsp;: string    </span>
 </dt>
 <dd>Get the ID for this player.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-Player.html#method_getLatestTeamEntry">getLatestTeamEntry()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a>|null    </span>
+</dt>
+<dd>Get the most recent PlayerTeam that the player has been registered with</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-Player.html#method_getName">getName()</a>
@@ -217,11 +259,18 @@
 <dd>Get the shirt number for this player.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/VBCompetitions-Competitions-Player.html#method_getTeam">getTeam()</a>
+    <a href="classes/VBCompetitions-Competitions-Player.html#method_getTeamEntries">getTeamEntries()</a>
     <span>
-                                &nbsp;: <a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>    </span>
+                                &nbsp;: array&lt;string|int, <a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a>&gt;    </span>
 </dt>
-<dd>Get the team this contact belongs to</dd>
+<dd>Get the list of teams this player has been registered with</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-Player.html#method_hasTeamEntry">hasTeamEntry()</a>
+    <span>
+                                &nbsp;: bool    </span>
+</dt>
+<dd>Check if a team entry exists with the given team ID</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-Player.html#method_jsonSerialize">jsonSerialize()</a>
@@ -258,11 +307,53 @@
 </dt>
 <dd>Set the shirt number for this player.</dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-Player.html#method_spliceTeamEntries">spliceTeamEntries()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a>    </span>
+</dt>
+<dd>Removes up to &quot;count&quot; elements from the array of team entries, starting at element &quot;start&quot;.</dd>
+
         </dl>
 
 
 
         
+    <section class="phpdocumentor-constants">
+        <h3 class="phpdocumentor-elements__header" id="constants">
+            Constants
+            <a href="classes/VBCompetitions-Competitions-Player.html#constants" class="headerlink"><i class="fas fa-link"></i></a>
+        </h3>
+                    <article class="phpdocumentor-element -constant -public ">
+    <h4 class="phpdocumentor-element__name" id="constant_UNREGISTERED_PLAYER_ID">
+        UNREGISTERED_PLAYER_ID
+        <a href="classes/VBCompetitions-Competitions-Player.html#constant_UNREGISTERED_PLAYER_ID" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-signature phpdocumentor-code ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+        <span class="phpdocumentor-signature__type">mixed</span>
+    <span class="phpdocumentor-signature__name">UNREGISTERED_PLAYER_ID</span>
+    = <span class="phpdocumentor-signature__default-value">&#039;UNKNOWN&#039;</span>
+</code>
+
+
+        <section class="phpdocumentor-description"></section>
+
+        <section class="phpdocumentor-description"></section>
+
+    
+
+</article>
+            </section>
 
         
     <section class="phpdocumentor-properties">
@@ -270,6 +361,40 @@
             Properties
             <a href="classes/VBCompetitions-Competitions-Player.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_competition">
+        $competition
+        <a href="classes/VBCompetitions-Competitions-Player.html#property_competition" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">37</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$competition</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>The competition this player belongs to</p>
+</section>
+
+    
+
+</article>
                     <article
         class="
             phpdocumentor-element
@@ -286,7 +411,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">15</span>
+    <span class="phpdocumentor-element-found-in__line">17</span>
 
     </aside>
 
@@ -320,7 +445,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">18</span>
+    <span class="phpdocumentor-element-found-in__line">20</span>
 
     </aside>
 
@@ -354,7 +479,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">24</span>
+    <span class="phpdocumentor-element-found-in__line">34</span>
 
     </aside>
 
@@ -388,7 +513,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">21</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
@@ -413,28 +538,31 @@
             -private
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="property_team">
-        $team
-        <a href="classes/VBCompetitions-Competitions-Player.html#property_team" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="property_teams">
+        $teams
+        <a href="classes/VBCompetitions-Competitions-Player.html#property_teams" class="headerlink"><i class="fas fa-link"></i></a>
         <span class="phpdocumentor-element__modifiers">
                                 </span>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">27</span>
+    <span class="phpdocumentor-element-found-in__line">31</span>
 
     </aside>
 
     
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-        <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span>
-    <span class="phpdocumentor-signature__name">$team</span>
-    </code>
+        <span class="phpdocumentor-signature__type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__name">$teams</span>
+     = <span class="phpdocumentor-signature__default-value">[]</span></code>
 
     
-        <section class="phpdocumentor-description"><p>The team this player belongs to</p>
+        <section class="phpdocumentor-description"><p>An ordered list of teams the player is/has been registered for in this competition, in the order that they have been
+registered (and therefore transferred in the case of more than one entry).  A player can only be registered with one
+team at any time within this competition, meaning that if there are multiple teams listed, either all but the last
+entry MUST have an &quot;until&quot; value, or there must be no &quot;from&quot; or &quot;until&quot; values in any entry</p>
 </section>
 
     
@@ -460,7 +588,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">37</span>
+    <span class="phpdocumentor-element-found-in__line">47</span>
 
     </aside>
 
@@ -468,17 +596,17 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$competition</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$team</span>
-                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span>
+                <span class="phpdocumentor-signature__argument__name">$competition</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a></span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"><p>The team to which this player belongs</p>
+                    <section class="phpdocumentor-description"><p>The competition to which this player belongs</p>
 </section>
 
             </dd>
@@ -530,6 +658,123 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_appendTeamEntry">
+        appendTeamEntry()
+        <a href="classes/VBCompetitions-Competitions-Player.html#method_appendTeamEntry" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">191</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Append a PlayerTeam entry to the end of the list of teams that the player has been registered with</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">appendTeamEntry</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_entry</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$team_entry</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the PlayerTeam entry to add</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>this Player</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getCompetition">
+        getCompetition()
+        <a href="classes/VBCompetitions-Competitions-Player.html#method_getCompetition" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">122</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the competition this contact belongs to</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getCompetition</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The competition this contact belongs to</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_getCurrentTeam">
+        getCurrentTeam()
+        <a href="classes/VBCompetitions-Competitions-Player.html#method_getCurrentTeam" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">226</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the most recent CompetitionTeam that the player has been registered with</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getCurrentTeam</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>|null</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>|null</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The most recent CompetitionTeam that the player has been registered with</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getID">
         getID()
         <a href="classes/VBCompetitions-Competitions-Player.html#method_getID" class="headerlink"><i class="fas fa-link"></i></a>
@@ -537,7 +782,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">112</span>
+    <span class="phpdocumentor-element-found-in__line">132</span>
 
     </aside>
 
@@ -565,6 +810,41 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getLatestTeamEntry">
+        getLatestTeamEntry()
+        <a href="classes/VBCompetitions-Competitions-Player.html#method_getLatestTeamEntry" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">212</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the most recent PlayerTeam that the player has been registered with</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getLatestTeamEntry</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a>|null</span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a>|null</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The most recent PlayerTeam that the player has been registered with</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getName">
         getName()
         <a href="classes/VBCompetitions-Competitions-Player.html#method_getName" class="headerlink"><i class="fas fa-link"></i></a>
@@ -572,7 +852,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">122</span>
+    <span class="phpdocumentor-element-found-in__line">142</span>
 
     </aside>
 
@@ -607,7 +887,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">170</span>
+    <span class="phpdocumentor-element-found-in__line">270</span>
 
     </aside>
 
@@ -642,7 +922,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">146</span>
+    <span class="phpdocumentor-element-found-in__line">166</span>
 
     </aside>
 
@@ -670,31 +950,78 @@
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getTeam">
-        getTeam()
-        <a href="classes/VBCompetitions-Competitions-Player.html#method_getTeam" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getTeamEntries">
+        getTeamEntries()
+        <a href="classes/VBCompetitions-Competitions-Player.html#method_getTeamEntries" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">102</span>
+    <span class="phpdocumentor-element-found-in__line">202</span>
 
     </aside>
 
-        <p class="phpdocumentor-summary">Get the team this contact belongs to</p>
+        <p class="phpdocumentor-summary">Get the list of teams this player has been registered with</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getTeam</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">getTeamEntries</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a>&gt;</span></code>
 
     
     
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, <a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a>&gt;</span>
             &mdash;
-            <section class="phpdocumentor-description"><p>The team this contact belongs to</p>
+            <section class="phpdocumentor-description"><p>The team this player belongs to</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_hasTeamEntry">
+        hasTeamEntry()
+        <a href="classes/VBCompetitions-Competitions-Player.html#method_hasTeamEntry" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">239</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Check if a team entry exists with the given team ID</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">hasTeamEntry</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>the team ID to check for</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">bool</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>whether the player has ever been registered to the team with the given ID</p>
 </section>
 
     
@@ -712,7 +1039,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">80</span>
+    <span class="phpdocumentor-element-found-in__line">96</span>
 
     </aside>
 
@@ -745,7 +1072,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">62</span>
+    <span class="phpdocumentor-element-found-in__line">72</span>
 
     </aside>
 
@@ -792,7 +1119,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">133</span>
+    <span class="phpdocumentor-element-found-in__line">153</span>
 
     </aside>
 
@@ -851,7 +1178,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">180</span>
+    <span class="phpdocumentor-element-found-in__line">280</span>
 
     </aside>
 
@@ -896,7 +1223,7 @@
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">157</span>
+    <span class="phpdocumentor-element-found-in__line">177</span>
 
     </aside>
 
@@ -940,6 +1267,61 @@
     <span class="phpdocumentor-signature__response_type">void</span>
             &mdash;
         
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_spliceTeamEntries">
+        spliceTeamEntries()
+        <a href="classes/VBCompetitions-Competitions-Player.html#method_spliceTeamEntries" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Player.php"><a href="files/src-player.html"><abbr title="src/Player.php">Player.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">259</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Removes up to &quot;count&quot; elements from the array of team entries, starting at element &quot;start&quot;.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">spliceTeamEntries</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$start</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$count</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a></span></code>
+
+        <section class="phpdocumentor-description"><p>This calls &quot;splice&quot; directly so has the same behaviour in terms of negative values and
+values out of bounds</p>
+</section>
+
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$start</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$count</span>
+                : <span class="phpdocumentor-signature__argument__return-type">int</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>this Player</p>
+</section>
+
     
 </article>
             </section>
