@@ -422,14 +422,20 @@ final class GroupTest extends TestCase {
         $this->assertEquals('League 1', $group->getName());
         $group->setName('League One');
         $this->assertEquals('League One', $group->getName());
+        $group->setName(null);
+        $this->assertNull($group->getName());
 
         $this->assertEquals('These are notes on the group', $group->getNotes());
         $group->setNotes('These are notes on the best group');
         $this->assertEquals('These are notes on the best group', $group->getNotes());
+        $group->setNotes(null);
+        $this->assertNull($group->getNotes());
 
         $this->assertEquals('This is a description about the group', $group->getDescription()[0]);
         $group->setDescription(['This is line one of the description', 'This is some more words']);
         $this->assertEquals('This is line one of the description', $group->getDescription()[0]);
+        $group->setDescription(null);
+        $this->assertNull($group->getDescription());
 
         $this->assertFalse($group->getDrawsAllowed());
         $group->setDrawsAllowed(true);

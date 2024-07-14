@@ -61,10 +61,14 @@ final class StageTest extends TestCase {
         $this->assertEquals('League', $stage->getName());
         $stage->setName('New League');
         $this->assertEquals('New League', $stage->getName());
+        $stage->setName(null);
+        $this->assertNull($stage->getName());
 
         $this->assertEquals('These are notes on the stage', $stage->getNotes());
         $stage->setNotes('Now there are notes');
         $this->assertEquals('Now there are notes', $stage->getNotes());
+        $stage->setNotes(null);
+        $this->assertNull($stage->getNotes());
 
         $this->assertIsArray($stage->getDescription());
         $this->assertCount(2, $stage->getDescription());
@@ -74,6 +78,9 @@ final class StageTest extends TestCase {
         $this->assertIsArray($stage->getDescription());
         $this->assertCount(1, $stage->getDescription());
         $this->assertEquals('A new description', $stage->getDescription()[0]);
+        $stage->setDescription(null);
+        $this->assertIsNotArray($stage->getDescription());
+        $this->assertNull($stage->getDescription());
     }
 
     public function testStageMatchesWithNoOptionalFields() : void

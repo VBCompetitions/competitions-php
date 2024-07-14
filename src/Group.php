@@ -273,10 +273,10 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Set the group Name
      *
-     * @param string $name The new name for the group
+     * @param string|null $name The new name for the group
      * @return Group The Group instance
      */
-    public function setName(string $name) : Group
+    public function setName(?string $name) : Group
     {
         $this->name = $name;
         return $this;
@@ -295,7 +295,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
     /**
      * Set the notes for this group
      *
-     * @param ?string $notes The notes for this group
+     * @param string|null $notes The notes for this group
      * @return Group The Group instance
      */
     public function setNotes(?string $notes) : Group
@@ -320,7 +320,7 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
      * @param array<string>|null $description The description for this group
      * @return Group The Group instance
      */
-    public function setDescription($description) : Group
+    public function setDescription(?array $description) : Group
     {
         $this->description = $description;
         return $this;
