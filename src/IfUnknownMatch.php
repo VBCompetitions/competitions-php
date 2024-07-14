@@ -650,7 +650,7 @@ final class IfUnknownMatch implements JsonSerializable, MatchInterface
      *
      * @param array<int> $home_team_scores The score array for the home team
      * @param array<int> $away_team_scores The score array for the away team
-     * @param ?bool $complete Whether the match is complete or not
+     * @param bool|null $complete Whether the match is complete or not
      * @return IfUnknownMatch The updated IfUnknownMatch instance
      */
     public function setScores(array $home_team_scores, array $away_team_scores, ?bool $complete = null) : IfUnknownMatch

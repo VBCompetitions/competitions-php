@@ -140,7 +140,7 @@ final class Club implements JsonSerializable
     /**
      * Set the notes for this club
      *
-     * @param ?string $notes the notes for this club
+     * @param string|null $notes the notes for this club
      * @return Club this Club
      */
     public function setNotes(?string $notes) : Club

@@ -243,7 +243,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the court for this match
      *
-     * @param ?string $court the court for this match
+     * @param string|null $court the court for this match
      */
     public function setCourt(?string $court) : GroupMatch
     {
@@ -269,7 +269,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the venue for this match
      *
-     * @param ?string $venue the venue for this match
+     * @param string|null $venue the venue for this match
      */
     public function setVenue(?string $venue) : GroupMatch
     {
@@ -295,7 +295,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the date for this match
      *
-     * @param ?string $date the date for this match
+     * @param string|null $date the date for this match
      */
     public function setDate(?string $date) : GroupMatch
     {
@@ -330,7 +330,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the warmup time for this match
      *
-     * @param ?string $warmup the warmup time for this match
+     * @param string|null $warmup the warmup time for this match
      */
     public function setWarmup(?string $warmup) : GroupMatch
     {
@@ -359,7 +359,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the start time for this match
      *
-     * @param ?string $start the start time for this match
+     * @param string|null $start the start time for this match
      */
     public function setStart(?string $start) : GroupMatch
     {
@@ -387,7 +387,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the duration for this match
      *
-     * @param ?string $duration the duration for this match
+     * @param string|null $duration the duration for this match
      */
     public function setDuration(?string $duration) : GroupMatch
     {
@@ -539,7 +539,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the officials for this match
      *
-     * @param ?MatchOfficials $officials the officials for this match
+     * @param MatchOfficials|null $officials the officials for this match
      */
     public function setOfficials(?MatchOfficials $officials) : GroupMatch
     {
@@ -565,7 +565,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the MVP for this match
      *
-     * @param ?Player $mvp the MVP for this match
+     * @param Player|null $mvp the MVP for this match
      */
     public function setMVP(?Player $mvp) : GroupMatch
     {
@@ -591,7 +591,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the court manager for this match
      *
-     * @param ?MatchManager $manager the court manager for this match
+     * @param MatchManager|null $manager the court manager for this match
      */
     public function setManager(?MatchManager $manager) : GroupMatch
     {
@@ -617,7 +617,7 @@ final class GroupMatch implements JsonSerializable, MatchInterface
     /**
      * Set the notes for this match
      *
-     * @param ?string $notes the notes for this match
+     * @param string|null $notes the notes for this match
      */
     public function setNotes(?string $notes) : GroupMatch
     {

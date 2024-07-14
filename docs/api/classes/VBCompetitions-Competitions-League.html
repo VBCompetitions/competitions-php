@@ -457,7 +457,7 @@
 <dd>Gets the league table for this group.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/VBCompetitions-Competitions-Group.html#method_getMatchByID">getMatchByID()</a>
+    <a href="classes/VBCompetitions-Competitions-Group.html#method_getMatch">getMatch()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a>    </span>
 </dt>
@@ -520,7 +520,7 @@
 <dd>Get the stage this group is in</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/VBCompetitions-Competitions-League.html#method_getTeamByID">getTeamByID()</a>
+    <a href="classes/VBCompetitions-Competitions-League.html#method_getTeam">getTeam()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>    </span>
 </dt>
@@ -541,7 +541,7 @@
 <dd>Get the type for this group</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/VBCompetitions-Competitions-Group.html#method_hasMatchWithID">hasMatchWithID()</a>
+    <a href="classes/VBCompetitions-Competitions-Group.html#method_hasMatch">hasMatch()</a>
     <span>
                                 &nbsp;: bool    </span>
 </dt>
@@ -732,6 +732,13 @@ then this returns false (as there is no doubt; calls to teamHasMatches() or team
 the Stage and the Group</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/VBCompetitions-Competitions-League.html#method_compareBonusPoints">compareBonusPoints()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Compares two LeagueTableEntry objects based on their bonus points.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/VBCompetitions-Competitions-League.html#method_compareHeadToHead">compareHeadToHead()</a>
     <span>
                                 &nbsp;: int    </span>
@@ -751,6 +758,13 @@ the Stage and the Group</dd>
                                 &nbsp;: int    </span>
 </dt>
 <dd>Compares two LeagueTableEntry objects based on their losses.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/VBCompetitions-Competitions-League.html#method_comparePenaltyPoints">comparePenaltyPoints()</a>
+    <span>
+                                &nbsp;: int    </span>
+</dt>
+<dd>Compares two LeagueTableEntry objects based on their penalty points.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/VBCompetitions-Competitions-League.html#method_comparePointsAgainst">comparePointsAgainst()</a>
@@ -2397,7 +2411,7 @@ the Stage and the Group</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">368</span>
+    <span class="phpdocumentor-element-found-in__line">399</span>
 
     </aside>
 
@@ -2432,7 +2446,7 @@ the Stage and the Group</dd>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">357</span>
+    <span class="phpdocumentor-element-found-in__line">388</span>
 
     </aside>
 
@@ -2476,9 +2490,9 @@ the Stage and the Group</dd>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getMatchByID">
-        getMatchByID()
-        <a href="classes/VBCompetitions-Competitions-Group.html#method_getMatchByID" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getMatch">
+        getMatch()
+        <a href="classes/VBCompetitions-Competitions-Group.html#method_getMatch" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Group.php"><a href="files/src-group.html"><abbr title="src/Group.php">Group.php</abbr></a></abbr>
@@ -2491,13 +2505,13 @@ the Stage and the Group</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getMatchByID</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match_id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">getMatch</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-GroupMatch.html"><abbr title="\VBCompetitions\Competitions\GroupMatch">GroupMatch</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$match_id</span>
+                <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -2597,13 +2611,13 @@ the Stage and the Group</dd>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getMatches</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, \VBCompetitions\Competitions\MatchInterface|\VBCompetitions\Competitions\BreakInterface&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">getMatches</span><span>(</span><span class="phpdocumentor-signature__argument"><span>[</span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span><span> = </span><span class="phpdocumentor-signature__argument__default-value">null</span><span> ]</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">int&nbsp;</span><span class="phpdocumentor-signature__argument__name">$flags</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, \VBCompetitions\Competitions\MatchInterface|\VBCompetitions\Competitions\BreakInterface&gt;</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$team_id</span>
+                <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                  = <span class="phpdocumentor-signature__argument__default-value">null</span>            </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -2887,14 +2901,14 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_getTeamByID">
-        getTeamByID()
-        <a href="classes/VBCompetitions-Competitions-League.html#method_getTeamByID" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_getTeam">
+        getTeam()
+        <a href="classes/VBCompetitions-Competitions-League.html#method_getTeam" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">381</span>
+    <span class="phpdocumentor-element-found-in__line">412</span>
 
     </aside>
 
@@ -2902,7 +2916,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">getTeamByID</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$entity</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">getTeam</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$type</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$entity</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -3047,9 +3061,9 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
             -public
                                                         "
 >
-    <h4 class="phpdocumentor-element__name" id="method_hasMatchWithID">
-        hasMatchWithID()
-        <a href="classes/VBCompetitions-Competitions-Group.html#method_hasMatchWithID" class="headerlink"><i class="fas fa-link"></i></a>
+    <h4 class="phpdocumentor-element__name" id="method_hasMatch">
+        hasMatch()
+        <a href="classes/VBCompetitions-Competitions-Group.html#method_hasMatch" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Group.php"><a href="files/src-group.html"><abbr title="src/Group.php">Group.php</abbr></a></abbr>
@@ -3062,13 +3076,13 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">hasMatchWithID</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$match_id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">hasMatch</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$match_id</span>
+                <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -3644,14 +3658,14 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setDescription</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, string&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$description</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">setDescription</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$description</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$description</span>
-                : <span class="phpdocumentor-signature__argument__return-type">null|array&lt;string|int, string&gt;</span>
+                : <span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, string&gt;|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The description for this group</p>
@@ -3832,14 +3846,14 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">setName</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$name</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Group.html"><abbr title="\VBCompetitions\Competitions\Group">Group</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$name</span>
-                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
                     <section class="phpdocumentor-description"><p>The new name for the group</p>
@@ -3973,13 +3987,13 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">teamHasMatches</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">teamHasMatches</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$team_id</span>
+                <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -4020,13 +4034,13 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">teamHasOfficiating</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">teamHasOfficiating</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$team_id</span>
+                <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -4068,7 +4082,7 @@ then this returns false (as there is no doubt; calls to teamHasMatches() or team
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">teamMayHaveMatches</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
+                    <span class="phpdocumentor-signature__name">teamMayHaveMatches</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">bool</span></code>
 
         <section class="phpdocumentor-description"><p>This answers the question of whether there are any team references in the group that could resolve to the given team, but
 that are currently unresolved; i.e. is there a chain of references that lead back to a group containing the team that may lead
@@ -4089,7 +4103,7 @@ stage, and so would return true</p>
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
-                <span class="phpdocumentor-signature__argument__name">$team_id</span>
+                <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
@@ -4148,6 +4162,62 @@ the Stage and the Group</p>
             -private
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_compareBonusPoints">
+        compareBonusPoints()
+        <a href="classes/VBCompetitions-Competitions-League.html#method_compareBonusPoints" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">365</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Compares two LeagueTableEntry objects based on their bonus points.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">compareBonusPoints</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-LeagueTableEntry.html"><abbr title="\VBCompetitions\Competitions\LeagueTableEntry">LeagueTableEntry</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$a</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-LeagueTableEntry.html"><abbr title="\VBCompetitions\Competitions\LeagueTableEntry">LeagueTableEntry</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$b</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$a</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-LeagueTableEntry.html"><abbr title="\VBCompetitions\Competitions\LeagueTableEntry">LeagueTableEntry</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The first league table entry to compare</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$b</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-LeagueTableEntry.html"><abbr title="\VBCompetitions\Competitions\LeagueTableEntry">LeagueTableEntry</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The second league table entry to compare</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Returns an integer less than, equal to, or greater than zero to be used by the sort function</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_compareHeadToHead">
         compareHeadToHead()
         <a href="classes/VBCompetitions-Competitions-League.html#method_compareHeadToHead" class="headerlink"><i class="fas fa-link"></i></a>
@@ -4155,7 +4225,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">271</span>
+    <span class="phpdocumentor-element-found-in__line">278</span>
 
     </aside>
 
@@ -4211,7 +4281,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">235</span>
+    <span class="phpdocumentor-element-found-in__line">242</span>
 
     </aside>
 
@@ -4267,7 +4337,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">259</span>
+    <span class="phpdocumentor-element-found-in__line">266</span>
 
     </aside>
 
@@ -4316,6 +4386,62 @@ the Stage and the Group</p>
             -private
                                     -static                    "
 >
+    <h4 class="phpdocumentor-element__name" id="method_comparePenaltyPoints">
+        comparePenaltyPoints()
+        <a href="classes/VBCompetitions-Competitions-League.html#method_comparePenaltyPoints" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">377</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Compares two LeagueTableEntry objects based on their penalty points.</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+            <span class="phpdocumentor-signature__static">static</span>        <span class="phpdocumentor-signature__name">comparePenaltyPoints</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-LeagueTableEntry.html"><abbr title="\VBCompetitions\Competitions\LeagueTableEntry">LeagueTableEntry</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$a</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-LeagueTableEntry.html"><abbr title="\VBCompetitions\Competitions\LeagueTableEntry">LeagueTableEntry</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$b</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">int</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$a</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-LeagueTableEntry.html"><abbr title="\VBCompetitions\Competitions\LeagueTableEntry">LeagueTableEntry</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The first league table entry to compare</p>
+</section>
+
+            </dd>
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$b</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-LeagueTableEntry.html"><abbr title="\VBCompetitions\Competitions\LeagueTableEntry">LeagueTableEntry</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The second league table entry to compare</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">int</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>Returns an integer less than, equal to, or greater than zero to be used by the sort function</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                    -static                    "
+>
     <h4 class="phpdocumentor-element__name" id="method_comparePointsAgainst">
         comparePointsAgainst()
         <a href="classes/VBCompetitions-Competitions-League.html#method_comparePointsAgainst" class="headerlink"><i class="fas fa-link"></i></a>
@@ -4323,7 +4449,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">298</span>
+    <span class="phpdocumentor-element-found-in__line">305</span>
 
     </aside>
 
@@ -4379,7 +4505,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">310</span>
+    <span class="phpdocumentor-element-found-in__line">317</span>
 
     </aside>
 
@@ -4435,7 +4561,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">286</span>
+    <span class="phpdocumentor-element-found-in__line">293</span>
 
     </aside>
 
@@ -4491,7 +4617,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">334</span>
+    <span class="phpdocumentor-element-found-in__line">341</span>
 
     </aside>
 
@@ -4547,7 +4673,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">346</span>
+    <span class="phpdocumentor-element-found-in__line">353</span>
 
     </aside>
 
@@ -4603,7 +4729,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">322</span>
+    <span class="phpdocumentor-element-found-in__line">329</span>
 
     </aside>
 
@@ -4659,7 +4785,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">223</span>
+    <span class="phpdocumentor-element-found-in__line">230</span>
 
     </aside>
 
@@ -4715,7 +4841,7 @@ the Stage and the Group</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">247</span>
+    <span class="phpdocumentor-element-found-in__line">254</span>
 
     </aside>
 
@@ -4810,7 +4936,7 @@ to the end of each lookup chain</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/League.php"><a href="files/src-league.html"><abbr title="src/League.php">League.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">172</span>
+    <span class="phpdocumentor-element-found-in__line">173</span>
 
     </aside>
 

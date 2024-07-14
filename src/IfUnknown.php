@@ -191,7 +191,7 @@ final class IfUnknown implements JsonSerializable, MatchContainerInterface
     /**
      * Get the matches in this IfUnknown
      *
-     * @param ?string $team_id The ID of the team
+     * @param string|null $team_id The ID of the team
      * @param int $flags Flags to filter matches
      * @return array
      */

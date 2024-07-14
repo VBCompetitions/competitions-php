@@ -411,7 +411,7 @@ final class Competition implements JsonSerializable
     /**
      * Set the notes for this competition
      *
-     * @param ?string $notes the notes for this competition
+     * @param string|null $notes the notes for this competition
      *
      * @return Competition the competition
      */
@@ -938,7 +938,7 @@ final class Competition implements JsonSerializable
      * </pre>
      *
      * @param string $competition_data_dir The directory to scan for competition files
-     * @param ?object $metadata_matches A set of key-value pairs that must all match in the competition's metadata to be included in the list
+     * @param object|null $metadata_matches A set of key-value pairs that must all match in the competition's metadata to be included in the list
      *
      * @return array The list of competitions found in the given directory
      */
@@ -1037,7 +1037,7 @@ final class Competition implements JsonSerializable
      * @param string $match_id The ID of the match to update
      * @param int[] $home_team_scores The new home team scores
      * @param int[] $away_team_scores The new away team scores
-     * @param ?bool $complete Whether the match is complete
+     * @param bool|null $complete Whether the match is complete
      *
      * @throws Exception if the file starts as invalid or the new scores are invalid
      * @throws OutOfBoundsException if the stage, group, or match cannot be found
