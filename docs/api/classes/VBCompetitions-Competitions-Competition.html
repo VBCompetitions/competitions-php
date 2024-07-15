@@ -585,9 +585,10 @@ updates the score and then saves the file back to the same location</dd>
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/VBCompetitions-Competitions-Competition.html#method_stripTeamReferences">stripTeamReferences()</a>
     <span>
-                                &nbsp;: array&lt;string|int, mixed&gt;    </span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
 </dt>
-<dd></dd>
+<dd>This function recursively extracts team references from the team ID, including
+stripping out team references in a ternary statement</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -private">
     <a href="classes/VBCompetitions-Competitions-Competition.html#method_validateTeamExists">validateTeamExists()</a>
@@ -2814,7 +2815,7 @@ Competititon4 = {
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1340</span>
+    <span class="phpdocumentor-element-found-in__line">1348</span>
 
     </aside>
 
@@ -3613,17 +3614,18 @@ updates the score and then saves the file back to the same location</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Competition.php"><a href="files/src-competition.html"><abbr title="src/Competition.php">Competition.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">1315</span>
+    <span class="phpdocumentor-element-found-in__line">1323</span>
 
     </aside>
 
-    
+        <p class="phpdocumentor-summary">This function recursively extracts team references from the team ID, including
+stripping out team references in a ternary statement</p>
+
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">private</span>
-                    <span class="phpdocumentor-signature__name">stripTeamReferences</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_reference</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span></code>
+                    <span class="phpdocumentor-signature__name">stripTeamReferences</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_reference</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
 
-        <section class="phpdocumentor-description"></section>
-
+    
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
@@ -3631,7 +3633,8 @@ updates the score and then saves the file back to the same location</p>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The string containing team references.</p>
+</section>
 
             </dd>
             </dl>
@@ -3639,9 +3642,11 @@ updates the score and then saves the file back to the same location</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>An array containing unique team references extracted from the input string.</p>
+</section>
+
     
 </article>
                     <article

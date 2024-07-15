@@ -1312,6 +1312,14 @@ final class Competition implements JsonSerializable
         }
     }
 
+    /**
+     * This function recursively extracts team references from the team ID, including
+     * stripping out team references in a ternary statement
+     *
+     * @param string $team_reference The string containing team references.
+     *
+     * @return array<string> An array containing unique team references extracted from the input string.
+     */
     private function stripTeamReferences(string $team_reference) : array
     {
         $references = [];

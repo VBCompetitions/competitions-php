@@ -233,6 +233,13 @@
 <dd>Add a group to the stage.</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-Stage.html#method_deleteGroup">deleteGroup()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a>    </span>
+</dt>
+<dd>Delete a group from the stage</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-Stage.html#method_getCompetition">getCompetition()</a>
     <span>
                                 &nbsp;: <a href="classes/VBCompetitions-Competitions-Competition.html"><abbr title="\VBCompetitions\Competitions\Competition">Competition</abbr></a>    </span>
@@ -486,6 +493,14 @@ is essentially so we know whether we still need to consider displaying a stage t
                                 &nbsp;: array&lt;string|int, mixed&gt;    </span>
 </dt>
 <dd>Get matches for a specific team in this stage.</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -private">
+    <a href="classes/VBCompetitions-Competitions-Stage.html#method_stripTeamReferences">stripTeamReferences()</a>
+    <span>
+                                &nbsp;: array&lt;string|int, string&gt;    </span>
+</dt>
+<dd>This function recursively extracts team references from the team ID, including
+stripping out team references in a ternary statement</dd>
 
         </dl>
 
@@ -983,6 +998,53 @@ is essentially so we know whether we still need to consider displaying a stage t
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_deleteGroup">
+        deleteGroup()
+        <a href="classes/VBCompetitions-Competitions-Stage.html#method_deleteGroup" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">408</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Delete a group from the stage</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">deleteGroup</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a></span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$id</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The ID of the group to delete</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Stage.html"><abbr title="\VBCompetitions\Competitions\Stage">Stage</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>This stage</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_getCompetition">
         getCompetition()
         <a href="classes/VBCompetitions-Competitions-Stage.html#method_getCompetition" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1228,7 +1290,7 @@ is essentially so we know whether we still need to consider displaying a stage t
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">724</span>
+    <span class="phpdocumentor-element-found-in__line">780</span>
 
     </aside>
 
@@ -1348,7 +1410,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">749</span>
+    <span class="phpdocumentor-element-found-in__line">805</span>
 
     </aside>
 
@@ -1586,7 +1648,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">406</span>
+    <span class="phpdocumentor-element-found-in__line">462</span>
 
     </aside>
 
@@ -1701,7 +1763,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">456</span>
+    <span class="phpdocumentor-element-found-in__line">512</span>
 
     </aside>
 
@@ -1736,7 +1798,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">471</span>
+    <span class="phpdocumentor-element-found-in__line">527</span>
 
     </aside>
 
@@ -1771,7 +1833,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">486</span>
+    <span class="phpdocumentor-element-found-in__line">542</span>
 
     </aside>
 
@@ -1806,7 +1868,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">516</span>
+    <span class="phpdocumentor-element-found-in__line">572</span>
 
     </aside>
 
@@ -1841,7 +1903,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">501</span>
+    <span class="phpdocumentor-element-found-in__line">557</span>
 
     </aside>
 
@@ -1876,7 +1938,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">531</span>
+    <span class="phpdocumentor-element-found-in__line">587</span>
 
     </aside>
 
@@ -1911,7 +1973,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">546</span>
+    <span class="phpdocumentor-element-found-in__line">602</span>
 
     </aside>
 
@@ -1946,7 +2008,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">561</span>
+    <span class="phpdocumentor-element-found-in__line">617</span>
 
     </aside>
 
@@ -1981,7 +2043,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">576</span>
+    <span class="phpdocumentor-element-found-in__line">632</span>
 
     </aside>
 
@@ -2016,7 +2078,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">591</span>
+    <span class="phpdocumentor-element-found-in__line">647</span>
 
     </aside>
 
@@ -2231,7 +2293,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">607</span>
+    <span class="phpdocumentor-element-found-in__line">663</span>
 
     </aside>
 
@@ -2278,7 +2340,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">623</span>
+    <span class="phpdocumentor-element-found-in__line">679</span>
 
     </aside>
 
@@ -2325,7 +2387,7 @@ A team ID of CompetitionTeam::UNKNOWN_TEAM_ID is interpreted as null</p>
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">642</span>
+    <span class="phpdocumentor-element-found-in__line">698</span>
 
     </aside>
 
@@ -2459,7 +2521,7 @@ is essentially so we know whether we still need to consider displaying a stage t
     <aside class="phpdocumentor-element-found-in">
     <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">424</span>
+    <span class="phpdocumentor-element-found-in__line">480</span>
 
     </aside>
 
@@ -2498,6 +2560,54 @@ is essentially so we know whether we still need to consider displaying a stage t
     <span class="phpdocumentor-signature__response_type">array&lt;string|int, mixed&gt;</span>
             &mdash;
             <section class="phpdocumentor-description"><p>An array of matches for the specified team</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="method_stripTeamReferences">
+        stripTeamReferences()
+        <a href="classes/VBCompetitions-Competitions-Stage.html#method_stripTeamReferences" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/Stage.php"><a href="files/src-stage.html"><abbr title="src/Stage.php">Stage.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">830</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">This function recursively extracts team references from the team ID, including
+stripping out team references in a ternary statement</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+                    <span class="phpdocumentor-signature__name">stripTeamReferences</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team_reference</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span></code>
+
+    
+        <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
+    <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$team_reference</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string</span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The string containing team references.</p>
+</section>
+
+            </dd>
+            </dl>
+
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type">array&lt;string|int, string&gt;</span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>An array containing unique team references extracted from the input string.</p>
 </section>
 
     

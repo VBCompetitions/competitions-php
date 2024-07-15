@@ -399,6 +399,62 @@ final class Stage implements JsonSerializable, MatchContainerInterface
     }
 
     /**
+     * Delete a group from the stage
+     *
+     * @param string $id The ID of the group to delete
+     *
+     * @return Stage This stage
+     */
+    public function deleteGroup($id) : Stage
+    {
+        $stage_found = false;
+        $group_found = false;
+        foreach ($this->competition->getStages() as $stage) {
+            // Loop through all the stages until we find this stage
+            $stage_found = $stage_found || ($stage->getID() === $this->id);
+            if (!$stage_found) {
+                continue;
+            }
+
+            foreach ($stage->getGroups() as $group) {
+                // Loop through all of the groups until we find this group, but skip this group
+                if (!$group_found) {
+                    $group_found = $group_found || ($group->getID() === $id);
+                    continue;
+                }
+
+                foreach ($group->getMatches() as $match) {
+                    $team_references = [];
+                    $team_references = array_merge($team_references, $this->stripTeamReferences($match->getHomeTeam()->getID()));
+                    $team_references = array_merge($team_references, $this->stripTeamReferences($match->getAwayTeam()->getID()));
+
+                    $officials = $match->getOfficials();
+                    if ($officials !== null && $officials->isTeam()) {
+                        $team_references = array_merge($team_references, $this->stripTeamReferences($match->getOfficials()->getTeamID()));
+                    }
+
+                    foreach ($team_references as $reference) {
+                        if (preg_match('/^{([^:]*):([^:]*):.*}$/', $reference, $parts)) {
+                            if ($parts[1] === $this->id && $parts[2] === $id) {
+                                throw new Exception('Cannot delete group with id "'.$id.'" as it is referenced in match {'.$stage->getID().':'.$group->getID().':'.$match->getID().'}');
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        if (!$group_found) {
+            return $this;
+        }
+
+        unset($this->group_lookup->$id);
+        $this->groups = array_values(array_filter($this->groups, fn(Group $el): bool => $el->getID() !== $id));
+
+        return $this;
+    }
+
+    /**
      * Check if all matches in the stage are complete.
      *
      * @return bool True if all matches in the stage are complete, false otherwise
@@ -761,5 +817,32 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             return strcmp($a_start, $b_start);
         });
         return $matches;
+    }
+
+    /**
+     * This function recursively extracts team references from the team ID, including
+     * stripping out team references in a ternary statement
+     *
+     * @param string $team_reference The string containing team references.
+     *
+     * @return array<string> An array containing unique team references extracted from the input string.
+     */
+    private function stripTeamReferences(string $team_reference) : array
+    {
+        $references = [];
+        if (strncmp($team_reference, '{', 1) !== 0) {
+            return [];
+        } elseif (preg_match('/^([^=]*)==([^?]*)\?(.*)$/', $team_reference, $lr_matches)) {
+            $references = array_merge($references, $this->stripTeamReferences($lr_matches[1]));
+            $references = array_merge($references, $this->stripTeamReferences($lr_matches[2]));
+            if (preg_match('/^({[^}]*}):(.*)$/', $lr_matches[3], $tf_matches)) {
+                $references = array_merge($references, $this->stripTeamReferences($tf_matches[1]));
+                $references = array_merge($references, $this->stripTeamReferences($tf_matches[2]));
+            }
+        } else {
+            array_push($references, $team_reference);
+        }
+
+        return array_unique($references);
     }
 }
