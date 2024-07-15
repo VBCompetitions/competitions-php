@@ -253,7 +253,7 @@ Search.appendIndex(
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AstripTeamReferences\u0028\u0029",
             "name": "stripTeamReferences",
-            "summary": "",
+            "summary": "This\u0020function\u0020recursively\u0020extracts\u0020team\u0020references\u0020from\u0020the\u0020team\u0020ID,\u0020including\nstripping\u0020out\u0020team\u0020references\u0020in\u0020a\u0020ternary\u0020statement",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_stripTeamReferences"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AisComplete\u0028\u0029",
@@ -3376,6 +3376,11 @@ Search.appendIndex(
             "summary": "Check\u0020if\u0020the\u0020stage\u0020contains\u0020a\u0020group\u0020with\u0020the\u0020given\u0020ID.",
             "url": "classes/VBCompetitions-Competitions-Stage.html#method_hasGroup"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AdeleteGroup\u0028\u0029",
+            "name": "deleteGroup",
+            "summary": "Delete\u0020a\u0020group\u0020from\u0020the\u0020stage",
+            "url": "classes/VBCompetitions-Competitions-Stage.html#method_deleteGroup"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AisComplete\u0028\u0029",
             "name": "isComplete",
             "summary": "Check\u0020if\u0020all\u0020matches\u0020in\u0020the\u0020stage\u0020are\u0020complete.",
@@ -3460,6 +3465,11 @@ Search.appendIndex(
             "name": "getMatchesOnDate",
             "summary": "Returns\u0020a\u0020list\u0020of\u0020matches\u0020on\u0020the\u0020specified\u0020date\u0020in\u0020this\u0020Stage.\u0020\u0020If\u0020a\u0020team\u0020ID\u0020is\u0020given\u0020then\u0020return\u0020matches\u0020for\u0020just\u0020that\u0020team.",
             "url": "classes/VBCompetitions-Competitions-Stage.html#method_getMatchesOnDate"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003AstripTeamReferences\u0028\u0029",
+            "name": "stripTeamReferences",
+            "summary": "This\u0020function\u0020recursively\u0020extracts\u0020team\u0020references\u0020from\u0020the\u0020team\u0020ID,\u0020including\nstripping\u0020out\u0020team\u0020references\u0020in\u0020a\u0020ternary\u0020statement",
+            "url": "classes/VBCompetitions-Competitions-Stage.html#method_stripTeamReferences"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Stage\u003A\u003A\u0024id",
             "name": "id",

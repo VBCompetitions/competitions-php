@@ -7,12 +7,18 @@ namespace VBCompetitions\Competitions\test;
 use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
-use VBCompetitions\Competitions\Competition;
-use VBCompetitions\Competitions\Crossover;
-use VBCompetitions\Competitions\Group;
-use VBCompetitions\Competitions\GroupMatch;
-use VBCompetitions\Competitions\MatchType;
-use VBCompetitions\Competitions\Stage;
+use VBCompetitions\Competitions\{
+    Competition,
+    CompetitionTeam,
+    Crossover,
+    Group,
+    GroupMatch,
+    League,
+    MatchOfficials,
+    MatchTeam,
+    MatchType,
+    Stage
+};
 
 #[CoversClass(Competition::class)]
 #[CoversClass(Stage::class)]
@@ -81,6 +87,52 @@ final class StageTest extends TestCase {
         $stage->setDescription(null);
         $this->assertIsNotArray($stage->getDescription());
         $this->assertNull($stage->getDescription());
+    }
+
+    public function testStageDeleteGroup() : void
+    {
+        $competition = new Competition('test competition');
+        $team_1 = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $team_2 = new CompetitionTeam($competition, 'T2', 'Team 2');
+        $team_3 = new CompetitionTeam($competition, 'T3', 'Team 3');
+        $competition->addTeam($team_1)->addTeam($team_2)->addTeam($team_3);
+        $stage_1 = new Stage($competition, 'S1');
+        $competition->addStage($stage_1);
+        $stage_2 = new Stage($competition, 'S2');
+        $competition->addStage($stage_2);
+
+        $league_1 = new League($stage_2, 'G1', MatchType::CONTINUOUS, false);
+        $stage_2->addGroup($league_1);
+        $match_1 = new GroupMatch($league_1, 'M1');
+        $match_1->setHomeTeam(new MatchTeam($match_1, $team_1->getID()))->setAwayTeam(new MatchTeam($match_1, $team_2->getID()))->setOfficials(new MatchOfficials($match_1, $team_3->getID()));
+        $league_1->addMatch($match_1);
+
+        $league_2 = new League($stage_2, 'G2', MatchType::CONTINUOUS, false);
+        $stage_2->addGroup($league_2);
+        $match_2 = new GroupMatch($league_2, 'M1');
+        $match_2->setHomeTeam(new MatchTeam($match_2, '{S2:G1:M1:winner}=={S2:G1:M1:winner}?{S2:G1:M1:winner}:{S2:G1:M1:winner}'))->setAwayTeam(new MatchTeam($match_2, $team_3->getID()))->setOfficials(new MatchOfficials($match_2, '{S2:G1:M1:loser}'));
+        $league_2->addMatch($match_2);
+
+        try {
+            $stage_2->deleteGroup($league_1->getID());
+            $this->fail('Test should have caught deleting a group with later references');
+        } catch (Exception $e) {
+            $this->assertEquals('Cannot delete group with id "G1" as it is referenced in match {S2:G2:M1}', $e->getMessage());
+        }
+
+        $stage_2->deleteGroup($league_2->getID());
+        $this->assertEquals('G1', $stage_2->getGroup('G1')->getID());
+        $this->assertEquals('G1', $stage_2->getGroups()[0]->getID());
+        try {
+            $stage_2->getGroup('G2');
+            $this->fail('Test should have caught deleting the wrong group');
+        } catch (Exception $e) {
+            $this->assertEquals('Group with ID G2 not found in stage with ID S2', $e->getMessage());
+        }
+
+        $stage_2->deleteGroup($league_2->getID());
+        $stage_2->deleteGroup($league_1->getID());
+        $this->assertCount(0, $stage_2->getGroups());
     }
 
     public function testStageMatchesWithNoOptionalFields() : void
