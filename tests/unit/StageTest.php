@@ -157,8 +157,37 @@ final class StageTest extends TestCase {
 
     public function testStageBlockTeamsInTwoGroups() : void
     {
-        $this->expectExceptionMessage('Groups in the same stage cannot contain the same team. Groups {L:L1} and {L:L2} both contain the following team IDs: "TM2", "TM4"');
-        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-teams-in-multiple-groups.json');
+        try {
+            Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__,'stage'))),'stage-teams-in-multiple-groups.json');
+            $this->fail('Should catch multiple groups in a stage with the same team');
+        } catch (\Throwable $th) {
+            $this->assertEquals('Groups in the same stage cannot contain the same team. Groups {L:L1} and {L:L2} both contain the following team IDs: "TM2"', $th->getMessage());
+        }
+
+        $competition = new Competition('Test competition');
+        $team_1 = new CompetitionTeam($competition, 'T1', 'Team 1');
+        $team_2 = new CompetitionTeam($competition, 'T2', 'Team 2');
+        $team_3 = new CompetitionTeam($competition, 'T3', 'Team 3');
+        $competition->addTeam($team_1)->addTeam($team_2)->addTeam($team_3);
+        $stage = new Stage($competition, 'L');
+        $competition->addStage($stage);
+        $league_1 = new League($stage, 'L1', MatchType::CONTINUOUS, false);
+        $match_1 = new GroupMatch($league_1, 'M1');
+        $match_1->setHomeTeam(new MatchTeam($match_1, 'T1'))->setAwayTeam(new MatchTeam($match_1, 'T2'));
+        $league_1->addMatch($match_1);
+        $stage->addGroup($league_1);
+
+        $league_2 = new League($stage, 'L2', MatchType::CONTINUOUS, false);
+        $match_2 = new GroupMatch($league_2, 'M1');
+        $match_2->setHomeTeam(new MatchTeam($match_2, 'T1'))->setAwayTeam(new MatchTeam($match_2, 'T2'));
+        $league_2->addMatch($match_2);
+
+        try {
+            $stage->addGroup($league_2);
+            $this->fail('Should catch multiple groups in a stage with the same team');
+        } catch (\Throwable $th) {
+            $this->assertEquals('Groups in the same stage cannot contain the same team. Groups {L:L1} and {L:L2} both contain the following team IDs: "T1", "T2"', $th->getMessage());
+        }
     }
 
     public function testStageGetTeamIDsFixed() : void

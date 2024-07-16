@@ -6,6 +6,7 @@ use Exception;
 use JsonSerializable;
 use OutOfBoundsException;
 use stdClass;
+use Throwable;
 
 /**
  * A single competition stage.
@@ -104,8 +105,6 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             $this->setIfUnknown(new IfUnknown($this, $stage_data->ifUnknown->description))->loadFromData($stage_data->ifUnknown);
         }
 
-        $this->checkMatches();
-
         return $this;
     }
 
@@ -176,6 +175,13 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             throw new Exception('Groups in a Stage with duplicate IDs not allowed: {'.$this->id.':'.$group->getID().'}');
         }
         array_push($this->groups, $group);
+
+        try {
+            $this->checkMatches();
+        } catch (Throwable $th) {
+            array_pop($this->groups);
+            throw $th;
+        }
         $this->group_lookup->{$group->getID()} = $group;
         return $this;
     }
@@ -276,7 +282,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
      *
      * @throws Exception If duplicate teams are found in groups of the same stage
      */
-    private function checkMatches() : void
+    public function checkMatches() : void
     {
         for ($i = 0 ; $i < count($this->groups) - 1; $i++) {
             $this_groups_team_ids = $this->groups[$i]->getTeamIDs(VBC_TEAMS_PLAYING);
