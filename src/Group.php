@@ -490,6 +490,8 @@ abstract class Group implements JsonSerializable, MatchContainerInterface
 
         $this->is_complete_known = false;
 
+        $this->stage->checkMatches();
+
         return $this;
     }
 
