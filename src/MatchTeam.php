@@ -283,7 +283,7 @@ final class MatchTeam implements JsonSerializable
     /**
      * The IDs of the players in this match
      *
-     * @return array<string> the IDs of the players in this match
+     * @return array<Player> the players in this match
      */
     public function getPlayers() : array
     {
