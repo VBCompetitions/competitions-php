@@ -182,7 +182,9 @@ final class Competition implements JsonSerializable
      */
     public function saveToFile(string $competition_data_dir, string $competition_file) : Competition
     {
-        $competition_data = json_encode($this, JSON_PRETTY_PRINT);
+        // We could set JSON_PRETTY_PRINT but that bloats the file on disk, and it's really a presentation thing,
+        // so let the viewer or human prettify the JSON if they way
+        $competition_data = json_encode($this);
         Competition::validateJSON(json_decode($competition_data));
         file_put_contents(realpath($competition_data_dir)."/".$competition_file, $competition_data, LOCK_EX);
         return $this;
