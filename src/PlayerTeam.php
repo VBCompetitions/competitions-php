@@ -33,7 +33,7 @@ final class PlayerTeam implements JsonSerializable
      * @param Player $player A link back to the Player for this record
      * @param string $id The ID of the team that the player's registry represents
      *
-     * @throws {Error} If the ID is invalid
+     * @throws Exception If the ID is invalid
      */
     function __construct($player, $id)
     {
@@ -57,7 +57,7 @@ final class PlayerTeam implements JsonSerializable
      *
      * @param object $player_team_data The data defining this PlayerTeam entry
      *
-     * @return Player The updated PlayerTeam object
+     * @return PlayerTeam The updated PlayerTeam object
      */
     public function loadFromData($player_team_data) : PlayerTeam
     {
@@ -188,7 +188,7 @@ final class PlayerTeam implements JsonSerializable
     /**
      * Get the notes for this player.
      *
-     * @return {string|null} The notes for this player
+     * @return string|null The notes for this player
      */
     public function getNotes() : ?string
     {
@@ -198,7 +198,7 @@ final class PlayerTeam implements JsonSerializable
     /**
      * Set the notes for this player.
      *
-     * @param {string|null} notes The notes for this player
+     * @param string|null $notes The notes for this player
      *
      * @return PlayerTeam This player team entry
      */

@@ -95,8 +95,11 @@
 
     <article class="phpdocumentor-element -class">
         <h2 class="phpdocumentor-content__title">
-    Contact
+    TeamContact
 
+        <span class="phpdocumentor-element__extends">
+        extends <a href="classes/VBCompetitions-Competitions-Contact.html"><abbr title="\VBCompetitions\Competitions\Contact">Contact</abbr></a>
+    </span>
     
             <div class="phpdocumentor-element__package">
             in package
@@ -105,16 +108,13 @@
                             </ul>
         </div>
     
-            <span class="phpdocumentor-element__implements">
-            implements
-                            <abbr title="\JsonSerializable">JsonSerializable</abbr>                    </span>
     
     </h2>
 
         <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Contact.php"><a href="files/src-contact.html"><abbr title="src/Contact.php">Contact.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/TeamContact.php"><a href="files/src-teamcontact.html"><abbr title="src/TeamContact.php">TeamContact.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">12</span>
+    <span class="phpdocumentor-element-found-in__line">11</span>
 
     </aside>
 
@@ -126,18 +126,6 @@
 
 
 
-<h3 id="interfaces_class_traits">
-    Interfaces, Classes, Traits and Enums
-    <a href="#interfaces_class_traits" class="headerlink"><i class="fas fa-link"></i></a>
-</h3>
-
-<dl class="phpdocumentor-table-of-contents">
-            <dt class="phpdocumentor-table-of-contents__entry -interface"><abbr title="\JsonSerializable">JsonSerializable</abbr></dt>
-        <dd></dd>
-    
-    
-    
-    </dl>
 
 
 <h3 id="toc">
@@ -195,8 +183,15 @@
 </dt>
 <dd></dd>
 
+            <dt class="phpdocumentor-table-of-contents__entry -property -private">
+    <a href="classes/VBCompetitions-Competitions-TeamContact.html#property_team">$team</a>
+    <span>
+                        &nbsp;: <a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>            </span>
+</dt>
+<dd></dd>
+
                 <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/VBCompetitions-Competitions-Contact.html#method___construct">__construct()</a>
+    <a href="classes/VBCompetitions-Competitions-TeamContact.html#method___construct">__construct()</a>
     <span>
                                 &nbsp;: mixed    </span>
 </dt>
@@ -266,6 +261,13 @@
 <dd>Get the roles for this contact</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
+    <a href="classes/VBCompetitions-Competitions-TeamContact.html#method_getTeam">getTeam()</a>
+    <span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>    </span>
+</dt>
+<dd>Get the team this contact belongs to</dd>
+
+            <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-Contact.html#method_hasRole">hasRole()</a>
     <span>
                                 &nbsp;: bool    </span>
@@ -280,9 +282,9 @@
 <dd>Serializes the contact data into a format suitable for saving into a competition file</dd>
 
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
-    <a href="classes/VBCompetitions-Competitions-Contact.html#method_loadFromData">loadFromData()</a>
+    <a href="classes/VBCompetitions-Competitions-TeamContact.html#method_loadFromData">loadFromData()</a>
     <span>
-                                &nbsp;: <a href="classes/VBCompetitions-Competitions-Contact.html"><abbr title="\VBCompetitions\Competitions\Contact">Contact</abbr></a>    </span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-TeamContact.html"><abbr title="\VBCompetitions\Competitions\TeamContact">TeamContact</abbr></a>    </span>
 </dt>
 <dd>Loads contact data from an object</dd>
 
@@ -331,7 +333,7 @@
     <section class="phpdocumentor-properties">
         <h3 class="phpdocumentor-elements__header" id="properties">
             Properties
-            <a href="classes/VBCompetitions-Competitions-Contact.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/VBCompetitions-Competitions-TeamContact.html#properties" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="
@@ -571,12 +573,46 @@
     
 
 </article>
+                    <article
+        class="
+            phpdocumentor-element
+            -property
+            -private
+                                                        "
+>
+    <h4 class="phpdocumentor-element__name" id="property_team">
+        $team
+        <a href="classes/VBCompetitions-Competitions-TeamContact.html#property_team" class="headerlink"><i class="fas fa-link"></i></a>
+        <span class="phpdocumentor-element__modifiers">
+                                </span>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/TeamContact.php"><a href="files/src-teamcontact.html"><abbr title="src/TeamContact.php">TeamContact.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">14</span>
+
+    </aside>
+
+    
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">private</span>
+        <span class="phpdocumentor-signature__type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span>
+    <span class="phpdocumentor-signature__name">$team</span>
+    </code>
+
+    
+        <section class="phpdocumentor-description"><p>The team this contact belongs to</p>
+</section>
+
+    
+
+</article>
             </section>
 
             <section class="phpdocumentor-methods">
         <h3 class="phpdocumentor-elements__header" id="methods">
             Methods
-            <a href="classes/VBCompetitions-Competitions-Contact.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
+            <a href="classes/VBCompetitions-Competitions-TeamContact.html#methods" class="headerlink"><i class="fas fa-link"></i></a>
         </h3>
                     <article
         class="phpdocumentor-element
@@ -586,12 +622,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method___construct">
         __construct()
-        <a href="classes/VBCompetitions-Competitions-Contact.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/VBCompetitions-Competitions-TeamContact.html#method___construct" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Contact.php"><a href="files/src-contact.html"><abbr title="src/Contact.php">Contact.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/TeamContact.php"><a href="files/src-teamcontact.html"><abbr title="src/TeamContact.php">TeamContact.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">41</span>
+    <span class="phpdocumentor-element-found-in__line">23</span>
 
     </aside>
 
@@ -599,11 +635,20 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$roles</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
+                    <span class="phpdocumentor-signature__name">__construct</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a>&nbsp;</span><span class="phpdocumentor-signature__argument__name">$team</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">string&nbsp;</span><span class="phpdocumentor-signature__argument__name">$id</span></span><span class="phpdocumentor-signature__argument"><span>, </span><span class="phpdocumentor-signature__argument__return-type">array&lt;string|int, mixed&gt;&nbsp;</span><span class="phpdocumentor-signature__argument__name">$roles</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type">mixed</span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
+                    <dt class="phpdocumentor-argument-list__entry">
+                <span class="phpdocumentor-signature__argument__name">$team</span>
+                : <span class="phpdocumentor-signature__argument__return-type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span>
+                            </dt>
+            <dd class="phpdocumentor-argument-list__definition">
+                    <section class="phpdocumentor-description"><p>The team this contact belongs to</p>
+</section>
+
+            </dd>
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$id</span>
                 : <span class="phpdocumentor-signature__argument__return-type">string</span>
@@ -1021,6 +1066,41 @@
             -public
                                                         "
 >
+    <h4 class="phpdocumentor-element__name" id="method_getTeam">
+        getTeam()
+        <a href="classes/VBCompetitions-Competitions-TeamContact.html#method_getTeam" class="headerlink"><i class="fas fa-link"></i></a>
+    </h4>
+    <aside class="phpdocumentor-element-found-in">
+    <abbr class="phpdocumentor-element-found-in__file" title="src/TeamContact.php"><a href="files/src-teamcontact.html"><abbr title="src/TeamContact.php">TeamContact.php</abbr></a></abbr>
+    :
+    <span class="phpdocumentor-element-found-in__line">52</span>
+
+    </aside>
+
+        <p class="phpdocumentor-summary">Get the team this contact belongs to</p>
+
+    <code class="phpdocumentor-code phpdocumentor-signature ">
+    <span class="phpdocumentor-signature__visibility">public</span>
+                    <span class="phpdocumentor-signature__name">getTeam</span><span>(</span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span></code>
+
+    
+    
+    
+
+        <h5 class="phpdocumentor-return-value__heading">Return values</h5>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-CompetitionTeam.html"><abbr title="\VBCompetitions\Competitions\CompetitionTeam">CompetitionTeam</abbr></a></span>
+            &mdash;
+            <section class="phpdocumentor-description"><p>The team this contact belongs to</p>
+</section>
+
+    
+</article>
+                    <article
+        class="phpdocumentor-element
+            -method
+            -public
+                                                        "
+>
     <h4 class="phpdocumentor-element__name" id="method_hasRole">
         hasRole()
         <a href="classes/VBCompetitions-Competitions-Contact.html#method_hasRole" class="headerlink"><i class="fas fa-link"></i></a>
@@ -1103,12 +1183,12 @@
 >
     <h4 class="phpdocumentor-element__name" id="method_loadFromData">
         loadFromData()
-        <a href="classes/VBCompetitions-Competitions-Contact.html#method_loadFromData" class="headerlink"><i class="fas fa-link"></i></a>
+        <a href="classes/VBCompetitions-Competitions-TeamContact.html#method_loadFromData" class="headerlink"><i class="fas fa-link"></i></a>
     </h4>
     <aside class="phpdocumentor-element-found-in">
-    <abbr class="phpdocumentor-element-found-in__file" title="src/Contact.php"><a href="files/src-contact.html"><abbr title="src/Contact.php">Contact.php</abbr></a></abbr>
+    <abbr class="phpdocumentor-element-found-in__file" title="src/TeamContact.php"><a href="files/src-teamcontact.html"><abbr title="src/TeamContact.php">TeamContact.php</abbr></a></abbr>
     :
-    <span class="phpdocumentor-element-found-in__line">64</span>
+    <span class="phpdocumentor-element-found-in__line">41</span>
 
     </aside>
 
@@ -1116,7 +1196,7 @@
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$contact_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Contact.html"><abbr title="\VBCompetitions\Competitions\Contact">Contact</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$contact_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-TeamContact.html"><abbr title="\VBCompetitions\Competitions\TeamContact">TeamContact</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -1135,7 +1215,7 @@
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Contact.html"><abbr title="\VBCompetitions\Competitions\Contact">Contact</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-TeamContact.html"><abbr title="\VBCompetitions\Competitions\TeamContact">TeamContact</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"><p>The updated Contact instance</p>
 </section>
@@ -1517,7 +1597,7 @@
 </section>
             </div>
         </div>
-        <a href="classes/VBCompetitions-Competitions-Contact.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
+        <a href="classes/VBCompetitions-Competitions-TeamContact.html#top" class="phpdocumentor-back-to-top"><i class="fas fa-chevron-circle-up"></i></a>
 
     </main>
 

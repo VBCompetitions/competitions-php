@@ -1,32 +1,17 @@
 {
-  "name": "Single header with contacts",
-  "teams": [
+  "name": "club with contacts",
+  "clubs": [
     {
-      "id": "TM1",
-      "name": "Team 1"
-    },
-    {
-      "id": "TM2",
-      "name": "Team 2",
+      "id": "CL1",
+      "name": "The Club",
       "contacts": [
         {
           "id": "C1",
           "name": "Alice Alison",
-          "roles": ["secretary"],
-          "emails": ["alice@example.com"]
-        }
-      ]
-    },
-    {
-      "id": "TM3",
-      "name": "Team 3",
-      "contacts": [
-        {
-          "id": "C1",
-          "name": "Alice Alison",
-          "roles": ["secretary", "assistantCoach"],
+          "roles": ["chair", "secretary"],
           "emails": ["alice@example.com"],
-          "phones": ["01234 567890"]
+          "phones": ["01234 567890"],
+          "notes": "Alice is both the club chair and secretary"
         },
         {
           "id": "C2",
@@ -38,38 +23,52 @@
         {
           "id": "C3",
           "name": "Charlie Charleston",
-          "roles": ["manager"],
+          "roles": ["vice", "logistics"],
           "emails": ["charlie@example.com"],
           "phones": ["01234 567892"]
         },
         {
           "id": "C4",
           "name": "Dave Davidson",
-          "roles": ["captain"],
+          "roles": ["welfare"],
           "emails": ["dave@example.com"],
           "phones": ["01234 567893"]
         },
         {
           "id": "C5",
           "name": "Emma Emerson",
-          "roles": ["coach"],
+          "roles": ["communications", "marketing"],
           "emails": ["emma@example.com"],
           "phones": ["01234 567894"]
         },
         {
           "id": "C6",
           "name": "Frankie Frank",
-          "roles": ["assistantCoach"],
+          "roles": ["volunteer"],
           "emails": ["frankie@example.com"],
           "phones": ["01234 567895"]
         },
         {
           "id": "C7",
           "name": "George Grey",
-          "roles": ["medic"],
+          "roles": ["coaching"],
           "phones": ["01234 567895"]
         }
       ]
+    }
+  ],
+  "teams": [
+    {
+      "id": "TM1",
+      "name": "Team 1"
+    },
+    {
+      "id": "TM2",
+      "name": "Team 2"
+    },
+    {
+      "id": "TM3",
+      "name": "Team 3"
     }
   ],
   "stages": [

@@ -74,21 +74,7 @@ final class CompetitionTeam implements JsonSerializable
     {
         if (property_exists($team_data, 'contacts')) {
             foreach ($team_data->contacts as $contact_data) {
-                $roles = [];
-                foreach ($contact_data->roles as $contact_role) {
-                    $role = match ($contact_role) {
-                        'secretary' => ContactRole::SECRETARY,
-                        'treasurer' => ContactRole::TREASURER,
-                        'manager' => ContactRole::MANAGER,
-                        'captain' => ContactRole::CAPTAIN,
-                        'coach' => ContactRole::COACH,
-                        'assistantCoach' => ContactRole::ASSISTANT_COACH,
-                        'medic' => ContactRole::MEDIC,
-                        default => ContactRole::SECRETARY,
-                    };
-                    array_push($roles, $role);
-                }
-                $this->addContact((new Contact($this, $contact_data->id, $roles))->loadFromData($contact_data));
+                $this->addContact((new TeamContact($this, $contact_data->id, $contact_data->roles))->loadFromData($contact_data));
             }
         }
 
@@ -259,13 +245,13 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Add a contact to this team
      *
-     * @param Contact $contact The contact to add to this team
+     * @param TeamContact $contact The contact to add to this team
      *
      * @return CompetitionTeam This CompetitionTeam instance
      *
      * @throws Exception If a contact with a duplicate ID within the team is added
      */
-    public function addContact(Contact $contact) : CompetitionTeam
+    public function addContact(TeamContact $contact) : CompetitionTeam
     {
         if ($this->hasContact($contact->getID())) {
             throw new Exception('team contacts with duplicate IDs within a team not allowed');
@@ -278,7 +264,7 @@ final class CompetitionTeam implements JsonSerializable
     /**
      * Returns an array of Contacts for this team
      *
-     * @return array<Contact>|null The contacts for this team
+     * @return array<TeamContact>|null The contacts for this team
      */
     public function getContacts() : ?array
     {
@@ -292,9 +278,9 @@ final class CompetitionTeam implements JsonSerializable
      *
      * @throws OutOfBoundsException If a Contact with the requested ID was not found
      *
-     * @return Contact The requested contact for this team
+     * @return TeamContact The requested contact for this team
      */
-    public function getContact(string $id) : Contact
+    public function getContact(string $id) : TeamContact
     {
         if (!property_exists($this->contact_lookup, $id)) {
             throw new OutOfBoundsException('Contact with ID "'.$id.'" not found');
@@ -338,7 +324,7 @@ final class CompetitionTeam implements JsonSerializable
         }
 
         unset($this->contact_lookup->$id);
-        $this->contacts = array_values(array_filter($this->contacts, fn(Contact $el): bool => $el->getID() !== $id));
+        $this->contacts = array_values(array_filter($this->contacts, fn(TeamContact $el): bool => $el->getID() !== $id));
         return $this;
     }
 

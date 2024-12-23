@@ -9,8 +9,8 @@ use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Club;
 use VBCompetitions\Competitions\Competition;
-use VBCompetitions\Competitions\Contact;
-use VBCompetitions\Competitions\ContactRole;
+use VBCompetitions\Competitions\TeamContact;
+use VBCompetitions\Competitions\TeamContactRole;
 use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\Player;
 use VBCompetitions\Competitions\PlayerTeam;
@@ -18,7 +18,7 @@ use VBCompetitions\Competitions\PlayerTeam;
 #[CoversClass(Club::class)]
 #[CoversClass(Competition::class)]
 #[CoversClass(CompetitionTeam::class)]
-#[CoversClass(Contact::class)]
+#[CoversClass(TeamContact::class)]
 #[CoversClass(Player::class)]
 #[CoversClass(PlayerTeam::class)]
 final class CompetitionTeamTest extends TestCase {
@@ -103,7 +103,7 @@ final class CompetitionTeamTest extends TestCase {
     {
         $competition = new Competition('test competition');
         $team = new CompetitionTeam($competition, 'T1', 'Team 1');
-        $contact = new Contact($team, 'C1', [ContactRole::SECRETARY]);
+        $contact = new TeamContact($team, 'C1', [TeamContactRole::SECRETARY]);
 
         $this->assertCount(0, $team->getContacts());
         $this->assertFalse($team->hasContacts());
@@ -113,7 +113,7 @@ final class CompetitionTeamTest extends TestCase {
         $this->assertCount(1, $team->getContacts());
         $this->assertTrue($team->hasContacts());
         $this->assertTrue($team->hasContact('C1'));
-        $this->assertEquals(ContactRole::SECRETARY, $team->getContact('C1')->getRoles()[0]);
+        $this->assertEquals(TeamContactRole::SECRETARY, $team->getContact('C1')->getRoles()[0]);
 
         try {
             $team->addContact($contact);

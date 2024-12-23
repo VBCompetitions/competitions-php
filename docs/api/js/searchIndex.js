@@ -86,6 +86,36 @@ Search.appendIndex(
             "summary": "Delete\u0020metadata\u0020with\u0020the\u0020specified\u0020key\u0020from\u0020the\u0020competition.",
             "url": "classes/VBCompetitions-Competitions-Competition.html#method_deleteMetadataByKey"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AaddContact\u0028\u0029",
+            "name": "addContact",
+            "summary": "Add\u0020a\u0020contact\u0020to\u0020this\u0020competition",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_addContact"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetContacts\u0028\u0029",
+            "name": "getContacts",
+            "summary": "Returns\u0020an\u0020array\u0020of\u0020Contacts\u0020for\u0020this\u0020competition",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_getContacts"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetContact\u0028\u0029",
+            "name": "getContact",
+            "summary": "Returns\u0020the\u0020Contact\u0020with\u0020the\u0020requested\u0020ID,\u0020or\u0020throws\u0020if\u0020the\u0020ID\u0020is\u0020not\u0020found",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_getContact"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasContact\u0028\u0029",
+            "name": "hasContact",
+            "summary": "Check\u0020if\u0020a\u0020contact\u0020with\u0020the\u0020given\u0020ID\u0020exists\u0020in\u0020this\u0020competition",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_hasContact"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AhasContacts\u0028\u0029",
+            "name": "hasContacts",
+            "summary": "Check\u0020if\u0020this\u0020competition\u0020has\u0020any\u0020contacts",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_hasContacts"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AdeleteContact\u0028\u0029",
+            "name": "deleteContact",
+            "summary": "Delete\u0020a\u0020contact\u0020from\u0020the\u0020competition",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#method_deleteContact"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003AgetNotes\u0028\u0029",
             "name": "getNotes",
             "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020competition",
@@ -276,6 +306,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_name"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024contacts",
+            "name": "contacts",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#property_contacts"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024notes",
             "name": "notes",
             "summary": "",
@@ -320,6 +355,11 @@ Search.appendIndex(
             "name": "club_lookup",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-Competition.html#property_club_lookup"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024contact_lookup",
+            "name": "contact_lookup",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-Competition.html#property_contact_lookup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Competition\u003A\u003A\u0024unknown_team",
             "name": "unknown_team",
@@ -506,25 +546,30 @@ Search.appendIndex(
             "summary": "Serializes\u0020the\u0020contact\u0020data\u0020into\u0020a\u0020format\u0020suitable\u0020for\u0020saving\u0020into\u0020a\u0020competition\u0020file",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_jsonSerialize"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetTeam\u0028\u0029",
-            "name": "getTeam",
-            "summary": "Get\u0020the\u0020team\u0020this\u0020contact\u0020belongs\u0020to",
-            "url": "classes/VBCompetitions-Competitions-Contact.html#method_getTeam"
-        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetID\u0028\u0029",
             "name": "getID",
             "summary": "Get\u0020the\u0020ID\u0020for\u0020this\u0020contact",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_getID"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetName\u0028\u0029",
+            "name": "getName",
+            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020contact",
+            "url": "classes/VBCompetitions-Competitions-Contact.html#method_getName"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AsetName\u0028\u0029",
             "name": "setName",
             "summary": "Set\u0020the\u0020name\u0020for\u0020this\u0020contact",
             "url": "classes/VBCompetitions-Competitions-Contact.html#method_setName"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetName\u0028\u0029",
-            "name": "getName",
-            "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020contact",
-            "url": "classes/VBCompetitions-Competitions-Contact.html#method_getName"
+            "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetNotes\u0028\u0029",
+            "name": "getNotes",
+            "summary": "Get\u0020the\u0020notes\u0020for\u0020this\u0020contact.",
+            "url": "classes/VBCompetitions-Competitions-Contact.html#method_getNotes"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AsetNotes\u0028\u0029",
+            "name": "setNotes",
+            "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020contact.",
+            "url": "classes/VBCompetitions-Competitions-Contact.html#method_setNotes"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003AgetRoles\u0028\u0029",
             "name": "getRoles",
@@ -586,6 +631,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-Contact.html#property_name"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024notes",
+            "name": "notes",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-Contact.html#property_notes"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024roles",
             "name": "roles",
             "summary": "",
@@ -601,10 +651,10 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-Contact.html#property_phones"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024team",
-            "name": "team",
+            "fqsen": "\\VBCompetitions\\Competitions\\Contact\u003A\u003A\u0024validRoles",
+            "name": "validRoles",
             "summary": "",
-            "url": "classes/VBCompetitions-Competitions-Contact.html#property_team"
+            "url": "classes/VBCompetitions-Competitions-Contact.html#property_validRoles"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Crossover",
             "name": "Crossover",
@@ -3901,6 +3951,36 @@ Search.appendIndex(
             "summary": "Get\u0020the\u0020name\u0020for\u0020this\u0020club",
             "url": "classes/VBCompetitions-Competitions-Club.html#method_getName"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AaddContact\u0028\u0029",
+            "name": "addContact",
+            "summary": "Add\u0020a\u0020contact\u0020to\u0020this\u0020club",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_addContact"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AgetContacts\u0028\u0029",
+            "name": "getContacts",
+            "summary": "Returns\u0020an\u0020array\u0020of\u0020Contacts\u0020for\u0020this\u0020teclubam",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_getContacts"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AgetContact\u0028\u0029",
+            "name": "getContact",
+            "summary": "Returns\u0020the\u0020Contact\u0020with\u0020the\u0020requested\u0020ID,\u0020or\u0020throws\u0020if\u0020the\u0020ID\u0020is\u0020not\u0020found",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_getContact"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AhasContact\u0028\u0029",
+            "name": "hasContact",
+            "summary": "Check\u0020if\u0020a\u0020contact\u0020with\u0020the\u0020given\u0020ID\u0020exists\u0020in\u0020this\u0020club",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_hasContact"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AhasContacts\u0028\u0029",
+            "name": "hasContacts",
+            "summary": "Check\u0020if\u0020this\u0020club\u0020has\u0020any\u0020contacts",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_hasContacts"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AdeleteContact\u0028\u0029",
+            "name": "deleteContact",
+            "summary": "Delete\u0020a\u0020contact\u0020from\u0020the\u0020club",
+            "url": "classes/VBCompetitions-Competitions-Club.html#method_deleteContact"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003AsetNotes\u0028\u0029",
             "name": "setNotes",
             "summary": "Set\u0020the\u0020notes\u0020for\u0020this\u0020club",
@@ -3956,6 +4036,11 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-Club.html#property_name"
         },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A\u0024contacts",
+            "name": "contacts",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-Club.html#property_contacts"
+        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A\u0024notes",
             "name": "notes",
             "summary": "",
@@ -3970,6 +4055,11 @@ Search.appendIndex(
             "name": "team_lookup",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-Club.html#property_team_lookup"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\Club\u003A\u003A\u0024contact_lookup",
+            "name": "contact_lookup",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-Club.html#property_contact_lookup"
         },                {
             "fqsen": "\\VBCompetitions\\Competitions\\KnockoutConfig",
             "name": "KnockoutConfig",
@@ -4501,46 +4591,6 @@ Search.appendIndex(
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-MatchOfficials.html#property_match"
         },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole",
-            "name": "ContactRole",
-            "summary": "The\u0020role\u0020of\u0020the\u0020contact\u0020within\u0020a\u0020team.\u0020\u0020There\u0020may\u0020me\u0020multiple\u0020contacts\u0020with\u0020the\u0020same\u0020role",
-            "url": "classes/VBCompetitions-Competitions-ContactRole.html"
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ATREASURER",
-            "name": "TREASURER",
-            "summary": "A\u0020team\u0020treasurer",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ASECRETARY",
-            "name": "SECRETARY",
-            "summary": "A\u0020team\u0020secretary",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AMANAGER",
-            "name": "MANAGER",
-            "summary": "A\u0020team\u0020manager",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ACAPTAIN",
-            "name": "CAPTAIN",
-            "summary": "A\u0020team\u0020captain",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003ACOACH",
-            "name": "COACH",
-            "summary": "A\u0020team\u0020coach",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AASSISTANT_COACH",
-            "name": "ASSISTANT_COACH",
-            "summary": "A\u0020team\u0020assistant\u0020coach",
-            "url": ""
-        },                {
-            "fqsen": "\\VBCompetitions\\Competitions\\ContactRole\u003A\u003AMEDIC",
-            "name": "MEDIC",
-            "summary": "A\u0020team\u0020medic",
-            "url": ""
-        },                {
             "fqsen": "\\VBCompetitions\\Competitions\\GroupType",
             "name": "GroupType",
             "summary": "",
@@ -4660,6 +4710,271 @@ Search.appendIndex(
             "name": "player",
             "summary": "",
             "url": "classes/VBCompetitions-Competitions-PlayerTeam.html#property_player"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContact",
+            "name": "ClubContact",
+            "summary": "A\u0020single\u0020contact\u0020for\u0020a\u0020club",
+            "url": "classes/VBCompetitions-Competitions-ClubContact.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContact\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Defines\u0020a\u0020Club\u0020Contact",
+            "url": "classes/VBCompetitions-Competitions-ClubContact.html#method___construct"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContact\u003A\u003AloadFromData\u0028\u0029",
+            "name": "loadFromData",
+            "summary": "Loads\u0020contact\u0020data\u0020from\u0020an\u0020object",
+            "url": "classes/VBCompetitions-Competitions-ClubContact.html#method_loadFromData"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContact\u003A\u003AgetClub\u0028\u0029",
+            "name": "getClub",
+            "summary": "Get\u0020the\u0020club\u0020this\u0020contact\u0020belongs\u0020to",
+            "url": "classes/VBCompetitions-Competitions-ClubContact.html#method_getClub"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContact\u003A\u003A\u0024club",
+            "name": "club",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-ClubContact.html#property_club"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole",
+            "name": "ClubContactRole",
+            "summary": "The\u0020role\u0020of\u0020the\u0020contact\u0020within\u0020a\u0020club.\u0020\u0020There\u0020may\u0020me\u0020multiple\u0020contacts\u0020with\u0020the\u0020same\u0020role",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003ACHAIR",
+            "name": "CHAIR",
+            "summary": "A\u0020chair",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_CHAIR"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003AVICE",
+            "name": "VICE",
+            "summary": "A\u0020vice\u0020chair",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_VICE"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003ATREASURER",
+            "name": "TREASURER",
+            "summary": "A\u0020treasurer",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_TREASURER"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003ASECRETARY",
+            "name": "SECRETARY",
+            "summary": "A\u0020secretary",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_SECRETARY"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003AWELFARE",
+            "name": "WELFARE",
+            "summary": "A\u0020welfare\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_WELFARE"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003ACOMMUNICATIONS",
+            "name": "COMMUNICATIONS",
+            "summary": "A\u0020communications\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_COMMUNICATIONS"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003AMARKETING",
+            "name": "MARKETING",
+            "summary": "A\u0020marketing\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_MARKETING"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003AVOLUNTEER",
+            "name": "VOLUNTEER",
+            "summary": "A\u0020volunteers\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_VOLUNTEER"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003ALOGISTICS",
+            "name": "LOGISTICS",
+            "summary": "A\u0020logistics\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_LOGISTICS"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003ACOACHING",
+            "name": "COACHING",
+            "summary": "A\u0020coaching\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#constant_COACHING"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\ClubContactRole\u003A\u003A\u0024valid_roles",
+            "name": "valid_roles",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-ClubContactRole.html#property_valid_roles"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContact",
+            "name": "CompetitionContact",
+            "summary": "A\u0020single\u0020contact\u0020for\u0020a\u0020competition",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContact.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContact\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Defines\u0020a\u0020Competition\u0020Contact",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContact.html#method___construct"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContact\u003A\u003AloadFromData\u0028\u0029",
+            "name": "loadFromData",
+            "summary": "Loads\u0020contact\u0020data\u0020from\u0020an\u0020object",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContact.html#method_loadFromData"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContact\u003A\u003AgetCompetition\u0028\u0029",
+            "name": "getCompetition",
+            "summary": "Get\u0020the\u0020competition\u0020this\u0020contact\u0020belongs\u0020to",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContact.html#method_getCompetition"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContact\u003A\u003A\u0024competition",
+            "name": "competition",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContact.html#property_competition"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole",
+            "name": "CompetitionContactRole",
+            "summary": "The\u0020role\u0020of\u0020the\u0020contact\u0020within\u0020a\u0020competition.\u0020\u0020There\u0020may\u0020me\u0020multiple\u0020contacts\u0020with\u0020the\u0020same\u0020role",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003ADIRECTOR",
+            "name": "DIRECTOR",
+            "summary": "A\u0020competition\u0020director",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_DIRECTOR"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003AFIXTURES",
+            "name": "FIXTURES",
+            "summary": "A\u0020fixtures\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_FIXTURES"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003ALOGISTICS",
+            "name": "LOGISTICS",
+            "summary": "A\u0020logistics\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_LOGISTICS"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003ACOMMUNICATIONS",
+            "name": "COMMUNICATIONS",
+            "summary": "A\u0020communications\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_COMMUNICATIONS"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003AOFFICIALS",
+            "name": "OFFICIALS",
+            "summary": "An\u0020officials\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_OFFICIALS"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003ARESULTS",
+            "name": "RESULTS",
+            "summary": "A\u0020results\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_RESULTS"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003AMARKETING",
+            "name": "MARKETING",
+            "summary": "A\u0020marketing\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_MARKETING"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003ASAFETY",
+            "name": "SAFETY",
+            "summary": "A\u0020safety\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_SAFETY"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003AVOLUNTEER",
+            "name": "VOLUNTEER",
+            "summary": "A\u0020volunteers\u0020organiser",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_VOLUNTEER"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003AWELFARE",
+            "name": "WELFARE",
+            "summary": "A\u0020welfare\u0020organiser",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_WELFARE"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003AHOSPITALITY",
+            "name": "HOSPITALITY",
+            "summary": "A\u0020hospitality\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_HOSPITALITY"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003ACEREMONIES",
+            "name": "CEREMONIES",
+            "summary": "A\u0020ceremonies\u0020officer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_CEREMONIES"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003ASECRETARY",
+            "name": "SECRETARY",
+            "summary": "A\u0020secretary",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_SECRETARY"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003ATREASURER",
+            "name": "TREASURER",
+            "summary": "A\u0020treasurer",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_TREASURER"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003AMEDIC",
+            "name": "MEDIC",
+            "summary": "A\u0020medic",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#constant_MEDIC"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\CompetitionContactRole\u003A\u003A\u0024valid_roles",
+            "name": "valid_roles",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-CompetitionContactRole.html#property_valid_roles"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContact",
+            "name": "TeamContact",
+            "summary": "A\u0020single\u0020contact\u0020for\u0020a\u0020team",
+            "url": "classes/VBCompetitions-Competitions-TeamContact.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContact\u003A\u003A__construct\u0028\u0029",
+            "name": "__construct",
+            "summary": "Defines\u0020a\u0020Team\u0020Contact",
+            "url": "classes/VBCompetitions-Competitions-TeamContact.html#method___construct"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContact\u003A\u003AloadFromData\u0028\u0029",
+            "name": "loadFromData",
+            "summary": "Loads\u0020contact\u0020data\u0020from\u0020an\u0020object",
+            "url": "classes/VBCompetitions-Competitions-TeamContact.html#method_loadFromData"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContact\u003A\u003AgetTeam\u0028\u0029",
+            "name": "getTeam",
+            "summary": "Get\u0020the\u0020team\u0020this\u0020contact\u0020belongs\u0020to",
+            "url": "classes/VBCompetitions-Competitions-TeamContact.html#method_getTeam"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContact\u003A\u003A\u0024team",
+            "name": "team",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-TeamContact.html#property_team"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole",
+            "name": "TeamContactRole",
+            "summary": "The\u0020role\u0020of\u0020the\u0020contact\u0020within\u0020a\u0020team.\u0020\u0020There\u0020may\u0020me\u0020multiple\u0020contacts\u0020with\u0020the\u0020same\u0020role",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole\u003A\u003ATREASURER",
+            "name": "TREASURER",
+            "summary": "A\u0020team\u0020treasurer",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html#constant_TREASURER"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole\u003A\u003ASECRETARY",
+            "name": "SECRETARY",
+            "summary": "A\u0020team\u0020secretary",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html#constant_SECRETARY"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole\u003A\u003AMANAGER",
+            "name": "MANAGER",
+            "summary": "A\u0020team\u0020manager",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html#constant_MANAGER"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole\u003A\u003ACAPTAIN",
+            "name": "CAPTAIN",
+            "summary": "A\u0020team\u0020captain",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html#constant_CAPTAIN"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole\u003A\u003ACOACH",
+            "name": "COACH",
+            "summary": "A\u0020team\u0020coach",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html#constant_COACH"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole\u003A\u003AASSISTANT_COACH",
+            "name": "ASSISTANT_COACH",
+            "summary": "A\u0020team\u0020assistant\u0020coach",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html#constant_ASSISTANT_COACH"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole\u003A\u003AMEDIC",
+            "name": "MEDIC",
+            "summary": "A\u0020team\u0020medic",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html#constant_MEDIC"
+        },                {
+            "fqsen": "\\VBCompetitions\\Competitions\\TeamContactRole\u003A\u003A\u0024valid_roles",
+            "name": "valid_roles",
+            "summary": "",
+            "url": "classes/VBCompetitions-Competitions-TeamContactRole.html#property_valid_roles"
         },                {
             "fqsen": "\\",
             "name": "\\",

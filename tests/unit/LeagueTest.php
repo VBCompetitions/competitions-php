@@ -1415,5 +1415,6 @@ final class LeagueTest extends TestCase {
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'leagues'))), 'complete-league.json');
         $this->assertEquals(CompetitionTeam::UNKNOWN_TEAM_ID, $competition->getTeam('{L:LG:LG1:foo}')->getID());
+        $this->assertEquals('TM2', $competition->getTeam('{L:LG:LG1:loser}')->getID());
     }
 }

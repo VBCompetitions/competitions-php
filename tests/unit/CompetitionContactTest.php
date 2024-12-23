@@ -11,87 +11,81 @@ use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\Contact;
-use VBCompetitions\Competitions\ContactRole;
+use VBCompetitions\Competitions\CompetitionContact;
+use VBCompetitions\Competitions\CompetitionContactRole;
 
 #[CoversClass(Contact::class)]
 #[CoversClass(Competition::class)]
 #[CoversClass(CompetitionTeam::class)]
-#[CoversClass(ContactRole::class)]
-final class ContactTest extends TestCase {
+#[CoversClass(CompetitionContact::class)]
+#[CoversClass(CompetitionContactRole::class)]
+final class CompetitionContactTest extends TestCase {
     public function testContactsNone() : void
     {
-        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitioncontacts'))), 'no-contacts.json');
 
-        $team = $competition->getTeam('TM1');
-        $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
-        $this->assertCount(0, $team->getContacts(), 'Team 1 should have no contacts defined');
-    }
-
-    public function testContactsDefaultSecretary() : void
-    {
-        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
-
-        $team = $competition->getTeam('TM2');
-        $this->assertInstanceOf('VBCompetitions\Competitions\CompetitionTeam', $team);
-
-        $this->assertEquals(1, count($team->getContacts()), 'Team 2 should have only one contact defined');
-        $this->assertEquals('C1', $team->getContact('C1')->getID());
-        $this->assertEquals('Alice Alison', $team->getContact('C1')->getName());
-        $this->assertEquals(['alice@example.com'], $team->getContact('C1')->getEmails());
-        $this->assertEquals([ContactRole::SECRETARY], $team->getContact('C1')->getRoles());
+        $this->assertCount(0, $competition->getContacts(), 'Competition should have no contacts defined');
+        $this->assertFalse($competition->hasContacts(), 'Competition should have no contacts defined');
     }
 
     public function testContactsDuplicateID() : void
     {
-        $this->expectExceptionMessage('Contact with ID "C1" already exists in the team');
-        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts-duplicate-ids.json');
+        $this->expectExceptionMessage('Contact with ID "C1" already exists in the competition');
+        Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitioncontacts'))), 'contacts-duplicate-ids.json');
     }
 
     public function testContactsEach() : void
     {
-        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
-        $team = $competition->getTeam('TM3');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitioncontacts'))), 'contacts.json');
 
-        $this->assertEquals(7, count($team->getContacts()), 'Team 3 should have 7 contacts defined');
+        $this->assertEquals(7, count($competition->getContacts()), 'Competition should have 7 contacts defined');
 
-        $contactC1 = $team->getContact('C1');
+        $contactC1 = $competition->getContact('C1');
         $this->assertEquals('C1', $contactC1->getID());
         $this->assertEquals('Alice Alison', $contactC1->getName());
         $this->assertEquals(['alice@example.com'], $contactC1->getEmails());
         $this->assertEquals(['01234 567890'], $contactC1->getPhones());
+        $this->assertEquals($contactC1->getNotes(), 'We should find a separate secretary so Alice doesn\'t get overloaded');
 
-        $this->assertEquals([ContactRole::SECRETARY, ContactRole::ASSISTANT_COACH], $contactC1->getRoles());
-        $this->assertTrue($contactC1->hasRole(ContactRole::SECRETARY));
-        $this->assertTrue($contactC1->hasRole(ContactRole::ASSISTANT_COACH));
-        $this->assertFalse($contactC1->hasRole(ContactRole::TREASURER));
-        $this->assertFalse($contactC1->hasRole(ContactRole::MANAGER));
-        $this->assertFalse($contactC1->hasRole(ContactRole::CAPTAIN));
-        $this->assertFalse($contactC1->hasRole(ContactRole::COACH));
-        $this->assertFalse($contactC1->hasRole(ContactRole::MEDIC));
+        $this->assertEquals([CompetitionContactRole::DIRECTOR, CompetitionContactRole::FIXTURES, CompetitionContactRole::SECRETARY], $contactC1->getRoles());
+        $this->assertTrue($contactC1->hasRole(CompetitionContactRole::DIRECTOR));
+        $this->assertTrue($contactC1->hasRole(CompetitionContactRole::FIXTURES));
+        $this->assertTrue($contactC1->hasRole(CompetitionContactRole::SECRETARY));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::LOGISTICS));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::COMMUNICATIONS));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::OFFICIALS));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::RESULTS));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::MARKETING));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::SAFETY));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::VOLUNTEER));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::WELFARE));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::HOSPITALITY));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::CEREMONIES));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::TREASURER));
+        $this->assertFalse($contactC1->hasRole(CompetitionContactRole::MEDIC));
 
-        $this->assertEquals([ContactRole::TREASURER], $team->getContact('C2')->getRoles());
-        $this->assertEquals([ContactRole::MANAGER], $team->getContact('C3')->getRoles());
-        $this->assertEquals([ContactRole::CAPTAIN], $team->getContact('C4')->getRoles());
-        $this->assertEquals([ContactRole::COACH], $team->getContact('C5')->getRoles());
-        $this->assertEquals([ContactRole::ASSISTANT_COACH], $team->getContact('C6')->getRoles());
-        $this->assertEquals([ContactRole::MEDIC], $team->getContact('C7')->getRoles());
+        $this->assertEquals([CompetitionContactRole::LOGISTICS, CompetitionContactRole::TREASURER], $competition->getContact('C2')->getRoles());
+        $this->assertEquals([CompetitionContactRole::COMMUNICATIONS], $competition->getContact('C3')->getRoles());
+        $this->assertEquals([CompetitionContactRole::OFFICIALS, CompetitionContactRole::RESULTS], $competition->getContact('C4')->getRoles());
+        $this->assertEquals([CompetitionContactRole::MARKETING, CompetitionContactRole::HOSPITALITY, CompetitionContactRole::CEREMONIES], $competition->getContact('C5')->getRoles());
+        $this->assertEquals([CompetitionContactRole::SAFETY, CompetitionContactRole::VOLUNTEER, CompetitionContactRole::WELFARE], $competition->getContact('C6')->getRoles());
+        $this->assertEquals([CompetitionContactRole::MEDIC], $competition->getContact('C7')->getRoles());
     }
 
     public function testContactsGetByIDOutOfBounds() : void
     {
-        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'teamcontacts'))), 'contacts.json');
 
         $this->expectException(OutOfBoundsException::class);
-        $this->expectExceptionMessage('Contact with ID "NO-SUCH-TEAM" not found');
-        $competition->getTeam('TM1')->getContact('NO-SUCH-TEAM');
+        $this->expectExceptionMessage('Contact with ID "NO-SUCH-CONTACT" not found');
+        $competition->getContact('NO-SUCH-CONTACT');
     }
 
     public function testContactSetName() : void
     {
         $competition = new Competition('test competition');
-        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
-        $contact = new Contact($team, 'C1', [ContactRole::SECRETARY]);
-        $this->assertEquals('T1', $contact->getTeam()->getID());
+        $contact = new CompetitionContact($competition, 'C1', [CompetitionContactRole::SECRETARY]);
+        $this->assertEquals($competition->getName(), $contact->getCompetition()->getName());
 
         try {
             $contact->setName('');
@@ -120,8 +114,7 @@ final class ContactTest extends TestCase {
     public function testContactSetSpotsDuplicates() : void
     {
         $competition = new Competition('test competition');
-        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
-        $contact = new Contact($team, 'C1', [ContactRole::SECRETARY]);
+        $contact = new CompetitionContact($competition, 'C1', [CompetitionContactRole::SECRETARY]);
 
         $contact->addEmail('alice@example.com')->addEmail('alice@example.com')->addEmail('alice@example.com');
         $this->assertCount(1, $contact->getEmails());
@@ -129,18 +122,24 @@ final class ContactTest extends TestCase {
         $contact->addPhone('01234 567890')->addPhone('01234 567890')->addPhone('01234 567890');
         $this->assertCount(1, $contact->getPhones());
 
-        $contact->addRole(ContactRole::SECRETARY)->addRole(ContactRole::SECRETARY);
+        $contact->addRole(CompetitionContactRole::SECRETARY)->addRole(CompetitionContactRole::SECRETARY);
         $this->assertCount(1, $contact->getRoles());
     }
 
     public function testContactSettersAndAdders() : void
     {
         $competition = new Competition('test competition');
-        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
-        $contact = new Contact($team, 'C1', [ContactRole::SECRETARY]);
+        $contact = new CompetitionContact($competition, 'C1', [CompetitionContactRole::SECRETARY]);
+
+        try {
+            $contact->addRole('bad role');
+            $this->fail('Contact should not allow a non-existent role');
+        } catch (Exception $e) {
+            $this->assertEquals('Error adding the role due to invalid role: bad role', $e->getMessage());
+        }
 
         $this->assertCount(1, $contact->getRoles());
-        $contact->setRoles([ContactRole::CAPTAIN, ContactRole::COACH, ContactRole::TREASURER, ContactRole::SECRETARY]);
+        $contact->setRoles([CompetitionContactRole::DIRECTOR, CompetitionContactRole::FIXTURES, CompetitionContactRole::TREASURER, CompetitionContactRole::SECRETARY]);
         $this->assertCount(4, $contact->getRoles());
 
         try {
@@ -238,63 +237,68 @@ final class ContactTest extends TestCase {
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact phone number: must be between 1 and 50 characters long', $e->getMessage());
         }
+
+        $this->assertNull($contact->getNotes());
+        $contact->setNotes('some contact notes');
+        $this->assertEquals($contact->getNotes(), 'some contact notes');
+        $contact->setNotes(null);
+        $this->assertNull($contact->getNotes());
     }
 
     public function testContactConstructorBadID() : void
     {
         $competition = new Competition('test competition');
-        $team = new CompetitionTeam($competition, 'T1', 'Team 1');
         try {
-            new Contact($team, '', [ContactRole::SECRETARY]);
+            new CompetitionContact($competition, '', [CompetitionContactRole::SECRETARY]);
             $this->fail('Contact should not allow an empty ID');
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact ID: must be between 1 and 100 characters long', $e->getMessage());
         }
 
         try {
-            new Contact($team, '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891', [ContactRole::SECRETARY]);
+            new CompetitionContact($competition, '01234567890123456789012345678901234567890123456789012345678901234567890123456789012345678901234567891', [CompetitionContactRole::SECRETARY]);
             $this->fail('Contact should not allow a long empty ID');
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact ID: must be between 1 and 100 characters long', $e->getMessage());
         }
 
         try {
-            new Contact($team, '"id1"', [ContactRole::SECRETARY]);
+            new CompetitionContact($competition, '"id1"', [CompetitionContactRole::SECRETARY]);
             $this->fail('Contact should not allow " character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Contact($team, 'id:1', [ContactRole::SECRETARY]);
+            new CompetitionContact($competition, 'id:1', [CompetitionContactRole::SECRETARY]);
             $this->fail('Contact should not allow : character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Contact($team, 'id{1', [ContactRole::SECRETARY]);
+            new CompetitionContact($competition, 'id{1', [CompetitionContactRole::SECRETARY]);
             $this->fail('Contact should not allow { character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Contact($team, 'id1}', [ContactRole::SECRETARY]);
+            new CompetitionContact($competition, 'id1}', [CompetitionContactRole::SECRETARY]);
             $this->fail('Contact should not allow } character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Contact($team, 'id1?', [ContactRole::SECRETARY]);
+            new CompetitionContact($competition, 'id1?', [CompetitionContactRole::SECRETARY]);
             $this->fail('Contact should not allow ? character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
 
         try {
-            new Contact($team, 'id=1', [ContactRole::SECRETARY]);
+            new CompetitionContact($competition, 'id=1', [CompetitionContactRole::SECRETARY]);
             $this->fail('Contact should not allow = character');
         } catch (Exception $e) {
             $this->assertEquals('Invalid contact ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
