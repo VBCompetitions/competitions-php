@@ -1,0 +1,107 @@
+{
+  "name": "competition with contacts",
+  "contacts": [
+    {
+      "id": "C1",
+      "name": "Alice Alison",
+      "roles": ["director", "fixtures", "secretary"],
+      "emails": ["alice@example.com"],
+      "phones": ["01234 567890"],
+      "notes": "We should find a separate secretary so Alice doesn't get overloaded"
+    },
+    {
+      "id": "C2",
+      "name": "Bobby Bobs",
+      "roles": ["logistics", "treasurer"],
+      "emails": ["bobby@example.com"],
+      "phones": ["+1234 567891"]
+    },
+    {
+      "id": "C3",
+      "name": "Charlie Charleston",
+      "roles": ["communications"],
+      "emails": ["charlie@example.com"],
+      "phones": ["01234 567892"]
+    },
+    {
+      "id": "C4",
+      "name": "Dave Davidson",
+      "roles": ["officials", "results"],
+      "emails": ["dave@example.com"],
+      "phones": ["01234 567893"]
+    },
+    {
+      "id": "C5",
+      "name": "Emma Emerson",
+      "roles": ["marketing", "hospitality", "ceremonies"],
+      "emails": ["emma@example.com"],
+      "phones": ["01234 567894"]
+    },
+    {
+      "id": "C6",
+      "name": "Frankie Frank",
+      "roles": ["safety", "volunteer", "welfare"],
+      "emails": ["frankie@example.com"],
+      "phones": ["01234 567895"]
+    },
+    {
+      "id": "C7",
+      "name": "George Grey",
+      "roles": ["medic"],
+      "phones": ["01234 567895"]
+    }
+  ],
+  "teams": [
+    {
+      "id": "TM1",
+      "name": "Team 1"
+    },
+    {
+      "id": "TM2",
+      "name": "Team 2"
+    },
+    {
+      "id": "TM3",
+      "name": "Team 3"
+    }
+  ],
+  "stages": [
+    {
+      "name": "S",
+      "id": "S",
+      "groups": [
+        {
+          "name": "G",
+          "id": "SG",
+          "type": "crossover",
+          "matchType": "continuous",
+          "matches": [
+            {
+              "id": "SG1",
+              "court": "1",
+              "type": "match",
+              "start": "09:20",
+              "duration": "0:20",
+              "complete": true,
+              "homeTeam": {
+                "id": "TM1",
+                "scores": [
+                  14
+                ]
+              },
+              "awayTeam": {
+                "id": "TM2",
+                "scores": [
+                  15
+                ]
+              },
+              "officials": {
+                "team": "TM3"
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

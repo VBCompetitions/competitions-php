@@ -26,6 +26,10 @@ final class Competition implements JsonSerializable
     /** @var string A name for the competition */
     private string $name;
 
+    /** @var array The contacts for the Competition */
+    private array $contacts = [];
+
+
     /** @var ?string Free form string to add notes about the competition.  This can be used for arbitrary content that various implementations can use */
     private ?string $notes = null;
 
@@ -57,6 +61,9 @@ final class Competition implements JsonSerializable
     /** @var object A Lookup table from club IDs to the club */
     private object $club_lookup;
 
+    /** @var object A Lookup table from contact IDs to the contact */
+    private object $contact_lookup;
+
 
     /** @var CompetitionTeam The "unknown" team, typically for matching against */
     private CompetitionTeam $unknown_team;
@@ -79,6 +86,7 @@ final class Competition implements JsonSerializable
         $this->player_lookup = new stdClass();
         $this->stage_lookup = new stdClass();
         $this->club_lookup = new stdClass();
+        $this->contact_lookup = new stdClass();
 
         $this->unknown_team = new CompetitionTeam($this, CompetitionTeam::UNKNOWN_TEAM_ID, CompetitionTeam::UNKNOWN_TEAM_NAME);
     }
@@ -137,6 +145,12 @@ final class Competition implements JsonSerializable
                     throw new Exception('Metadata with key "'.$kv->key.'" already exists in the competition');
                 }
                 $competition->setMetadataByKey($kv->key, $kv->value);
+            }
+        }
+
+        if (property_exists($competition_data, 'contacts')) {
+            foreach ($competition_data->contacts as $contact_data) {
+                $competition->addContact((new CompetitionContact($competition, $contact_data->id, $contact_data->roles))->loadFromData($contact_data));
             }
         }
 
@@ -401,6 +415,92 @@ final class Competition implements JsonSerializable
     }
 
     /**
+     * Add a contact to this competition
+     *
+     * @param CompetitionContact $contact The contact to add to this competition
+     *
+     * @return Competition This Competition
+     *
+     * @throws Exception If a contact with a duplicate ID within the competition is added
+     */
+    public function addContact(CompetitionContact $contact) : Competition
+    {
+        if ($this->hasContact($contact->getID())) {
+            throw new Exception('competition contacts with duplicate IDs within a competition not allowed');
+        }
+        array_push($this->contacts, $contact);
+        $this->contact_lookup->{$contact->getID()} = $contact;
+        return $this;
+    }
+
+    /**
+     * Returns an array of Contacts for this competition
+     *
+     * @return array<CompetitionContact>|null The contacts for this competition
+     */
+    public function getContacts() : ?array
+    {
+        return $this->contacts;
+    }
+
+    /**
+     * Returns the Contact with the requested ID, or throws if the ID is not found
+     *
+     * @param string $id The ID of the contact in this competition to return
+     *
+     * @throws OutOfBoundsException If a Contact with the requested ID was not found
+     *
+     * @return CompetitionContact The requested contact for this competition
+     */
+    public function getContact(string $id) : CompetitionContact
+    {
+        if (!property_exists($this->contact_lookup, $id)) {
+            throw new OutOfBoundsException('Contact with ID "'.$id.'" not found');
+        }
+        return $this->contact_lookup->$id;
+    }
+
+    /**
+     * Check if a contact with the given ID exists in this competition
+     *
+     * @param string $id The ID of the contact to check
+     *
+     * @return bool True if the contact exists, otherwise false
+     */
+    public function hasContact(string $id) : bool
+    {
+        return property_exists($this->contact_lookup, $id);
+    }
+
+    /**
+     * Check if this competition has any contacts
+     *
+     * @return bool True if the competition has contacts, otherwise false
+     */
+    public function hasContacts() : bool
+    {
+        return count($this->contacts) > 0;
+    }
+
+    /**
+     * Delete a contact from the competition
+     *
+     * @param string $id The ID of the contact to delete
+     *
+     * @return Competition This Competition
+     */
+    public function deleteContact(string $id) : Competition
+    {
+        if (!$this->hasContact($id)) {
+            return $this;
+        }
+
+        unset($this->contact_lookup->$id);
+        $this->contacts = array_values(array_filter($this->contacts, fn(CompetitionContact $el): bool => $el->getID() !== $id));
+        return $this;
+    }
+
+    /**
      * Get the notes for this competition
      *
      * @return ?string the notes for this competition
@@ -588,7 +688,7 @@ final class Competition implements JsonSerializable
     /**
      * Get the players in the team with the given ID
      *
-     * @param {string} $id the ID of the team to get the players for
+     * @param string $id the ID of the team to get the players for
      *
      * @return array<Player> The players in the team with the given ID
      */

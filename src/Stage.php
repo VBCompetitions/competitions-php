@@ -94,8 +94,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             $group = match ($group_data->type) {
                 'crossover' => new Crossover($this, $group_data->id, $group_data->matchType === 'continuous' ? MatchType::CONTINUOUS : MatchType::SETS),
                 'knockout' => new Knockout($this, $group_data->id, $group_data->matchType === 'continuous' ? MatchType::CONTINUOUS : MatchType::SETS),
-                'league' => new League($this, $group_data->id, $group_data->matchType === 'continuous' ? MatchType::CONTINUOUS : MatchType::SETS, $group_data->drawsAllowed),
-                default => throw new Exception('Unknown group type')
+                'league' => new League($this, $group_data->id, $group_data->matchType === 'continuous' ? MatchType::CONTINUOUS : MatchType::SETS, $group_data->drawsAllowed)
             };
             $this->addGroup($group);
             $group->loadFromData($group_data);
@@ -425,7 +424,7 @@ final class Stage implements JsonSerializable, MatchContainerInterface
             foreach ($stage->getGroups() as $group) {
                 // Loop through all of the groups until we find this group, but skip this group
                 if (!$group_found) {
-                    $group_found = $group_found || ($group->getID() === $id);
+                    $group_found = $group->getID() === $id;
                     continue;
                 }
 

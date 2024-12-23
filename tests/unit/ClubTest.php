@@ -7,9 +7,11 @@ namespace VBCompetitions\Competitions\test;
 use Exception;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\TestCase;
+use VBCompetitions\Competitions\Club;
+use VBCompetitions\Competitions\ClubContact;
+use VBCompetitions\Competitions\ClubContactRole;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\CompetitionTeam;
-use VBCompetitions\Competitions\Club;
 
 #[CoversClass(Competition::class)]
 #[CoversClass(CompetitionTeam::class)]
@@ -173,5 +175,29 @@ final class ClubTest extends TestCase {
         } catch (Exception $e) {
             $this->assertEquals('Invalid club ID: must contain only ASCII printable characters excluding " : { } ? =', $e->getMessage());
         }
+    }
+
+    public function testClubContacts() : void
+    {
+        $competition = new Competition('test');
+        $club1 = new Club($competition, 'CL1', 'Some club');
+        $club2 = new Club($competition, 'CL2', 'Some other club');
+
+        $contact1 = new ClubContact($club1, 'C1', [ClubContactRole::SECRETARY]);
+        $club1->addContact($contact1);
+
+        $contact2 = new ClubContact($club2, 'C1', [ClubContactRole::CHAIR]);
+        try {
+            $club1->addContact($contact2);
+            $this->fail('adding contact should fail with a macthing ID');
+        } catch (Exception $e) {
+            $this->assertEquals('club contacts with duplicate IDs within a club not allowed', $e->getMessage());
+        }
+
+        $this->assertCount(1, $club1->getContacts());
+        $club1->deleteContact('C1');
+        $this->assertFalse($club1->hasContacts());
+        $club1->deleteContact('C1');
+        $this->assertFalse($club1->hasContacts());
     }
 }

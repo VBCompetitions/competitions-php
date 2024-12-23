@@ -10,6 +10,7 @@ use VBCompetitions\Competitions\Club;
 use VBCompetitions\Competitions\Competition;
 use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\Contact;
+use VBCompetitions\Competitions\TeamContact;
 use VBCompetitions\Competitions\Crossover;
 use VBCompetitions\Competitions\Group;
 use VBCompetitions\Competitions\GroupBreak;
@@ -36,6 +37,7 @@ use VBCompetitions\Competitions\Stage;
 #[CoversClass(Competition::class)]
 #[CoversClass(CompetitionTeam::class)]
 #[CoversClass(Contact::class)]
+#[CoversClass(TeamContact::class)]
 #[CoversClass(Crossover::class)]
 #[CoversClass(Group::class)]
 #[CoversClass(GroupBreak::class)]
@@ -231,7 +233,7 @@ final class CompetitionSaveTest extends TestCase {
 
     public function testCompetitionSaveCompetitionWithContacts() : void
     {
-        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'contacts'))), 'contacts.json');
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'teamcontacts'))), 'contacts.json');
         $competition->setName('Saved Competition');
         $competition->saveToFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'contacts.json');
         $saved_competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'competitions', 'save'))), 'contacts.json');

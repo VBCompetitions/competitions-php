@@ -233,7 +233,7 @@
             <dt class="phpdocumentor-table-of-contents__entry -method -public">
     <a href="classes/VBCompetitions-Competitions-PlayerTeam.html#method_loadFromData">loadFromData()</a>
     <span>
-                                &nbsp;: <a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a>    </span>
+                                &nbsp;: <a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a>    </span>
 </dt>
 <dd>Load player team data from an object.</dd>
 
@@ -504,8 +504,9 @@ be taken that a player is still registered with this team</p>
                     <span class="phpdocumentor-tag__name">throws</span>
                 </dt>
                 <dd class="phpdocumentor-tag-list__definition">
-                                                                                
-                                                 <section class="phpdocumentor-description"><p>{Error} If the ID is invalid</p>
+                                                                <span class="phpdocumentor-tag-link"><abbr title="\Exception">Exception</abbr></span>
+                                                            
+                                                 <section class="phpdocumentor-description"><p>If the ID is invalid</p>
 </section>
 
                                     </dd>
@@ -617,7 +618,9 @@ be taken that a player is still registered with this team</p>
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
     <span class="phpdocumentor-signature__response_type">string|null</span>
             &mdash;
-        
+            <section class="phpdocumentor-description"><p>The notes for this player</p>
+</section>
+
     
 </article>
                     <article
@@ -744,7 +747,7 @@ be taken that a player is still registered with this team</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$player_team_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">loadFromData</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">object&nbsp;</span><span class="phpdocumentor-signature__argument__name">$player_team_data</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
@@ -763,7 +766,7 @@ be taken that a player is still registered with this team</p>
     
 
         <h5 class="phpdocumentor-return-value__heading">Return values</h5>
-    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-Player.html"><abbr title="\VBCompetitions\Competitions\Player">Player</abbr></a></span>
+    <span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a></span>
             &mdash;
             <section class="phpdocumentor-description"><p>The updated PlayerTeam object</p>
 </section>
@@ -854,17 +857,18 @@ be taken that a player is still registered with this team</p>
 
     <code class="phpdocumentor-code phpdocumentor-signature ">
     <span class="phpdocumentor-signature__visibility">public</span>
-                    <span class="phpdocumentor-signature__name">setNotes</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">mixed&nbsp;</span><span class="phpdocumentor-signature__argument__name">$notes</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a></span></code>
+                    <span class="phpdocumentor-signature__name">setNotes</span><span>(</span><span class="phpdocumentor-signature__argument"><span class="phpdocumentor-signature__argument__return-type">string|null&nbsp;</span><span class="phpdocumentor-signature__argument__name">$notes</span></span><span>)</span><span> : </span><span class="phpdocumentor-signature__response_type"><a href="classes/VBCompetitions-Competitions-PlayerTeam.html"><abbr title="\VBCompetitions\Competitions\PlayerTeam">PlayerTeam</abbr></a></span></code>
 
     
         <h5 class="phpdocumentor-argument-list__heading">Parameters</h5>
     <dl class="phpdocumentor-argument-list">
                     <dt class="phpdocumentor-argument-list__entry">
                 <span class="phpdocumentor-signature__argument__name">$notes</span>
-                : <span class="phpdocumentor-signature__argument__return-type">mixed</span>
+                : <span class="phpdocumentor-signature__argument__return-type">string|null</span>
                             </dt>
             <dd class="phpdocumentor-argument-list__definition">
-                    <section class="phpdocumentor-description"></section>
+                    <section class="phpdocumentor-description"><p>The notes for this player</p>
+</section>
 
             </dd>
             </dl>

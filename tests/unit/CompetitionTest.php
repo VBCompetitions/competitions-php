@@ -11,6 +11,8 @@ use Throwable;
 use PHPUnit\Framework\TestCase;
 use VBCompetitions\Competitions\Club;
 use VBCompetitions\Competitions\Competition;
+use VBCompetitions\Competitions\CompetitionContact;
+use VBCompetitions\Competitions\CompetitionContactRole;
 use VBCompetitions\Competitions\CompetitionTeam;
 use VBCompetitions\Competitions\GroupMatch;
 use VBCompetitions\Competitions\League;
@@ -1101,5 +1103,28 @@ final class CompetitionTest extends TestCase {
         } catch (Exception $e) {
             $this->assertEquals('Invalid metadata value: must be between 1 and 1000 characters long', $e->getMessage());
         }
+    }
+
+    public function testCompetitionContacts() : void
+    {
+        $competition1 = new Competition('test');
+        $contact1 = new CompetitionContact($competition1, 'C1', [CompetitionContactRole::SECRETARY]);
+        $competition1->addContact($contact1);
+
+        $competition2 = new Competition('test2');
+        $contact2 = new CompetitionContact($competition2, 'C1', [CompetitionContactRole::DIRECTOR]);
+
+        try {
+            $competition1->addContact($contact2);
+            $this->fail('adding contact should fail with a macthing ID');
+        } catch (Exception $e) {
+            $this->assertEquals('competition contacts with duplicate IDs within a competition not allowed', $e->getMessage());
+        }
+
+        $this->assertCount(1, $competition1->getContacts());
+        $competition1->deleteContact('C1');
+        $this->assertFalse($competition1->hasContacts());
+        $competition1->deleteContact('C1');
+        $this->assertFalse($competition1->hasContacts());
     }
 }

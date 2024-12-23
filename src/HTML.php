@@ -662,8 +662,8 @@ class HTML {
                             $away_team_class = 'vbc-match-score vbc-match-group-'.$match->getGroup()->getID().($match->getWinnerTeamID() === $match->getAwayTeam()->getID() ? ' vbc-match-winner' : ' vbc-match-loser');
                         }
 
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_HOME_SCORE, $global_class.$home_team_class, $home_team_score));
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_AWAY_SCORE, $global_class.$away_team_class, $away_team_score));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_HOME_SCORE, $global_class.$home_team_class, strval($home_team_score)));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_AWAY_SCORE, $global_class.$away_team_class, strval($away_team_score)));
                     }
                     break;
                 case HTML::MATCH_COLUMN_AWAY_TEAM:
