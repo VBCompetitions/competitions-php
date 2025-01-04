@@ -510,21 +510,22 @@ class HTML {
         $cells = [];
         $global_class = ($match_container instanceof IfUnknown ? 'vbc-unknown-value ' : '');
         foreach ($config->headings as $heading) {
+            $metadata = ['match' => $match];
             switch ($heading) {
                 case HTML::MATCH_COLUMN_BLANK:
-                    array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_BLANK, $global_class.'vbc-match-blank vbc-match-group-'.$match->getGroup()->getID(), ''));
+                    array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_BLANK, $global_class.'vbc-match-blank vbc-match-group-'.$match->getGroup()->getID(), '', $metadata));
                     break;
                 case HTML::MATCH_COLUMN_ID:
-                    array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_ID, $global_class.'vbc-match-id vbc-match-group-'.$match->getGroup()->getID(), $match->getID()));
+                    array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_ID, $global_class.'vbc-match-id vbc-match-group-'.$match->getGroup()->getID(), $match->getID(), $metadata));
                     break;
                 case HTML::MATCH_COLUMN_COURT:
                     if ($match_container->matchesHaveCourts()) {
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_COURT, $global_class.'vbc-match-court vbc-match-group-'.$match->getGroup()->getID(), $match->getCourt()));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_COURT, $global_class.'vbc-match-court vbc-match-group-'.$match->getGroup()->getID(), $match->getCourt(), $metadata));
                     }
                     break;
                 case HTML::MATCH_COLUMN_VENUE:
                     if ($match_container->matchesHaveVenues()) {
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_VENUE, $global_class.'vbc-match-venue vbc-match-group-'.$match->getGroup()->getID(), $match->getVenue()));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_VENUE, $global_class.'vbc-match-venue vbc-match-group-'.$match->getGroup()->getID(), $match->getVenue(), $metadata));
                     }
                     break;
                 case HTML::MATCH_COLUMN_DATE:
@@ -534,7 +535,7 @@ class HTML {
                             $class .= ' vbc-match-played';
                         }
                         $class .= ' vbc-match-group-'.$match->getGroup()->getID();
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_DATE, $global_class.$class, $match->getDate()));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_DATE, $global_class.$class, $match->getDate(), $metadata));
                     }
                     break;
                 case HTML::MATCH_COLUMN_WARMUP:
@@ -544,7 +545,7 @@ class HTML {
                             $class .= ' vbc-match-played';
                         }
                         $class .= ' vbc-match-group-'.$match->getGroup()->getID();
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_WARMUP, $global_class.$class, $match->getWarmup()));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_WARMUP, $global_class.$class, $match->getWarmup(), $metadata));
                     }
                     break;
                 case HTML::MATCH_COLUMN_START:
@@ -554,12 +555,12 @@ class HTML {
                             $class .= ' vbc-match-played';
                         }
                         $class .= ' vbc-match-group-'.$match->getGroup()->getID();
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_START, $global_class.$class, $match->getStart()));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_START, $global_class.$class, $match->getStart(), $metadata));
                     }
                     break;
                 case HTML::MATCH_COLUMN_DURATION:
                     if ($match_container->matchesHaveDurations()) {
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_DURATION, $global_class.'vbc-match-duration vbc-match-group-'.$match->getGroup()->getID(), $match->getDuration()));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_DURATION, $global_class.'vbc-match-duration vbc-match-group-'.$match->getGroup()->getID(), $match->getDuration(), $metadata));
                     }
                     break;
                 case HTML::MATCH_COLUMN_HOME_TEAM:
@@ -570,7 +571,6 @@ class HTML {
                     } else {
                         $team_name = $match->getHomeTeam()->getID();
                     }
-                    $metadata = [];
                     if (property_exists($match->getHomeTeam(), 'mvp')) {
                         if ($match->getHomeTeam()->getMVP() === null) {
                             $metadata['mvp'] = null;
@@ -604,7 +604,7 @@ class HTML {
                                 $sets_table .= join('   ', $set_scores);
                                 $sets_table .= '</table>';
 
-                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_SETS_SCORE, $global_class.'vbc-match-score-sets vbc-match-group-'.$match->getGroup()->getID(), $sets_table, null, 2));
+                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_SETS_SCORE, $global_class.'vbc-match-score-sets vbc-match-group-'.$match->getGroup()->getID(), $sets_table, $metadata, 2));
                             } else {
                                 $sets_table = '<table class="vbc-score"><tr><td></td><td class="vbc-match-score vbc-match-group-'.$match->getGroup()->getID().' ';
                                 $sets_table .= ($match->getWinnerTeamID() === $match->getHomeTeam()->getID() ? 'vbc-match-winner' : ' vbc-match-loser');
@@ -626,7 +626,7 @@ class HTML {
                                 $sets_table .= join('   ', $set_scores);
                                 $sets_table .= '</table>';
 
-                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_SETS_SCORE, $global_class.'vbc-match-score-sets vbc-match-group-'.$match->getGroup()->getID(), $sets_table, null, 2));
+                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_SETS_SCORE, $global_class.'vbc-match-score-sets vbc-match-group-'.$match->getGroup()->getID(), $sets_table, $metadata, 2));
                             }
                         } else {
                             $sets_table = '<table class="vbc-score"><tr><td></td><td class="vbc-match-score vbc-match-loser vbc-match-group-'.$match->getGroup()->getID().'">'.$match->getHomeTeamSets().'</td>';
@@ -649,7 +649,7 @@ class HTML {
                             $sets_table .= join('   ', $set_scores);
                             $sets_table .= '</table>';
 
-                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_SETS_SCORE, $global_class.'vbc-match-score-sets vbc-match-group-'.$match->getGroup()->getID(), $sets_table, null, 2));
+                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_SETS_SCORE, $global_class.'vbc-match-score-sets vbc-match-group-'.$match->getGroup()->getID(), $sets_table, $metadata, 2));
                         }
                     } else {
                         $home_team_score = count($match->getHomeTeam()->getScores()) > 0 ? $match->getHomeTeam()->getScores()[0] : 0;
@@ -662,8 +662,8 @@ class HTML {
                             $away_team_class = 'vbc-match-score vbc-match-group-'.$match->getGroup()->getID().($match->getWinnerTeamID() === $match->getAwayTeam()->getID() ? ' vbc-match-winner' : ' vbc-match-loser');
                         }
 
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_HOME_SCORE, $global_class.$home_team_class, strval($home_team_score)));
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_AWAY_SCORE, $global_class.$away_team_class, strval($away_team_score)));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_HOME_SCORE, $global_class.$home_team_class, strval($home_team_score), $metadata));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_AWAY_SCORE, $global_class.$away_team_class, strval($away_team_score), $metadata));
                     }
                     break;
                 case HTML::MATCH_COLUMN_AWAY_TEAM:
@@ -674,7 +674,6 @@ class HTML {
                     } else {
                         $team_name = $match->getAwayTeam()->getID();
                     }
-                    $metadata = [];
                     if (property_exists($match->getAwayTeam(), 'mvp')) {
                         if ($match->getAwayTeam()->getMVP() === null) {
                             $metadata['mvp'] = null;
@@ -689,7 +688,7 @@ class HTML {
                     if ($match_container->matchesHaveOfficials()) {
                         $class = 'vbc-match-officials vbc-match-group-'.$match->getGroup()->getID();
                         if ($match->getOfficials() === null) {
-                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, ''));
+                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, '', $metadata));
                         } else if ($match->getOfficials()->isTeam()) {
                             if ($config->lookupTeamIDs) {
                                 $official_team = $match_container->getCompetition()->getTeam($match->getOfficials()->getTeamID());
@@ -698,13 +697,13 @@ class HTML {
                                     $team_id === $official_team->getID()) {
                                         $class .= ' vbc-this-team';
                                 }
-                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, $official_team->getName()));
+                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, $official_team->getName(), $metadata));
                             } else {
                                 if ($team_id !== CompetitionTeam::UNKNOWN_TEAM_ID &&
                                     $team_id === $match->getOfficials()->getTeamID()) {
                                         $class .= ' vbc-this-team';
                                 }
-                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, $match->getOfficials()->getTeamID()));
+                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, $match->getOfficials()->getTeamID(), $metadata));
                             }
                         } else {
                             $referees = 'First: '.$match->getOfficials()->getFirstRef();
@@ -716,7 +715,7 @@ class HTML {
                             $referees .= $match->getOfficials()->hasAssistantScorer() ? ', Scorer: '.$match->getOfficials()->getAssistantScorer() : '';
                             $referees .= $match->getOfficials()->hasLinespersons() ? ', Linespersons: '.join(', ', $match->getOfficials()->getLinespersons()) : '';
                             $referees .= $match->getOfficials()->hasBallCrew() ? ', Ball crew: '.join(', ', $match->getOfficials()->getBallCrew()) : '';
-                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, $referees));
+                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_OFFICIALS, $global_class.$class, $referees, $metadata));
                         }
                     }
                     break;
@@ -726,14 +725,14 @@ class HTML {
                         if ($match->getMVP() !== null) {
                             $mvp = $match->getMVP()->getName();
                         }
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MVP, $global_class.'vbc-match-mvp vbc-match-group-'.$match->getGroup()->getID(), $mvp));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MVP, $global_class.'vbc-match-mvp vbc-match-group-'.$match->getGroup()->getID(), $mvp, $metadata));
                     }
                     break;
                 case HTML::MATCH_COLUMN_MANAGER:
                     if ($match_container->matchesHaveManagers()) {
                         $class = 'vbc-match-manager vbc-match-group-'.$match->getGroup()->getID();
                         if ($match->getManager() === null) {
-                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, ''));
+                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, '', $metadata));
                         } else if ($match->getManager()->isTeam()) {
                             if ($config->lookupTeamIDs) {
                                 $manager_team = $match_container->getCompetition()->getTeam($match->getManager()->getTeamID());
@@ -742,22 +741,22 @@ class HTML {
                                     $team_id === $manager_team->getID()) {
                                     $class .= ' vbc-this-team';
                                 }
-                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, $manager_team->getName()));
+                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, $manager_team->getName(), $metadata));
                             } else {
                                 if ($team_id !== CompetitionTeam::UNKNOWN_TEAM_ID &&
                                     $team_id === $match->getManager()->getTeamID()) {
                                     $class .= ' vbc-this-team';
                                 }
-                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, $match->getManager()->getTeamID()));
+                                array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, $match->getManager()->getTeamID(), $metadata));
                             }
                         } else {
-                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, $match->getManager()->getManagerName()));
+                            array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_MANAGER, $global_class.$class, $match->getManager()->getManagerName(), $metadata));
                         }
                     }
                     break;
                 case HTML::MATCH_COLUMN_NOTES:
                     if ($match_container->matchesHaveNotes()) {
-                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_NOTES, $global_class.'vbc-match-notes vbc-match-group-'.$match->getGroup()->getID(), $match->getNotes()));
+                        array_push($cells, HTML::genTableCell(HTML::MATCH_COLUMN_NOTES, $global_class.'vbc-match-notes vbc-match-group-'.$match->getGroup()->getID(), $match->getNotes(), $metadata));
                     }
                     break;
             }
@@ -849,20 +848,12 @@ class HTML {
      */
     public static function getMatchesHTML(MatchContainerInterface $match_container, object $config = null, string $team_id = null, int $flags = 1) : string
     {
-
-
-
         /* TODO
 
         We can't call HTML::getMatchesHTML($league->getMatchesOnDate('YYYY-MM-DD')); because getMatchesOnDate() returns array<MatchInterface> and getMatchesHTML()
-        wants MatchContainerInterface.  Should there be a function that takes an array
-
+        wants MatchContainerInterface.  Should there be a function that takes an array?
 
         */
-
-
-
-
 
         $config = HTML::enrichMatchConfig($match_container, $config);
         $matches = HTML::getMatchesForHTML($match_container, $config, $team_id, $flags);
@@ -969,9 +960,11 @@ class HTML {
      *                                       set-based matches, the score text is an embedded HTML table with the set score and
      *                                       score in each individual set
      *         [colspan|rowspan]           - an optional field indicating how many columns or rows this cell should span
-     *                                       e.g. the
+     *                                       e.g. when matches on the same date are merged, the date field will have a rowspan
+     *                                            representing how many rows have been merged
      *         [metadata]                  - an optional field containing extra metadata about this table cell.  This
      *                                       includes the following:
+     *                                       - "match": the match that this row represents
      *                                       - "mvp": the name of team's MVP in a match (included in the team name cell)
      *                                       - "mvp-id": the player ID of the team's MVP in a match (included in the team name cell)
      *       },
