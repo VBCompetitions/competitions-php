@@ -30,7 +30,28 @@
             { "id": "LG6", "court": "1", "type": "match", "start": "15:20", "duration": "0:20", "complete": true, "homeTeam": { "id": "TM1", "scores": [ 26 ] }, "awayTeam": { "id": "TM2", "scores": [ 32 ] }, "officials": { "team": "TM4" } }
           ]
         }
-      ]
+      ],
+      "ifUnknown": {
+        "description": ["The finals will be held between the top two places"],
+        "matches": [
+          {
+            "id": "MF",
+            "court": "1",
+            "type": "match",
+            "start": "16:30",
+            "duration": "0:20",
+            "complete": false,
+            "homeTeam": {
+              "id": "1st",
+              "scores": []
+            },
+            "awayTeam": {
+              "id": "2nd",
+              "scores": []
+            }
+          }
+        ]
+      }
     },
     {
       "name": "League",

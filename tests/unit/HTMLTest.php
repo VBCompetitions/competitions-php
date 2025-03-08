@@ -883,6 +883,22 @@ final class HTMLTest extends TestCase {
         );
     }
 
+    public function testHTMLMatchesHTMLIfUnknown() : void
+    {
+        $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'complete-league.json');
+        $matches_html = HTML::getMatchesHTML($competition->getStage('L')->getIfUnknown());
+
+        $expected_table = '<table class="vbc-match vbc-match-group-unknown">';
+        $expected_table .= '<tr><th class="vbc-match-id vbc-match-group-unknown">MatchNo</th><th class="vbc-match-court vbc-match-group-unknown">Court</th><th class="vbc-match-start vbc-match-group-unknown">Start</th><th class="vbc-match-duration vbc-match-group-unknown">Duration</th><th class="vbc-match-team vbc-match-group-unknown">Home Team</th><th class="vbc-match-score vbc-match-group-unknown" colspan="2">Score</th><th class="vbc-match-team vbc-match-group-unknown">Away Team</th></tr>';
+        $expected_table .= '<tr><td class="vbc-unknown-value vbc-match-id vbc-match-group-unknown">MF</td><td class="vbc-unknown-value vbc-match-court vbc-match-group-unknown">1</td><td class="vbc-unknown-value vbc-match-start vbc-match-group-unknown">16:30</td><td class="vbc-unknown-value vbc-match-duration vbc-match-group-unknown">0:20</td><td class="vbc-unknown-value vbc-match-team vbc-match-group-unknown">UNKNOWN</td><td class="vbc-unknown-value vbc-match-score vbc-match-group-unknown">0</td><td class="vbc-unknown-value vbc-match-score vbc-match-group-unknown">0</td><td class="vbc-unknown-value vbc-match-team vbc-match-group-unknown">UNKNOWN</td></tr>';
+        $expected_table .= '</table>';
+
+        $this->assertEquals(
+            $expected_table,
+            $matches_html
+        );
+    }
+
     public function testHTMLMatchesHTMLNoMatches() : void
     {
         $competition = Competition::loadFromFile(realpath(join(DIRECTORY_SEPARATOR, array(__DIR__, 'html'))), 'empty.json');

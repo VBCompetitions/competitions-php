@@ -768,10 +768,10 @@ class HTML {
      * Generates a break row.
      *
      * @param object $config The configuration object
-     * @param GroupBreak $break The group break object
+     * @param BreakInterface $break The group break object
      * @return array The generated break row
      */
-    private static function generateBreakRow(object $config, GroupBreak $break) : array
+    private static function generateBreakRow(object $config, BreakInterface $break) : array
     {
         $cells = [];
         $col_span = 1;
@@ -999,10 +999,10 @@ class HTML {
         $table->headings = $match_list_heading->headings;
         $table->rows = [];
         foreach ($match_container->getMatches($team_id, $flags) as $match) {
-            if ($match instanceof GroupBreak) {
+            if ($match instanceof BreakInterface) {
                 // TODO - how do we know width?
                 array_push($table->rows, HTML::generateBreakRow($config, $match));
-            } else if ($match instanceof GroupMatch) {
+            } else if ($match instanceof MatchInterface) {
                 array_push($table->rows, HTML::generateMatchRow($match_container, $config, $match, $team_id));// $home_team_match, $away_team_match, $official_team_match, $manager_team_match));
             }
         }
